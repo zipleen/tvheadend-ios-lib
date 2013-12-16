@@ -38,6 +38,7 @@
 @property (nonatomic, weak) TVHServer *tvhServer;
 @property (nonatomic, strong) NSString *statsEpgName;
 - (id)initWithStatsEpgName:(NSString*)statsEpgName withTvhServer:(TVHServer*)tvhServer;
+- (void)appWillEnterForeground:(NSNotification*)note;
 
 - (void)downloadAllEpgItems;
 - (void)downloadEpgList;

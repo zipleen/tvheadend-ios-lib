@@ -83,7 +83,7 @@
     }];
     
 #ifdef TESTING
-    NSLog(@"[Loaded Adapter Muxes]: %d", [self.muxes count]);
+    NSLog(@"[Loaded Adapter Muxes]: %d", (int)[self.muxes count]);
 #endif
     return true;
 }

@@ -21,7 +21,7 @@
     TVHJsonClient *httpClient = [tvhServer jsonClient];
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   [NSString stringWithFormat:@"%d", idint ],
+                                   [NSString stringWithFormat:@"%lu", (unsigned long)idint ],
                                    idName,
                                    action,
                                    @"op",
@@ -47,7 +47,7 @@
              object:action];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"didSuccessfulyAddEpgToRecording"
-                                                                object:[NSNumber numberWithInt:idint]];
+                                                                object:[NSNumber numberWithInt:(int)idint]];
         } else {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"didReturnErrorDvrAction"

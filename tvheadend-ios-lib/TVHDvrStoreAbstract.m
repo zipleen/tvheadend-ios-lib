@@ -101,9 +101,9 @@
     }];
     
 #ifdef TESTING
-    NSLog(@"[Loaded DVR Items, Count]: %d", [self.dvrItems count]);
+    NSLog(@"[Loaded DVR Items, Count]: %d", (int)[self.dvrItems count]);
 #endif
-    [self.tvhServer.analytics setIntValue:[self.dvrItems count] forKey:[NSString stringWithFormat:@"dvr_%d", type]];
+    [self.tvhServer.analytics setIntValue:[self.dvrItems count] forKey:[NSString stringWithFormat:@"dvr_%d", (int)type]];
     return true;
 }
 
@@ -119,9 +119,9 @@
 
 - (NSDictionary*)apiParameters {
     return [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                   [NSString stringWithFormat:@"%d", self.filterStart ],
+                                   [NSString stringWithFormat:@"%d", (int)self.filterStart ],
                                    @"start",
-                                   [NSString stringWithFormat:@"%d", self.filterLimit ],
+                                   [NSString stringWithFormat:@"%d", (int)self.filterLimit ],
                                    @"limit",nil];
 }
 
@@ -138,7 +138,7 @@
         NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:profilingDate];
         [self.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
                                    withValue:time
-                                    withName:[NSString stringWithFormat:@"DvrStore-%d", type]
+                                    withName:[NSString stringWithFormat:@"DvrStore-%d", (int)type]
                                    withLabel:nil];
 #ifdef TESTING
         NSLog(@"[DvrStore Profiling Network]: %f", time);
@@ -204,7 +204,7 @@
     [self checkCachedDvrItemsForType:type];
     
     if ( self.cachedDvrItems ) {
-        return [self.cachedDvrItems count];
+        return (int)[self.cachedDvrItems count];
     }
     return 0;
 }

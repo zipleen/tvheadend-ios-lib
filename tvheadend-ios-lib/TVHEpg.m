@@ -50,7 +50,7 @@
     if ( self.channelUuid ) {
         return self.channelUuid;
     }
-    return [NSString stringWithFormat:@"%d", self.channelid];
+    return [NSString stringWithFormat:@"%d", (int)self.channelid];
 }
 
 // this one is wrong because I don't know if it actually removed recording or not! 

@@ -68,6 +68,9 @@
 - (void)removeOldProgramsFromStore;
 - (BOOL)isLastEpgFromThePast;
 
+- (NSComparisonResult)compareByName:(TVHChannel *)otherObject;
+- (NSComparisonResult)compareByNumber:(TVHChannel *)otherObject;
+
 - (void)setDelegate:(id <TVHChannelDelegate>) delegate;
 - (void)didLoadEpg;
 - (void)signalDidLoadEpgChannel; // only to be used by tvhEpg

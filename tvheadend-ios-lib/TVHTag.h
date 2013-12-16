@@ -24,4 +24,5 @@
 - (NSString*)idKey;
 - (void)updateValuesFromDictionary:(NSDictionary*) values;
 - (NSInteger)channelCount;
+- (NSComparisonResult)compareByName:(TVHTag *)otherObject;
 @end

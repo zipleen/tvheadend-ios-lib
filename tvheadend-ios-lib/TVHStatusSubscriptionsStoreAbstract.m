@@ -125,7 +125,7 @@
 }
 
 - (int)count {
-    return [self.subscriptions count];
+    return (int)[self.subscriptions count];
 }
 
 - (void)setDelegate:(id <TVHStatusSubscriptionsDelegate>)delegate {

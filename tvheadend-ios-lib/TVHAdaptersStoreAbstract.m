@@ -79,7 +79,7 @@
     self.adapters = [adapters copy];
     
 #ifdef TESTING
-    NSLog(@"[Loaded Adapters]: %d", [self.adapters count]);
+    NSLog(@"[Loaded Adapters]: %d", (int)[self.adapters count]);
 #endif
     [self.tvhServer.analytics setIntValue:[self.adapters count] forKey:@"adapters"];
     return true;
@@ -125,7 +125,7 @@
 }
 
 - (int)count {
-    return [self.adapters count];
+    return (int)[self.adapters count];
 }
 
 - (void)setDelegate:(id <TVHAdaptersDelegate>)delegate {

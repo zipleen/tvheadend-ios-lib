@@ -83,7 +83,7 @@
     if ( self.approx_time == 0 ) {
         return nil;
     }
-    return [TVHAutoRecItem stringFromMinutes:self.approx_time];
+    return [TVHAutoRecItem stringFromMinutes:(int)self.approx_time];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString*)key {
@@ -91,7 +91,8 @@
 }
 
 - (void)deleteAutoRec {
-    [TVHTableMgrActions doTableMgrAction:@"delete" withJsonClient:self.jsonClient inTable:@"autorec" withEntries:[NSString stringWithFormat:@"%d",self.id] ];
+    // TODO: fix this self.id thing
+    [TVHTableMgrActions doTableMgrAction:@"delete" withJsonClient:self.jsonClient inTable:@"autorec" withEntries:[NSString stringWithFormat:@"%d", (int)self.id] ];
 }
 
 - (void)updateAutoRec {
@@ -103,7 +104,7 @@
     for (NSString* key in self.updatedProperties) {
         [sendProperties setValue:[self valueForKey:key] forKey:key];
     }
-    [sendProperties setValue:[NSString stringWithFormat:@"%d", self.id] forKey:@"id"];
+    [sendProperties setValue:[NSString stringWithFormat:@"%d", (int)self.id] forKey:@"id"];
     [TVHTableMgrActions doTableMgrAction:@"update" withJsonClient:self.jsonClient inTable:@"autorec" withEntries:sendProperties ];
 }
 @end

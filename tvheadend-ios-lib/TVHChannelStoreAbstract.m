@@ -83,7 +83,7 @@
         self.channels =  [[channels copy] sortedArrayUsingSelector:@selector(compareByNumber:)];
     }
 #ifdef TESTING
-    NSLog(@"[Loaded Channels]: %d", [self.channels count]);
+    NSLog(@"[Loaded Channels]: %d", (int)[self.channels count]);
 #endif
     [self.tvhServer.analytics setIntValue:[self.channels count] forKey:@"channels"];
     [self.currentlyPlayingEpgStore clearEpgData];

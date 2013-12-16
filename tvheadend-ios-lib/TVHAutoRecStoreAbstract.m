@@ -69,7 +69,7 @@
     self.dvrAutoRecItems = [dvrAutoRecItems copy];
     
 #ifdef TESTING
-    NSLog(@"[Loaded Auto Rec Items, Count]: %d", [self.dvrAutoRecItems count]);
+    NSLog(@"[Loaded Auto Rec Items, Count]: %d", (int)[self.dvrAutoRecItems count]);
 #endif
     [self.tvhServer.analytics setIntValue:[self.dvrAutoRecItems count] forKey:@"autorec"];
 }
@@ -121,7 +121,7 @@
 
 - (int)count {
     if ( self.dvrAutoRecItems ) {
-        return [self.dvrAutoRecItems count];
+        return (int)[self.dvrAutoRecItems count];
     }
     return 0;
 }

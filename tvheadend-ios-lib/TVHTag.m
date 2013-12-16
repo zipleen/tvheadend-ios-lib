@@ -69,7 +69,7 @@
 }
 
 - (NSString*)idKey {
-    return [NSString stringWithFormat:@"%d", self.id];
+    return [NSString stringWithFormat:@"%d", (int)self.id];
 }
 
 - (NSInteger)channelCount {

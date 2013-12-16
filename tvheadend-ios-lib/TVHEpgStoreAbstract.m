@@ -133,7 +133,7 @@
     }];
     
 #ifdef TESTING
-    NSLog(@"[%@: Loaded EPG programs (ch:%@ | pr:%@ | tag:%@ | evcount:%d)]: %d", self.statsEpgName, self.filterToChannelName, self.filterToProgramTitle, self.filterToTagName, self.totalEventCount, [self.epgStore count]);
+    NSLog(@"[%@: Loaded EPG programs (ch:%@ | pr:%@ | tag:%@ | evcount:%d)]: %d", self.statsEpgName, self.filterToChannelName, self.filterToProgramTitle, self.filterToTagName, (int)self.totalEventCount, (int)[self.epgStore count]);
 #endif
     return true;
 }
@@ -141,9 +141,9 @@
 - (NSDictionary*)apiParameters {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                   [NSString stringWithFormat:@"%d", self.filterStart ],
+                                   [NSString stringWithFormat:@"%d", (int)self.filterStart ],
                                    @"start",
-                                   [NSString stringWithFormat:@"%d", self.filterLimit ],
+                                   [NSString stringWithFormat:@"%d", (int)self.filterLimit ],
                                    @"limit",nil];
     
     if( self.filterToChannelName != nil ) {
@@ -180,7 +180,7 @@
     
     [self signalWillLoadEpg];
 #ifdef TESTING
-    NSLog(@"[%@ EPG Going to call (total event count:%d)]: %@", self.statsEpgName, self.totalEventCount, self.apiParameters);
+    NSLog(@"[%@ EPG Going to call (total event count:%d)]: %@", self.statsEpgName, (int)self.totalEventCount, self.apiParameters);
 #endif
     TVHEpgStoreAbstract __weak *weakSelf = self;
     

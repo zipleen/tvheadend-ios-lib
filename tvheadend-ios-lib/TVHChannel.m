@@ -64,7 +64,7 @@
     if ( self.uuid ) {
         return self.uuid;
     }
-    return [NSString stringWithFormat:@"%d", self.chid];
+    return [NSString stringWithFormat:@"%d", (int)self.chid];
 }
 
 - (NSString*)imageUrl {

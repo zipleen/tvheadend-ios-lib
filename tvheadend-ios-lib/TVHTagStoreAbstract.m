@@ -69,7 +69,7 @@
     
     self.tags = [orderedTags copy];
 #ifdef TESTING
-    NSLog(@"[Loaded Tags]: %d", [self.tags count]);
+    NSLog(@"[Loaded Tags]: %d", (int)[self.tags count]);
 #endif
     [self.tvhServer.analytics setIntValue:[self.tags count] forKey:@"tags"];
     return true;

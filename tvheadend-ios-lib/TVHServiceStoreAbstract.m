@@ -85,7 +85,7 @@
     }];
     
 #ifdef TESTING
-    NSLog(@"[Loaded Services]: %d", [self.services count]);
+    NSLog(@"[Loaded Services]: %d", (int)[self.services count]);
 #endif
     return true;
 }

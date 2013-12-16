@@ -22,5 +22,5 @@
                       withName:(NSString *)name
                      withLabel:(NSString *)label;
 - (void)setObjectValue:(id)value forKey:(NSString*)key;
-- (void)setIntValue:(int)value forKey:(NSString*)key;
+- (void)setIntValue:(NSUInteger)value forKey:(NSString*)key;
 @end

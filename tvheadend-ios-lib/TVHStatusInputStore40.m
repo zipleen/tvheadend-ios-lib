@@ -78,7 +78,7 @@
     self.inputs = [inputs copy];
     
 #ifdef TESTING
-    NSLog(@"[Loaded Status Input]: %d", [self.inputs count]);
+    NSLog(@"[Loaded Status Input]: %d", (int)[self.inputs count]);
 #endif
     [self.tvhServer.analytics setIntValue:[self.inputs count] forKey:@"statusInput"];
     return true;
@@ -121,7 +121,7 @@
 }
 
 - (int)count {
-    return [self.inputs count];
+    return (int)[self.inputs count];
 }
 
 - (void)setDelegate:(id <TVHStatusInputDelegate>)delegate {
