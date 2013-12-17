@@ -42,12 +42,16 @@
 #pragma mark NSNotification
 
 - (void)appWillResignActive:(NSNotification*)note {
-    [self.timer invalidate];
+    if ( self ) {
+        [self.timer invalidate];
+    }
 }
 
 - (void)appWillEnterForeground:(NSNotification*)note {
-    [self processTimerEvents];
-    [self startTimer];
+    if ( self ) {
+        [self processTimerEvents];
+        [self startTimer];
+    }
 }
 
 - (void)startTimer {

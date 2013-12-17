@@ -49,11 +49,15 @@
 }
 
 - (void)appWillResignActive:(NSNotification*)note {
-    [self stopDiscovery];
+    if ( self ) {
+        [self stopDiscovery];
+    }
 }
 
 - (void)appWillEnterForeground:(NSNotification*)note {
-    [self startDiscover];
+    if ( self ) {
+        [self startDiscover];
+    }
 }
 
 - (id)init {
