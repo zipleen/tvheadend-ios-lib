@@ -11,6 +11,8 @@
 //
 
 #import "TVHTestHelper.h"
+#import "TVHServer.h"
+#import "TVHServerSettings.h"
 
 @implementation TVHTestHelper
 
@@ -20,6 +22,28 @@
     NSString *pathForFile    = [unitTestBundle pathForResource:name ofType:nil];
     NSData   *data           = [[NSData alloc] initWithContentsOfFile:pathForFile];
     return data;
+}
+
++ (TVHServer*)mockTVHServer
+{
+    TVHServerSettings *settings = [[TVHServerSettings alloc] initWithSettings:@{TVHS_SERVER_NAME:@"",
+                                                                                TVHS_IP_KEY:@"",
+                                                                                TVHS_PORT_KEY:@"9981",
+                                                                                TVHS_HTSP_PORT_KEY:@"9982",
+                                                                                TVHS_USERNAME_KEY:@"",
+                                                                                TVHS_PASSWORD_KEY:@"",
+                                                                                TVHS_USE_HTTPS:@"",
+                                                                                TVHS_SERVER_WEBROOT:@"",
+                                                                                TVHS_SSH_PF_HOST:@"",
+                                                                                TVHS_SSH_PF_PORT:@"",
+                                                                                TVHS_SSH_PF_USERNAME:@"",
+                                                                                TVHS_SSH_PF_PASSWORD:@"",
+                                                                                TVHS_SERVER_VERSION:@"34"}];
+    settings.autoStartPolling = YES;
+    settings.transcodeResolution = @"384";
+    settings.customPrefix = @"";
+    TVHServer *server = [[TVHServer alloc] initWithSettings:settings];
+    return server;
 }
 
 @end

@@ -10,12 +10,17 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import "TVHChannelTests.h"
+#import <XCTest/XCTest.h>
 #import "TVHTestHelper.h"
 #import "TVHChannel.h"
 #import "TVHEpg.h"
 #import "TVHEpgStore34.h"
 #import "TVHChannelEpg.h"
+
+
+@interface TVHChannelTests : XCTestCase <TVHChannelDelegate>
+
+@end
 
 @interface TVHChannel (MyPrivateMethodsUsedForTesting) 
 @property (nonatomic, strong) NSMutableArray *channelEpgDataByDay;
@@ -56,15 +61,15 @@
     
     [channel addEpg:epg];
     TVHChannelEpg *chepg = [channel.channelEpgDataByDay objectAtIndex:0];
-    STAssertTrue( ([chepg.programs count] == 1), @"epg not inserted");
+    XCTAssertTrue( ([chepg.programs count] == 1), @"epg not inserted");
     
     [channel addEpg:epg];
     chepg = [channel.channelEpgDataByDay objectAtIndex:0];
-    STAssertTrue( ([chepg.programs count] == 1), @"programs == %d should be 1", [chepg.programs count]);
+    XCTAssertTrue( ([chepg.programs count] == 1), @"programs == %d should be 1", [chepg.programs count]);
 
     [channel addEpg:epg];
     chepg = [channel.channelEpgDataByDay objectAtIndex:0];
-    STAssertTrue( ([chepg.programs count] == 1), @"programs == %d should be 1", [chepg.programs count]);
+    XCTAssertTrue( ([chepg.programs count] == 1), @"programs == %d should be 1", [chepg.programs count]);
 }
 
 - (void)testDuplicateEpgFromFetchMorePrograms {
@@ -79,15 +84,15 @@
     [channel setRestOfEpgStore:store];
     [channel addEpg:epg];
     TVHChannelEpg *chepg = [channel.channelEpgDataByDay objectAtIndex:0];
-    STAssertTrue( ([chepg.programs count] == 1), @"epg not inserted");
+    XCTAssertTrue( ([chepg.programs count] == 1), @"epg not inserted");
     
     [channel didLoadEpg];
     chepg = [channel.channelEpgDataByDay objectAtIndex:0];
-    STAssertTrue( ([chepg.programs count] == 4), @"programs == %d should be 4", [chepg.programs count]);
+    XCTAssertTrue( ([chepg.programs count] == 4), @"programs == %d should be 4", [chepg.programs count]);
     
     [channel didLoadEpg];
     chepg = [channel.channelEpgDataByDay objectAtIndex:0];
-    STAssertTrue( ([chepg.programs count] == 4), @"programs == %d should be 4", [chepg.programs count]);
+    XCTAssertTrue( ([chepg.programs count] == 4), @"programs == %d should be 4", [chepg.programs count]);
 }
 
 - (void)testRemovingLastEpgOfTheDay {
@@ -96,12 +101,12 @@
     
     [channel addEpg:epg];
     TVHChannelEpg *chepg = [channel.channelEpgDataByDay objectAtIndex:0];
-    STAssertTrue( ([chepg.programs count] == 1), @"epg not inserted");
+    XCTAssertTrue( ([chepg.programs count] == 1), @"epg not inserted");
     
     // we now have a channel with 1 epg in it
     [channel removeOldProgramsFromStore];
     
-    STAssertTrue( ([chepg.programs count] == 0), @"epg day was not removed when last epg got removed");
+    XCTAssertTrue( ([chepg.programs count] == 0), @"epg day was not removed when last epg got removed");
 }
 
 @end

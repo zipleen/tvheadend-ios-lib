@@ -10,11 +10,14 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import "TVHChannelStoreTests.h"
+#import <XCTest/XCTest.h>
 #import "TVHTestHelper.h"
 #import "TVHChannelStore34.h"
 #import "TVHChannel.h"
-#import "TVHSettings.h"
+
+@interface TVHChannelStoreTests : XCTestCase
+
+@end
 
 @interface TVHChannelStore34 (MyPrivateMethodsUsedForTesting)
 @property (nonatomic, strong) NSArray *channels;
@@ -26,7 +29,6 @@
 - (void)setUp
 {
     [super setUp];
-    [[TVHSettings sharedInstance] setSortChannel:TVHS_SORT_CHANNEL_BY_NAME];
 }
 
 - (void)tearDown {
@@ -36,33 +38,33 @@
 - (void)testJsonChannelParsing
 {
     NSData *data = [TVHTestHelper loadFixture:@"Log.channels"];
-    TVHChannelStore34 *store = [[TVHChannelStore34 alloc] init];
-    STAssertNotNil(store, @"creating channel store object");
+    TVHChannelStore34 *store = [[TVHChannelStore34 alloc] initWithTvhServer:[TVHTestHelper mockTVHServer]];
+    XCTAssertNotNil(store, @"creating channel store object");
     
     [store fetchedData:data];
-    STAssertTrue( ([store.channels count] == 7), @"channel count does not match");
+    XCTAssertTrue( ([store.channels count] == 7), @"channel count does not match");
     
     TVHChannel *channel = [store.channels lastObject];
-    STAssertEqualObjects(channel.name, @"VH", @"tag name does not match");
-    STAssertEqualObjects(channel.imageUrl, @"http:///vh.jpg", @"tag name does not match");
-    STAssertEquals(channel.number, 143, @"channel number does not match");
-    STAssertEquals(channel.chid, 60, @"channel ID does not match");
+    XCTAssertEqualObjects(channel.name, @"VH", @"tag name does not match");
+    XCTAssertEqualObjects(channel.imageUrl, @"http:///vh.jpg", @"tag name does not match");
+    XCTAssertEqual(channel.number, 143, @"channel number does not match");
+    XCTAssertEqual(channel.chid, 60, @"channel ID does not match");
     NSArray *tags = [[NSArray alloc] initWithObjects:@"8", @"53", nil];
-    STAssertEqualObjects(channel.tags, tags, @"channel tags does not match");
+    XCTAssertEqualObjects(channel.tags, tags, @"channel tags does not match");
     
     channel = [store.channels objectAtIndex:0];
-    STAssertEqualObjects(channel.name, @"AXX", @"tag name does not match");
-    STAssertEqualObjects(channel.imageUrl, @"http:///ajpg", @"tag name does not match");
-    STAssertEquals(channel.number, 60, @"channel number does not match");
-    STAssertEquals(channel.chid, 15, @"channel ID does not match");
+    XCTAssertEqualObjects(channel.name, @"AXX", @"tag name does not match");
+    XCTAssertEqualObjects(channel.imageUrl, @"http:///ajpg", @"tag name does not match");
+    XCTAssertEqual(channel.number, 60, @"channel number does not match");
+    XCTAssertEqual(channel.chid, 15, @"channel ID does not match");
     
     channel = [store.channels objectAtIndex:2];
-    STAssertEqualObjects(channel.name, @"AXX HD", @"tag name does not match");
-    STAssertEqualObjects(channel.imageUrl, nil, @"tag name does not match");
-    STAssertEquals(channel.number, 0, @"channel number does not match");
+    XCTAssertEqualObjects(channel.name, @"AXX HD", @"tag name does not match");
+    XCTAssertEqualObjects(channel.imageUrl, nil, @"tag name does not match");
+    XCTAssertEqual(channel.number, 0, @"channel number does not match");
     tags = [[NSArray alloc] initWithObjects:@"16", @"19", @"8", nil];
-    STAssertEqualObjects(channel.tags, tags, @"channel tags does not match");
-    STAssertEquals(channel.chid, 114, @"channel ID does not match");
+    XCTAssertEqualObjects(channel.tags, tags, @"channel tags does not match");
+    XCTAssertEqual(channel.chid, 114, @"channel ID does not match");
 
 }
 

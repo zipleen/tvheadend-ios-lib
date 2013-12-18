@@ -11,7 +11,9 @@
 //
 
 #import <Foundation/Foundation.h>
+@class TVHServer;
 
 @interface TVHTestHelper : NSObject
 + (NSData *)loadFixture:(NSString *)name;
++ (TVHServer*)mockTVHServer;
 @end

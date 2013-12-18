@@ -39,7 +39,6 @@
 		AABF3B7D185E603300E62240 /* TVHChannelTests.m in Resources */ = {isa = PBXBuildFile; fileRef = AABF3B6A185E603300E62240 /* TVHChannelTests.m */; };
 		AABF3B7E185E603300E62240 /* TVHTestHelper.h in Resources */ = {isa = PBXBuildFile; fileRef = AABF3B6B185E603300E62240 /* TVHTestHelper.h */; };
 		AABF3B7F185E603300E62240 /* TVHTestHelper.m in Resources */ = {isa = PBXBuildFile; fileRef = AABF3B6C185E603300E62240 /* TVHTestHelper.m */; };
-		AABF3B80185E603300E62240 /* TVHServerTests.h in Resources */ = {isa = PBXBuildFile; fileRef = AABF3B6D185E603300E62240 /* TVHServerTests.h */; };
 		AABF3B81185E603300E62240 /* TVHServerTests.m in Resources */ = {isa = PBXBuildFile; fileRef = AABF3B6E185E603300E62240 /* TVHServerTests.m */; };
 		AABF3B87185E610000E62240 /* libssh2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B84185E610000E62240 /* libssh2.a */; };
 		AABF3B88185E610000E62240 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B85185E610000E62240 /* libcrypto.a */; };
@@ -325,7 +324,6 @@
 		AABF3B6A185E603300E62240 /* TVHChannelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHChannelTests.m; sourceTree = "<group>"; };
 		AABF3B6B185E603300E62240 /* TVHTestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHTestHelper.h; sourceTree = "<group>"; };
 		AABF3B6C185E603300E62240 /* TVHTestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHTestHelper.m; sourceTree = "<group>"; };
-		AABF3B6D185E603300E62240 /* TVHServerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHServerTests.h; sourceTree = "<group>"; };
 		AABF3B6E185E603300E62240 /* TVHServerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHServerTests.m; sourceTree = "<group>"; };
 		AABF3B84185E610000E62240 /* libssh2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssh2.a; path = "vendor/libssh2-for-iOS/lib/libssh2.a"; sourceTree = "<group>"; };
 		AABF3B85185E610000E62240 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "vendor/libssh2-for-iOS/lib/libcrypto.a"; sourceTree = "<group>"; };
@@ -428,7 +426,6 @@
 				AABF3B6A185E603300E62240 /* TVHChannelTests.m */,
 				AABF3B6B185E603300E62240 /* TVHTestHelper.h */,
 				AABF3B6C185E603300E62240 /* TVHTestHelper.m */,
-				AABF3B6D185E603300E62240 /* TVHServerTests.h */,
 				AABF3B6E185E603300E62240 /* TVHServerTests.m */,
 				AABF3A66185E586700E62240 /* Supporting Files */,
 			);
@@ -960,7 +957,6 @@
 				AABF3B7B185E603300E62240 /* TVHChannelStoreTests.m in Resources */,
 				AABF3B7A185E603300E62240 /* TVHChannelStoreTests.h in Resources */,
 				AABF3B7F185E603300E62240 /* TVHTestHelper.m in Resources */,
-				AABF3B80185E603300E62240 /* TVHServerTests.h in Resources */,
 				AABF3B7E185E603300E62240 /* TVHTestHelper.h in Resources */,
 				AABF3B71185E603300E62240 /* Log.channels in Resources */,
 				AABF3B7C185E603300E62240 /* TVHChannelTests.h in Resources */,
