@@ -14,4 +14,16 @@
 
 @implementation TVHMuxStore40
 
+- (NSString*)apiMethod {
+    return @"GET";
+}
+
+- (NSString*)apiPath {
+    return @"api/mpegts/mux/grid";
+}
+
+- (NSDictionary*)apiParameters {
+    return @{@"limit":@"9999999999"};
+}
+
 @end

@@ -18,4 +18,8 @@
     return @"api/channel/grid";
 }
 
+- (NSDictionary*)apiParameters {
+    return @{@"op":@"list", @"limit":@"9999999999"};
+}
+
 @end

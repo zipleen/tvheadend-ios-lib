@@ -14,4 +14,16 @@
 
 @implementation TVHServiceStore40
 
+- (NSString*)apiMethod {
+    return nil;//@"GET";
+}
+
+- (NSString*)apiPath {
+    return @"api/mpegts/service/grid";
+}
+
+- (NSDictionary*)apiParameters {
+    return @{@"limit":@"9999999999"};
+}
+
 @end

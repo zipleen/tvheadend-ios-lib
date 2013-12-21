@@ -101,7 +101,7 @@
 }
 
 - (NSDictionary*)apiParameters {
-    return [NSDictionary dictionaryWithObjectsAndKeys:@"list", @"op", nil];
+    return @{@"op":@"list"};
 }
 
 - (void)fetchChannelList {

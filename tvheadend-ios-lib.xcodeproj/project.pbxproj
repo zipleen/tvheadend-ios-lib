@@ -1179,6 +1179,8 @@
 					"$(SRCROOT)/vendor/libssh2-for-iOS/lib",
 				);
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "";
+				"OTHER_CFLAGS[arch=*]" = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -1203,6 +1205,7 @@
 					"/Users/zipleen/dev/tvheadend-ios-lib/vendor/libssh2-for-iOS/lib",
 					"$(SRCROOT)/vendor/libssh2-for-iOS/lib",
 				);
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
