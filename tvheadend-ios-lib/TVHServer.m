@@ -71,6 +71,9 @@
 - (TVHServer*)initWithSettings:(TVHServerSettings*)settings {
     self = [super init];
     if (self) {
+        if ( ! settings ) {
+            return nil;
+        }
         inProcessing = NO;
         [TVHPlayXbmc sharedInstance];
         self.settings = settings;
