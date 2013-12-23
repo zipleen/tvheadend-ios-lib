@@ -12,7 +12,7 @@
 
 #import "TVHStatusInputStore.h"
 
-@interface TVHStatusInputStore32 : NSObject <TVHStatusInputStore>
+@interface TVHStatusInputStore32 : NSObject <TVHApiClientDelegate, TVHStatusInputStore>
 @property (nonatomic, weak) TVHServer *tvhServer;
 @property (nonatomic, weak) id <TVHStatusInputDelegate> delegate;
 - (id)initWithTvhServer:(TVHServer*)tvhServer;

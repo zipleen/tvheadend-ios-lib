@@ -1,0 +1,160 @@
+//
+//  TVHNetworkStore40.m
+//  tvheadend-ios-lib
+//
+//  Created by zipleen on 23/12/13.
+//  Copyright (c) 2013 zipleen. All rights reserved.
+//
+
+#import "TVHNetworkStore40.h"
+#import "TVHServer.h"
+
+@interface TVHNetworkStore40()
+@property (nonatomic, weak) TVHApiClient *apiClient;
+@property (nonatomic, strong) NSArray *networks;
+@end
+
+@implementation TVHNetworkStore40
+
+- (id)initWithTvhServer:(TVHServer*)tvhServer {
+    self = [super init];
+    if (!self) return nil;
+    self.tvhServer = tvhServer;
+    self.apiClient = [self.tvhServer apiClient];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveNetworkNotification:)
+                                                 name:@"networksNotificationClassReceived"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(fetchStatusInputs)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+    return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.networks = nil;
+}
+
+- (void)receiveNetworkNotification:(NSNotification *) notification {
+    if ([[notification name] isEqualToString:@"networksNotificationClassReceived"]) {
+        NSDictionary *message = (NSDictionary*)[notification object];
+        
+        if ( [[message objectForKey:@"reload"] intValue] == 1 ) {
+            [self fetchNetworks];
+        }
+        
+        [self.networks enumerateObjectsUsingBlock:^(TVHNetwork* obj, NSUInteger idx, BOOL *stop) {
+            if (  [[message objectForKey:@"uuid"] isEqualToString:obj.uuid] ) {
+                [obj updateValuesFromDictionary:message];
+            }
+        }];
+        
+        [self signalDidLoadNetwork];
+    }
+}
+
+- (BOOL)fetchedData:(NSData *)responseData {
+    NSError __autoreleasing *error;
+    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
+    if( error ) {
+        [self signalDidErrorNetworkStore:error];
+        return false;
+    }
+    
+    NSArray *entries = [json objectForKey:@"entries"];
+    NSMutableArray *networks = [[NSMutableArray alloc] init];
+    
+    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        TVHNetwork *network = [[TVHNetwork alloc] init];
+        [network updateValuesFromDictionary:obj];
+        
+        [networks addObject:network];
+    }];
+    
+    self.networks = [networks copy];
+    
+#ifdef TESTING
+    NSLog(@"[Loaded Networks]: %d", (int)[self.networks count]);
+#endif
+    [self.tvhServer.analytics setIntValue:[self.networks count] forKey:@"networks"];
+    return true;
+}
+
+#pragma mark Api Client delegates
+
+- (NSString*)apiMethod {
+    return @"GET";
+}
+
+- (NSString*)apiPath {
+    return @"api/mpegts/networks/grid";
+}
+
+- (NSDictionary*)apiParameters {
+    return @{@"limit":@"9999999999"};
+}
+
+
+- (void)fetchNetworks {
+    TVHNetworkStore40 __weak *weakSelf = self;
+    
+    [self signalWillLoadNetwork];
+    [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ( [weakSelf fetchedData:responseObject] ) {
+            [weakSelf signalDidLoadNetwork];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [weakSelf signalDidErrorNetworkStore:error];
+        NSLog(@"[Network HTTPClient Error]: %@", error.localizedDescription);
+    }];
+}
+
+- (TVHNetwork *) objectAtIndex:(int) row {
+    if ( row < [self.networks count] ) {
+        return [self.networks objectAtIndex:row];
+    }
+    return nil;
+}
+
+- (int)count {
+    return (int)[self.networks count];
+}
+
+- (void)setDelegate:(id <TVHNetworkDelegate>)delegate {
+    if (_delegate != delegate) {
+        _delegate = delegate;
+    }
+}
+
+#pragma mark Signal delegates
+
+- (void)signalDidLoadNetwork {
+    if ([self.delegate respondsToSelector:@selector(didLoadNetwork)]) {
+        [self.delegate didLoadNetwork];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadNetwork"
+                                                        object:self];
+}
+
+- (void)signalWillLoadNetwork {
+    if ([self.delegate respondsToSelector:@selector(willLoadNetwork)]) {
+        [self.delegate willLoadNetwork];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"willLoadNetwork"
+                                                        object:self];
+}
+
+- (void)signalDidErrorNetworkStore:(NSError*)error {
+    if ([self.delegate respondsToSelector:@selector(didErrorNetworkStore:)]) {
+        [self.delegate didErrorNetworkStore:error];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"didErrorNetworkStore"
+                                                        object:error];
+}
+
+@end

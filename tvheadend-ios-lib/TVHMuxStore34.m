@@ -30,7 +30,7 @@
 }
 
 - (NSDictionary*)apiParameters {
-    return [NSDictionary dictionaryWithObjectsAndKeys:@"get", @"op", nil];
+    return @{@"op":@"get"};
 }
 
 
