@@ -77,7 +77,7 @@
     } else {
         [TVHDvrActions deleteRecording:self.id withTvhServer:self.tvhServer];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"willRemoveEpgFromRecording"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHWillRemoveEpgFromRecording
                                                         object:self];
 }
 

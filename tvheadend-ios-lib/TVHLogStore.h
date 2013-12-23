@@ -12,6 +12,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define TVHDidReceiveLogMessageNotification @"logmessageNotificationClassReceived"
+
 @protocol TVHLogDelegate <NSObject>
 -(void) didLoadLog;
 @end

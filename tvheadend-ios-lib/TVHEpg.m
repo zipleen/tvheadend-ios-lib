@@ -35,13 +35,13 @@
     // returns TVHEpg
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(willRemoveEpgFromRecording:)
-                                                 name:@"willRemoveEpgFromRecording"
+                                                 name:TVHWillRemoveEpgFromRecording
                                                object:nil];
     
     // returns nsnumber
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didSuccessfulyAddEpgToRecording:)
-                                                 name:@"didSuccessfulyAddEpgToRecording"
+                                                 name:TVHDidSuccessfulyAddEpgToRecording
                                                object:nil];
     return self;
 }
@@ -55,7 +55,7 @@
 
 // this one is wrong because I don't know if it actually removed recording or not! 
 - (void)willRemoveEpgFromRecording:(NSNotification *)notification {
-    if ([[notification name] isEqualToString:@"willRemoveEpgFromRecording"]) {
+    if ([[notification name] isEqualToString:TVHWillRemoveEpgFromRecording]) {
         TVHDvrItem *dvritem = [notification object];
         if ( [dvritem.channel isEqualToString:self.channel] && [dvritem.title isEqualToString:self.title] && [dvritem.start isEqual:self.start] ) {
             self.schedstate = nil;
@@ -70,7 +70,7 @@
 }
 
 - (void)didSuccessfulyAddEpgToRecording:(NSNotification *)notification {
-    if ([[notification name] isEqualToString:@"didSuccessfulyAddEpgToRecording"]) {
+    if ([[notification name] isEqualToString:TVHDidSuccessfulyAddEpgToRecording]) {
         NSNumber *number = [notification object];
         if ( [number intValue] == self.id ) {
             // not exactly right, but it's better than having to get ALL the epg again :p

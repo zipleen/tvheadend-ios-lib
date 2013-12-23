@@ -24,7 +24,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveNetworkNotification:)
-                                                 name:@"networksNotificationClassReceived"
+                                                 name:TVHNetworkStoreReloadNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -40,7 +40,7 @@
 }
 
 - (void)receiveNetworkNotification:(NSNotification *) notification {
-    if ([[notification name] isEqualToString:@"networksNotificationClassReceived"]) {
+    if ([[notification name] isEqualToString:TVHNetworkStoreReloadNotification]) {
         NSDictionary *message = (NSDictionary*)[notification object];
         
         if ( [[message objectForKey:@"reload"] intValue] == 1 ) {
@@ -137,7 +137,7 @@
     if ([self.delegate respondsToSelector:@selector(didLoadNetwork)]) {
         [self.delegate didLoadNetwork];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadNetwork"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHNetworkStoreDidLoadNotification
                                                         object:self];
 }
 
@@ -145,7 +145,7 @@
     if ([self.delegate respondsToSelector:@selector(willLoadNetwork)]) {
         [self.delegate willLoadNetwork];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"willLoadNetwork"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHNetworkStoreWillLoadNotification
                                                         object:self];
 }
 
@@ -153,7 +153,7 @@
     if ([self.delegate respondsToSelector:@selector(didErrorNetworkStore:)]) {
         [self.delegate didErrorNetworkStore:error];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didErrorNetworkStore"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHNetworkStoreDidErrorNotification
                                                         object:error];
 }
 

@@ -8,6 +8,11 @@
 
 #import "TVHApiClient.h"
 
+#define TVHNetworkStoreReloadNotification @"networksNotificationClassReceived"
+#define TVHNetworkStoreWillLoadNotification @"willLoadNetwork"
+#define TVHNetworkStoreDidLoadNotification @"didLoadNetwork"
+#define TVHNetworkStoreDidErrorNotification @"didErrorNetworkStore"
+
 @class TVHServer;
 @class TVHNetwork;
 

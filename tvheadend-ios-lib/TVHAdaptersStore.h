@@ -12,6 +12,11 @@
 
 #import "TVHApiClient.h"
 
+#define TVHAdapterStoreReloadNotification @"tvAdapterNotificationClassReceived"
+#define TVHAdapterStoreWillLoadNotification @"willLoadAdapters"
+#define TVHAdapterStoreDidLoadNotification @"didLoadAdapters"
+#define TVHAdapterStoreDidErrorNotification @"didErrorAdaptersStore"
+
 @class TVHServer;
 @class TVHAdapter;
 

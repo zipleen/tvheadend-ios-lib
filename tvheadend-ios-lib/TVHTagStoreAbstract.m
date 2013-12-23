@@ -28,7 +28,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(fetchTagList)
-                                                 name:@"channeltagsNotificationClassReceived"
+                                                 name:TVHTagStoreReloadNotification
                                                object:nil];
 
     return self;
@@ -127,7 +127,7 @@
     if ([self.delegate respondsToSelector:@selector(willLoadTags)]) {
         [self.delegate didLoadTags];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"willLoadTags"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHTagStoreWillLoadNotification
                                                         object:self];
 }
 
@@ -135,7 +135,7 @@
     if ([self.delegate respondsToSelector:@selector(didLoadTags)]) {
         [self.delegate didLoadTags];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadTags"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHTagStoreDidLoadNotification
                                                         object:self];
 }
 

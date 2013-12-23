@@ -13,6 +13,15 @@
 #import "TVHChannel.h"
 #import "TVHApiClient.h"
 
+
+#define TVHEpgStoreReloadNotification @"epgNotificationClassReceived"
+#define TVHEpgStoreWillLoadNotification @"willLoadEpg"
+#define TVHEpgStoreDidLoadNotification @"didLoadEpg"
+#define TVHEpgStoreDidErrorNotification @"didErrorTags"
+
+#define TVHWillRemoveEpgFromRecording @"willRemoveEpgFromRecording"
+#define TVHDidSuccessfulyAddEpgToRecording @"didSuccessfulyAddEpgToRecording"
+
 #define MAX_REQUEST_EPG_ITEMS 300 // tvheadend has a limit of how much items you can request at one time
 #define DEFAULT_REQUEST_EPG_ITEMS 50 // this is the default query limit on the webUI
 #define SECONDS_TO_FETCH_AHEAD_EPG_ITEMS 21600

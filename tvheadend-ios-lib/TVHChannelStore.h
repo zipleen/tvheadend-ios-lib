@@ -14,6 +14,10 @@
 #import "TVHChannel.h"
 #import "TVHApiClient.h"
 
+#define TVHChannelStoreReloadNotification @"channelsNotificationClassReceived"
+#define TVHChannelStoreWillLoadNotification @"willLoadChannels"
+#define TVHChannelStoreDidLoadNotification @"didLoadChannels"
+#define TVHChannelStoreDidErrorNotification @"didErrorLoadChannels"
 @class TVHServer;
 
 @protocol TVHChannelStoreDelegate <NSObject>

@@ -30,7 +30,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateDvbMux:)
-                                                 name:@"dvbMuxNotificationClassReceived"
+                                                 name:TVHDvbMuxReloadNotification
                                                object:nil];
     return self;
 }
@@ -88,7 +88,7 @@
 }
 
 - (void)updateDvbMux:(NSNotification *)notification {
-    if ([[notification name] isEqualToString:@"dvbMuxNotificationClassReceived"]) {
+    if ([[notification name] isEqualToString:TVHDvbMuxReloadNotification]) {
         NSDictionary *message = (NSDictionary*)[notification object];
         if ( [self.id isEqualToString:[message objectForKey:@"id"]] ) {
             [message enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {

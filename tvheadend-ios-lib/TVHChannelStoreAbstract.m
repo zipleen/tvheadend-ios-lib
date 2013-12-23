@@ -43,7 +43,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(fetchChannelList)
-                                                 name:@"channelsNotificationClassReceived"
+                                                 name:TVHChannelStoreReloadNotification
                                                object:nil];
 
 
@@ -201,7 +201,7 @@
     if ([self.delegate respondsToSelector:@selector(willLoadChannels)]) {
         [self.delegate didLoadChannels];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"willLoadChannels"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelStoreWillLoadNotification
                                                         object:self];
 }
 
@@ -209,14 +209,16 @@
     if ([self.delegate respondsToSelector:@selector(didLoadChannels)]) {
         [self.delegate didLoadChannels];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadChannels"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelStoreDidLoadNotification
                                                         object:self];
 }
 
 - (void)signalDidErrorLoadingChannelStore:(NSError*)error {
     if ([self.delegate respondsToSelector:@selector(didErrorLoadingChannelStore:)]) {
         [self.delegate didErrorLoadingChannelStore:error];
-    }   
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelStoreDidErrorNotification
+                                                        object:self];
 }
 
 - (void)updateChannelsProgress {

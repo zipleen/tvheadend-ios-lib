@@ -37,20 +37,20 @@
             NSLog(@"[DVR ACTIONS ERROR processing JSON]: %@", error.localizedDescription);
 #endif
             [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"didErrorDvrAction"
+             postNotificationName:TVHDvrActionDidErrorNotification
              object:error];
         }
         NSInteger success = [[json objectForKey:@"success"] intValue];
         if ( success ) {
             [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"didSuccessDvrAction"
+             postNotificationName:TVHDvrActionDidSucceedNotification
              object:action];
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"didSuccessfulyAddEpgToRecording"
+            [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidSuccessfulyAddEpgToRecording
                                                                 object:[NSNumber numberWithInt:(int)idint]];
         } else {
             [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"didReturnErrorDvrAction"
+             postNotificationName:TVHDvrActionDidReturnErrorNotification
              object:action];
         }
         
@@ -65,7 +65,7 @@
         NSLog(@"[DVR ACTIONS ERROR]: %@", error.localizedDescription);
 #endif
         [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"didErrorDvrAction"
+         postNotificationName:TVHDvrActionDidErrorNotification
          object:error];
     }];
 

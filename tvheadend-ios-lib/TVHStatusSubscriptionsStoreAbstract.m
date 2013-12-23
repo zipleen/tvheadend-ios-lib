@@ -28,7 +28,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveSubscriptionNotification:)
-                                                 name:@"subscriptionsNotificationClassReceived"
+                                                 name:TVHStatusSubscriptionStoreReloadNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -44,7 +44,7 @@
 }
 
 - (void)receiveSubscriptionNotification:(NSNotification *) notification {
-    if ([[notification name] isEqualToString:@"subscriptionsNotificationClassReceived"]) {
+    if ([[notification name] isEqualToString:TVHStatusSubscriptionStoreReloadNotification]) {
         NSDictionary *message = (NSDictionary*)[notification object];
         
         if ( [[message objectForKey:@"reload"] intValue] == 1 ) {
@@ -140,7 +140,7 @@
     if ([self.delegate respondsToSelector:@selector(didLoadStatusSubscriptions)]) {
         [self.delegate didLoadStatusSubscriptions];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadStatusSubscriptions"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusSubscriptionStoreDidLoadNotification
                                                         object:self];
 }
 
@@ -148,7 +148,7 @@
     if ([self.delegate respondsToSelector:@selector(willLoadStatusSubscriptions)]) {
         [self.delegate willLoadStatusSubscriptions];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"willLoadStatusSubscriptions"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusSubscriptionStoreWillLoadNotification
                                                         object:self];
 }
 
@@ -156,7 +156,7 @@
     if ([self.delegate respondsToSelector:@selector(didErrorStatusSubscriptionsStore:)]) {
         [self.delegate didErrorStatusSubscriptionsStore:error];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didErrorStatusSubscriptionsStore"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusSubscriptionStoreDidErrorNotification
                                                         object:error];
 }
 

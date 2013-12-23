@@ -9,6 +9,11 @@
 #import "TVHAutoRecItem.h"
 #import "TVHApiClient.h"
 
+#define TVHAutoStoreReloadNotification @"autorecNotificationClassReceived"
+#define TVHAutoRecStoreWillLoadNotification @"willLoadDvrAutoRec"
+#define TVHAutoRecStoreDidLoadNotification @"didLoadDvrAutoRec"
+#define TVHAutoRecStoreDidErrorNotification @"didErrorDvrAutoStore"
+
 @class TVHServer;
 
 @protocol TVHAutoRecStoreDelegate <NSObject>

@@ -47,7 +47,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(fetchCometPollStatus)
-                                                 name:@"fetchCometPollStatus"
+                                                 name:TVHDoFetchCometStatusNotification
                                                object:nil];
     
     return self;
@@ -76,7 +76,7 @@
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
     if( error ) {
         [[NSNotificationCenter defaultCenter]
-            postNotificationName:@"didErrorCometPollStore"
+            postNotificationName:TVHDidErrorCometPollNotification
             object:error];
         return false;
     }
@@ -93,7 +93,7 @@
 #endif
         if( [notificationClass isEqualToString:@"subscriptions"] ) {
             [[NSNotificationCenter defaultCenter]
-                postNotificationName:@"subscriptionsNotificationClassReceived"
+                postNotificationName:TVHStatusSubscriptionStoreReloadNotification
                 object:obj];
 #ifdef TESTING
             print = NO;
@@ -102,7 +102,7 @@
         
         if( [notificationClass isEqualToString:@"input_status"] ) {
             [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"inputsNotificationClassReceived"
+             postNotificationName:TVHStatusInputStoreReloadNotification
              object:obj];
 #ifdef TESTING
             print = NO;
@@ -111,7 +111,7 @@
         
         if( [notificationClass isEqualToString:@"tvAdapter"] ) {
             [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"tvAdapterNotificationClassReceived"
+             postNotificationName:TVHAdapterStoreReloadNotification
              object:obj];
 #ifdef TESTING
             print = NO;
@@ -120,7 +120,7 @@
         
         if( [notificationClass isEqualToString:@"logmessage"] ) {
             [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"logmessageNotificationClassReceived"
+             postNotificationName:TVHDidReceiveLogMessageNotification
              object:obj];
 #ifdef TESTING
             print = NO;
@@ -129,7 +129,7 @@
         
         if( [notificationClass isEqualToString:@"dvbMux"] ) {
             [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"dvbMuxNotificationClassReceived"
+             postNotificationName:TVHDvbMuxReloadNotification
              object:obj];
 #ifdef TESTING
             print = NO;
@@ -138,7 +138,7 @@
         
         if( [notificationClass isEqualToString:@"dvrdb"] ) {
             [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"dvrdbNotificationClassReceived"
+             postNotificationName:TVHDvrStoreReloadNotification
              object:obj];
 #ifdef TESTING
             print = NO;
@@ -147,7 +147,7 @@
         
         if( [notificationClass isEqualToString:@"autorec"] ) {
             [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"autorecNotificationClassReceived"
+             postNotificationName:TVHAutoStoreReloadNotification
              object:obj];
 #ifdef TESTING
             print = NO;
@@ -156,7 +156,7 @@
         
         if( [notificationClass isEqualToString:@"channels"] ) {
             [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"channelsNotificationClassReceived"
+             postNotificationName:TVHChannelStoreReloadNotification
              object:obj];
 #ifdef TESTING
             print = NO;
@@ -165,7 +165,7 @@
         
         if( [notificationClass isEqualToString:@"channeltags"] ) {
             [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"channeltagsNotificationClassReceived"
+             postNotificationName:TVHTagStoreReloadNotification
              object:obj];
 #ifdef TESTING
             print = NO;
@@ -219,7 +219,7 @@
 
 - (void)timerRefreshCometPoll {
     if ( activePolls < 1 ) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"fetchCometPollStatus"
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDoFetchCometStatusNotification
                                                             object:nil];
     }
 }

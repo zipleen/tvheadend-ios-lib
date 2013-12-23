@@ -12,6 +12,15 @@
 
 #import "TVHDvrItem.h"
 
+#define TVHDvrStoreReloadNotification @"dvrdbNotificationClassReceived"
+#define TVHDvrStoreWillLoadNotification @"willLoadDvr"
+#define TVHDvrStoreDidLoadNotification @"didLoadDvr"
+#define TVHDvrStoreDidErrorNotification @"didErrorDvrStore"
+
+#define TVHDvrActionDidErrorNotification @"didErrorDvrAction"
+#define TVHDvrActionDidSucceedNotification @"didSuccessDvrAction"
+#define TVHDvrActionDidReturnErrorNotification @"didReturnErrorDvrAction"
+
 #define RECORDING_UPCOMING 0
 #define RECORDING_FINISHED 1
 #define RECORDING_FAILED 2

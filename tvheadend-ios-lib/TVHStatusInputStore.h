@@ -12,6 +12,11 @@
 
 #import "TVHApiClient.h"
 
+#define TVHStatusInputStoreReloadNotification @"inputsNotificationClassReceived"
+#define TVHStatusInputStoreWillLoadNotification @"willLoadStatusInputs"
+#define TVHStatusInputStoreDidLoadNotification @"didLoadStatusInputs"
+#define TVHStatusInputStoreDidErrorNotification @"didErrorStatusInputStore"
+
 @class TVHServer;
 @class TVHStatusInput;
 

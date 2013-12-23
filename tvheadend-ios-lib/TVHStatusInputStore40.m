@@ -24,7 +24,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveSubscriptionNotification:)
-                                                 name:@"inputsNotificationClassReceived"
+                                                 name:TVHStatusInputStoreReloadNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -40,7 +40,7 @@
 }
 
 - (void)receiveSubscriptionNotification:(NSNotification *) notification {
-    if ([[notification name] isEqualToString:@"inputsNotificationClassReceived"]) {
+    if ([[notification name] isEqualToString:TVHStatusInputStoreReloadNotification]) {
         NSDictionary *message = (NSDictionary*)[notification object];
         
         if ( [[message objectForKey:@"reload"] intValue] == 1 ) {
@@ -136,7 +136,7 @@
     if ([self.delegate respondsToSelector:@selector(didLoadStatusInputs)]) {
         [self.delegate didLoadStatusInputs];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadStatusInputs"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusInputStoreDidLoadNotification
                                                         object:self];
 }
 
@@ -144,7 +144,7 @@
     if ([self.delegate respondsToSelector:@selector(willLoadStatusInputs)]) {
         [self.delegate willLoadStatusInputs];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"willLoadStatusInputs"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusInputStoreWillLoadNotification
                                                         object:self];
 }
 
@@ -152,7 +152,7 @@
     if ([self.delegate respondsToSelector:@selector(didErrorStatusInputStore:)]) {
         [self.delegate didErrorStatusInputStore:error];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didErrorStatusInputStore"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusInputStoreDidErrorNotification
                                                         object:error];
 }
 

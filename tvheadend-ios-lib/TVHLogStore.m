@@ -34,7 +34,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveDebugLogNotification:)
-                                                 name:@"logmessageNotificationClassReceived"
+                                                 name:TVHDidReceiveLogMessageNotification
                                                object:nil];
     return self;
 }
@@ -52,7 +52,7 @@
 }
 
 - (void)receiveDebugLogNotification:(NSNotification *) notification {
-    if ([[notification name] isEqualToString:@"logmessageNotificationClassReceived"]) {
+    if ([[notification name] isEqualToString:TVHDidReceiveLogMessageNotification]) {
         NSDictionary *message = (NSDictionary*)[notification object];
         
         NSString *log = [message objectForKey:@"logtxt"];

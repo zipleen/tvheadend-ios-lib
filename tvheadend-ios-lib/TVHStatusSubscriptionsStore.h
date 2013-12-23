@@ -14,6 +14,12 @@
 #import "TVHApiClient.h"
 #import "TVHStatusSubscription.h"
 
+#define TVHStatusSubscriptionStoreReloadNotification @"subscriptionsNotificationClassReceived"
+#define TVHStatusSubscriptionStoreWillLoadNotification @"willLoadStatusSubscriptions"
+#define TVHStatusSubscriptionStoreDidLoadNotification @"didLoadStatusSubscriptions"
+#define TVHStatusSubscriptionStoreDidErrorNotification @"didErrorStatusSubscriptionsStore"
+
+
 @class TVHServer;
 
 @protocol TVHStatusSubscriptionsDelegate <NSObject>

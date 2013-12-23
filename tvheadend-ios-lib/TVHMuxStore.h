@@ -12,6 +12,8 @@
 
 #import "TVHApiClient.h"
 
+#define TVHDvbMuxReloadNotification @"dvbMuxNotificationClassReceived"
+
 @class TVHServer;
 
 @protocol TVHMuxNetwork

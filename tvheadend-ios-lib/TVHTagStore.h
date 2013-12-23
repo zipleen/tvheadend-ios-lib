@@ -13,6 +13,11 @@
 #import <Foundation/Foundation.h>
 #import "TVHApiClient.h"
 
+#define TVHTagStoreReloadNotification @"channeltagsNotificationClassReceived"
+#define TVHTagStoreWillLoadNotification @"willLoadTags"
+#define TVHTagStoreDidLoadNotification @"didLoadTags"
+#define TVHTagStoreDidErrorNotification @"didErrorTags"
+
 @class TVHServer;
 
 @protocol TVHTagStoreDelegate <NSObject>

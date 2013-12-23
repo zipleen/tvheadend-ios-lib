@@ -28,7 +28,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveAutoRecNotification:)
-                                                 name:@"autorecNotificationClassReceived"
+                                                 name:TVHAutoStoreReloadNotification
                                                object:nil];
     
     return self;
@@ -40,7 +40,7 @@
 }
 
 - (void)receiveAutoRecNotification:(NSNotification *) notification {
-    if ([[notification name] isEqualToString:@"autorecNotificationClassReceived"]) {
+    if ([[notification name] isEqualToString:TVHAutoStoreReloadNotification]) {
         NSDictionary *message = (NSDictionary*)[notification object];
         if ( [[message objectForKey:@"reload"] intValue] == 1 ) {
             [self fetchDvrAutoRec];
@@ -130,7 +130,7 @@
     if ([self.delegate respondsToSelector:@selector(willLoadDvrAutoRec)]) {
         [self.delegate willLoadDvrAutoRec];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"willLoadDvrAutoRec"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreWillLoadNotification
                                                         object:self];
 }
 
@@ -138,7 +138,7 @@
     if ([self.delegate respondsToSelector:@selector(didLoadDvrAutoRec)]) {
         [self.delegate didLoadDvrAutoRec];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadDvrAutoRec"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreDidLoadNotification
                                                         object:self];
 }
 
@@ -146,8 +146,7 @@
     if ([self.delegate respondsToSelector:@selector(didErrorDvrAutoStore:)]) {
         [self.delegate didErrorDvrAutoStore:error];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didErrorDvrAutoStore"
-                                                        object:error];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreDidErrorNotification                                                        object:error];
 }
 
 @end

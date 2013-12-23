@@ -35,7 +35,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveDvrdbNotification:)
-                                                 name:@"dvrdbNotificationClassReceived"
+                                                 name:TVHDvrStoreReloadNotification
                                                object:nil];
     return self;
 }
@@ -47,7 +47,7 @@
 }
 
 - (void)receiveDvrdbNotification:(NSNotification *)notification {
-    if ([[notification name] isEqualToString:@"dvrdbNotificationClassReceived"]) {
+    if ([[notification name] isEqualToString:TVHDvrStoreReloadNotification]) {
         NSDictionary *message = (NSDictionary*)[notification object];
         if ( [[message objectForKey:@"reload"] intValue] == 1 ) {
             [self fetchDvr];
@@ -215,7 +215,7 @@
     if ([self.delegate respondsToSelector:@selector(willLoadDvr:)]) {
         [self.delegate willLoadDvr:type];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"willLoadDvr"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHDvrStoreWillLoadNotification
                                                         object:self];
 }
 
@@ -223,7 +223,7 @@
     if ([self.delegate respondsToSelector:@selector(didLoadDvr:)]) {
         [self.delegate didLoadDvr:type];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadDvr"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHDvrStoreDidLoadNotification
                                                         object:self];
 }
 

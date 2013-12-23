@@ -11,6 +11,7 @@
 //
 
 #import "TVHEpgStoreAbstract.h"
+#import "TVHEpgStore.h"
 #import "TVHEpg.h"
 #import "TVHServer.h"
 
@@ -300,7 +301,7 @@
     if ([self.delegate respondsToSelector:@selector(willLoadEpg)]) {
         [self.delegate willLoadEpg];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"willLoadEpg"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHEpgStoreWillLoadNotification
                                                         object:self];
 }
 
@@ -308,7 +309,7 @@
     if ([self.delegate respondsToSelector:@selector(didLoadEpg)]) {
         [self.delegate didLoadEpg];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadEpg"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHEpgStoreDidLoadNotification
                                                         object:self];
 }
 

@@ -28,7 +28,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveSubscriptionNotification:)
-                                                 name:@"tvAdapterNotificationClassReceived"
+                                                 name:TVHAdapterStoreReloadNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -44,7 +44,7 @@
 }
 
 - (void)receiveSubscriptionNotification:(NSNotification *) notification {
-    if ([[notification name] isEqualToString:@"tvAdapterNotificationClassReceived"]) {
+    if ([[notification name] isEqualToString:TVHAdapterStoreReloadNotification]) {
         NSDictionary *message = (NSDictionary*)[notification object];
         
         [self.adapters enumerateObjectsUsingBlock:^(TVHAdapter* obj, NSUInteger idx, BOOL *stop) {
@@ -138,7 +138,7 @@
     if ([self.delegate respondsToSelector:@selector(willLoadAdapters)]) {
         [self.delegate willLoadAdapters];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"willLoadAdapters"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAdapterStoreWillLoadNotification
                                                         object:self];
 }
 
@@ -146,7 +146,7 @@
     if ([self.delegate respondsToSelector:@selector(didLoadAdapters)]) {
         [self.delegate didLoadAdapters];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadAdapters"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAdapterStoreDidLoadNotification
                                                         object:self];
 }
 
@@ -154,7 +154,7 @@
     if ([self.delegate respondsToSelector:@selector(didErrorAdaptersStore:)]) {
         [self.delegate didErrorAdaptersStore:error];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didErrorAdaptersStore"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAdapterStoreDidErrorNotification
                                                         object:error];
 }
 
