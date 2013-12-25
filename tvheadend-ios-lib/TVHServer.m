@@ -294,7 +294,7 @@
             NSLog(@"[TVHServer getVersion]: %@", self.version);
 #endif
             [self.analytics setObjectValue:self.version forKey:@"version"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadTVHVersion"
+            [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadVersionNotification
                                                                 object:self];
         }
     }
@@ -324,7 +324,7 @@
         NSLog(@"[TVHServer capabilities]: %@", _capabilities);
 #endif
         [self.analytics setObjectValue:_capabilities forKey:@"server.capabilities"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadTVHCapabilities"
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadCapabilitiesNotification
                                                             object:self];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[TVHServer capabilities]: %@", error.localizedDescription);
@@ -356,7 +356,7 @@
         NSLog(@"[TVHServer configSettings]: %@", self.configSettings);
 #endif
         [self.analytics setObjectValue:self.configSettings forKey:@"server.configSettings"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadTVHConfigSettings"
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadConfigSettingsNotification
                                                             object:self];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[TVHServer capabilities]: %@", error.localizedDescription);

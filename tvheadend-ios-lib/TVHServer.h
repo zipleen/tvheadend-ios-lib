@@ -30,6 +30,10 @@
 #import "TVHModelAnalyticsProtocol.h"
 #import "TVHPlayStream.h"
 
+#define TVHDidLoadConfigSettingsNotification @"didLoadTVHConfigSettings"
+#define TVHDidLoadCapabilitiesNotification @"didLoadTVHCapabilities"
+#define TVHDidLoadVersionNotification @"didLoadTVHVersion"
+
 @interface TVHServer : NSObject
 @property (nonatomic, strong) TVHServerSettings *settings;
 @property (nonatomic, strong) TVHPlayStream *playStream;
