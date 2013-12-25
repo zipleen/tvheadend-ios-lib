@@ -77,7 +77,7 @@
 }
 
 - (TVHDvrItem*)createDvrItemFromDictionary:(NSDictionary*)obj ofType:(NSInteger)type {
-    TVHDvrItem *dvritem = [[TVHDvrItem alloc] init];
+    TVHDvrItem *dvritem = [[TVHDvrItem alloc] initWithTvhServer:self.tvhServer];
     [dvritem updateValuesFromDictionary:obj];
     [dvritem setDvrType:type];
     return dvritem;

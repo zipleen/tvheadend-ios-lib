@@ -17,6 +17,11 @@
 
 @implementation TVHDvrItem
 
+- (id)init
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:@"%@ Failed to call designated initializer. Invoke `initWithTvhServer:` instead.", NSStringFromClass([self class])] userInfo:nil];
+}
+
 - (id)initWithTvhServer:(TVHServer*)tvhServer {
     self = [super init];
     if (!self) return nil;
