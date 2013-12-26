@@ -36,7 +36,7 @@
     
     [httpClient postPath:@"tablemgr" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"didSuccessTableMgrAction"
+             postNotificationName:TVHDidSuccessedTableMgrActionNotification
              object:action];
                 
         NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];

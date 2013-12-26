@@ -13,6 +13,8 @@
 #import <Foundation/Foundation.h>
 #import "TVHJsonClient.h"
 
+#define TVHDidSuccessedTableMgrActionNotification @"didSuccessTableMgrAction"
+
 @interface TVHTableMgrActions : NSObject
 + (void)doTableMgrAction:(NSString*)action withJsonClient:(TVHJsonClient*)httpClient inTable:(NSString*)table withEntries:(id)entries;
 @end
