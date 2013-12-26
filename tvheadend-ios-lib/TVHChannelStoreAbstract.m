@@ -106,24 +106,25 @@
 
 - (void)fetchChannelList {
     __block NSDate *profilingDate = [NSDate date];
-    TVHChannelStoreAbstract __weak *weakSelf = self;
     [self signalWillLoadChannels];
     
+    __weak typeof (self) weakSelf = self;
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        typeof (self) strongSelf = weakSelf;
         NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:profilingDate];
-        [self.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
+        [strongSelf.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
                                    withValue:time
                                     withName:@"ChannelStore"
                                    withLabel:nil];
 #ifdef TESTING
         NSLog(@"[ChannelList Profiling Network]: %f", time);
 #endif
-        if ( [weakSelf fetchedData:responseObject] ) {
-            if ([weakSelf.delegate respondsToSelector:@selector(didLoadChannels)]) {
-                [weakSelf.delegate didLoadChannels];
+        if ( [strongSelf fetchedData:responseObject] ) {
+            if ([strongSelf.delegate respondsToSelector:@selector(didLoadChannels)]) {
+                [strongSelf.delegate didLoadChannels];
             }
-            [[weakSelf.tvhServer tagStore] signalDidLoadTags];
-            [weakSelf.currentlyPlayingEpgStore downloadEpgList];
+            [[strongSelf.tvhServer tagStore] signalDidLoadTags];
+            [strongSelf.currentlyPlayingEpgStore downloadEpgList];
         }
         
        // NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];

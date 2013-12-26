@@ -301,9 +301,11 @@
 }
 
 - (void)fetchServerVersion {
+    __weak typeof (self) weakSelf = self;
     [self.jsonClient getPath:@"extjs.html" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        typeof (self) strongSelf = weakSelf;
         NSString *response = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        [self handleFetchedServerVersion:response];
+        [strongSelf handleFetchedServerVersion:response];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[TVHServer getVersion]: %@", error.localizedDescription);
     }];
@@ -312,7 +314,9 @@
 #pragma mark fetch capabilities
 
 - (void)fetchCapabilities {
+    __weak typeof (self) weakSelf = self;
     [self.jsonClient getPath:@"capabilities" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        typeof (self) strongSelf = weakSelf;
         NSError *error;
         NSArray *json = [TVHJsonClient convertFromJsonToArray:responseObject error:&error];
         if( error ) {
@@ -323,9 +327,9 @@
 #ifdef TESTING
         NSLog(@"[TVHServer capabilities]: %@", _capabilities);
 #endif
-        [self.analytics setObjectValue:_capabilities forKey:@"server.capabilities"];
+        [strongSelf.analytics setObjectValue:_capabilities forKey:@"server.capabilities"];
         [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadCapabilitiesNotification
-                                                            object:self];
+                                                            object:weakSelf];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[TVHServer capabilities]: %@", error.localizedDescription);
     }];
@@ -333,7 +337,9 @@
 }
 
 - (void)fetchConfigSettings {
+    __weak typeof (self) weakSelf = self;
     [self.jsonClient getPath:@"config" parameters:@{@"op":@"loadSettings"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        typeof (self) strongSelf = weakSelf;
         NSError *error;
         NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseObject error:&error];
         
@@ -351,13 +357,13 @@
             }];
         }];
         
-        self.configSettings = [config copy];
+        strongSelf.configSettings = [config copy];
 #ifdef TESTING
         NSLog(@"[TVHServer configSettings]: %@", self.configSettings);
 #endif
-        [self.analytics setObjectValue:self.configSettings forKey:@"server.configSettings"];
+        [strongSelf.analytics setObjectValue:self.configSettings forKey:@"server.configSettings"];
         [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadConfigSettingsNotification
-                                                            object:self];
+                                                            object:weakSelf];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[TVHServer capabilities]: %@", error.localizedDescription);
     }];

@@ -103,11 +103,12 @@
 }
 
 - (void)fetchAdapters {
-    TVHAdaptersStoreAbstract __weak *weakSelf = self;
+    __weak typeof (self) weakSelf = self;
     
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if ( [weakSelf fetchedData:responseObject] ) {
-            [weakSelf signalDidLoadAdapters];
+        typeof (self) strongSelf = weakSelf;
+        if ( [strongSelf fetchedData:responseObject] ) {
+            [strongSelf signalDidLoadAdapters];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

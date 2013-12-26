@@ -91,20 +91,21 @@
 
 - (void)fetchTagList {
     [self signalWillLoadTags];
-    TVHTagStoreAbstract __weak *weakSelf = self;
     __block NSDate *profilingDate = [NSDate date];
     
+    __weak typeof (self) weakSelf = self;
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        typeof (self) strongSelf = weakSelf;
         NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:profilingDate];
-        [self.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
+        [strongSelf.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
                                    withValue:time
                                     withName:@"TagStore"
                                    withLabel:nil];
 #ifdef TESTING
         NSLog(@"[TagStore Profiling Network]: %f", time);
 #endif
-        if ( [weakSelf fetchedData:responseObject] ) {
-            [weakSelf signalDidLoadTags];
+        if ( [strongSelf fetchedData:responseObject] ) {
+            [strongSelf signalDidLoadTags];
         }
         
         //NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];

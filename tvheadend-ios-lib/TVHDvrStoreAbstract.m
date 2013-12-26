@@ -128,15 +128,16 @@
 - (void)fetchDvrItemsFromServer:(NSString*)url withType:(NSInteger)type start:(NSInteger)start limit:(NSInteger)limit {
     [self signalWillLoadDvr:type];
     __block NSDate *profilingDate = [NSDate date];
-    TVHDvrStoreAbstract __weak *weakSelf = self;
     
     self.filterPath = url;
     self.filterStart = start;
     self.filterLimit = limit;
     
+    __weak typeof (self) weakSelf = self;
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        typeof (self) strongSelf = weakSelf;
         NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:profilingDate];
-        [self.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
+        [strongSelf.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
                                    withValue:time
                                     withName:[NSString stringWithFormat:@"DvrStore-%d", (int)type]
                                    withLabel:nil];
@@ -144,9 +145,9 @@
         NSLog(@"[DvrStore Profiling Network]: %f", time);
 #endif
 
-        if ( [weakSelf fetchedData:responseObject withType:type] ) {
-            [weakSelf signalDidLoadDvr:type];
-            [weakSelf getMoreDvrItems:url withType:type start:start limit:limit];
+        if ( [strongSelf fetchedData:responseObject withType:type] ) {
+            [strongSelf signalDidLoadDvr:type];
+            [strongSelf getMoreDvrItems:url withType:type start:start limit:limit];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -183,29 +183,28 @@
 #ifdef TESTING
     NSLog(@"[%@ EPG Going to call (total event count:%d)]: %@", self.statsEpgName, (int)self.totalEventCount, self.apiParameters);
 #endif
-    TVHEpgStoreAbstract __weak *weakSelf = self;
-    
     __block NSDate *profilingDate = [NSDate date];
+    __weak typeof (self) weakSelf = self;
     [self.apiClient doApiCall:self
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        if( ! (weakSelf.filterStart == start && weakSelf.filterLimit == limit) ) {
+        typeof (self) strongSelf = weakSelf;
+        if( ! (strongSelf.filterStart == start && strongSelf.filterLimit == limit) ) {
 #ifdef TESTING
-            NSLog(@"[%@ Wrong EPG received - discarding request.", weakSelf.statsEpgName );
+            NSLog(@"[%@ Wrong EPG received - discarding request.", strongSelf.statsEpgName );
 #endif
             return ;
         }
         NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:profilingDate];
-        [self.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
+        [strongSelf.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
                                    withValue:time
                                     withName:weakSelf.statsEpgName
                                    withLabel:nil];
 #ifdef TESTING
         NSLog(@"[%@ Profiling Network]: %f", weakSelf.statsEpgName, time);
 #endif
-        if ( [weakSelf fetchedData:responseObject] ) {
-            [weakSelf signalDidLoadEpg];
-            [weakSelf getMoreEpg:start limit:limit fetchAll:fetchAll];
+        if ( [strongSelf fetchedData:responseObject] ) {
+            [strongSelf signalDidLoadEpg];
+            [strongSelf getMoreEpg:start limit:limit fetchAll:fetchAll];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

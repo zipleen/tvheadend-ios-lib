@@ -100,12 +100,13 @@
 
 
 - (void)fetchNetworks {
-    TVHNetworkStore40 __weak *weakSelf = self;
+    __weak typeof (self) weakSelf = self;
     
     [self signalWillLoadNetwork];
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if ( [weakSelf fetchedData:responseObject] ) {
-            [weakSelf signalDidLoadNetwork];
+        typeof (self) strongSelf = weakSelf;
+        if ( [strongSelf fetchedData:responseObject] ) {
+            [strongSelf signalDidLoadNetwork];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

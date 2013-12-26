@@ -91,19 +91,20 @@
 - (void)fetchDvrAutoRec {
     self.dvrAutoRecItems = nil;
     __block NSDate *profilingDate = [NSDate date];
-    TVHAutoRecStoreAbstract __weak *weakSelf = self;
     
+    __weak typeof (self) weakSelf = self;
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        typeof (self) strongSelf = weakSelf;
         NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:profilingDate];
-        [self.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
+        [strongSelf.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
                                    withValue:time
                                     withName:@"AutoRec"
                                    withLabel:nil];
 #ifdef TESTING
         NSLog(@"[AutoRec Profiling Network]: %f", time);
 #endif
-        [weakSelf fetchedData:responseObject];
-        [weakSelf signalDidLoadDvrAutoRec];
+        [strongSelf fetchedData:responseObject];
+        [strongSelf signalDidLoadDvrAutoRec];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [weakSelf signalDidErrorDvrAutoStore:error];

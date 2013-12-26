@@ -103,12 +103,13 @@
 }
 
 - (void)fetchStatusSubscriptions {
-    TVHStatusSubscriptionsStoreAbstract __weak *weakSelf = self;
+    __weak typeof (self) weakSelf = self;
     
     [self signalWillLoadStatusSubscriptions];
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if ( [weakSelf fetchedData:responseObject] ) {
-            [weakSelf signalDidLoadStatusSubscriptions];
+        typeof (self) strongSelf = weakSelf;
+        if ( [strongSelf fetchedData:responseObject] ) {
+            [strongSelf signalDidLoadStatusSubscriptions];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

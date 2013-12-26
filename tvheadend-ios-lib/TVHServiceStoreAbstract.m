@@ -53,11 +53,12 @@
 }
 
 - (void)fetchServices {
-    TVHServiceStoreAbstract __weak *weakSelf = self;
+    __weak typeof (self) weakSelf = self;
     
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if ( [weakSelf fetchedServiceData:responseObject] ) {
-            [weakSelf signalDidLoadServices];
+        typeof (self) strongSelf = weakSelf;
+        if ( [strongSelf fetchedServiceData:responseObject] ) {
+            [strongSelf signalDidLoadServices];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[TV Services HTTPClient Error]: %@", error.localizedDescription);

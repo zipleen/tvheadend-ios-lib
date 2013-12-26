@@ -112,15 +112,17 @@
                                                @{@"file": url}
                                            }
                                      };
+        __weak typeof (self) weakSelf = self;
         [httpClient postPath:@"/jsonrpc" parameters:httpParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            typeof (self) strongSelf = weakSelf;
             //NSLog(@"Did something with %@ and %@ : %@", serverUrl, url, [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
-            [self.tvhServer.analytics sendEventWithCategory:@"playTo"
+            [strongSelf.tvhServer.analytics sendEventWithCategory:@"playTo"
                                                  withAction:@"Xbmc"
                                                   withLabel:@"Success"
                                                   withValue:[NSNumber numberWithInt:1]];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             //NSLog(@"Failed to do something with %@ and %@", serverUrl, url);
-            [self.tvhServer.analytics sendEventWithCategory:@"playTo"
+            [weakSelf.tvhServer.analytics sendEventWithCategory:@"playTo"
                                                  withAction:@"Xbmc"
                                                   withLabel:@"Fail"
                                                   withValue:[NSNumber numberWithInt:1]];
