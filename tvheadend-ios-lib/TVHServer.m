@@ -30,6 +30,7 @@
 @property (nonatomic, strong) id <TVHCometPoll> cometStore;
 @property (nonatomic, strong) TVHConfigNameStore *configNameStore;
 @property (nonatomic, strong) id <TVHStatusInputStore> inputStore;
+@property (nonatomic, strong) id <TVHNetworkStore> networkStore;
 @property (nonatomic, strong) NSString *version;
 @property (nonatomic, strong) NSString *realVersion;
 @property (nonatomic, strong) NSArray *capabilities;
@@ -205,6 +206,14 @@
         _serviceStore = [[myClass alloc] initWithTvhServer:self];
     }
     return _serviceStore;
+}
+
+- (id <TVHNetworkStore>)networkStore {
+    if( ! _networkStore ) {
+        Class myClass = NSClassFromString([@"TVHNetworkStore" stringByAppendingString:self.version]);
+        _networkStore = [[myClass alloc] initWithTvhServer:self];
+    }
+    return _networkStore;
 }
 
 - (TVHLogStore*)logStore {

@@ -30,4 +30,15 @@
     }];
 }
 
+- (NSArray*)networkMuxes
+{
+    return nil;
+}
+
+- (NSArray*)networkServicesForMux:(TVHMux*)mux
+{
+    id <TVHServiceStore> serviceStore = [self.tvhServer serviceStore];
+    return [serviceStore servicesForMux:mux];
+}
+
 @end
