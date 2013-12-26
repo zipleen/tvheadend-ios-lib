@@ -374,6 +374,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA70719A186C9BC9002EB443 /* Hardware */ = {
+			isa = PBXGroup;
+			children = (
+				AABF3AEF185E590D00E62240 /* Adapters */,
+				AA72FD341868466C00EDCE05 /* Networks (4.0) */,
+				AABF3AFC185E590D00E62240 /* Mux */,
+				AABF3B09185E590D00E62240 /* Services */,
+			);
+			name = Hardware;
+			sourceTree = "<group>";
+		};
 		AA72FD341868466C00EDCE05 /* Networks (4.0) */ = {
 			isa = PBXGroup;
 			children = (
@@ -813,19 +824,13 @@
 			name = "Comet Polling";
 			sourceTree = "<group>";
 		};
-		AABF3B17185E590D00E62240 /* Comet Poll / Status */ = {
+		AABF3B17185E590D00E62240 /* Status */ = {
 			isa = PBXGroup;
 			children = (
 				AABF3AD7185E590D00E62240 /* Status Subscriptions */,
 				AABF3AE2185E590D00E62240 /* Status Inputs (4.0) */,
-				AABF3AEF185E590D00E62240 /* Adapters */,
-				AA72FD341868466C00EDCE05 /* Networks (4.0) */,
-				AABF3AFC185E590D00E62240 /* Mux */,
-				AABF3B09185E590D00E62240 /* Services */,
-				AABF3B0C185E590D00E62240 /* Logs */,
-				AABF3B16185E590D00E62240 /* Comet Polling */,
 			);
-			name = "Comet Poll / Status";
+			name = Status;
 			sourceTree = "<group>";
 		};
 		AABF3B1A185E590D00E62240 /* Misc */ = {
@@ -863,7 +868,10 @@
 				AABF3A80185E590D00E62240 /* SSH */,
 				AABF3AAA185E590D00E62240 /* Channels */,
 				AABF3ACA185E590D00E62240 /* DVR */,
-				AABF3B17185E590D00E62240 /* Comet Poll / Status */,
+				AABF3B17185E590D00E62240 /* Status */,
+				AA70719A186C9BC9002EB443 /* Hardware */,
+				AABF3B0C185E590D00E62240 /* Logs */,
+				AABF3B16185E590D00E62240 /* Comet Polling */,
 				AABF3B1A185E590D00E62240 /* Misc */,
 				AABF3B1C185E590D00E62240 /* Analytics */,
 				AABF3B22185E590D00E62240 /* PlayTo */,
