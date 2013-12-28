@@ -13,9 +13,7 @@
 #import "TVHServer.h"
 #import "TVHPlayXbmc.h"
 
-@interface TVHServer() {
-    BOOL inProcessing;
-}
+@interface TVHServer()
 @property (nonatomic, strong) TVHJsonClient *jsonClient;
 @property (nonatomic, strong) TVHApiClient *apiClient;
 @property (nonatomic, strong) id <TVHTagStore> tagStore;
@@ -35,7 +33,8 @@
 @property (nonatomic, strong) NSString *realVersion;
 @property (nonatomic, strong) NSArray *capabilities;
 @property (nonatomic, strong) NSDictionary *configSettings;
-@property (strong, nonatomic) NSTimer *timer;
+@property (nonatomic, strong) NSTimer *timer;
+@property (atomic) BOOL inProcessing;
 @end
 
 @implementation TVHServer 
@@ -57,13 +56,14 @@
 
 - (void)startTimer {
     self.timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(processTimerEvents) userInfo:nil repeats:YES];
+    [self.timer setTolerance:10];
 }
 
 - (void)processTimerEvents {
-    if ( ! inProcessing ) {
-        inProcessing = YES;
+    if ( ! self.inProcessing ) {
+        self.inProcessing = YES;
         [self.channelStore updateChannelsProgress];
-        inProcessing = NO;
+        self.inProcessing = NO;
     }
 }
 
@@ -75,7 +75,7 @@
         if ( ! settings ) {
             return nil;
         }
-        inProcessing = NO;
+        self.inProcessing = NO;
         [TVHPlayXbmc sharedInstance];
         self.settings = settings;
         self.version = settings.version;
@@ -111,6 +111,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.timer invalidate];
 }
 
 - (void)resetData {
