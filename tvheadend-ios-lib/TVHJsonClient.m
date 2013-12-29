@@ -97,6 +97,15 @@
     
     [[TVHNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
+    if ( self.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable ) {
+        _readyToUse = NO;
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didChangeNetworkReachability:)
+                                                 name:AFNetworkingReachabilityDidChangeNotification
+                                               object:nil];
+    
     return self;
 }
 
@@ -104,6 +113,20 @@
     [[self operationQueue] cancelAllOperations];
     [self stopPortForward];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)didChangeNetworkReachability:(NSNotification*)note {
+    NSNumber *status = [note.userInfo objectForKey:AFNetworkingReachabilityNotificationStatusItem];
+    NSLog(@"%@", status );
+    if ( [status integerValue] == AFNetworkReachabilityStatusNotReachable ) {
+        @synchronized(self) {
+            _readyToUse = NO;
+        }
+    } else {
+        @synchronized(self) {
+            _readyToUse = YES;
+        }
+    }
 }
 
 #pragma mark AFHTTPClient methods
@@ -114,6 +137,7 @@
         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
     if ( ! [self readyToUse] ) {
+        [self dispatchNotReadyError:failure];
         return;
     }
     return [super getPath:path parameters:parameters success:success failure:failure];
@@ -126,11 +150,21 @@
          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
     if ( ! [self readyToUse] ) {
+        [self dispatchNotReadyError:failure];
         return;
     }
     return [super postPath:path parameters:parameters success:success failure:failure];
 }
 
+- (void)dispatchNotReadyError:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    NSLog(@"TVHJsonClient: not ready or not reachable yet, aborting... ");
+    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey:[NSString stringWithFormat:NSLocalizedString(@"Server not reachable or not yet ready to connect.", nil)] };
+    NSError *error = [[NSError alloc] initWithDomain:@"Not ready" code:NSURLErrorBadServerResponse userInfo:userInfo];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        failure(nil, error);
+    });
+}
 
 #pragma mark JsonHelper
 
