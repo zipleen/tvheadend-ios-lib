@@ -56,7 +56,9 @@
 
 - (void)startTimer {
     self.timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(processTimerEvents) userInfo:nil repeats:YES];
-    [self.timer setTolerance:10];
+    if ([self.timer respondsToSelector:@selector(setTolerance:)]) {
+        [self.timer setTolerance:10];
+    }
 }
 
 - (void)processTimerEvents {

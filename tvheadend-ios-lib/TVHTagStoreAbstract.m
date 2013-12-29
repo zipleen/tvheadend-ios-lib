@@ -86,7 +86,7 @@
 }
 
 - (NSDictionary*)apiParameters {
-    return [NSDictionary dictionaryWithObjectsAndKeys:@"get", @"op", @"channeltags", @"table", nil];
+    return @{@"op":@"get", @"table":@"channeltags"};
 }
 
 - (void)fetchTagList {
