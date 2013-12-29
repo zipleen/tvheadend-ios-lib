@@ -91,7 +91,7 @@
 }
 
 - (NSString*)apiPath {
-    return @"api/mpegts/networks/grid";
+    return @"api/mpegts/network/grid";
 }
 
 - (NSDictionary*)apiParameters {

@@ -30,6 +30,10 @@
     }];
 }
 
+- (void)setValue:(id)value forUndefinedKey:(NSString*)key {
+    
+}
+
 - (NSArray*)networkMuxes
 {
     return nil;

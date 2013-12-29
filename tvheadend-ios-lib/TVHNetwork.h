@@ -13,6 +13,15 @@
 
 @interface TVHNetwork : NSObject
 @property (strong, nonatomic) NSString *uuid;
+@property (strong, nonatomic) NSString *networkname;
+@property (nonatomic) NSInteger autodiscovery;
+@property (strong, nonatomic) NSString *charset;
+@property (nonatomic) NSInteger nid;
+@property (nonatomic) NSInteger num_mux;
+@property (nonatomic) NSInteger num_svc;
+@property (nonatomic) NSInteger max_streams;
+@property (nonatomic) NSInteger scanq_length;
+@property (nonatomic) NSInteger skipinitscan;
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)updateValuesFromDictionary:(NSDictionary*)values;

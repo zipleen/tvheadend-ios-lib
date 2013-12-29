@@ -85,6 +85,7 @@
         [self.channelStore fetchChannelList];
         [self.statusStore fetchStatusSubscriptions];
         [self.adapterStore fetchAdapters];
+        [self.networkStore fetchNetworks];
         [self.inputStore fetchStatusInputs];
         [self.muxStore fetchMuxes];
         [self.serviceStore fetchServices];
