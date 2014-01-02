@@ -74,8 +74,8 @@
                         withUsername:settings.sshPortForwardUsername
                         withPassword:settings.sshPortForwardPassword
                          onLocalPort:[TVHS_SSH_PF_LOCAL_PORT intValue]
-                              toHost:settings.ip
-                        onRemotePort:[settings.port intValue]
+                              toHost:settings.sshHostTo
+                        onRemotePort:[settings.sshPortTo intValue]
          ];
         _readyToUse = NO;
     } else {

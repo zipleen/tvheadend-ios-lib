@@ -48,6 +48,8 @@
 @property (nonatomic, strong, readonly) NSString *sshPortForwardPort;
 @property (nonatomic, strong, readonly) NSString *sshPortForwardUsername;
 @property (nonatomic, strong, readonly) NSString *sshPortForwardPassword;
+@property (nonatomic, strong, readonly) NSString *sshHostTo;
+@property (nonatomic, strong, readonly) NSString *sshPortTo;
 @property (nonatomic, strong, readonly) NSString *version;
 
 // "system wide" settings

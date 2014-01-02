@@ -43,9 +43,6 @@
 		AABF3B72185E603300E62240 /* Log.oneChannelEpg in Resources */ = {isa = PBXBuildFile; fileRef = AABF3B5E185E603300E62240 /* Log.oneChannelEpg */; };
 		AABF3B73185E603300E62240 /* extjs.html in Resources */ = {isa = PBXBuildFile; fileRef = AABF3B5F185E603300E62240 /* extjs.html */; };
 		AABF3B7E185E603300E62240 /* TVHTestHelper.h in Resources */ = {isa = PBXBuildFile; fileRef = AABF3B6B185E603300E62240 /* TVHTestHelper.h */; };
-		AABF3B87185E610000E62240 /* libssh2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B84185E610000E62240 /* libssh2.a */; };
-		AABF3B88185E610000E62240 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B85185E610000E62240 /* libcrypto.a */; };
-		AABF3B89185E610000E62240 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B86185E610000E62240 /* libssl.a */; };
 		AABF3BBE185E6C5B00E62240 /* TVHJsonClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B24185E590D00E62240 /* TVHJsonClient.m */; };
 		AABF3BBF185E6C5E00E62240 /* TVHApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B26185E590D00E62240 /* TVHApiClient.m */; };
 		AABF3BC0185E6C6000E62240 /* TVHServer.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B28185E590D00E62240 /* TVHServer.m */; };
@@ -336,9 +333,6 @@
 		AABF3B6B185E603300E62240 /* TVHTestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHTestHelper.h; sourceTree = "<group>"; };
 		AABF3B6C185E603300E62240 /* TVHTestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHTestHelper.m; sourceTree = "<group>"; };
 		AABF3B6E185E603300E62240 /* TVHServerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHServerTests.m; sourceTree = "<group>"; };
-		AABF3B84185E610000E62240 /* libssh2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssh2.a; path = "vendor/libssh2-for-iOS/lib/libssh2.a"; sourceTree = "<group>"; };
-		AABF3B85185E610000E62240 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "vendor/libssh2-for-iOS/lib/libcrypto.a"; sourceTree = "<group>"; };
-		AABF3B86185E610000E62240 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "vendor/libssh2-for-iOS/lib/libssl.a"; sourceTree = "<group>"; };
 		AABF3C06185E6EB500E62240 /* NSArray+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Utils.h"; sourceTree = "<group>"; };
 		AABF3C07185E6EB500E62240 /* NSArray+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Utils.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -349,9 +343,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AABF3B5A185E5F7200E62240 /* SystemConfiguration.framework in Frameworks */,
-				AABF3B87185E610000E62240 /* libssh2.a in Frameworks */,
-				AABF3B88185E610000E62240 /* libcrypto.a in Frameworks */,
-				AABF3B89185E610000E62240 /* libssl.a in Frameworks */,
 				AABF3B58185E5F6600E62240 /* CFNetwork.framework in Frameworks */,
 				AABF3A50185E586700E62240 /* Foundation.framework in Frameworks */,
 			);
@@ -468,9 +459,6 @@
 				AAA89DE41861245200AE4C13 /* MobileCoreServices.framework */,
 				AAA89DE21861244C00AE4C13 /* libz.dylib */,
 				AAA89DDE18611ED300AE4C13 /* SenTestingKit.framework */,
-				AABF3B84185E610000E62240 /* libssh2.a */,
-				AABF3B85185E610000E62240 /* libcrypto.a */,
-				AABF3B86185E610000E62240 /* libssl.a */,
 				AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */,
 				AABF3B57185E5F6600E62240 /* CFNetwork.framework */,
 				AABF3A4F185E586700E62240 /* Foundation.framework */,

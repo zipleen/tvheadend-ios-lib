@@ -32,9 +32,11 @@
         _useHTTPS = [self useHttpsForSettings:settings];
         _webroot = [self webrootForSettings:settings];
         _sshPortForwardHost = [settings objectForKey:TVHS_SSH_PF_HOST];
-        _sshPortForwardPort = [settings objectForKey:TVHS_SSH_PF_LOCAL_PORT];
+        _sshPortForwardPort = [settings objectForKey:TVHS_SSH_PF_PORT];
         _sshPortForwardUsername = [settings objectForKey:TVHS_SSH_PF_USERNAME];
         _sshPortForwardPassword = [settings objectForKey:TVHS_SSH_PF_PASSWORD];
+        _sshHostTo = [settings objectForKey:TVHS_IP_KEY];
+        _sshPortTo = [settings objectForKey:TVHS_PORT_KEY];
         _version = [settings objectForKey:TVHS_SERVER_VERSION];
     }
     return self;

@@ -240,7 +240,6 @@ static int waitsocket(int socket_fd, LIBSSH2_SESSION *session)
         close(listensock);
     }
     
-    
     libssh2_session_set_blocking(session, 1);
     
     printf("Waiting for TCP connection on %s:%d...\n",
