@@ -73,6 +73,7 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     services = nil;
     foundServices = nil;
     netServiceBrowser = nil;
