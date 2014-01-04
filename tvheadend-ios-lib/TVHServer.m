@@ -42,16 +42,12 @@
 #pragma mark NSNotification
 
 - (void)appWillResignActive:(NSNotification*)note {
-    if ( self ) {
-        [self.timer invalidate];
-    }
+    [self.timer invalidate];
 }
 
 - (void)appWillEnterForeground:(NSNotification*)note {
-    if ( self ) {
-        [self processTimerEvents];
-        [self startTimer];
-    }
+    [self processTimerEvents];
+    [self startTimer];
 }
 
 - (void)startTimer {
@@ -135,7 +131,6 @@
     self.realVersion = nil;
     self.configSettings = nil;
     self.inputStore = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark Main Objects

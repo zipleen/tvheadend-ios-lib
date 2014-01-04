@@ -55,13 +55,13 @@
 
 - (void)appWillResignActive:(NSNotification*)note {
     timerActiveWhenSendingToBackground = timerStarted;
-    if ( timerStarted && self ) {
+    if ( timerStarted ) {
         [self stopRefreshingCometPoll];
     }
 }
 
 - (void)appWillEnterForeground:(NSNotification*)note {
-    if ( timerActiveWhenSendingToBackground && self ) {
+    if ( timerActiveWhenSendingToBackground ) {
         [self startRefreshingCometPoll];
     }
 }
