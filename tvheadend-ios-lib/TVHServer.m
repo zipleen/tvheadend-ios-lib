@@ -42,7 +42,7 @@
 #pragma mark NSNotification
 
 - (void)appWillResignActive:(NSNotification*)note {
-    [self.timer invalidate];
+    [self stopTimer];
 }
 
 - (void)appWillEnterForeground:(NSNotification*)note {
@@ -54,6 +54,14 @@
     self.timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(processTimerEvents) userInfo:nil repeats:YES];
     if ([self.timer respondsToSelector:@selector(setTolerance:)]) {
         [self.timer setTolerance:10];
+    }
+}
+
+- (void)stopTimer
+{
+    if ( self.timer ) {
+        [self.timer invalidate];
+        self.timer = nil;
     }
 }
 
