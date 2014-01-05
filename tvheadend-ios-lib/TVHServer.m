@@ -118,10 +118,10 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self resetData];
+    [self cancelAllOperations];
 }
 
-- (void)resetData {
+- (void)cancelAllOperations {
     if ( _jsonClient ) {
         [[self.jsonClient operationQueue] cancelAllOperations];
     }

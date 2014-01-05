@@ -61,7 +61,7 @@
 - (id <TVHEpgStore>)createEpgStoreWithName:(NSString*)statsName;
 - (void)fetchServerVersion;
 - (BOOL)isTranscodingCapable;
-- (void)resetData;
+- (void)cancelAllOperations;
 - (NSString*)htspUrl;
 - (NSString*)httpUrl;
 @end
