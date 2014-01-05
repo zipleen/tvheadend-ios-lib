@@ -118,12 +118,18 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self.timer invalidate];
+    [self resetData];
 }
 
 - (void)resetData {
-    [self.timer invalidate];
-    self.timer = nil;
+    if ( _jsonClient ) {
+        [[self.jsonClient operationQueue] cancelAllOperations];
+    }
+    [self stopTimer];
+    if ( _cometStore ) {
+        [self.cometStore stopRefreshingCometPoll];
+    }
+   
     
     self.jsonClient = nil;
     self.tagStore = nil;
