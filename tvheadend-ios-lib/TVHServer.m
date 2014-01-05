@@ -129,7 +129,6 @@
     if ( _cometStore ) {
         [self.cometStore stopRefreshingCometPoll];
     }
-   
     
     self.jsonClient = nil;
     self.tagStore = nil;
@@ -145,6 +144,10 @@
     self.realVersion = nil;
     self.configSettings = nil;
     self.inputStore = nil;
+    self.muxStore = nil;
+    self.serviceStore = nil;
+    self.logStore = nil;
+    self.networkStore = nil;
 }
 
 #pragma mark Main Objects
