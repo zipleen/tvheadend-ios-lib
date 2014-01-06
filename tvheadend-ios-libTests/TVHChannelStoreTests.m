@@ -48,7 +48,7 @@
     XCTAssertEqualObjects(channel.name, @"VH", @"tag name does not match");
     XCTAssertEqualObjects(channel.imageUrl, @"http:///vh.jpg", @"tag name does not match");
     XCTAssertEqual(channel.number, 143, @"channel number does not match");
-    XCTAssertEqual(channel.chid, 60, @"channel ID does not match");
+    XCTAssertEqual(channel.chid, (NSInteger)60, @"channel ID does not match");
     NSArray *tags = [[NSArray alloc] initWithObjects:@"8", @"53", nil];
     XCTAssertEqualObjects(channel.tags, tags, @"channel tags does not match");
     
@@ -56,7 +56,7 @@
     XCTAssertEqualObjects(channel.name, @"AXX", @"tag name does not match");
     XCTAssertEqualObjects(channel.imageUrl, @"http:///ajpg", @"tag name does not match");
     XCTAssertEqual(channel.number, 60, @"channel number does not match");
-    XCTAssertEqual(channel.chid, 15, @"channel ID does not match");
+    XCTAssertEqual(channel.chid, (NSInteger)15, @"channel ID does not match");
     
     channel = [store.channels objectAtIndex:2];
     XCTAssertEqualObjects(channel.name, @"AXX HD", @"tag name does not match");
@@ -64,7 +64,7 @@
     XCTAssertEqual(channel.number, 0, @"channel number does not match");
     tags = [[NSArray alloc] initWithObjects:@"16", @"19", @"8", nil];
     XCTAssertEqualObjects(channel.tags, tags, @"channel tags does not match");
-    XCTAssertEqual(channel.chid, 114, @"channel ID does not match");
+    XCTAssertEqual(channel.chid, (NSInteger)114, @"channel ID does not match");
 
 }
 

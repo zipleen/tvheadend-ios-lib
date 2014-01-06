@@ -41,15 +41,15 @@
     
     TVHTag *tag = [store.tags lastObject];
     XCTAssertEqualObjects(tag.name, @"Z", @"tag name does not match");
-    XCTAssertEqual(tag.id, 8, @"tag id doesnt match");
+    XCTAssertEqual(tag.id, (NSInteger)8, @"tag id doesnt match");
     
     tag = [store.tags objectAtIndex:0];
     XCTAssertEqualObjects(tag.name, @"All Channels", @"tag name does not match");
-    XCTAssertEqual(tag.id, 0, @"tag id doesnt match");
+    XCTAssertEqual(tag.id, (NSInteger)0, @"tag id doesnt match");
     
     tag = [store.tags objectAtIndex:2];
     XCTAssertEqualObjects(tag.name, @"Desenhos Animados", @"tag name does not match");
-    XCTAssertEqual(tag.id, 55, @"tag id doesnt match");
+    XCTAssertEqual(tag.id, (NSInteger)55, @"tag id doesnt match");
     XCTAssertEqualObjects(tag.icon, @"http://infantil.png", @"tag id doesnt match");
 
 }

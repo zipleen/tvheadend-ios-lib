@@ -96,7 +96,7 @@ static int waitsocket(int socket_fd, LIBSSH2_SESSION *session)
         error = [NSError errorWithDomain:@"de.felixschulze.sshwrapper" code:400 userInfo:@{NSLocalizedDescriptionKey:@"Failed to resolve DNS name"}];
         return false;
     }
-    unsigned long hostaddr = inet_addr(hostChar);
+    in_addr_t hostaddr = inet_addr(hostChar);
 
     sock = socket(AF_INET, SOCK_STREAM, 0);
     sock_serv_addr.sin_family = AF_INET;
@@ -123,7 +123,7 @@ static int waitsocket(int socket_fd, LIBSSH2_SESSION *session)
     while ((rc = libssh2_session_startup(session, sock)) ==
            LIBSSH2_ERROR_EAGAIN);
     if (rc) {
-        error = [NSError errorWithDomain:@"de.felixschulze.sshwrapper" code:402 userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failure establishing SSH session: %d", rc]}];
+        error = [NSError errorWithDomain:@"de.felixschulze.sshwrapper" code:402 userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failure establishing SSH session: %zd", rc]}];
         return false;
     }
 
@@ -167,7 +167,7 @@ static int waitsocket(int socket_fd, LIBSSH2_SESSION *session)
     for( ;; )
     {
         /* loop until we block */
-        int rc1;
+        ssize_t rc1;
         do
         {
             char buffer[0x2000];
@@ -276,7 +276,7 @@ static int waitsocket(int socket_fd, LIBSSH2_SESSION *session)
     /* Must use non-blocking IO hereafter due to the current libssh2 API */
     libssh2_session_set_blocking(session, 0);
     
-    int rc2, i;
+    ssize_t rc2, i;
     fd_set fds;
     struct timeval tv;
     ssize_t len, wr;
@@ -314,7 +314,7 @@ static int waitsocket(int socket_fd, LIBSSH2_SESSION *session)
             do {
                 i = libssh2_channel_write(channel, buf, len);
                 if (i < 0) {
-                    fprintf(stderr, "libssh2_channel_write: %d\n", i);
+                    fprintf(stderr, "libssh2_channel_write: %zd\n", i);
                     close(forwardsock);
                     close(listensock);
                     if (channel) libssh2_channel_free(channel);

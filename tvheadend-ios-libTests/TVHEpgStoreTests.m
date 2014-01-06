@@ -49,12 +49,12 @@
     
     TVHEpg *epg = [tvhe.epgStore objectAtIndex:0];
     XCTAssertEqualObjects(epg.title, @"Nacional x Benfica - Primeira Liga", @"epg title doesnt match");
-    XCTAssertEqual(epg.channelid, 131, @"epg channel id doesnt match");
+    XCTAssertEqual(epg.channelid, (NSInteger)131, @"epg channel id doesnt match");
     XCTAssertEqualObjects(epg.channel, @"Sport TV 1 Meo", @"channel name does not match" );
     XCTAssertEqualObjects(epg.chicon, @"https://dl.dropbox.com/u/a/TVLogos/sport_tv1_pt.jpg", @"channel name does not match" );
     XCTAssertFalse([epg.description isEqualToString:@""], @"description empty");
-    XCTAssertEqual(epg.id, 400297, @"epg id does not match" );
-    XCTAssertEqual(epg.duration, 8100, @"epg id does not match" );
+    XCTAssertEqual(epg.id, (NSInteger)400297, @"epg id does not match" );
+    XCTAssertEqual(epg.duration, (NSInteger)8100, @"epg id does not match" );
     XCTAssertEqualObjects(epg.start, [NSDate dateWithTimeIntervalSince1970:1360519200], @"start date does not match" );
     XCTAssertEqualObjects(epg.end, [NSDate dateWithTimeIntervalSince1970:1360527300], @"end date does not match" );
 }

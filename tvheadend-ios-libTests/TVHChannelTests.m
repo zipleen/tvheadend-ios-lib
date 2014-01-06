@@ -65,11 +65,11 @@
     
     [channel addEpg:epg];
     chepg = [channel.channelEpgDataByDay objectAtIndex:0];
-    XCTAssertTrue( ([chepg.programs count] == 1), @"programs == %d should be 1", [chepg.programs count]);
+    XCTAssertTrue( ([chepg.programs count] == 1), @"programs == %lu should be 1", (unsigned long)[chepg.programs count]);
 
     [channel addEpg:epg];
     chepg = [channel.channelEpgDataByDay objectAtIndex:0];
-    XCTAssertTrue( ([chepg.programs count] == 1), @"programs == %d should be 1", [chepg.programs count]);
+    XCTAssertTrue( ([chepg.programs count] == 1), @"programs == %lu should be 1", (unsigned long)[chepg.programs count]);
 }
 
 - (void)testDuplicateEpgFromFetchMorePrograms {
@@ -88,11 +88,11 @@
     
     [channel didLoadEpg];
     chepg = [channel.channelEpgDataByDay objectAtIndex:0];
-    XCTAssertTrue( ([chepg.programs count] == 4), @"programs == %d should be 4", [chepg.programs count]);
+    XCTAssertTrue( ([chepg.programs count] == 4), @"programs == %lu should be 4", (unsigned long)[chepg.programs count]);
     
     [channel didLoadEpg];
     chepg = [channel.channelEpgDataByDay objectAtIndex:0];
-    XCTAssertTrue( ([chepg.programs count] == 4), @"programs == %d should be 4", [chepg.programs count]);
+    XCTAssertTrue( ([chepg.programs count] == 4), @"programs == %lu should be 4", (unsigned long)[chepg.programs count]);
 }
 
 - (void)testRemovingLastEpgOfTheDay {
