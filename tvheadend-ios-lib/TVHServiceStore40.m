@@ -15,7 +15,7 @@
 @implementation TVHServiceStore40
 
 - (NSString*)apiMethod {
-    return nil;//@"GET";
+    return @"GET";
 }
 
 - (NSString*)apiPath {

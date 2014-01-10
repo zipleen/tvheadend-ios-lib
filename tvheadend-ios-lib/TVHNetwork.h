@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 zipleen. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "TVHMuxStore.h"
 
 @class TVHServer;
 @class TVHMux;
 
-@interface TVHNetwork : NSObject
+@interface TVHNetwork : NSObject <TVHMuxNetwork>
 @property (strong, nonatomic) NSString *uuid;
 @property (strong, nonatomic) NSString *networkname;
 @property (nonatomic) NSInteger autodiscovery;

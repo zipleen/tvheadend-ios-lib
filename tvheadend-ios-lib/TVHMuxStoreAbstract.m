@@ -113,6 +113,13 @@
     return [filteredArray sortedArrayUsingSelector:@selector(compareByFreq:)];
 }
 
+- (NSArray*)muxesForNetwork:(id <TVHMuxNetwork>)network {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"network == %@", [network identifierForNetwork]];
+    NSArray *filteredArray = [self.muxes filteredArrayUsingPredicate:predicate];
+    
+    return [filteredArray sortedArrayUsingSelector:@selector(compareByFreq:)];
+}
+
 - (void)signalDidLoadAdapterMuxes {
     
 }

@@ -69,7 +69,7 @@
     NSMutableArray *networks = [[NSMutableArray alloc] init];
     
     [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        TVHNetwork *network = [[TVHNetwork alloc] init];
+        TVHNetwork *network = [[TVHNetwork alloc] initWithTvhServer:self.tvhServer];
         [network updateValuesFromDictionary:obj];
         
         [networks addObject:network];

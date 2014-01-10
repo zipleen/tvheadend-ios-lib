@@ -20,5 +20,6 @@
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchMuxes;
 - (NSArray*)muxesFor:(id <TVHMuxNetwork>)network;
+- (NSArray*)muxesForNetwork:(id <TVHMuxNetwork>)network;
 - (void)signalDidLoadAdapterMuxes;
 @end

@@ -36,13 +36,18 @@
 
 - (NSArray*)networkMuxes
 {
-    return nil;
+    id <TVHMuxStore> muxStore = [self.tvhServer muxStore];
+    return [muxStore muxesForNetwork:self];
 }
 
 - (NSArray*)networkServicesForMux:(TVHMux*)mux
 {
     id <TVHServiceStore> serviceStore = [self.tvhServer serviceStore];
     return [serviceStore servicesForMux:mux];
+}
+
+- (NSString*)identifierForNetwork {
+    return self.networkname;
 }
 
 @end

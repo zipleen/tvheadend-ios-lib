@@ -109,7 +109,12 @@
 }
 
 - (NSArray*)servicesForMux:(TVHMux*)adapterMux {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"mux == %@ AND satconf == %@ AND network == %@", adapterMux.freq, adapterMux.satconf, adapterMux.network];
+    NSPredicate *predicate;
+    if ( adapterMux.frequency ) {
+        predicate = [NSPredicate predicateWithFormat:@"multiplex == %@ AND network == %@", adapterMux.name, adapterMux.network];
+    } else {
+        predicate = [NSPredicate predicateWithFormat:@"mux == %@ AND satconf == %@ AND network == %@", adapterMux.freq, adapterMux.satconf, adapterMux.network];
+    }
     NSArray *filteredArray = [self.services filteredArrayUsingPredicate:predicate];
     
     return [filteredArray sortedArrayUsingSelector:@selector(compareByName:)];

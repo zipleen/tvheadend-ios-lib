@@ -52,11 +52,19 @@
 }
 
 - (NSString*)streamURL {
-    return [NSString stringWithFormat:@"%@/stream/service/%@", self.tvhServer.httpUrl, self.id];
+    if ( self.uuid ) {
+        return [NSString stringWithFormat:@"%@/stream/service/%@", self.tvhServer.httpUrl, self.uuid];
+    } else {
+        return [NSString stringWithFormat:@"%@/stream/service/%@", self.tvhServer.httpUrl, self.id];
+    }
 }
 
 - (NSString*)playlistStreamURL {
-    return [NSString stringWithFormat:@"%@/playlist/stream/%@", self.tvhServer.httpUrl, self.id];
+    if ( self.uuid ) {
+        return [NSString stringWithFormat:@"%@/playlist/stream/%@", self.tvhServer.httpUrl, self.uuid];
+    } else {
+        return [NSString stringWithFormat:@"%@/playlist/stream/%@", self.tvhServer.httpUrl, self.id];
+    }
 }
 
 - (NSString*)htspStreamURL {
