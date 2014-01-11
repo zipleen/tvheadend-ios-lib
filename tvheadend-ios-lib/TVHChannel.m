@@ -124,7 +124,19 @@
 }
 
 - (NSString*)htspStreamURL {
+    if ( self.uuid ) {
+        uint8_t in_uuid[16];
+        memcpy(&in_uuid, [self.uuid cStringUsingEncoding:NSUTF8StringEncoding], 16);
+        return [NSString stringWithFormat:@"%@/tags/0/%u.ts", self.tvhServer.htspUrl, [self idnode_get_short_uuid:in_uuid]];
+    }
     return [NSString stringWithFormat:@"%@/tags/0/%@.ts", self.tvhServer.htspUrl, self.channelIdKey];
+}
+
+- (uint32_t)idnode_get_short_uuid:(const uint8_t*) in_uuid
+{
+    uint32_t u32;
+    memcpy(&u32, in_uuid, sizeof(u32));
+    return u32 & 0x7FFFFFFF; // compat needs to be +ve signed
 }
 
 - (NSString*)streamUrlWithTranscoding:(BOOL)transcoding withInternal:(BOOL)internal
