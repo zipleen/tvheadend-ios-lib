@@ -52,6 +52,7 @@
     item.tag = self.tag;
     item.weekdays = self.weekdays;
     item.genre = self.genre;
+    item.jsonClient = self.jsonClient;
     return item;
 }
 
@@ -106,5 +107,17 @@
     }
     [sendProperties setValue:[NSString stringWithFormat:@"%d", (int)self.id] forKey:@"id"];
     [TVHTableMgrActions doTableMgrAction:@"update" withJsonClient:self.jsonClient inTable:@"autorec" withEntries:sendProperties ];
+}
+
+- (TVHChannel*)channelObject
+{
+    TVHChannel *channel;
+    id <TVHChannelStore> channelStore = [self.tvhServer channelStore];
+    if ( [self.tvhServer.version integerValue] < 39 ) {
+        channel = [channelStore channelWithName:self.channel];
+    } else {
+        channel = [channelStore channelWithId:self.channel];
+    }
+    return channel;
 }
 @end

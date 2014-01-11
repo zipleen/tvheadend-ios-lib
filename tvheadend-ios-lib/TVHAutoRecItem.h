@@ -13,6 +13,7 @@
 #import <Foundation/Foundation.h>
 
 @class TVHServer;
+@class TVHChannel;
 
 @interface TVHAutoRecItem : NSObject
 @property (nonatomic, strong) NSString *channel;
@@ -37,4 +38,5 @@
 - (NSString*)stringFromAproxTime;
 + (NSString*)stringFromMinutes:(int)minutes;
 - (void)updateAutoRec;
+- (TVHChannel*)channelObject;
 @end
