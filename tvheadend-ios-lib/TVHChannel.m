@@ -125,18 +125,21 @@
 
 - (NSString*)htspStreamURL {
     if ( self.uuid ) {
-        uint8_t in_uuid[16];
-        memcpy(&in_uuid, [self.uuid cStringUsingEncoding:NSUTF8StringEncoding], 16);
-        return [NSString stringWithFormat:@"%@/tags/0/%u.ts", self.tvhServer.htspUrl, [self idnode_get_short_uuid:in_uuid]];
+        const char *szHexString = [self.uuid cStringUsingEncoding:NSUTF8StringEncoding];
+        unsigned char *pBinary = malloc(16);
+        size_t size = strlen( szHexString ) / 2, i;
+        char *p = &szHexString[0];
+        
+        for( i = 0; i < size; i++, p += 2 ){
+            sscanf( p, "%2hhx", &pBinary[i] );
+        }
+        
+        uint32_t u32;
+        memcpy(&u32, pBinary, sizeof(u32));
+        u32 = u32 & 0x7FFFFFFF;
+        return [NSString stringWithFormat:@"%@/tags/0/%u.ts", self.tvhServer.htspUrl, u32];
     }
     return [NSString stringWithFormat:@"%@/tags/0/%@.ts", self.tvhServer.htspUrl, self.channelIdKey];
-}
-
-- (uint32_t)idnode_get_short_uuid:(const uint8_t*) in_uuid
-{
-    uint32_t u32;
-    memcpy(&u32, in_uuid, sizeof(u32));
-    return u32 & 0x7FFFFFFF; // compat needs to be +ve signed
 }
 
 - (NSString*)streamUrlWithTranscoding:(BOOL)transcoding withInternal:(BOOL)internal
