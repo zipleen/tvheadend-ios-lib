@@ -15,7 +15,7 @@
 @implementation TVHDvrStore32
 
 - (TVHDvrItem*)createDvrItemFromDictionary:(NSDictionary*)obj ofType:(NSInteger)type {
-    TVHDvrItem *dvritem = [[TVHDvrItem alloc] init];
+    TVHDvrItem *dvritem = [[TVHDvrItem alloc] initWithTvhServer:self.tvhServer];
     [dvritem updateValuesFromDictionary:obj];
     
     // 3.2 does not have the status divided, we need to make it happen
