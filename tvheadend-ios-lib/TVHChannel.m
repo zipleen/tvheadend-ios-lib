@@ -68,11 +68,21 @@
 }
 
 - (NSString*)imageUrl {
-    // 4.0 uses icon
+    // 4.0 uses icon_public_url
+    if ( self.icon_public_url ) {
+        if ( [self.icon_public_url isEqualToString:self.icon] ) {
+            return self.icon;
+        } else {
+            return [NSString stringWithFormat:@"%@/%@", [self.tvhServer httpUrl], self.icon_public_url];
+        }
+    }
+    
+    // old 3.9 didn't have icon_public_url - this can be deleted in a few months
     if ( self.icon ) {
         return self.icon;
     }
     
+    // < 3.5 icon
     if ( self.chicon ) {
         if ( [self.chicon isEqualToString:self.ch_icon] ) {
             return self.chicon;
