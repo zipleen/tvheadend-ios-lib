@@ -59,6 +59,12 @@
     XCTAssertEqualObjects(epg.end, [NSDate dateWithTimeIntervalSince1970:1360527300], @"end date does not match" );
 }
 
-
+- (void)testConvertFromJsonToObject
+{
+    NSData *data = [TVHTestHelper loadFixture:@"Log.287.invalid"];
+    NSError __autoreleasing *error;
+    NSDictionary *dict = [TVHJsonClient convertFromJsonToObject:data error:&error];
+    
+}
 
 @end

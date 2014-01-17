@@ -186,7 +186,10 @@
                                                            error:error];
     
     if( *error ) {
+        NSLog(@"[JSON Error (2nd)] output - %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
+#ifdef TESTING
         NSLog(@"[JSON Error (2nd)]: %@ ", (*error).description);
+#endif
         return nil;
     }
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA336F7A1889B8F300FD2A03 /* Log.287.invalid in Resources */ = {isa = PBXBuildFile; fileRef = AA336F791889B8F300FD2A03 /* Log.287.invalid */; };
 		AA72FD38186847F800EDCE05 /* TVHNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = AA72FD37186847F800EDCE05 /* TVHNetwork.m */; };
 		AA72FD3B1868480C00EDCE05 /* TVHNetworkStore40.m in Sources */ = {isa = PBXBuildFile; fileRef = AA72FD3A1868480C00EDCE05 /* TVHNetworkStore40.m */; };
 		AA72FD3E1868482D00EDCE05 /* TVHNetworkStore32.m in Sources */ = {isa = PBXBuildFile; fileRef = AA72FD3D1868482D00EDCE05 /* TVHNetworkStore32.m */; };
@@ -138,6 +139,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AA336F791889B8F300FD2A03 /* Log.287.invalid */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Log.287.invalid; sourceTree = "<group>"; };
 		AA72FD36186847F800EDCE05 /* TVHNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHNetwork.h; sourceTree = "<group>"; };
 		AA72FD37186847F800EDCE05 /* TVHNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHNetwork.m; sourceTree = "<group>"; };
 		AA72FD391868480C00EDCE05 /* TVHNetworkStore40.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHNetworkStore40.h; sourceTree = "<group>"; };
@@ -933,6 +935,7 @@
 		AABF3B60185E603300E62240 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				AA336F791889B8F300FD2A03 /* Log.287.invalid */,
 				AABF3B5B185E603300E62240 /* Log.287 */,
 				AABF3B5C185E603300E62240 /* Log.tags */,
 				AABF3B5D185E603300E62240 /* Log.channels */,
@@ -1027,6 +1030,7 @@
 				AABF3B7E185E603300E62240 /* TVHTestHelper.h in Resources */,
 				AABF3B71185E603300E62240 /* Log.channels in Resources */,
 				AABF3B70185E603300E62240 /* Log.tags in Resources */,
+				AA336F7A1889B8F300FD2A03 /* Log.287.invalid in Resources */,
 				AABF3B6F185E603300E62240 /* Log.287 in Resources */,
 				AABF3A6A185E586700E62240 /* InfoPlist.strings in Resources */,
 			);
