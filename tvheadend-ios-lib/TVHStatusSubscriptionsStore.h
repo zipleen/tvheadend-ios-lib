@@ -35,7 +35,7 @@
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchStatusSubscriptions;
 
-- (TVHStatusSubscription *) objectAtIndex:(int) row;
+- (TVHStatusSubscription *)objectAtIndex:(NSUInteger)row;
 - (int)count;
 @end
 

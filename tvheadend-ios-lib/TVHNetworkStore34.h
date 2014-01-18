@@ -17,6 +17,6 @@
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchNetworks;
 
-- (TVHNetwork*)objectAtIndex:(int) row;
+- (TVHNetwork*)objectAtIndex:(NSUInteger) row;
 - (int)count;
 @end

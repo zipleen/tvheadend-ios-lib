@@ -113,7 +113,7 @@
     
 }
 
-- (TVHAutoRecItem *)objectAtIndex:(int)row {
+- (TVHAutoRecItem *)objectAtIndex:(NSUInteger)row {
     if ( row < [self.dvrAutoRecItems count] ) {
         return [self.dvrAutoRecItems objectAtIndex:row];
     }

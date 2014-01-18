@@ -138,7 +138,7 @@
         const char *szHexString = [self.uuid cStringUsingEncoding:NSUTF8StringEncoding];
         unsigned char *pBinary = malloc(16);
         size_t size = strlen( szHexString ) / 2, i;
-        char *p = &szHexString[0];
+        const char *p = &szHexString[0];
         
         for( i = 0; i < size; i++, p += 2 ){
             sscanf( p, "%2hhx", &pBinary[i] );

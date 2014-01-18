@@ -192,7 +192,7 @@
     }
 }
 
-- (TVHDvrItem *)objectAtIndex:(int)row forType:(NSInteger)type{
+- (TVHDvrItem *)objectAtIndex:(NSUInteger)row forType:(NSInteger)type{
     [self checkCachedDvrItemsForType:type];
     
     if ( row < [self.cachedDvrItems count] ) {

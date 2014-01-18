@@ -18,7 +18,7 @@
 {
 }
 
-- (TVHNetwork*)objectAtIndex:(int) row
+- (TVHNetwork*)objectAtIndex:(NSUInteger) row
 {
     return nil;
 }

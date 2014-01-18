@@ -118,7 +118,7 @@
     
 }
 
-- (TVHAdapter *)objectAtIndex:(int) row {
+- (TVHAdapter *)objectAtIndex:(NSUInteger) row {
     if ( row < [self.adapters count] ) {
         return [self.adapters objectAtIndex:row];
     }

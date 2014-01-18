@@ -33,7 +33,7 @@
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchStatusInputs;
 
-- (TVHStatusInput*)objectAtIndex:(int) row;
+- (TVHStatusInput*)objectAtIndex:(NSUInteger) row;
 - (int)count;
 @end
 

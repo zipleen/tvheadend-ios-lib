@@ -21,7 +21,7 @@
 - (void)fetchStatusInputs {
 }
 
-- (TVHStatusInput*)objectAtIndex:(int) row {
+- (TVHStatusInput*)objectAtIndex:(NSUInteger) row {
     return nil;
 }
 

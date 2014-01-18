@@ -114,7 +114,7 @@
     }];
 }
 
-- (TVHStatusInput *) objectAtIndex:(int) row {
+- (TVHStatusInput *)objectAtIndex:(NSUInteger) row {
     if ( row < [self.inputs count] ) {
         return [self.inputs objectAtIndex:row];
     }

@@ -22,6 +22,6 @@
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchDvrAutoRec;
 
-- (TVHAutoRecItem *)objectAtIndex:(int)row;
+- (TVHAutoRecItem *)objectAtIndex:(NSUInteger)row;
 - (int)count;
 @end

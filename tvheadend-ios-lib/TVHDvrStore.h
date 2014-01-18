@@ -40,6 +40,6 @@
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchDvr;
 
-- (TVHDvrItem *)objectAtIndex:(int)row forType:(NSInteger)type;
+- (TVHDvrItem *)objectAtIndex:(NSUInteger)row forType:(NSInteger)type;
 - (int)count:(NSInteger)type;
 @end

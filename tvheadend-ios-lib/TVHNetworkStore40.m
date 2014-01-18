@@ -115,7 +115,7 @@
     }];
 }
 
-- (TVHNetwork *) objectAtIndex:(int) row {
+- (TVHNetwork *)objectAtIndex:(NSUInteger) row {
     if ( row < [self.networks count] ) {
         return [self.networks objectAtIndex:row];
     }
