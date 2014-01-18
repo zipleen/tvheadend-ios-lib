@@ -136,18 +136,22 @@
 - (NSString*)htspStreamURL {
     if ( self.uuid ) {
         const char *szHexString = [self.uuid cStringUsingEncoding:NSUTF8StringEncoding];
-        unsigned char *pBinary = malloc(16);
-        size_t size = strlen( szHexString ) / 2, i;
-        const char *p = &szHexString[0];
-        
-        for( i = 0; i < size; i++, p += 2 ){
-            sscanf( p, "%2hhx", &pBinary[i] );
+        size_t size = strlen( szHexString ) / 2;
+        if ( size > 0 ) {
+            unsigned char *pBinary = calloc(size, 1);
+            const char *p = &szHexString[0];
+            
+            for( int i = 0; i < size; i++, p += 2 ){
+                sscanf( p, "%2hhx", &pBinary[i] );
+            }
+            
+            uint32_t u32;
+            memcpy(&u32, pBinary, sizeof(u32));
+            u32 = u32 & 0x7FFFFFFF;
+            return [NSString stringWithFormat:@"%@/tags/0/%u.ts", self.tvhServer.htspUrl, u32];
+        } else {
+            return nil;
         }
-        
-        uint32_t u32;
-        memcpy(&u32, pBinary, sizeof(u32));
-        u32 = u32 & 0x7FFFFFFF;
-        return [NSString stringWithFormat:@"%@/tags/0/%u.ts", self.tvhServer.htspUrl, u32];
     }
     return [NSString stringWithFormat:@"%@/tags/0/%@.ts", self.tvhServer.htspUrl, self.channelIdKey];
 }
