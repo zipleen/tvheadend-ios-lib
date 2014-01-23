@@ -95,7 +95,7 @@
         [self.serviceStore fetchServices];
         [self logStore];
         [self fetchServerVersion];
-        if ( [self.version isEqualToString:@"34"] ) {
+        if ( ! [self.version isEqualToString:@"32"] ) {
             [self fetchCapabilities];
         }
         [self.configNameStore fetchConfigNames];
