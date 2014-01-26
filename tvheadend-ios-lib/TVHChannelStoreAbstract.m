@@ -40,6 +40,7 @@
     if (!self) return nil;
     self.tvhServer = tvhServer;
     self.apiClient = [self.tvhServer apiClient];
+    self.filterTag = @"0";
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(fetchChannelList)
