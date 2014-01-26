@@ -280,7 +280,12 @@
         return nil;
     }
     
-    return [[self.channelEpgDataByDay objectAtIndex:day] copy];
+    if ( day < [self.channelEpgDataByDay count] ) {
+        return [[self.channelEpgDataByDay[day] programs] copy];
+    } else {
+        NSLog(@"TVHChannel - asked for invalid day (%ld)", (long)day);
+        return nil;
+    }
     //NSArray *ordered = [self.channelEpgDataByDay sortedArrayUsingSelector:@selector(compareByTime:)];
 }
 
