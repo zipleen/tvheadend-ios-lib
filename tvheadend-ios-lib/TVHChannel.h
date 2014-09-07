@@ -57,6 +57,7 @@
 - (void)addEpg:(TVHEpg*)epg;
 - (TVHEpg*)currentPlayingProgram;
 - (NSArray*)nextPrograms:(int)numberOfNextPrograms;
+- (NSString*)description;
 
 - (void)downloadRestOfEpg;
 - (void)resetChannelEpgStore;

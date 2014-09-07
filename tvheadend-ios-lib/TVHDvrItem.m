@@ -112,6 +112,16 @@
     return [self.tvhServer.playStream streamUrlForObject:self withTranscoding:transcoding withInternal:internal];
 }
 
+- (NSString*)name
+{
+    return self.fullTitle;
+}
+
+- (NSString*)imageUrl
+{
+    return [self.channelObject imageUrl];
+}
+
 - (BOOL)isEqual: (id)other {
     if (other == self)
         return YES;

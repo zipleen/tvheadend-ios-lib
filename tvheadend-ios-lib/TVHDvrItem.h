@@ -43,4 +43,6 @@
 - (TVHChannel*)channelObject;
 - (NSString*)streamURL;
 - (NSString*)playlistStreamURL;
+- (NSString*)name;
+- (NSString*)imageUrl;
 @end

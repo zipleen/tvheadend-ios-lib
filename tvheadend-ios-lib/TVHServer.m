@@ -12,6 +12,7 @@
 
 #import "TVHServer.h"
 #import "TVHPlayXbmc.h"
+#import "TVHPlayChromeCast.h"
 
 @interface TVHServer()
 @property (nonatomic, strong) TVHJsonClient *jsonClient;
@@ -83,6 +84,7 @@
         }
         self.inProcessing = NO;
         [TVHPlayXbmc sharedInstance];
+        [TVHPlayChromeCast sharedInstance];
         self.settings = settings;
         self.version = settings.version;
         [self.tagStore fetchTagList];

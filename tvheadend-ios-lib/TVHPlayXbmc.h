@@ -12,10 +12,10 @@
 
 #import <Foundation/Foundation.h>
 #import "TVHPlayStreamDelegate.h"
+#import "TVHModelAnalyticsProtocol.h"
 
 @interface TVHPlayXbmc : NSObject
 + (TVHPlayXbmc*)sharedInstance;
-- (NSArray*)availableXbmcServers;
-- (NSDictionary*)foundServices;
-- (NSString*)validUrlForObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding;
+- (NSArray*)availableServers;
+- (BOOL)playStream:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding withAnalytics:(id<TVHModelAnalyticsProtocol>)analytics;
 @end

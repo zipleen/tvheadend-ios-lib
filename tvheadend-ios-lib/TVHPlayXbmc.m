@@ -13,7 +13,6 @@
 #import "TVHPlayXbmc.h"
 #include <arpa/inet.h>
 #include "AFHTTPClient.h"
-#include "TVHPlayStream.h"
 
 #define SERVICE_TYPE @"_xbmc-jsonrpc-h._tcp"
 #define DOMAIN_NAME @"local"
@@ -77,6 +76,44 @@
     timer = nil;
 }
 
+# pragma mark - xbmc play action
+
+- (BOOL)playStream:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding withAnalytics:(id<TVHModelAnalyticsProtocol>)analytics {
+    
+    NSString *xbmcServerAddress = [self.foundServices objectForKey:xbmcName];
+    NSString *url = [self validUrlForObject:streamObject withTranscoding:transcoding];
+    if ( xbmcServerAddress && url ) {
+        NSURL *playXbmcUrl = [NSURL URLWithString:xbmcServerAddress];
+        AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:playXbmcUrl];
+        [httpClient setParameterEncoding:AFJSONParameterEncoding];
+        NSDictionary *httpParams = @{@"jsonrpc": @"2.0",
+                                     @"method": @"player.open",
+                                     @"params":
+                                         @{@"item" :
+                                               @{@"file": url}
+                                           }
+                                     };
+        __weak typeof (analytics) weakAnalytics = analytics;
+        [httpClient postPath:@"/jsonrpc" parameters:httpParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            typeof (weakAnalytics) strongAnalytics = weakAnalytics;
+            //NSLog(@"Did something with %@ and %@ : %@", serverUrl, url, [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+            [strongAnalytics sendEventWithCategory:@"playTo"
+                                                       withAction:@"Xbmc"
+                                                        withLabel:@"Success"
+                                                        withValue:[NSNumber numberWithInt:1]];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            //NSLog(@"Failed to do something with %@ and %@", serverUrl, url);
+            typeof (weakAnalytics) strongAnalytics = weakAnalytics;
+            [strongAnalytics sendEventWithCategory:@"playTo"
+                                                     withAction:@"Xbmc"
+                                                      withLabel:@"Fail"
+                                                      withValue:[NSNumber numberWithInt:1]];
+        }];
+        return true;
+    }
+    return false;
+}
+
 # pragma mark - xbmc results
 
 - (NSDictionary*)foundServices
@@ -97,7 +134,7 @@
     return url;
 }
 
-- (NSArray*)availableXbmcServers {
+- (NSArray*)availableServers {
     return [foundServices allKeys];
 }
 

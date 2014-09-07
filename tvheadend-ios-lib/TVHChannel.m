@@ -240,6 +240,15 @@
 
 }
 
+- (NSString*)description
+{
+    TVHEpg *current = self.currentPlayingProgram;
+    if (current) {
+        return current.description;
+    }
+    return nil;
+}
+
 - (NSComparisonResult)compareByName:(TVHChannel *)otherObject {
     return [self.name compare:otherObject.name];
 }

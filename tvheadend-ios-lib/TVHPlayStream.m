@@ -13,11 +13,16 @@
 #import "TVHPlayStream.h"
 #import "TVHServer.h"
 #import "TVHPlayXbmc.h"
+#import "TVHPlayChromeCast.h"
 
 #define TVH_PROGRAMS @{@"VLC":@"vlc", @"Oplayer":@"oplayer", @"Buzz Player":@"buzzplayer", @"GoodPlayer":@"goodplayer", @"Ace Player":@"aceplayer", @"nPlayer":@"nplayer-http" }
 #define TVH_PROGRAMS_REMOVE_HTTP @[ @"nplayer-http" ]
 #define TVHS_TVHEADEND_STREAM_URL_INTERNAL @"?transcode=1&resolution=%@&vcodec=H264&acodec=AAC&scodec=PASS&mux=mpegts"
 #define TVHS_TVHEADEND_STREAM_URL @"?transcode=1&resolution=%@&vcodec=H264&acodec=AAC&scodec=PASS"
+
+#define TVH_ICON_PROGRAM @""
+#define TVH_ICON_XBMC @"icon-xbmc.png"
+#define TVH_ICON_CHROMECAST @"icon-cast-identified.png"
 
 @interface TVHPlayStream()
 @property (nonatomic, weak) TVHServer *tvhServer;
@@ -42,13 +47,13 @@
 
 #pragma MARK get programs
 
-- (NSArray*)arrayOfAvailablePrograms {
-    NSMutableArray *available = [[NSMutableArray alloc] init];
+- (NSDictionary*)arrayOfAvailablePrograms:(BOOL)withTranscoding {
+    NSMutableDictionary *available = [[NSMutableDictionary alloc] init];
     for (NSString* key in TVH_PROGRAMS) {
         NSString *urlTarget = [TVH_PROGRAMS objectForKey:key];
         NSURL *url = [self urlForSchema:urlTarget withURL:nil];
         if( [[UIApplication sharedApplication] canOpenURL:url] ) {
-            [available addObject:key];
+            [available setObject:TVH_ICON_PROGRAM forKey:key];
         }
     }
     
@@ -57,12 +62,21 @@
     if( [customPrefix length] > 0 ) {
         NSURL *url = [self urlForSchema:customPrefix withURL:nil];
         if( [[UIApplication sharedApplication] canOpenURL:url] ) {
-            [available addObject:NSLocalizedString(@"Custom Player", nil)];
+            [available setObject:TVH_ICON_PROGRAM forKey:NSLocalizedString(@"Custom Player", nil)];
         }
     }
     
     // xbmc
-    [available addObjectsFromArray:[[TVHPlayXbmc sharedInstance] availableXbmcServers]];
+    for (NSString* xbmcServer in [[TVHPlayXbmc sharedInstance] availableServers]) {
+        [available setObject:TVH_ICON_XBMC forKey:xbmcServer];
+    }
+    
+    if ( withTranscoding ) {
+        // chromecast - can only cast with transcoding, no "mkv" or "mpeg2" support...
+        for (NSString* ccServer in [[TVHPlayChromeCast sharedInstance] availableServers]) {
+            [available setObject:TVH_ICON_CHROMECAST forKey:ccServer];
+        }
+    }
     
     return [available copy];
 }
@@ -79,7 +93,11 @@
         return true;
     }
     
-    return [self playToXbmc:program forObject:streamObject withTranscoding:transcoding];
+    if ( [self playToXbmc:program forObject:streamObject withTranscoding:transcoding] ) {
+        return true;
+    }
+    
+    return [self playToChromeCast:program forObject:streamObject withTranscoding:transcoding];
 }
 
 - (BOOL)playInternalStreamIn:(NSString*)program forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding {
@@ -98,39 +116,12 @@
 
 - (BOOL)playToXbmc:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding {
     TVHPlayXbmc *playXbmcService = [TVHPlayXbmc sharedInstance];
-    NSDictionary *foundServices = [playXbmcService foundServices];
-    
-    NSString *xbmcServerAddress = [foundServices objectForKey:xbmcName];
-    NSString *url = [playXbmcService validUrlForObject:streamObject withTranscoding:transcoding];
-    if ( xbmcServerAddress && url ) {
-        NSURL *playXbmcUrl = [NSURL URLWithString:xbmcServerAddress];
-        AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:playXbmcUrl];
-        [httpClient setParameterEncoding:AFJSONParameterEncoding];
-        NSDictionary *httpParams = @{@"jsonrpc": @"2.0",
-                                     @"method": @"player.open",
-                                     @"params":
-                                         @{@"item" :
-                                               @{@"file": url}
-                                           }
-                                     };
-        __weak typeof (self) weakSelf = self;
-        [httpClient postPath:@"/jsonrpc" parameters:httpParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            typeof (self) strongSelf = weakSelf;
-            //NSLog(@"Did something with %@ and %@ : %@", serverUrl, url, [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
-            [strongSelf.tvhServer.analytics sendEventWithCategory:@"playTo"
-                                                 withAction:@"Xbmc"
-                                                  withLabel:@"Success"
-                                                  withValue:[NSNumber numberWithInt:1]];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            //NSLog(@"Failed to do something with %@ and %@", serverUrl, url);
-            [weakSelf.tvhServer.analytics sendEventWithCategory:@"playTo"
-                                                 withAction:@"Xbmc"
-                                                  withLabel:@"Fail"
-                                                  withValue:[NSNumber numberWithInt:1]];
-        }];
-        return true;
-    }
-    return false;
+    return [playXbmcService playStream:xbmcName forObject:streamObject withTranscoding:transcoding withAnalytics:self.tvhServer.analytics];
+}
+
+- (BOOL)playToChromeCast:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding {
+    TVHPlayChromeCast *playChromeCastService = [TVHPlayChromeCast sharedInstance];
+    return [playChromeCastService playStream:xbmcName forObject:streamObject withTranscoding:transcoding withAnalytics:self.tvhServer.analytics];
 }
 
 - (NSString*)streamUrlForObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding withInternal:(BOOL)internal

@@ -17,4 +17,8 @@
 - (NSString*)playlistStreamURL;
 - (NSString*)htspStreamURL;
 - (NSString*)streamUrlWithTranscoding:(BOOL)transcoding withInternal:(BOOL)internal;
+
+- (NSString*)imageUrl;
+- (NSString*)name;
+- (NSString*)description;
 @end

@@ -19,7 +19,7 @@
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (NSString*)streamUrlForObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding withInternal:(BOOL)internal;
 
-- (NSArray*)arrayOfAvailablePrograms;
+- (NSDictionary*)arrayOfAvailablePrograms:(BOOL)withTranscoding;
 - (BOOL)isTranscodingCapable;
 - (BOOL)playStreamIn:(NSString*)program forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding;
 @end

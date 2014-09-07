@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA2C7E2919BCCE2F001EDC67 /* GoogleCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */; };
+		AA2C7E2A19BCCE52001EDC67 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA89DE21861244C00AE4C13 /* libz.dylib */; };
+		AA2C7E2D19BCCFCA001EDC67 /* TVHPlayChromeCast.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2C7E2C19BCCFCA001EDC67 /* TVHPlayChromeCast.m */; };
+		AA2C7E3319BCDAA1001EDC67 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; };
+		AA2C7E3519BCDAB3001EDC67 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; };
 		AA336F7A1889B8F300FD2A03 /* Log.287.invalid in Resources */ = {isa = PBXBuildFile; fileRef = AA336F791889B8F300FD2A03 /* Log.287.invalid */; };
 		AA72FD38186847F800EDCE05 /* TVHNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = AA72FD37186847F800EDCE05 /* TVHNetwork.m */; };
 		AA72FD3B1868480C00EDCE05 /* TVHNetworkStore40.m in Sources */ = {isa = PBXBuildFile; fileRef = AA72FD3A1868480C00EDCE05 /* TVHNetworkStore40.m */; };
@@ -139,6 +144,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleCast.framework; path = vendor/GoogleCast.framework; sourceTree = "<group>"; };
+		AA2C7E2B19BCCFCA001EDC67 /* TVHPlayChromeCast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHPlayChromeCast.h; sourceTree = "<group>"; };
+		AA2C7E2C19BCCFCA001EDC67 /* TVHPlayChromeCast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHPlayChromeCast.m; sourceTree = "<group>"; };
+		AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaAccessibility.framework; path = System/Library/Frameworks/MediaAccessibility.framework; sourceTree = SDKROOT; };
+		AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		AA336F791889B8F300FD2A03 /* Log.287.invalid */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Log.287.invalid; sourceTree = "<group>"; };
 		AA72FD36186847F800EDCE05 /* TVHNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHNetwork.h; sourceTree = "<group>"; };
 		AA72FD37186847F800EDCE05 /* TVHNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHNetwork.m; sourceTree = "<group>"; };
@@ -149,7 +159,6 @@
 		AA72FD3F1868483900EDCE05 /* TVHNetworkStore34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHNetworkStore34.h; sourceTree = "<group>"; };
 		AA72FD401868483900EDCE05 /* TVHNetworkStore34.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHNetworkStore34.m; sourceTree = "<group>"; };
 		AA72FD441868487000EDCE05 /* TVHNetworkStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHNetworkStore.h; sourceTree = "<group>"; };
-		AAA89DDE18611ED300AE4C13 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		AAA89DE21861244C00AE4C13 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		AAA89DE41861245200AE4C13 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		AABF3A4C185E586700E62240 /* libtvheadend-ios-lib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libtvheadend-ios-lib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -350,6 +359,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA2C7E3519BCDAB3001EDC67 /* CoreText.framework in Frameworks */,
+				AA2C7E3319BCDAA1001EDC67 /* MediaAccessibility.framework in Frameworks */,
+				AA2C7E2A19BCCE52001EDC67 /* libz.dylib in Frameworks */,
+				AA2C7E2919BCCE2F001EDC67 /* GoogleCast.framework in Frameworks */,
 				AAFF3FA9187A1A5900C85077 /* libssh2.a in Frameworks */,
 				AAFF3FAA187A1A5900C85077 /* libcrypto.a in Frameworks */,
 				AAFF3FAB187A1A5900C85077 /* libssl.a in Frameworks */,
@@ -467,12 +480,14 @@
 		AABF3A4E185E586700E62240 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */,
+				AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */,
+				AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */,
 				AAFF3FA6187A1A5900C85077 /* libssh2.a */,
 				AAFF3FA7187A1A5900C85077 /* libcrypto.a */,
 				AAFF3FA8187A1A5900C85077 /* libssl.a */,
 				AAA89DE41861245200AE4C13 /* MobileCoreServices.framework */,
 				AAA89DE21861244C00AE4C13 /* libz.dylib */,
-				AAA89DDE18611ED300AE4C13 /* SenTestingKit.framework */,
 				AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */,
 				AABF3B57185E5F6600E62240 /* CFNetwork.framework */,
 				AABF3A4F185E586700E62240 /* Foundation.framework */,
@@ -860,6 +875,8 @@
 				AABF3B1F185E590D00E62240 /* TVHPlayStream.m */,
 				AABF3B20185E590D00E62240 /* TVHPlayXbmc.h */,
 				AABF3B21185E590D00E62240 /* TVHPlayXbmc.m */,
+				AA2C7E2B19BCCFCA001EDC67 /* TVHPlayChromeCast.h */,
+				AA2C7E2C19BCCFCA001EDC67 /* TVHPlayChromeCast.m */,
 			);
 			name = PlayTo;
 			sourceTree = "<group>";
@@ -1114,6 +1131,7 @@
 				AABF3BF5185E6CF500E62240 /* TVHServiceStore34.m in Sources */,
 				AABF3BF6185E6CF500E62240 /* TVHServiceStore40.m in Sources */,
 				AABF3BC7185E6CA100E62240 /* TVHChannel.m in Sources */,
+				AA2C7E2D19BCCFCA001EDC67 /* TVHPlayChromeCast.m in Sources */,
 				AABF3BC4185E6CA100E62240 /* TVHChannelStore32.m in Sources */,
 				AABF3BD9185E6CC000E62240 /* TVHDvrStore32.m in Sources */,
 				AABF3BC1185E6C6200E62240 /* TVHServerSettings.m in Sources */,
@@ -1233,6 +1251,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/tvheadend_ios_lib.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/vendor",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1261,6 +1283,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/tvheadend_ios_lib.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/vendor",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
