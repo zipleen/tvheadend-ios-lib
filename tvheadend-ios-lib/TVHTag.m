@@ -69,6 +69,9 @@
 }
 
 - (NSString*)idKey {
+    if ( self.uuid ) {
+        return self.uuid;
+    }
     return [NSString stringWithFormat:@"%d", (int)self.id];
 }
 

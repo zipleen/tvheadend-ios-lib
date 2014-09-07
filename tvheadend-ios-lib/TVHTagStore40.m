@@ -14,4 +14,12 @@
 
 @implementation TVHTagStore40
 
+- (NSString*)apiPath {
+    return @"api/channeltag/grid";
+}
+
+- (NSDictionary*)apiParameters {
+    return @{@"op":@"list", @"limit":@"9999999999"};
+}
+
 @end

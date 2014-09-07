@@ -19,6 +19,11 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *comment;
 @property (nonatomic, strong) NSString *icon;
+
+// 4.0
+@property (nonatomic, strong) NSString *uuid;
+@property (nonatomic) BOOL enabled;
+
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (id)initWithAllChannels:(TVHServer*)tvhServer;
 - (NSString*)idKey;
