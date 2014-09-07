@@ -14,7 +14,8 @@
 #import "TVHServer.h"
 #import "TVHPlayXbmc.h"
 
-#define TVH_PROGRAMS @{@"VLC":@"vlc", @"Oplayer":@"oplayer", @"Buzz Player":@"buzzplayer", @"GoodPlayer":@"goodplayer", @"Ace Player":@"aceplayer" }
+#define TVH_PROGRAMS @{@"VLC":@"vlc", @"Oplayer":@"oplayer", @"Buzz Player":@"buzzplayer", @"GoodPlayer":@"goodplayer", @"Ace Player":@"aceplayer", @"nPlayer":@"nplayer-http" }
+#define TVH_PROGRAMS_REMOVE_HTTP @[ @"nplayer-http" ]
 #define TVHS_TVHEADEND_STREAM_URL_INTERNAL @"?transcode=1&resolution=%@&vcodec=H264&acodec=AAC&scodec=PASS&mux=mpegts"
 #define TVHS_TVHEADEND_STREAM_URL @"?transcode=1&resolution=%@&vcodec=H264&acodec=AAC&scodec=PASS"
 
@@ -179,6 +180,9 @@
 }
 
 - (NSURL*)urlForSchema:(NSString*)schema withURL:(NSString*)url {
+    if ( [TVH_PROGRAMS_REMOVE_HTTP indexOfObject:schema] != NSNotFound ) {
+        url = [url stringByReplacingOccurrencesOfString:@"http://" withString:@""];
+    }
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@", schema, url]];
 }
 
