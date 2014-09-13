@@ -35,6 +35,8 @@
 #define TVHDidLoadCapabilitiesNotification @"didLoadTVHCapabilities"
 #define TVHDidLoadVersionNotification @"didLoadTVHVersion"
 
+#define TVH_IMPORTANCE @{@"Important":@"0", @"High":@"1", @"Normal":@"2", @"Low":@"3", @"Unimportant":@"4", @"Not Set":@"-1",@"important":@"0", @"High":@"1", @"normal":@"2", @"low":@"3", @"unimportant":@"4" }
+
 @interface TVHServer : NSObject
 @property (nonatomic, strong) TVHServerSettings *settings;
 @property (nonatomic, strong) TVHPlayStream *playStream;
@@ -56,6 +58,7 @@
 - (id <TVHNetworkStore>)networkStore;
 - (NSString*)version;
 - (NSString*)realVersion;
+- (BOOL)isVersionFour;
 
 - (TVHServer*)initWithSettings:(TVHServerSettings*)settings;
 - (id <TVHEpgStore>)createEpgStoreWithName:(NSString*)statsName;

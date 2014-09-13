@@ -71,9 +71,11 @@
 
 - (void)addDvrItemToStore:(TVHDvrItem*)dvritem {
     // don't add duplicate items - need to search in the array!
-    if ( [self.dvrItems indexOfObject:dvritem] == NSNotFound ) {
-        self.dvrItems = [self.dvrItems arrayByAddingObject:dvritem];
+    if (![self.tvhServer isVersionFour] && [self.dvrItems indexOfObject:dvritem] != NSNotFound) {
+        return ;
     }
+    
+    self.dvrItems = [self.dvrItems arrayByAddingObject:dvritem];
 }
 
 - (TVHDvrItem*)createDvrItemFromDictionary:(NSDictionary*)obj ofType:(NSInteger)type {
@@ -81,6 +83,14 @@
     [dvritem updateValuesFromDictionary:obj];
     [dvritem setDvrType:type];
     return dvritem;
+}
+
+- (NSString*)jsonApiFieldEntries {
+    return @"entries";
+}
+
+- (NSString*)jsonApiFieldTotalCount {
+    return @"totalCount";
 }
 
 - (bool)fetchedData:(NSData *)responseData withType:(NSInteger)type {
@@ -91,8 +101,8 @@
         return false;
     }
     
-    NSArray *entries = [json objectForKey:@"entries"];
-    NSNumber *totalCount = [[NSNumber alloc] initWithInt:[[json objectForKey:@"totalCount"] intValue]];
+    NSArray *entries = [json objectForKey:self.jsonApiFieldEntries];
+    NSNumber *totalCount = [[NSNumber alloc] initWithInt:[[json objectForKey:self.jsonApiFieldTotalCount] intValue]];
     [self.totalEventCount replaceObjectAtIndex:type withObject:totalCount];
     
     [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

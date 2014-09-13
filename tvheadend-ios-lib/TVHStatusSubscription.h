@@ -28,4 +28,5 @@
 @property NSInteger out;
 
 - (void)updateValuesFromDictionary:(NSDictionary*) values;
+- (NSInteger)bandwidth;
 @end

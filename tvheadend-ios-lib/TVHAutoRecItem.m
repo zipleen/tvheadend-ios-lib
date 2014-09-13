@@ -12,6 +12,7 @@
 
 #import "TVHAutoRecItem.h"
 #import "TVHTableMgrActions.h"
+#import "TVHDvrActions.h"
 #import "TVHServer.h"
 
 @interface TVHAutoRecItem ()
@@ -20,6 +21,7 @@
 @end
 
 @implementation TVHAutoRecItem
+@synthesize pri = _pri;
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer {
     self = [super init];
@@ -53,6 +55,7 @@
     item.weekdays = self.weekdays;
     item.genre = self.genre;
     item.jsonClient = self.jsonClient;
+    item.uuid = self.uuid;
     return item;
 }
 
@@ -63,6 +66,25 @@
     if([weekdays isKindOfClass:[NSArray class]]) {
         _weekdays = weekdays;
     }
+}
+
+- (void)setPri:(id)pri
+{
+    if( [pri isKindOfClass:[NSString class]] ) {
+        _pri = pri;
+    }
+    
+    if( [pri isKindOfClass:[NSNumber class]] ) {
+        _pri = [TVH_IMPORTANCE objectForKey:[NSString stringWithFormat:@"%@", pri]];
+    }
+}
+
+- (NSString*)pri
+{
+    if (self.tvhServer.isVersionFour) {
+        return [TVH_IMPORTANCE valueForKey:_pri];
+    }
+    return _pri;
 }
 
 - (void)updateValue:(id)value forKey:(NSString*)key {
@@ -92,6 +114,9 @@
 }
 
 - (void)deleteAutoRec {
+    if ([self.tvhServer isVersionFour]) {
+        return [TVHDvrActions doIdnodeAction:@"delete" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
+    }
     // TODO: fix this self.id thing
     [TVHTableMgrActions doTableMgrAction:@"delete" withJsonClient:self.jsonClient inTable:@"autorec" withEntries:[NSString stringWithFormat:@"%d", (int)self.id] ];
 }
@@ -105,6 +130,13 @@
     for (NSString* key in self.updatedProperties) {
         [sendProperties setValue:[self valueForKey:key] forKey:key];
     }
+    
+    if ([self.tvhServer isVersionFour]) {
+        [sendProperties setValue:self.uuid forKey:@"uuid"];
+        
+        return [TVHDvrActions doIdnodeAction:@"save" withData:@{@"node":[TVHDvrActions jsonArrayString:@[sendProperties]]} withTvhServer:self.tvhServer];
+    }
+    
     [sendProperties setValue:[NSString stringWithFormat:@"%d", (int)self.id] forKey:@"id"];
     [TVHTableMgrActions doTableMgrAction:@"update" withJsonClient:self.jsonClient inTable:@"autorec" withEntries:sendProperties ];
 }

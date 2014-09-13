@@ -24,6 +24,16 @@
 @property float snr;
 @property NSInteger signal;
 
+// 4.0
+@property NSInteger signal_scale;
+@property NSInteger snr_scale;
+@property NSInteger te;
+@property NSInteger cc;
+@property NSInteger ec_bit;
+@property NSInteger tc_bit;
+@property NSInteger ec_block;
+@property NSInteger tc_block;
+
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)updateValuesFromDictionary:(NSDictionary*) values;
 

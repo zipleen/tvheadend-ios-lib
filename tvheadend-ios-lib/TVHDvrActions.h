@@ -12,10 +12,14 @@
 
 #import <Foundation/Foundation.h>
 @class TVHServer;
+@class TVHDvrItem;
 
 @interface TVHDvrActions : NSObject
 + (void)addRecording:(NSInteger)eventId withConfigName:(NSString*)configName withTvhServer:(TVHServer*)tvhServer;
 + (void)cancelRecording:(NSInteger)eventId withTvhServer:(TVHServer*)tvhServer;
 + (void)deleteRecording:(NSInteger)eventId withTvhServer:(TVHServer*)tvhServer;
 + (void)addAutoRecording:(NSInteger)eventId withConfigName:(NSString*)configName withTvhServer:(TVHServer*)tvhServer;
+
++ (void)doIdnodeAction:(NSString*)action withData:(NSDictionary*)params withTvhServer:(TVHServer*)tvhServer;
++ (NSString*)jsonArrayString:(NSDictionary*)params;
 @end

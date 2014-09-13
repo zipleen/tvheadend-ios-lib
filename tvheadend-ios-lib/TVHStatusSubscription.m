@@ -39,4 +39,12 @@
     
 }
 
+- (NSInteger)bandwidth
+{
+    if (self.in) {
+        return self.in;
+    }
+    return self.bw;
+}
+
 @end

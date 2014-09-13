@@ -31,6 +31,9 @@
 @property (nonatomic, strong) NSArray *weekdays; // mon 1, sun 7
 @property (nonatomic) NSInteger serieslink;
 @property (nonatomic, weak) TVHServer *tvhServer;
+
+@property (nonatomic, strong) NSString *uuid;
+
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)updateValue:(id)value forKey:(NSString*)key;
 - (void)updateValuesFromDictionary:(NSDictionary*) values;

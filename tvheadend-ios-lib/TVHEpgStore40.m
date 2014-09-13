@@ -25,7 +25,7 @@
 }
 
 - (NSString*)apiPath {
-    return @"api/epg/grid";
+    return @"api/epg/data/grid";
 }
 
 - (NSString*)apiMethod {

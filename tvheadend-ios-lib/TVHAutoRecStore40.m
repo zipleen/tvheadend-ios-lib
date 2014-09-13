@@ -10,4 +10,16 @@
 
 @implementation TVHAutoRecStore40
 
+- (NSString*)apiMethod {
+    return @"POST";
+}
+
+- (NSString*)apiPath {
+    return @"api/dvr/autorec/grid";
+}
+
+- (NSDictionary*)apiParameters {
+    return [NSDictionary dictionaryWithObjectsAndKeys:@"title", @"sort", @"ASC", @"dir", nil];
+}
+
 @end

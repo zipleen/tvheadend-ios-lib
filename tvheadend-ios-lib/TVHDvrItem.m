@@ -15,7 +15,9 @@
 #import "TVHChannelStore.h"
 #import "TVHServer.h"
 
+
 @implementation TVHDvrItem
+@synthesize pri = _pri;
 
 - (id)init
 {
@@ -43,6 +45,47 @@
     self.schedstate = nil;
     self.url = nil;
     self.episode = nil;
+}
+
+- (void)setTitle:(id)title
+{
+    if( [title isKindOfClass:[NSString class]] ) {
+        _title = title;
+    }
+    
+    if( [title isKindOfClass:[NSDictionary class]] ) {
+        _title = [title objectForKey:@"eng"];
+    }
+}
+
+- (void)setDescription:(id)description
+{
+    if( [description isKindOfClass:[NSString class]] ) {
+        _description = description;
+    }
+    
+    if( [description isKindOfClass:[NSDictionary class]] ) {
+        _description = [description objectForKey:@"eng"];
+    }
+}
+
+- (void)setPri:(id)pri
+{
+    if( [pri isKindOfClass:[NSString class]] ) {
+        _pri = pri;
+    }
+    
+    if( [pri isKindOfClass:[NSNumber class]] ) {
+        _pri = [TVH_IMPORTANCE objectForKey:[NSString stringWithFormat:@"%@", pri]];
+    }
+}
+
+- (NSString*)pri
+{
+    if (self.tvhServer.isVersionFour) {
+        return [TVH_IMPORTANCE valueForKey:_pri];
+    }
+    return _pri;
 }
 
 - (NSString*)fullTitle {
@@ -77,10 +120,14 @@
 }
 
 - (void)deleteRecording {
-    if ( [self.schedstate isEqualToString:@"scheduled"] || [self.schedstate isEqualToString:@"recording"] ) {
-        [TVHDvrActions cancelRecording:self.id withTvhServer:self.tvhServer];
+    if ([self.tvhServer isVersionFour]) {
+        [TVHDvrActions doIdnodeAction:@"delete" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
     } else {
-        [TVHDvrActions deleteRecording:self.id withTvhServer:self.tvhServer];
+        if ( [self.schedstate isEqualToString:@"scheduled"] || [self.schedstate isEqualToString:@"recording"] ) {
+            [TVHDvrActions cancelRecording:self.id withTvhServer:self.tvhServer];
+        } else {
+            [TVHDvrActions deleteRecording:self.id withTvhServer:self.tvhServer];
+        }
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:TVHWillRemoveEpgFromRecording
                                                         object:self];
@@ -88,7 +135,14 @@
 
 - (TVHChannel*)channelObject {
     id <TVHChannelStore> store = [self.tvhServer channelStore];
-    TVHChannel *channel = [store channelWithName:self.channel];
+    TVHChannel *channel ;
+    
+    if ([self.tvhServer isVersionFour]) {
+        channel = [store channelWithId:self.channel];
+    } else {
+        channel = [store channelWithName:self.channel];
+    }
+    
     return channel;
 }
 

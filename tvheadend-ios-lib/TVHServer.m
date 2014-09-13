@@ -295,6 +295,15 @@
     return @"34";
 }
 
+- (BOOL)isVersionFour
+{
+    int ver = [self.version intValue];
+    if (ver >= 40) {
+        return true;
+    }
+    return false;
+}
+
 - (TVHPlayStream*)playStream
 {
     if ( ! _playStream ) {

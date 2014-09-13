@@ -35,6 +35,9 @@
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic) NSInteger dvrType;
 @property (nonatomic, strong) NSString *episode;
+
+@property (nonatomic, strong) NSString *uuid;
+
 - (NSString*)fullTitle;
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
