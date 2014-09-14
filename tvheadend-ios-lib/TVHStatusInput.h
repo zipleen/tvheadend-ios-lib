@@ -15,24 +15,24 @@
 @interface TVHStatusInput : NSObject
 @property (strong, nonatomic) NSString *uuid;
 @property (strong, nonatomic) NSString *input;
-@property NSInteger ber;
+@property (nonatomic) NSInteger ber;  // ber = error_bit_count / total_bit_count
 @property NSInteger bps;
 @property (strong, nonatomic) NSString *stream;
 @property NSInteger subs;
-@property NSInteger unc;
+@property NSInteger unc; // uncorrected blocks
 @property NSInteger weight;
 @property float snr;
-@property NSInteger signal;
+@property (nonatomic) NSInteger signal;
 
 // 4.0
 @property NSInteger signal_scale;
 @property NSInteger snr_scale;
-@property NSInteger te;
-@property NSInteger cc;
-@property NSInteger ec_bit;
-@property NSInteger tc_bit;
-@property NSInteger ec_block;
-@property NSInteger tc_block;
+@property NSInteger te; // transport errors
+@property NSInteger cc; // continuity errors
+@property NSInteger ec_bit; // error_bit_count 
+@property NSInteger tc_bit; // total_bit_count
+@property NSInteger ec_block; // error_block_count
+@property NSInteger tc_block; // total_block_count // per = error_block_count / total_block_count
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)updateValuesFromDictionary:(NSDictionary*) values;
