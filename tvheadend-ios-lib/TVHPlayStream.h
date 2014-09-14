@@ -13,6 +13,11 @@
 #import <Foundation/Foundation.h>
 #import "TVHPlayStreamDelegate.h"
 
+#define TVHS_TRANSCODE_RESOLUTIONS @[@"288", @"384", @"480", @"576", @"720"]
+#define TVHS_TRANSCODE_VIDEO @[@"H264", @"VP8", @"MPEG2VIDEO", @"PASS", @"NONE"]
+#define TVHS_TRANSCODE_SOUND @[@"AAC", @"MP3", @"MPEG2AUDIO", @"AC3", @"MP4A", @"VORBIS", @"PASS", @"NONE"]
+#define TVHS_TRANSCODE_MUX @[@"mpegts", @"mp4", @"matroska", @"webm", @"NONE"]
+
 @class TVHServer;
 
 @interface TVHPlayStream : NSObject

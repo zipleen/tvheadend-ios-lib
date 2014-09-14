@@ -17,8 +17,8 @@
 
 #define TVH_PROGRAMS @{@"VLC":@"vlc", @"Oplayer":@"oplayer", @"Buzz Player":@"buzzplayer", @"GoodPlayer":@"goodplayer", @"Ace Player":@"aceplayer", @"nPlayer":@"nplayer-http" }
 #define TVH_PROGRAMS_REMOVE_HTTP @[ @"nplayer-http" ]
-#define TVHS_TVHEADEND_STREAM_URL_INTERNAL @"?transcode=1&resolution=%@&vcodec=H264&acodec=AAC&scodec=PASS&mux=mpegts"
-#define TVHS_TVHEADEND_STREAM_URL @"?transcode=1&resolution=%@&vcodec=H264&acodec=AAC&scodec=PASS"
+#define TVHS_TVHEADEND_STREAM_URL_INTERNAL @"?transcode=1&resolution=%@&vcodec=H264%@&scodec=PASS&mux=mpegts"
+#define TVHS_TVHEADEND_STREAM_URL @"?transcode=1&resolution=%@%@%@%@&scodec=PASS"
 
 #define TVH_ICON_PROGRAM @""
 #define TVH_ICON_XBMC @"icon-xbmc.png"
@@ -146,11 +146,27 @@
 
 
 - (NSString*)stringTranscodeUrl:(NSString*)url {
-    return [url stringByAppendingFormat:TVHS_TVHEADEND_STREAM_URL, self.tvhServer.settings.transcodeResolution];
+    NSString *video = @"";
+    NSString *sound = @"";
+    NSString *mux = @"";
+    if (![self.tvhServer.settings.transcodeVideo isEqualToString:@"NONE"]) {
+        video = [NSString stringWithFormat:@"&vcodec=%@", self.tvhServer.settings.transcodeVideo];
+    }
+    if (![self.tvhServer.settings.transcodeSound isEqualToString:@"NONE"]) {
+        sound = [NSString stringWithFormat:@"&acodec=%@", self.tvhServer.settings.transcodeSound];
+    }
+    if (![self.tvhServer.settings.transcodeMux isEqualToString:@"NONE"]) {
+        mux = [NSString stringWithFormat:@"&mux=%@", self.tvhServer.settings.transcodeMux];
+    }
+    return [url stringByAppendingFormat:TVHS_TVHEADEND_STREAM_URL, self.tvhServer.settings.transcodeResolution, video, sound, mux];
 }
 
 - (NSString*)stringTranscodeUrlInternalFormat:(NSString*)url {
-    return [url stringByAppendingFormat:TVHS_TVHEADEND_STREAM_URL_INTERNAL, self.tvhServer.settings.transcodeResolution];
+    NSString *sound = @"";
+    if (![self.tvhServer.settings.transcodeSound isEqualToString:@"NONE"]) {
+        sound = [NSString stringWithFormat:@"&acodec=%@", self.tvhServer.settings.transcodeSound];
+    }
+    return [url stringByAppendingFormat:TVHS_TVHEADEND_STREAM_URL_INTERNAL, self.tvhServer.settings.transcodeResolution, sound];
 }
 
 - (NSURL*)URLforProgramWithName:(NSString*)title forURL:(NSString*)streamUrl {
