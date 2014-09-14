@@ -19,6 +19,7 @@
 @end
 
 @implementation TVHEpg
+@synthesize description = _description;
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer {
     self = [self init];

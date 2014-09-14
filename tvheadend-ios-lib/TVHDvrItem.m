@@ -18,6 +18,7 @@
 
 @implementation TVHDvrItem
 @synthesize pri = _pri;
+@synthesize description = _description;
 
 - (id)init
 {
