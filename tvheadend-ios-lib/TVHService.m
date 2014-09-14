@@ -77,4 +77,14 @@
     return [self.tvhServer.playStream streamUrlForObject:self withTranscoding:transcoding withInternal:internal];
 }
 
+- (NSString*)imageUrl
+{
+    return [self.mappedChannel imageUrl];
+}
+
+- (NSString*)name
+{
+    return [self.mappedChannel name];
+}
+
 @end
