@@ -203,10 +203,12 @@ didConnectToCastApplication:(GCKApplicationMetadata *)applicationMetadata
     [metadata setString:[self.streamObject description]
                  forKey:kGCKMetadataKeySubtitle];
     
-    [metadata addImage:[[GCKImage alloc]
-                        initWithURL:[[NSURL alloc] initWithString:[self.streamObject imageUrl]]
-                        width:300
-                        height:300]];
+    if (![self.streamObject imageUrl]) {
+        [metadata addImage:[[GCKImage alloc]
+                            initWithURL:[[NSURL alloc] initWithString:[self.streamObject imageUrl]]
+                            width:300
+                            height:300]];
+    }
     
     //define Media information
     GCKMediaInformation *mediaInformation =

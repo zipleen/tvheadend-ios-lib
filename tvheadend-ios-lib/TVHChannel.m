@@ -244,7 +244,7 @@
 {
     TVHEpg *current = self.currentPlayingProgram;
     if (current) {
-        return current.description;
+        return [NSString stringWithFormat:@"%@ - %@", current.title, current.description];
     }
     return nil;
 }
