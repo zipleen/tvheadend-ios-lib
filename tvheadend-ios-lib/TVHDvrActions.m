@@ -146,9 +146,10 @@
     [TVHDvrActions doDvrAction:@"recordSeries" onUrl:url withId:eventId withIdName:idName withConfigName:configName withTvhServer:tvhServer];
 }
 
-+ (NSString*)jsonArrayString:(NSDictionary*)params
++ (NSString*)jsonArrayString:(id)params
 {
-    return [NSString stringWithUTF8String:[[NSJSONSerialization dataWithJSONObject:params options:(NSJSONWritingOptions)0 error:nil] bytes]];
+    NSData* json = [NSJSONSerialization dataWithJSONObject:params options:(NSJSONWritingOptions)0 error:nil];
+    return [[NSString alloc] initWithData:json encoding:NSStringEncodingConversionExternalRepresentation];
 }
 
 @end

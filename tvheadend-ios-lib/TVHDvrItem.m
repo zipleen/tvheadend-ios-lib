@@ -19,6 +19,7 @@
 @implementation TVHDvrItem
 @synthesize pri = _pri;
 @synthesize description = _description;
+@synthesize title = _title;
 
 - (id)init
 {
@@ -48,26 +49,34 @@
     self.episode = nil;
 }
 
-- (void)setTitle:(id)title
+- (NSString*)title
 {
-    if( [title isKindOfClass:[NSString class]] ) {
-        _title = title;
+    if (self.disp_title) {
+        return self.disp_title;
     }
+    
+    id title = _title;
     
     if( [title isKindOfClass:[NSDictionary class]] ) {
-        _title = [title objectForKey:@"eng"];
-    }
-}
-
-- (void)setDescription:(id)description
-{
-    if( [description isKindOfClass:[NSString class]] ) {
-        _description = description;
+        return [title objectForKey:0];
     }
     
-    if( [description isKindOfClass:[NSDictionary class]] ) {
-        _description = [description objectForKey:@"eng"];
+    return title;
+}
+
+- (NSString*)description
+{
+    if (self.disp_description) {
+        return self.disp_description;
     }
+    
+    id description = _description;
+    
+    if( [description isKindOfClass:[NSDictionary class]] ) {
+        return [description objectForKey:0];
+    }
+    
+    return description;
 }
 
 - (void)setPri:(id)pri

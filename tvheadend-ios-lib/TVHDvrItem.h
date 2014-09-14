@@ -37,6 +37,8 @@
 @property (nonatomic, strong) NSString *episode;
 
 @property (nonatomic, strong) NSString *uuid;
+@property (nonatomic, strong) NSString *disp_title;
+@property (nonatomic, strong) NSString *disp_description;
 
 - (NSString*)fullTitle;
 

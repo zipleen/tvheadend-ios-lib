@@ -21,5 +21,5 @@
 + (void)addAutoRecording:(NSInteger)eventId withConfigName:(NSString*)configName withTvhServer:(TVHServer*)tvhServer;
 
 + (void)doIdnodeAction:(NSString*)action withData:(NSDictionary*)params withTvhServer:(TVHServer*)tvhServer;
-+ (NSString*)jsonArrayString:(NSDictionary*)params;
++ (NSString*)jsonArrayString:(id)params;
 @end

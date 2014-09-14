@@ -133,8 +133,9 @@
     
     if ([self.tvhServer isVersionFour]) {
         [sendProperties setValue:self.uuid forKey:@"uuid"];
-        
-        return [TVHDvrActions doIdnodeAction:@"save" withData:@{@"node":[TVHDvrActions jsonArrayString:@[sendProperties]]} withTvhServer:self.tvhServer];
+        NSString *data = [TVHDvrActions jsonArrayString:@[sendProperties]];
+        NSAssert(data != nil, data);
+        return [TVHDvrActions doIdnodeAction:@"save" withData:@{@"node":data} withTvhServer:self.tvhServer];
     }
     
     [sendProperties setValue:[NSString stringWithFormat:@"%d", (int)self.id] forKey:@"id"];
