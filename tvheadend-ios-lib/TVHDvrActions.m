@@ -127,13 +127,7 @@
 }
 
 + (void)deleteRecording:(NSInteger)entryId withTvhServer:(TVHServer*)tvhServer {
-    NSString *url = @"dvr";
-    NSString *idName = @"eventId";
-    if ([tvhServer isVersionFour]) {
-        url = @"api/dvr/entry/delete_by_event";
-        idName = @"event_id";
-    }
-    [TVHDvrActions doDvrAction:@"deleteEntry" onUrl:url withId:entryId withIdName:idName withConfigName:nil withTvhServer:tvhServer];
+    [TVHDvrActions doDvrAction:@"deleteEntry" onUrl:@"dvr" withId:entryId withIdName:@"eventId" withConfigName:nil withTvhServer:tvhServer];
 }
 
 + (void)addAutoRecording:(NSInteger)eventId withConfigName:(NSString*)configName withTvhServer:(TVHServer*)tvhServer  {
