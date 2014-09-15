@@ -123,11 +123,11 @@
 }
 
 + (void)cancelRecording:(NSInteger)entryId withTvhServer:(TVHServer*)tvhServer {
-    [TVHDvrActions doDvrAction:@"cancelEntry" onUrl:@"dvr" withId:entryId withIdName:@"eventId" withConfigName:nil withTvhServer:tvhServer];
+    [TVHDvrActions doDvrAction:@"cancelEntry" onUrl:@"dvr" withId:entryId withIdName:@"entryId" withConfigName:nil withTvhServer:tvhServer];
 }
 
 + (void)deleteRecording:(NSInteger)entryId withTvhServer:(TVHServer*)tvhServer {
-    [TVHDvrActions doDvrAction:@"deleteEntry" onUrl:@"dvr" withId:entryId withIdName:@"eventId" withConfigName:nil withTvhServer:tvhServer];
+    [TVHDvrActions doDvrAction:@"deleteEntry" onUrl:@"dvr" withId:entryId withIdName:@"entryId" withConfigName:nil withTvhServer:tvhServer];
 }
 
 + (void)addAutoRecording:(NSInteger)eventId withConfigName:(NSString*)configName withTvhServer:(TVHServer*)tvhServer  {
