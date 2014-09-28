@@ -19,7 +19,7 @@
 }
 
 - (NSDictionary*)apiParameters {
-    return @{@"op":@"list", @"limit":@"9999999999"};
+    return @{@"start":@"0", @"limit":@"999999999", @"sort":@"number", @"dir":@"ASC"};
 }
 
 @end
