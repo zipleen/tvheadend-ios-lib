@@ -34,7 +34,7 @@
     
 }
 
-- (NSInteger)signal
+- (float)signal
 {
     if (self.signal_scale == 1)
         return (_signal / 65535) * 100;
@@ -45,7 +45,7 @@
     return 0;
 }
 
-- (NSInteger)ber
+- (float)ber
 {
     if (self.tc_bit == 0)
         return _ber; // fallback (driver/vendor dependent ber)
@@ -54,7 +54,7 @@
     return self.ec_bit / self.tc_bit;
 }
 
-- (NSInteger)per
+- (float)per
 {
     if (_tc_block == 0) {
         return 0;
