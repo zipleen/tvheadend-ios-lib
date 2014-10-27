@@ -42,11 +42,14 @@
 @property (nonatomic, strong) NSString *channelUuid;
 @property (nonatomic, strong) NSString *summary;
 @property (nonatomic, strong) NSString *image;
-@property (nonatomic, strong) NSString *eventId;
+@property (nonatomic) NSInteger eventId;
 @property (nonatomic, strong) NSString *episodeId;
 @property (nonatomic, strong) NSString *episodeUri;
 @property (nonatomic, strong) NSString *serieslinkId;
 @property (nonatomic, strong) NSString *serieslinkUri;
+@property (nonatomic, strong) NSString *channelName;
+@property (nonatomic, strong) NSString *channelNumber;
+@property (nonatomic, strong) NSString *channelIcon;
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)updateValuesFromDictionary:(NSDictionary*) values;

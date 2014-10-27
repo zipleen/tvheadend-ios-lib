@@ -104,6 +104,10 @@
 }
 
 - (NSString*)chicon {
+    if (_channelIcon) {
+        return _channelIcon;
+    }
+    
     if (_chicon) {
         return _chicon;
     }
@@ -181,7 +185,11 @@
 }
 
 - (void)addRecording {
-    [TVHDvrActions addRecording:self.id withConfigName:nil withTvhServer:self.tvhServer];
+    NSInteger idnum = self.id;
+    if ([self.tvhServer isVersionFour]) {
+        idnum = self.eventId;
+    }
+    [TVHDvrActions addRecording:idnum withConfigName:nil withTvhServer:self.tvhServer];
 }
 
 - (BOOL)isEqual: (id)other {
@@ -190,8 +198,16 @@
     if (!other || ![other isKindOfClass:[self class]])
         return NO;
     TVHEpg *otherCast = other;
-    if (self.id == otherCast.id)
+    if (self.id == 0) {
+        if (self.eventId == otherCast.eventId) {
+            return YES;
+        }
+        return NO;
+    }
+    
+    if (self.id == otherCast.id) {
         return YES;
+    }
     return NO;
 }
 

@@ -36,4 +36,5 @@
 - (void)setDelegate:(id <TVHEpgStoreDelegate>)delegate;
 - (void)removeOldProgramsFromStore;
 - (BOOL)isLastEpgFromThePast;
+- (void)setFilterToChannel:(TVHChannel *)filterToChannel;
 @end

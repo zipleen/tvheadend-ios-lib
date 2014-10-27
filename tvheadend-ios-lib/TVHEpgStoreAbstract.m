@@ -275,9 +275,9 @@
     }
 }
 
-- (void)setFilterToChannelName:(NSString *)filterToChannelName {
-    if ( ! [filterToChannelName isEqualToString:_filterToChannelName] ) {
-        _filterToChannelName = filterToChannelName;
+- (void)setFilterToChannel:(TVHChannel *)filterToChannel {
+    if ( ! [filterToChannel.name isEqualToString:_filterToChannelName] ) {
+        _filterToChannelName = filterToChannel.name;
         self.epgStore = nil;
     }
 }

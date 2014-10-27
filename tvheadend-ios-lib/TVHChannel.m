@@ -40,7 +40,7 @@
     if ( ! _restOfEpgStore ) {
         _restOfEpgStore = [self.tvhServer createEpgStoreWithName:@"ChannelEPG"];
         [_restOfEpgStore setDelegate:self];
-        [_restOfEpgStore setFilterToChannelName:self.name];
+        [_restOfEpgStore setFilterToChannel:self];
     }
     return _restOfEpgStore;
 }

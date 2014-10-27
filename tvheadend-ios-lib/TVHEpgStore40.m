@@ -21,27 +21,21 @@
 @synthesize filterToChannelName = _filterToChannelName;
 
 - (NSString*)jsonApiFieldEntries {
-    return @"events";
+    return @"entries";
 }
 
 - (NSString*)apiPath {
-    return @"api/epg/data/grid";
+    return @"api/epg/events/grid";
 }
 
 - (NSString*)apiMethod {
     return @"GET";
 }
 
-- (void)setFilterToChannelName:(NSString *)filterToChannelName {
-    id <TVHChannelStore> store = [self.tvhServer channelStore];
-    TVHChannel *channel = [store channelWithName:filterToChannelName];
-    
-    if ( channel ) {
-        filterToChannelName = channel.channelIdKey;
-        if ( ! [filterToChannelName isEqualToString:_filterToChannelName] ) {
-            _filterToChannelName = filterToChannelName;
-            self.epgStore = nil;
-        }
+- (void)setFilterToChannel:(TVHChannel *)filterToChannel {
+    if ( ! [filterToChannel.channelIdKey isEqualToString:_filterToChannelName] ) {
+        _filterToChannelName = filterToChannel.channelIdKey;
+        self.epgStore = nil;
     }
 }
 

@@ -12,6 +12,11 @@
 
 #import "TVHChannelStore40.h"
 
+@interface TVHChannelStore40(MyPrivate)
+@property (nonatomic, strong) id <TVHEpgStore> currentlyPlayingEpgStore;
+- (void)signalDidLoadChannels;
+@end
+
 @implementation TVHChannelStore40
 
 - (NSString*)apiPath {
@@ -20,6 +25,18 @@
 
 - (NSDictionary*)apiParameters {
     return @{@"start":@"0", @"limit":@"999999999", @"sort":@"number", @"dir":@"ASC"};
+}
+
+- (void)didLoadEpg {
+    // for each epg
+    NSArray *list = [self.currentlyPlayingEpgStore epgStoreItems];
+    for (TVHEpg *epg in list) {
+        TVHChannel *channel = [self channelWithId:epg.channelUuid];
+        [channel addEpg:epg];
+    }
+    // instead of having this delegate here, channel could send a notification and channel controller
+    // could catch it and reload only that line if data was different ?
+    [self signalDidLoadChannels];
 }
 
 @end
