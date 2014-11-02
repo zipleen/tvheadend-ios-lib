@@ -30,8 +30,9 @@
 @property (nonatomic, strong) TVHConfigNameStore *configNameStore;
 @property (nonatomic, strong) id <TVHStatusInputStore> inputStore;
 @property (nonatomic, strong) id <TVHNetworkStore> networkStore;
-@property (nonatomic, strong) NSString *version;
-@property (nonatomic, strong) NSString *realVersion;
+@property (nonatomic, strong) NSString *version;     // version like 32, 34, 40 - legacy only!
+@property (nonatomic, strong) NSString *realVersion; // real version number, unmodified
+@property (nonatomic, strong) NSNumber *apiVersion;
 @property (nonatomic, strong) NSArray *capabilities;
 @property (nonatomic, strong) NSDictionary *configSettings;
 @property (nonatomic, strong) NSTimer *timer;
@@ -154,82 +155,78 @@
 
 #pragma mark Main Objects
 
+- (id)factory:(NSString*)className
+{
+    Class myClass = NSClassFromString([className stringByAppendingString:self.version]);
+    return [[myClass alloc] initWithTvhServer:self];
+}
+
 - (id <TVHTagStore>)tagStore {
     if( ! _tagStore ) {
-        Class myClass = NSClassFromString([@"TVHTagStore" stringByAppendingString:self.version]);
-        _tagStore = [[myClass alloc] initWithTvhServer:self];
+        _tagStore = [self factory:@"TVHTagStore"];
     }
     return _tagStore;
 }
 
 - (id <TVHChannelStore>)channelStore {
     if( ! _channelStore ) {
-        Class myClass = NSClassFromString([@"TVHChannelStore" stringByAppendingString:self.version]);
-        _channelStore = [[myClass alloc] initWithTvhServer:self];
+        _channelStore = [self factory:@"TVHChannelStore"];
     }
     return _channelStore;
 }
 
 - (id <TVHDvrStore>)dvrStore {
     if( ! _dvrStore ) {
-        Class myClass = NSClassFromString([@"TVHDvrStore" stringByAppendingString:self.version]);
-        _dvrStore = [[myClass alloc] initWithTvhServer:self];
+        _dvrStore = [self factory:@"TVHDvrStore"];
     }
     return _dvrStore;
 }
 
 - (id <TVHAutoRecStore>)autorecStore {
     if( ! _autorecStore ) {
-        Class myClass = NSClassFromString([@"TVHAutoRecStore" stringByAppendingString:self.version]);
-        _autorecStore = [[myClass alloc] initWithTvhServer:self];
+        _autorecStore = [self factory:@"TVHAutoRecStore"];
     }
     return _autorecStore;
 }
 
 - (id <TVHStatusSubscriptionsStore>)statusStore {
     if( ! _statusStore ) {
-        Class myClass = NSClassFromString([@"TVHStatusSubscriptionsStore" stringByAppendingString:self.version]);
-        _statusStore = [[myClass alloc] initWithTvhServer:self];
+        _statusStore = [self factory:@"TVHStatusSubscriptionsStore"];
     }
     return _statusStore;
 }
 
 - (id <TVHAdaptersStore>)adapterStore {
     if( ! _adapterStore ) {
-        Class myClass = NSClassFromString([@"TVHAdaptersStore" stringByAppendingString:self.version]);
-        _adapterStore = [[myClass alloc] initWithTvhServer:self];
+        _adapterStore = [self factory:@"TVHAdaptersStore"];
     }
     return _adapterStore;
 }
 
 - (id <TVHStatusInputStore>)inputStore {
     if( ! _inputStore ) {
-        Class myClass = NSClassFromString([@"TVHStatusInputStore" stringByAppendingString:self.version]);
-        _inputStore = [[myClass alloc] initWithTvhServer:self];
+        _inputStore = [self factory:@"TVHStatusInputStore"];
     }
     return _inputStore;
 }
 
 - (id <TVHMuxStore>)muxStore {
     if( ! _muxStore ) {
-        Class myClass = NSClassFromString([@"TVHMuxStore" stringByAppendingString:self.version]);
-        _muxStore = [[myClass alloc] initWithTvhServer:self];
+        _muxStore = [self factory:@"TVHMuxStore"];
     }
     return _muxStore;
 }
 
 - (id <TVHServiceStore>)serviceStore {
     if( ! _serviceStore ) {
-        Class myClass = NSClassFromString([@"TVHServiceStore" stringByAppendingString:self.version]);
-        _serviceStore = [[myClass alloc] initWithTvhServer:self];
+        _serviceStore = [self factory:@"TVHServiceStore"];
     }
     return _serviceStore;
 }
 
 - (id <TVHNetworkStore>)networkStore {
     if( ! _networkStore ) {
-        Class myClass = NSClassFromString([@"TVHNetworkStore" stringByAppendingString:self.version]);
-        _networkStore = [[myClass alloc] initWithTvhServer:self];
+        _networkStore = [self factory:@"TVHNetworkStore"];
     }
     return _networkStore;
 }
@@ -243,8 +240,7 @@
 
 - (id <TVHCometPoll>)cometStore {
     if( ! _cometStore ) {
-        Class myClass = NSClassFromString([@"TVHCometPoll" stringByAppendingString:self.version]);
-        _cometStore = [[myClass alloc] initWithTvhServer:self];
+        _cometStore = [self factory:@"TVHCometPoll"];
         if ( self.settings.autoStartPolling ) {
             [_cometStore startRefreshingCometPoll];
         }
@@ -314,37 +310,67 @@
 
 #pragma mark fetch version
 
-- (void)handleFetchedServerVersion:(NSString*)response {
+- (void)fetchServerVersion {
+    __weak typeof (self) weakSelf = self;
+    [self.jsonClient getPath:@"api/serverinfo" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        typeof (self) strongSelf = weakSelf;
+        NSError *error;
+        NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseObject error:&error];
+        if( error ) {
+            NSLog(@"[TVHServer fetchCapabilities]: error %@", error.description);
+            return ;
+        }
+        
+        // this capabilities seems to retrieve a different array from /capabilities
+        //strongSelf.capabilities = [json valueForKey:@"capabilities"];
+        strongSelf.apiVersion = [json valueForKey:@"api_version"];
+        strongSelf.realVersion = [json valueForKey:@"sw_version"];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        typeof (self) strongSelf = weakSelf;
+#ifdef TESTING
+        NSLog(@"TVHeadend does not have api/serverinfo, calling legacy.. (%@)", error.localizedDescription);
+#endif
+        [strongSelf fetchServerVersionLegacy];
+    }];
+}
+
+- (void)fetchServerVersionLegacy {
+    __weak typeof (self) weakSelf = self;
+    [self.jsonClient getPath:@"extjs.html" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        typeof (self) strongSelf = weakSelf;
+        NSString *response = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        [strongSelf handleFetchedServerVersionLegacy:response];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"[TVHServer getVersion]: %@", error.localizedDescription);
+    }];
+}
+
+- (void)handleFetchedServerVersionLegacy:(NSString*)response {
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<title>HTS Tvheadend (.*?)</title>" options:NSRegularExpressionCaseInsensitive error:nil];
     NSTextCheckingResult *versionRange = [regex firstMatchInString:response
                                                            options:0
                                                              range:NSMakeRange(0, [response length])];
     if ( versionRange ) {
         NSString *versionString = [response substringWithRange:[versionRange rangeAtIndex:1]];
-        _realVersion = versionString;
-        [self.analytics setObjectValue:_realVersion forKey:@"realVersion"];
-        versionString = [versionString stringByReplacingOccurrencesOfString:@"." withString:@""];
-        if ([versionString length] > 1) {
-            self.version = [versionString substringWithRange:NSMakeRange(0, 2)];
-#ifdef TESTING
-            NSLog(@"[TVHServer getVersion]: %@", self.version);
-#endif
-            [self.analytics setObjectValue:self.version forKey:@"version"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadVersionNotification
-                                                                object:self];
-        }
+        self.realVersion = versionString;
     }
 }
 
-- (void)fetchServerVersion {
-    __weak typeof (self) weakSelf = self;
-    [self.jsonClient getPath:@"extjs.html" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        typeof (self) strongSelf = weakSelf;
-        NSString *response = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        [strongSelf handleFetchedServerVersion:response];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"[TVHServer getVersion]: %@", error.localizedDescription);
-    }];
+- (void)setRealVersion:(NSString *)realVersion
+{
+    _realVersion = realVersion;
+    [self.analytics setObjectValue:_realVersion forKey:@"realVersion"];
+    NSString *versionString = [_realVersion stringByReplacingOccurrencesOfString:@"." withString:@""];
+    if ([versionString length] > 1) {
+        self.version = [versionString substringWithRange:NSMakeRange(0, 2)];
+#ifdef TESTING
+        NSLog(@"[TVHServer getVersion]: %@", self.version);
+#endif
+        [self.analytics setObjectValue:self.version forKey:@"version"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadVersionNotification
+                                                            object:self];
+    }
 }
 
 #pragma mark fetch capabilities
@@ -410,6 +436,8 @@
     if ( self.capabilities ) {
         NSInteger idx = [self.capabilities indexOfObject:@"transcoding"];
         if ( idx != NSNotFound ) {
+            return true;
+            
             // check config settings now
             NSNumber *transcodingEnabled = [self.configSettings objectForKey:@"transcoding_enabled"];
             if ( [transcodingEnabled integerValue] == 1 ) {
