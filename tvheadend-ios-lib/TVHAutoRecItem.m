@@ -146,10 +146,10 @@
 {
     TVHChannel *channel;
     id <TVHChannelStore> channelStore = [self.tvhServer channelStore];
-    if ( [self.tvhServer.version integerValue] < 39 ) {
-        channel = [channelStore channelWithName:self.channel];
-    } else {
+    if ( [self.tvhServer isVersionFour] ) {
         channel = [channelStore channelWithId:self.channel];
+    } else {
+        channel = [channelStore channelWithName:self.channel];
     }
     return channel;
 }

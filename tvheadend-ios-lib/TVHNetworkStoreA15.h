@@ -11,7 +11,7 @@
 
 @class TVHServer;
 
-@interface TVHNetworkStore40 : NSObject <TVHApiClientDelegate, TVHNetworkDelegate>
+@interface TVHNetworkStoreA15 : NSObject <TVHApiClientDelegate, TVHNetworkDelegate>
 @property (nonatomic, weak) TVHServer *tvhServer;
 @property (nonatomic, weak) id <TVHNetworkDelegate> delegate;
 - (id)initWithTvhServer:(TVHServer*)tvhServer;

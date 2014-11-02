@@ -1,8 +1,8 @@
 //
-//  TVHServiceStore40.m
+//  TVHTagStore40.m
 //  TvhClient
 //
-//  Created by Luis Fernandes on 08/12/13.
+//  Created by Luis Fernandes on 04/12/13.
 //  Copyright (c) 2013 Luis Fernandes.
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,20 +10,16 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import "TVHServiceStore40.h"
+#import "TVHTagStoreA15.h"
 
-@implementation TVHServiceStore40
-
-- (NSString*)apiMethod {
-    return @"GET";
-}
+@implementation TVHTagStoreA15
 
 - (NSString*)apiPath {
-    return @"api/mpegts/service/grid";
+    return @"api/channeltag/grid";
 }
 
 - (NSDictionary*)apiParameters {
-    return @{@"limit":@"9999999999"};
+    return @{@"op":@"list", @"limit":@"999999999"};
 }
 
 @end

@@ -1,8 +1,8 @@
 //
-//  TVHAdaptersStore40.h
+//  TVHServiceStore40.h
 //  TvhClient
 //
-//  Created by Luis Fernandes on 05/12/13.
+//  Created by Luis Fernandes on 08/12/13.
 //  Copyright (c) 2013 Luis Fernandes.
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,8 +10,8 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import "TVHAdaptersStoreAbstract.h"
+#import "TVHServiceStoreAbstract.h"
 
-@interface TVHAdaptersStore40 : TVHAdaptersStoreAbstract
+@interface TVHServiceStoreA15 : TVHServiceStoreAbstract
 
 @end

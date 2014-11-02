@@ -11,7 +11,7 @@
 
 @class TVHServer;
 
-@interface TVHStatusInputStore40 : NSObject <TVHApiClientDelegate, TVHStatusInputStore>
+@interface TVHStatusInputStoreA15 : NSObject <TVHApiClientDelegate, TVHStatusInputStore>
 @property (nonatomic, weak) TVHServer *tvhServer;
 @property (nonatomic, weak) id <TVHStatusInputDelegate> delegate;
 - (id)initWithTvhServer:(TVHServer*)tvhServer;

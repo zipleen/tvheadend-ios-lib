@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 zipleen. All rights reserved.
 //
 
-#import "TVHNetworkStore40.h"
+#import "TVHNetworkStoreA15.h"
 #import "TVHServer.h"
 
-@interface TVHNetworkStore40()
+@interface TVHNetworkStoreA15()
 @property (nonatomic, weak) TVHApiClient *apiClient;
 @property (nonatomic, strong) NSArray *networks;
 @end
 
-@implementation TVHNetworkStore40
+@implementation TVHNetworkStoreA15
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer {
     self = [super init];

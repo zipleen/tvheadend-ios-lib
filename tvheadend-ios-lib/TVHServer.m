@@ -14,6 +14,8 @@
 #import "TVHPlayXbmc.h"
 #import "TVHPlayChromeCast.h"
 
+#define TVH_LATEST_SUPPORTED_API @"A15"
+
 @interface TVHServer()
 @property (nonatomic, strong) TVHJsonClient *jsonClient;
 @property (nonatomic, strong) TVHApiClient *apiClient;
@@ -32,7 +34,7 @@
 @property (nonatomic, strong) id <TVHNetworkStore> networkStore;
 @property (nonatomic, strong) NSString *version;     // version like 32, 34, 40 - legacy only!
 @property (nonatomic, strong) NSString *realVersion; // real version number, unmodified
-@property (nonatomic, strong) NSNumber *apiVersion;
+@property (nonatomic, strong) NSNumber *apiVersion;  // the new API JSON version 
 @property (nonatomic, strong) NSArray *capabilities;
 @property (nonatomic, strong) NSDictionary *configSettings;
 @property (nonatomic, strong) NSTimer *timer;
@@ -88,6 +90,7 @@
         [TVHPlayChromeCast sharedInstance];
         self.settings = settings;
         self.version = settings.version;
+        self.apiVersion = settings.apiVersion;
         [self.tagStore fetchTagList];
         [self.channelStore fetchChannelList];
         [self.statusStore fetchStatusSubscriptions];
@@ -158,6 +161,9 @@
 - (id)factory:(NSString*)className
 {
     Class myClass = NSClassFromString([className stringByAppendingString:self.version]);
+    if ( !myClass ) {
+        myClass = NSClassFromString([className stringByAppendingString:TVH_LATEST_SUPPORTED_API]);
+    }
     return [[myClass alloc] initWithTvhServer:self];
 }
 
@@ -276,6 +282,13 @@
 }
 
 - (NSString*)version {
+    // apiVersion has the real HTTP JSON API version - no more guessing
+    if ( _apiVersion && _apiVersion > 0 ) {
+        return [@"A" stringByAppendingFormat:@"%@", _apiVersion];
+    }
+    
+    // the api http version has only been introduced in the middle of 3.9 development.
+    // use the old method to support 3.2 , 3.4 and 3.6
     if ( _version ) {
         int ver = [_version intValue];
         if ( ver >= 30 && ver <= 32 ) {
@@ -285,7 +298,7 @@
             return @"34";
         }
         if ( ver >= 36 ) {
-            return @"40";
+            return TVH_LATEST_SUPPORTED_API;
         }
     }
     return @"34";
@@ -293,8 +306,11 @@
 
 - (BOOL)isVersionFour
 {
-    int ver = [self.version intValue];
-    if (ver >= 40) {
+    if (self.apiVersion) {
+        return true;
+    }
+    
+    if ([self.version isEqualToString:@"40"]) {
         return true;
     }
     return false;

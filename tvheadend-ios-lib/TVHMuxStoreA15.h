@@ -12,6 +12,6 @@
 
 #import "TVHMuxStoreAbstract.h"
 
-@interface TVHMuxStore40 : TVHMuxStoreAbstract
+@interface TVHMuxStoreA15 : TVHMuxStoreAbstract
 
 @end

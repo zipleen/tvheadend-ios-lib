@@ -10,14 +10,14 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import "TVHChannelStore40.h"
+#import "TVHChannelStoreA15.h"
 
-@interface TVHChannelStore40(MyPrivate)
+@interface TVHChannelStoreA15(MyPrivate)
 @property (nonatomic, strong) id <TVHEpgStore> currentlyPlayingEpgStore;
 - (void)signalDidLoadChannels;
 @end
 
-@implementation TVHChannelStore40
+@implementation TVHChannelStoreA15
 
 - (NSString*)apiPath {
     return @"api/channel/grid";

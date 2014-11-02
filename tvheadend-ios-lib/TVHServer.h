@@ -56,6 +56,7 @@
 - (TVHConfigNameStore*)configNameStore;
 - (id <TVHStatusInputStore>)inputStore;
 - (id <TVHNetworkStore>)networkStore;
+- (NSNumber*)apiVersion;
 - (NSString*)version;
 - (NSString*)realVersion;
 - (BOOL)isVersionFour;

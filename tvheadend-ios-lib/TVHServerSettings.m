@@ -38,6 +38,7 @@
         _sshHostTo = [settings objectForKey:TVHS_IP_KEY];
         _sshPortTo = [settings objectForKey:TVHS_PORT_KEY];
         _version = [settings objectForKey:TVHS_SERVER_VERSION];
+        _apiVersion = [settings objectForKey:TVHS_API_VERSION];
     }
     return self;
 }

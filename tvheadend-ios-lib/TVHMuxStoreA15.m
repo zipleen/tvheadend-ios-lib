@@ -10,9 +10,9 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import "TVHMuxStore40.h"
+#import "TVHMuxStoreA15.h"
 
-@implementation TVHMuxStore40
+@implementation TVHMuxStoreA15
 
 - (NSString*)apiMethod {
     return @"GET";

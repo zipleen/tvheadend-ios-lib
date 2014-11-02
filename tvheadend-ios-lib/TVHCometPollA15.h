@@ -8,6 +8,6 @@
 
 #import "TVHCometPollAbstract.h"
 
-@interface TVHCometPoll40 : TVHCometPollAbstract
+@interface TVHCometPollA15 : TVHCometPollAbstract
 
 @end

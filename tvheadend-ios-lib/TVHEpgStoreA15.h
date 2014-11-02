@@ -12,5 +12,5 @@
 
 #import "TVHEpgStoreAbstract.h"
 
-@interface TVHEpgStore40 : TVHEpgStoreAbstract
+@interface TVHEpgStoreA15 : TVHEpgStoreAbstract
 @end

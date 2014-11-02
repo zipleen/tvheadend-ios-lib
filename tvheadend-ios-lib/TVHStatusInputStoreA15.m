@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 zipleen. All rights reserved.
 //
 
-#import "TVHStatusInputStore40.h"
+#import "TVHStatusInputStoreA15.h"
 #import "TVHServer.h"
 
-@interface TVHStatusInputStore40()
+@interface TVHStatusInputStoreA15()
 @property (nonatomic, weak) TVHApiClient *apiClient;
 @property (nonatomic, strong) NSArray *inputs;
 @end
 
-@implementation TVHStatusInputStore40
+@implementation TVHStatusInputStoreA15
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer {
     self = [super init];

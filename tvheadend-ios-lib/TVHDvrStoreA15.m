@@ -10,13 +10,13 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import "TVHDvrStore40.h"
+#import "TVHDvrStoreA15.h"
 
 @interface TVHDvrStoreAbstract()
 - (void)fetchDvrItemsFromServer:(NSString*)url withType:(NSInteger)type start:(NSInteger)start limit:(NSInteger)limit ;
 @end
 
-@implementation TVHDvrStore40
+@implementation TVHDvrStoreA15
 
 - (NSString*)jsonApiFieldEntries {
     return @"entries";

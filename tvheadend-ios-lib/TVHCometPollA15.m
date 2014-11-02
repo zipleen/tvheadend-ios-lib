@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 zipleen. All rights reserved.
 //
 
-#import "TVHCometPoll40.h"
+#import "TVHCometPollA15.h"
 
-@implementation TVHCometPoll40
+@implementation TVHCometPollA15
 // idnodeDeleted with uuid = b9f7d3ff8d7ec8b315ee05d178d0e6fc;
 @end

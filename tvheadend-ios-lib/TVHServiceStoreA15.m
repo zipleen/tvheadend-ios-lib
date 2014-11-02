@@ -1,8 +1,8 @@
 //
-//  TVHAdaptersStore40.m
+//  TVHServiceStore40.m
 //  TvhClient
 //
-//  Created by Luis Fernandes on 05/12/13.
+//  Created by Luis Fernandes on 08/12/13.
 //  Copyright (c) 2013 Luis Fernandes.
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,24 +10,20 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import "TVHAdaptersStore40.h"
+#import "TVHServiceStoreA15.h"
 
-@implementation TVHAdaptersStore40
-
-- (id)initWithTvhServer:(TVHServer*)tvhServer {
-    return nil;
-}
+@implementation TVHServiceStoreA15
 
 - (NSString*)apiMethod {
     return @"GET";
 }
 
 - (NSString*)apiPath {
-    return @"api/status/inputs";
+    return @"api/mpegts/service/grid";
 }
 
 - (NSDictionary*)apiParameters {
-    return nil;
+    return @{@"limit":@"9999999999"};
 }
 
 @end

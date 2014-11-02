@@ -10,14 +10,14 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import "TVHEpgStore40.h"
+#import "TVHEpgStoreA15.h"
 #import "TVHServer.h"
 
-@interface TVHEpgStore40 (MyPrivateMethods)
+@interface TVHEpgStoreA15 (MyPrivateMethods)
 @property (nonatomic, strong) NSArray *epgStore;
 @end
 
-@implementation TVHEpgStore40
+@implementation TVHEpgStoreA15
 @synthesize filterToChannelName = _filterToChannelName;
 
 - (NSString*)jsonApiFieldEntries {

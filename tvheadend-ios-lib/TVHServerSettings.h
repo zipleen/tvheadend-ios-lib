@@ -28,9 +28,10 @@
 #define TVHS_SSH_PF_USERNAME @"SSHPF_Username"
 #define TVHS_SSH_PF_PASSWORD @"SSHPF_Password"
 #define TVHS_SERVER_VERSION @"ServerVersion"
+#define TVHS_API_VERSION @"ApiVersion"
 
 // Init with the following strings inside a NSDictionary 
-#define TVHS_SERVER_KEY_SETTINGS @[TVHS_SERVER_NAME, TVHS_IP_KEY, TVHS_PORT_KEY, TVHS_HTSP_PORT_KEY, TVHS_USERNAME_KEY, TVHS_PASSWORD_KEY, TVHS_USE_HTTPS, TVHS_SERVER_WEBROOT, TVHS_SSH_PF_HOST, TVHS_SSH_PF_PORT, TVHS_SSH_PF_USERNAME, TVHS_SSH_PF_PASSWORD, TVHS_SERVER_VERSION]
+#define TVHS_SERVER_KEY_SETTINGS @[TVHS_SERVER_NAME, TVHS_IP_KEY, TVHS_PORT_KEY, TVHS_HTSP_PORT_KEY, TVHS_USERNAME_KEY, TVHS_PASSWORD_KEY, TVHS_USE_HTTPS, TVHS_SERVER_WEBROOT, TVHS_SSH_PF_HOST, TVHS_SSH_PF_PORT, TVHS_SSH_PF_USERNAME, TVHS_SSH_PF_PASSWORD, TVHS_SERVER_VERSION, TVHS_API_VERSION]
 
 #define TVHS_SSH_PF_LOCAL_PORT @48974
 #define TVHS_SSH_PF_LOCAL_HTSP_PORT @48975
@@ -50,6 +51,7 @@
 @property (nonatomic, strong, readonly) NSString *sshPortForwardPassword;
 @property (nonatomic, strong, readonly) NSString *sshHostTo;
 @property (nonatomic, strong, readonly) NSString *sshPortTo;
+@property (nonatomic, strong, readonly) NSNumber *apiVersion; // apiVersion has the real HTTP JSON API version - no more guessing
 @property (nonatomic, strong, readonly) NSString *version;
 
 // "system wide" settings

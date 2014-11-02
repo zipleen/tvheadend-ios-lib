@@ -1,8 +1,8 @@
 //
-//  TVHStatusSubscriptionsStore40.m
+//  TVHTagStore40.h
 //  TvhClient
 //
-//  Created by Luis Fernandes on 05/12/13.
+//  Created by Luis Fernandes on 04/12/13.
 //  Copyright (c) 2013 Luis Fernandes.
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,12 +10,8 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import "TVHStatusSubscriptionsStore40.h"
+#import "TVHTagStoreAbstract.h"
 
-@implementation TVHStatusSubscriptionsStore40
-
-- (NSString*)apiPath {
-    return @"api/status/subscriptions";
-}
+@interface TVHTagStoreA15 : TVHTagStoreAbstract
 
 @end

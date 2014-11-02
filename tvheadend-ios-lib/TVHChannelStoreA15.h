@@ -1,8 +1,8 @@
 //
-//  TVHStatusSubscriptionsStore40.h
+//  TVHChannelStore40.h
 //  TvhClient
 //
-//  Created by Luis Fernandes on 05/12/13.
+//  Created by Luis Fernandes on 01/12/13.
 //  Copyright (c) 2013 Luis Fernandes.
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,8 +10,7 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import "TVHStatusSubscriptionsStoreAbstract.h"
+#import "TVHChannelStoreAbstract.h"
 
-@interface TVHStatusSubscriptionsStore40 : TVHStatusSubscriptionsStoreAbstract
-
+@interface TVHChannelStoreA15 : TVHChannelStoreAbstract <TVHChannelStore, TVHEpgStoreDelegate>
 @end
