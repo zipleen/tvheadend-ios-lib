@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		AA2C7E2919BCCE2F001EDC67 /* GoogleCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */; };
-		AA2C7E2A19BCCE52001EDC67 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA89DE21861244C00AE4C13 /* libz.dylib */; };
 		AA2C7E2D19BCCFCA001EDC67 /* TVHPlayChromeCast.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2C7E2C19BCCFCA001EDC67 /* TVHPlayChromeCast.m */; };
 		AA2C7E3319BCDAA1001EDC67 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; };
 		AA2C7E3519BCDAB3001EDC67 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; };
@@ -370,7 +369,6 @@
 			files = (
 				AA2C7E3519BCDAB3001EDC67 /* CoreText.framework in Frameworks */,
 				AA2C7E3319BCDAA1001EDC67 /* MediaAccessibility.framework in Frameworks */,
-				AA2C7E2A19BCCE52001EDC67 /* libz.dylib in Frameworks */,
 				AA2C7E2919BCCE2F001EDC67 /* GoogleCast.framework in Frameworks */,
 				AAFF3FA9187A1A5900C85077 /* libssh2.a in Frameworks */,
 				AAFF3FAA187A1A5900C85077 /* libcrypto.a in Frameworks */,
