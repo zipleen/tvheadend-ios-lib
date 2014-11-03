@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 zipleen. All rights reserved.
 //
 
-#import "TVHAutoRecStore40.h"
+#import "TVHAutoRecStoreA15.h"
 
-@implementation TVHAutoRecStore40
+@implementation TVHAutoRecStoreA15
 
 - (NSString*)apiMethod {
     return @"POST";

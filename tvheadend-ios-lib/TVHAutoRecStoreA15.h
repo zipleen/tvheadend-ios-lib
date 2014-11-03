@@ -8,6 +8,6 @@
 
 #import "TVHAutoRecStoreAbstract.h"
 
-@interface TVHAutoRecStore40 : TVHAutoRecStoreAbstract
+@interface TVHAutoRecStoreA15 : TVHAutoRecStoreAbstract
 
 @end

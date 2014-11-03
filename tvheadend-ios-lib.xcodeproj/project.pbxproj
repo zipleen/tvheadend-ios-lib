@@ -76,7 +76,7 @@
 		AABF3BD3185E6CC000E62240 /* TVHAutoRecStoreAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AAD185E590D00E62240 /* TVHAutoRecStoreAbstract.m */; };
 		AABF3BD4185E6CC000E62240 /* TVHAutoRecStore32.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AAF185E590D00E62240 /* TVHAutoRecStore32.m */; };
 		AABF3BD5185E6CC000E62240 /* TVHAutoRecStore34.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AB1185E590D00E62240 /* TVHAutoRecStore34.m */; };
-		AABF3BD6185E6CC000E62240 /* TVHAutoRecStore40.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AB3185E590D00E62240 /* TVHAutoRecStore40.m */; };
+		AABF3BD6185E6CC000E62240 /* TVHAutoRecStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AB3185E590D00E62240 /* TVHAutoRecStoreA15.m */; };
 		AABF3BD7185E6CC000E62240 /* TVHAutoRecItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AB5185E590D00E62240 /* TVHAutoRecItem.m */; };
 		AABF3BD8185E6CC000E62240 /* TVHDvrStoreAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AB9185E590D00E62240 /* TVHDvrStoreAbstract.m */; };
 		AABF3BD9185E6CC000E62240 /* TVHDvrStore32.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3ABB185E590D00E62240 /* TVHDvrStore32.m */; };
@@ -222,8 +222,8 @@
 		AABF3AAF185E590D00E62240 /* TVHAutoRecStore32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoRecStore32.m; sourceTree = "<group>"; };
 		AABF3AB0185E590D00E62240 /* TVHAutoRecStore34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAutoRecStore34.h; sourceTree = "<group>"; };
 		AABF3AB1185E590D00E62240 /* TVHAutoRecStore34.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoRecStore34.m; sourceTree = "<group>"; };
-		AABF3AB2185E590D00E62240 /* TVHAutoRecStore40.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAutoRecStore40.h; sourceTree = "<group>"; };
-		AABF3AB3185E590D00E62240 /* TVHAutoRecStore40.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoRecStore40.m; sourceTree = "<group>"; };
+		AABF3AB2185E590D00E62240 /* TVHAutoRecStoreA15.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAutoRecStoreA15.h; sourceTree = "<group>"; };
+		AABF3AB3185E590D00E62240 /* TVHAutoRecStoreA15.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoRecStoreA15.m; sourceTree = "<group>"; };
 		AABF3AB4185E590D00E62240 /* TVHAutoRecItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAutoRecItem.h; sourceTree = "<group>"; };
 		AABF3AB5185E590D00E62240 /* TVHAutoRecItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoRecItem.m; sourceTree = "<group>"; };
 		AABF3AB7185E590D00E62240 /* TVHDvrStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHDvrStore.h; sourceTree = "<group>"; };
@@ -655,8 +655,8 @@
 				AABF3AAF185E590D00E62240 /* TVHAutoRecStore32.m */,
 				AABF3AB0185E590D00E62240 /* TVHAutoRecStore34.h */,
 				AABF3AB1185E590D00E62240 /* TVHAutoRecStore34.m */,
-				AABF3AB2185E590D00E62240 /* TVHAutoRecStore40.h */,
-				AABF3AB3185E590D00E62240 /* TVHAutoRecStore40.m */,
+				AABF3AB2185E590D00E62240 /* TVHAutoRecStoreA15.h */,
+				AABF3AB3185E590D00E62240 /* TVHAutoRecStoreA15.m */,
 			);
 			name = AutoRec;
 			sourceTree = "<group>";
@@ -1116,7 +1116,7 @@
 				AABF3BDA185E6CC000E62240 /* TVHDvrStore34.m in Sources */,
 				AABF3BC0185E6C6000E62240 /* TVHServer.m in Sources */,
 				AABF3B54185E5F2000E62240 /* AFPropertyListRequestOperation.m in Sources */,
-				AABF3BD6185E6CC000E62240 /* TVHAutoRecStore40.m in Sources */,
+				AABF3BD6185E6CC000E62240 /* TVHAutoRecStoreA15.m in Sources */,
 				AABF3B52185E5F2000E62240 /* AFJSONRequestOperation.m in Sources */,
 				AABF3B55185E5F2000E62240 /* AFURLConnectionOperation.m in Sources */,
 				AABF3BBE185E6C5B00E62240 /* TVHJsonClient.m in Sources */,
