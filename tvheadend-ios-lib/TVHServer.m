@@ -452,9 +452,6 @@
     if ( self.capabilities ) {
         NSInteger idx = [self.capabilities indexOfObject:@"transcoding"];
         if ( idx != NSNotFound ) {
-            // ignore the configSettings
-            return true;
-            
             // check config settings now
             NSNumber *transcodingEnabled = [self.configSettings objectForKey:@"transcoding_enabled"];
             if ( [transcodingEnabled integerValue] == 1 ) {
