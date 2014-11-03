@@ -258,7 +258,7 @@
     dispatch_async(queue, ^{
         NSError *error;
         sshPortForwardWrapper = [[SSHWrapper alloc] init];
-        [sshPortForwardWrapper connectToHost:hostAddress port:sshHostPort user:username password:password error:error];
+        [sshPortForwardWrapper connectToHost:hostAddress port:sshHostPort user:username password:password error:&error];
         if ( !error ) {
             _readyToUse = YES;
             [sshPortForwardWrapper setPortForwardFromPort:localPort toHost:remoteIp onPort:remotePort];

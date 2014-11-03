@@ -24,7 +24,7 @@
 
 }
 
-- (BOOL)connectToHost:(NSString *)host port:(int)port user:(NSString *)user password:(NSString *)password error:(NSError *)error;
+- (BOOL)connectToHost:(NSString *)host port:(int)port user:(NSString *)user password:(NSString *)password error:(__autoreleasing NSError **)error;
 - (void)closeConnection;
 - (NSString *)executeCommand:(NSString *)command error:(NSError *)error;
 - (void) setPortForwardFromPort:(unsigned int)localPort toHost:(NSString*)remoteHost onPort:(unsigned int)remotePort;
