@@ -120,14 +120,14 @@
 }
 
 - (NSString*)streamURL {
-    if ( [[self.tvhServer version] intValue] > 38 ) {
+    if ( [self.tvhServer isVersionFour] ) {
         return [NSString stringWithFormat:@"%@/stream/channel/%@", self.tvhServer.httpUrl, self.channelIdKey];
     }
     return [NSString stringWithFormat:@"%@/stream/channelid/%@", self.tvhServer.httpUrl, self.channelIdKey];
 }
 
 - (NSString*)playlistStreamURL {
-    if ( [[self.tvhServer version] intValue] > 38 ) {
+    if ( [self.tvhServer isVersionFour] ) {
         return [NSString stringWithFormat:@"%@/playlist/channel/%@", self.tvhServer.httpUrl, self.channelIdKey];
     }
     return [NSString stringWithFormat:@"%@/playlist/channelid/%@", self.tvhServer.httpUrl, self.channelIdKey];
