@@ -242,4 +242,13 @@
     _description = summary;
 }
 
+- (NSInteger)duration
+{
+    if (_duration && _duration > 0) {
+        return _duration;
+    }
+    
+    return [self.end timeIntervalSinceDate:self.start];
+}
+
 @end
