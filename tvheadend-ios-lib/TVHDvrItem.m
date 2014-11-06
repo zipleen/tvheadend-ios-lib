@@ -20,6 +20,7 @@
 @synthesize pri = _pri;
 @synthesize description = _description;
 @synthesize title = _title;
+@synthesize end = _end;
 
 - (id)init
 {
@@ -184,6 +185,15 @@
 - (NSString*)imageUrl
 {
     return [self.channelObject imageUrl];
+}
+
+- (NSDate*)end
+{
+    if (_end) {
+        return _end;
+    }
+    
+    return [NSDate dateWithTimeInterval:self.duration sinceDate:self.start];
 }
 
 - (BOOL)isEqual: (id)other {
