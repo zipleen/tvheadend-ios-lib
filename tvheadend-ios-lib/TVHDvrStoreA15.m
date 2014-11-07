@@ -14,9 +14,22 @@
 
 @interface TVHDvrStoreAbstract()
 - (void)fetchDvrItemsFromServer:(NSString*)url withType:(NSInteger)type start:(NSInteger)start limit:(NSInteger)limit ;
+@property NSInteger filterStart;
+@property NSInteger filterLimit;
 @end
 
 @implementation TVHDvrStoreA15
+
+- (NSDictionary*)apiParameters {
+    return [NSMutableDictionary dictionaryWithObjectsAndKeys:
+            [NSString stringWithFormat:@"%d", (int)self.filterStart ],
+            @"start",
+            [NSString stringWithFormat:@"%d", (int)self.filterLimit ],
+            @"limit",
+            @"start_real",
+            @"sort",
+            nil];
+}
 
 - (NSString*)jsonApiFieldEntries {
     return @"entries";
