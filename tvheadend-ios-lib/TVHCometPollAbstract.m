@@ -156,6 +156,15 @@
 #endif
         }
         
+        if( [notificationClass isEqualToString:@"dvrentry"] ) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:TVHDvrStoreReloadNotification
+             object:obj];
+#ifdef TESTING
+            print = NO;
+#endif
+        }
+        
         if( [notificationClass isEqualToString:@"channels"] ) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:TVHChannelStoreReloadNotification
