@@ -85,10 +85,14 @@
 
 + (void)doIdnodeAction:(NSString*)action withData:(NSDictionary*)params withTvhServer:(TVHServer*)tvhServer
 {
+    return [TVHDvrActions doAction:[@"api/idnode/" stringByAppendingString:action] withData:params withTvhServer:tvhServer];
+}
+
++ (void)doAction:(NSString*)action withData:(NSDictionary*)params withTvhServer:(TVHServer*)tvhServer
+{
     TVHJsonClient *httpClient = [tvhServer jsonClient];
-    NSString* url = [@"api/idnode/" stringByAppendingString:action];
     
-    [httpClient postPath:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [httpClient postPath:action parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         [[NSNotificationCenter defaultCenter]
          postNotificationName:TVHDvrActionDidSucceedNotification
@@ -143,7 +147,7 @@
 + (NSString*)jsonArrayString:(id)params
 {
     NSData* json = [NSJSONSerialization dataWithJSONObject:params options:(NSJSONWritingOptions)0 error:nil];
-    return [[NSString alloc] initWithData:json encoding:NSStringEncodingConversionExternalRepresentation];
+    return [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
 }
 
 @end
