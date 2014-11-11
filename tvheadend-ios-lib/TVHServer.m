@@ -283,7 +283,7 @@
 
 - (NSString*)version {
     // apiVersion has the real HTTP JSON API version - no more guessing
-    if ( _apiVersion && _apiVersion > 0 ) {
+    if ( _apiVersion && [_apiVersion integerValue] > 0 ) {
         return [@"A" stringByAppendingFormat:@"%@", _apiVersion];
     }
     
@@ -298,7 +298,7 @@
             return @"34";
         }
         if ( ver >= 36 ) {
-            return TVH_LATEST_SUPPORTED_API;
+            return @"A12";
         }
     }
     return @"34";
