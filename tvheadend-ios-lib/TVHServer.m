@@ -306,13 +306,10 @@
 
 - (BOOL)isVersionFour
 {
-    if (self.apiVersion) {
+    if (self.apiVersion && [self.apiVersion integerValue] > 0) {
         return true;
     }
     
-    if ([self.version isEqualToString:@"40"]) {
-        return true;
-    }
     return false;
 }
 
