@@ -118,6 +118,9 @@
 		AABF3BFE185E6D0500E62240 /* TVHPlayStream.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B1F185E590D00E62240 /* TVHPlayStream.m */; };
 		AABF3BFF185E6D0500E62240 /* TVHPlayXbmc.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B21185E590D00E62240 /* TVHPlayXbmc.m */; };
 		AABF3C08185E6EB500E62240 /* NSArray+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3C07185E6EB500E62240 /* NSArray+Utils.m */; };
+		AAC634691A1573510005EA99 /* GoogleCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */; };
+		AAC6346C1A15741C0005EA99 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; };
+		AAC6346D1A1574240005EA99 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; };
 		AAFF3FA9187A1A5900C85077 /* libssh2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAFF3FA6187A1A5900C85077 /* libssh2.a */; };
 		AAFF3FAA187A1A5900C85077 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAFF3FA7187A1A5900C85077 /* libcrypto.a */; };
 		AAFF3FAB187A1A5900C85077 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAFF3FA8187A1A5900C85077 /* libssl.a */; };
@@ -357,6 +360,7 @@
 		AABF3B6E185E603300E62240 /* TVHServerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHServerTests.m; sourceTree = "<group>"; };
 		AABF3C06185E6EB500E62240 /* NSArray+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Utils.h"; sourceTree = "<group>"; };
 		AABF3C07185E6EB500E62240 /* NSArray+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Utils.m"; sourceTree = "<group>"; };
+		AAC6346A1A1573830005EA99 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		AAFF3FA6187A1A5900C85077 /* libssh2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssh2.a; path = "vendor/libssh2-for-iOS/lib/libssh2.a"; sourceTree = "<group>"; };
 		AAFF3FA7187A1A5900C85077 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "vendor/libssh2-for-iOS/lib/libcrypto.a"; sourceTree = "<group>"; };
 		AAFF3FA8187A1A5900C85077 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "vendor/libssh2-for-iOS/lib/libssl.a"; sourceTree = "<group>"; };
@@ -383,6 +387,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAC6346D1A1574240005EA99 /* CoreText.framework in Frameworks */,
+				AAC6346C1A15741C0005EA99 /* MediaAccessibility.framework in Frameworks */,
+				AAC634691A1573510005EA99 /* GoogleCast.framework in Frameworks */,
 				AAA89DE61861245800AE4C13 /* SystemConfiguration.framework in Frameworks */,
 				AAA89DE51861245200AE4C13 /* MobileCoreServices.framework in Frameworks */,
 				AAA89DE31861244C00AE4C13 /* libz.dylib in Frameworks */,
@@ -487,6 +494,7 @@
 		AABF3A4E185E586700E62240 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AAC6346A1A1573830005EA99 /* MediaPlayer.framework */,
 				AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */,
 				AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */,
 				AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */,
@@ -1332,6 +1340,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)/vendor",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
@@ -1352,6 +1361,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)/vendor",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
