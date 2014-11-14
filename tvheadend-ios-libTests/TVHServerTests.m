@@ -26,7 +26,7 @@
 @implementation TVHServerTests
 
 - (void)testServerVersions {
-    TVHServer *server = [TVHTestHelper mockTVHServer];
+    TVHServer *server = [TVHTestHelper mockTVHServer:@"34"];
     NSData *data = [TVHTestHelper loadFixture:@"extjs.html"];
     NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     [server handleFetchedServerVersionLegacy:response];

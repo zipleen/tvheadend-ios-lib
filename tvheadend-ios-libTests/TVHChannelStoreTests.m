@@ -38,7 +38,7 @@
 - (void)testJsonChannelParsing
 {
     NSData *data = [TVHTestHelper loadFixture:@"Log.channels"];
-    TVHChannelStore34 *store = [[TVHChannelStore34 alloc] initWithTvhServer:[TVHTestHelper mockTVHServer]];
+    TVHChannelStore34 *store = [[TVHChannelStore34 alloc] initWithTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
     XCTAssertNotNil(store, @"creating channel store object");
     
     [store fetchedData:data];

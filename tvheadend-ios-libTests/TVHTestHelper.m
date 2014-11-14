@@ -24,7 +24,7 @@
     return data;
 }
 
-+ (TVHServer*)mockTVHServer
++ (TVHServer*)mockTVHServer:(NSString*)version
 {
     TVHServerSettings *settings = [[TVHServerSettings alloc] initWithSettings:@{TVHS_SERVER_NAME:@"",
                                                                                 TVHS_IP_KEY:@"",
@@ -38,7 +38,7 @@
                                                                                 TVHS_SSH_PF_PORT:@"",
                                                                                 TVHS_SSH_PF_USERNAME:@"",
                                                                                 TVHS_SSH_PF_PASSWORD:@"",
-                                                                                TVHS_SERVER_VERSION:@"34"}];
+                                                                                TVHS_SERVER_VERSION:version}];
     settings.autoStartPolling = YES;
     settings.transcodeResolution = @"384";
     settings.customPrefix = @"";

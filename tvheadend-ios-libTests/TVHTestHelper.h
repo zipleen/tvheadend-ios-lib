@@ -15,5 +15,5 @@
 
 @interface TVHTestHelper : NSObject
 + (NSData *)loadFixture:(NSString *)name;
-+ (TVHServer*)mockTVHServer;
++ (TVHServer*)mockTVHServer:(NSString*)version;
 @end

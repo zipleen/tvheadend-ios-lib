@@ -87,7 +87,10 @@
         }
         self.inProcessing = NO;
         [TVHPlayXbmc sharedInstance];
-        [TVHPlayChromeCast sharedInstance];
+        // in unit tests, the chromecast init crashes. it seems in unit tests the sharedapplication returns nil
+        if ([UIApplication sharedApplication] != nil) {
+            [TVHPlayChromeCast sharedInstance];
+        }
         self.settings = settings;
         self.version = settings.version;
         self.apiVersion = settings.apiVersion;
