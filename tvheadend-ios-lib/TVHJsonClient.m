@@ -174,7 +174,7 @@
     for (int i = 0; i < [responseData length]; ++i)
     {
         char *a = &((char*)[responseData bytes])[i];
-        if( ((int)*a >0 && (int)*a < 0x20)  ) {
+        if ( (int)*a < 0x20 ) {
             ((char*)[FileData mutableBytes])[i] = 0x20;
         } else {
             ((char*)[FileData mutableBytes])[i] = ((char*)[responseData bytes])[i];
