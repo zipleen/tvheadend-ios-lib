@@ -13,12 +13,18 @@
 #import <XCTest/XCTest.h>
 #import "TVHTestHelper.h"
 #import "TVHEpgStore34.h"
+#import "TVHEpgStoreA15.h"
 
 @interface TVHEpgStoreTests : XCTestCase
 
 @end
 
 @interface TVHEpgStore34 (MyPrivateMethodsUsedForTesting)
+@property (nonatomic, strong) NSArray *epgStore;
+- (void)fetchedData:(NSData *)responseData;
+@end
+
+@interface TVHEpgStoreA15 (MyPrivateMethodsUsedForTesting)
 @property (nonatomic, strong) NSArray *epgStore;
 - (void)fetchedData:(NSData *)responseData;
 @end
@@ -64,7 +70,36 @@
     NSData *data = [TVHTestHelper loadFixture:@"Log.287.invalid"];
     NSError __autoreleasing *error;
     NSDictionary *dict = [TVHJsonClient convertFromJsonToObject:data error:&error];
+    XCTAssertNotNil(dict, @"error processing json");
+}
+
+- (void)testConvertFromJsonToObject2
+{
+    NSData *data = [TVHTestHelper loadFixture:@"Log.epg.utf.invalid"];
+    NSError __autoreleasing *error;
+    NSDictionary *dict = [TVHJsonClient convertFromJsonToObject:data error:&error];
+    XCTAssertNotNil(dict, @"error processing json");
+}
+
+- (void)testJsonCharacterBug2
+{
+    NSData *data = [TVHTestHelper loadFixture:@"Log.epg.utf.invalid"];
+    TVHEpgStoreA15 *tvhe = [[TVHEpgStoreA15 alloc] init];
+    XCTAssertNotNil(tvhe, @"creating tvepg store object");
+    [tvhe fetchedData:data];
+    XCTAssertTrue( ([tvhe.epgStore count] > 0), @"Failed parsing json data");
+    
+    TVHEpg *epg = [tvhe.epgStore objectAtIndex:0];
+    XCTAssertEqualObjects(epg.title, @"TU CARA ME SUENA MINI", @"epg title doesnt match");
+    XCTAssertEqualObjects(epg.channelIdKey, @"e33155830b3c9fe37bb6e0111abec320", @"epg channel id doesnt match");
+    XCTAssertEqualObjects(epg.channelName, @"antena3 HD", @"channel name does not match" );
+    XCTAssertEqualObjects(epg.chicon, @"imagecache/1", @"channel name does not match" );
+    XCTAssertFalse([epg.description isEqualToString:@""], @"description empty");
+    XCTAssertEqual(epg.eventId, (NSInteger)497, @"epg id does not match" );
+    XCTAssertEqualObjects(epg.start, [NSDate dateWithTimeIntervalSince1970:1415914800], @"start date does not match" );
+    XCTAssertEqualObjects(epg.end, [NSDate dateWithTimeIntervalSince1970:1415928600], @"end date does not match" );
     
 }
+
 
 @end

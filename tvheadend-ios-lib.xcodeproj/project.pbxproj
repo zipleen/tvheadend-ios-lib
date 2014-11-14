@@ -121,6 +121,7 @@
 		AAC634691A1573510005EA99 /* GoogleCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */; };
 		AAC6346C1A15741C0005EA99 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; };
 		AAC6346D1A1574240005EA99 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; };
+		AAC6346F1A1579430005EA99 /* Log.epg.utf.invalid in Resources */ = {isa = PBXBuildFile; fileRef = AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */; };
 		AAFF3FA9187A1A5900C85077 /* libssh2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAFF3FA6187A1A5900C85077 /* libssh2.a */; };
 		AAFF3FAA187A1A5900C85077 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAFF3FA7187A1A5900C85077 /* libcrypto.a */; };
 		AAFF3FAB187A1A5900C85077 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAFF3FA8187A1A5900C85077 /* libssl.a */; };
@@ -361,6 +362,7 @@
 		AABF3C06185E6EB500E62240 /* NSArray+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Utils.h"; sourceTree = "<group>"; };
 		AABF3C07185E6EB500E62240 /* NSArray+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Utils.m"; sourceTree = "<group>"; };
 		AAC6346A1A1573830005EA99 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Log.epg.utf.invalid; sourceTree = "<group>"; };
 		AAFF3FA6187A1A5900C85077 /* libssh2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssh2.a; path = "vendor/libssh2-for-iOS/lib/libssh2.a"; sourceTree = "<group>"; };
 		AAFF3FA7187A1A5900C85077 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "vendor/libssh2-for-iOS/lib/libcrypto.a"; sourceTree = "<group>"; };
 		AAFF3FA8187A1A5900C85077 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "vendor/libssh2-for-iOS/lib/libssl.a"; sourceTree = "<group>"; };
@@ -973,6 +975,7 @@
 		AABF3B60185E603300E62240 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */,
 				AA336F791889B8F300FD2A03 /* Log.287.invalid */,
 				AABF3B5B185E603300E62240 /* Log.287 */,
 				AABF3B5C185E603300E62240 /* Log.tags */,
@@ -1063,6 +1066,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAC6346F1A1579430005EA99 /* Log.epg.utf.invalid in Resources */,
 				AABF3B72185E603300E62240 /* Log.oneChannelEpg in Resources */,
 				AABF3B73185E603300E62240 /* extjs.html in Resources */,
 				AABF3B7E185E603300E62240 /* TVHTestHelper.h in Resources */,
