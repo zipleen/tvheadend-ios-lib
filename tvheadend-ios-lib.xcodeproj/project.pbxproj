@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA01DE221A18435D00F7B3D2 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA01DE1F1A18435D00F7B3D2 /* libcrypto.a */; };
+		AA01DE231A18435D00F7B3D2 /* libssh2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA01DE201A18435D00F7B3D2 /* libssh2.a */; };
+		AA01DE241A18435D00F7B3D2 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA01DE211A18435D00F7B3D2 /* libssl.a */; };
 		AA2C7E2919BCCE2F001EDC67 /* GoogleCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */; };
 		AA2C7E2D19BCCFCA001EDC67 /* TVHPlayChromeCast.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2C7E2C19BCCFCA001EDC67 /* TVHPlayChromeCast.m */; };
 		AA2C7E3319BCDAA1001EDC67 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; };
@@ -122,9 +125,6 @@
 		AAC6346C1A15741C0005EA99 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; };
 		AAC6346D1A1574240005EA99 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; };
 		AAC6346F1A1579430005EA99 /* Log.epg.utf.invalid in Resources */ = {isa = PBXBuildFile; fileRef = AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */; };
-		AAFF3FA9187A1A5900C85077 /* libssh2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAFF3FA6187A1A5900C85077 /* libssh2.a */; };
-		AAFF3FAA187A1A5900C85077 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAFF3FA7187A1A5900C85077 /* libcrypto.a */; };
-		AAFF3FAB187A1A5900C85077 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAFF3FA8187A1A5900C85077 /* libssl.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +150,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AA01DE1F1A18435D00F7B3D2 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "vendor/libssh2-compiled/libcrypto.a"; sourceTree = "<group>"; };
+		AA01DE201A18435D00F7B3D2 /* libssh2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssh2.a; path = "vendor/libssh2-compiled/libssh2.a"; sourceTree = "<group>"; };
+		AA01DE211A18435D00F7B3D2 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "vendor/libssh2-compiled/libssl.a"; sourceTree = "<group>"; };
 		AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleCast.framework; path = vendor/GoogleCast.framework; sourceTree = "<group>"; };
 		AA2C7E2B19BCCFCA001EDC67 /* TVHPlayChromeCast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHPlayChromeCast.h; sourceTree = "<group>"; };
 		AA2C7E2C19BCCFCA001EDC67 /* TVHPlayChromeCast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHPlayChromeCast.m; sourceTree = "<group>"; };
@@ -373,12 +376,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA01DE221A18435D00F7B3D2 /* libcrypto.a in Frameworks */,
+				AA01DE231A18435D00F7B3D2 /* libssh2.a in Frameworks */,
+				AA01DE241A18435D00F7B3D2 /* libssl.a in Frameworks */,
 				AA2C7E3519BCDAB3001EDC67 /* CoreText.framework in Frameworks */,
 				AA2C7E3319BCDAA1001EDC67 /* MediaAccessibility.framework in Frameworks */,
 				AA2C7E2919BCCE2F001EDC67 /* GoogleCast.framework in Frameworks */,
-				AAFF3FA9187A1A5900C85077 /* libssh2.a in Frameworks */,
-				AAFF3FAA187A1A5900C85077 /* libcrypto.a in Frameworks */,
-				AAFF3FAB187A1A5900C85077 /* libssl.a in Frameworks */,
 				AABF3B5A185E5F7200E62240 /* SystemConfiguration.framework in Frameworks */,
 				AABF3B58185E5F6600E62240 /* CFNetwork.framework in Frameworks */,
 				AABF3A50185E586700E62240 /* Foundation.framework in Frameworks */,
@@ -496,6 +499,9 @@
 		AABF3A4E185E586700E62240 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AA01DE1F1A18435D00F7B3D2 /* libcrypto.a */,
+				AA01DE201A18435D00F7B3D2 /* libssh2.a */,
+				AA01DE211A18435D00F7B3D2 /* libssl.a */,
 				AAC6346A1A1573830005EA99 /* MediaPlayer.framework */,
 				AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */,
 				AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */,
@@ -1296,6 +1302,7 @@
 					"/Users/zipleen/dev/tvheadend-ios-lib/vendor/libssh2-for-iOS/lib",
 					"$(SRCROOT)/vendor/libssh2-for-iOS/lib",
 					"/Users/zipleen/dev/tvheadend-iphone-client/tvheadend-ios-lib/vendor/libssh2-for-iOS/lib",
+					"$(PROJECT_DIR)/vendor/libssh2-compiled",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
@@ -1328,6 +1335,7 @@
 					"/Users/zipleen/dev/tvheadend-ios-lib/vendor/libssh2-for-iOS/lib",
 					"$(SRCROOT)/vendor/libssh2-for-iOS/lib",
 					"/Users/zipleen/dev/tvheadend-iphone-client/tvheadend-ios-lib/vendor/libssh2-for-iOS/lib",
+					"$(PROJECT_DIR)/vendor/libssh2-compiled",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
