@@ -366,9 +366,6 @@
 		AABF3C07185E6EB500E62240 /* NSArray+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Utils.m"; sourceTree = "<group>"; };
 		AAC6346A1A1573830005EA99 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Log.epg.utf.invalid; sourceTree = "<group>"; };
-		AAFF3FA6187A1A5900C85077 /* libssh2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssh2.a; path = "vendor/libssh2-for-iOS/lib/libssh2.a"; sourceTree = "<group>"; };
-		AAFF3FA7187A1A5900C85077 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "vendor/libssh2-for-iOS/lib/libcrypto.a"; sourceTree = "<group>"; };
-		AAFF3FA8187A1A5900C85077 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "vendor/libssh2-for-iOS/lib/libssl.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -506,9 +503,6 @@
 				AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */,
 				AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */,
 				AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */,
-				AAFF3FA6187A1A5900C85077 /* libssh2.a */,
-				AAFF3FA7187A1A5900C85077 /* libcrypto.a */,
-				AAFF3FA8187A1A5900C85077 /* libssl.a */,
 				AAA89DE41861245200AE4C13 /* MobileCoreServices.framework */,
 				AAA89DE21861244C00AE4C13 /* libz.dylib */,
 				AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */,
@@ -1299,9 +1293,6 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/zipleen/dev/tvheadend-ios-lib/vendor/libssh2-for-iOS/lib",
-					"$(SRCROOT)/vendor/libssh2-for-iOS/lib",
-					"/Users/zipleen/dev/tvheadend-iphone-client/tvheadend-ios-lib/vendor/libssh2-for-iOS/lib",
 					"$(PROJECT_DIR)/vendor/libssh2-compiled",
 				);
 				ONLY_ACTIVE_ARCH = NO;
@@ -1332,9 +1323,6 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/zipleen/dev/tvheadend-ios-lib/vendor/libssh2-for-iOS/lib",
-					"$(SRCROOT)/vendor/libssh2-for-iOS/lib",
-					"/Users/zipleen/dev/tvheadend-iphone-client/tvheadend-ios-lib/vendor/libssh2-for-iOS/lib",
 					"$(PROJECT_DIR)/vendor/libssh2-compiled",
 				);
 				OTHER_CFLAGS = "";
