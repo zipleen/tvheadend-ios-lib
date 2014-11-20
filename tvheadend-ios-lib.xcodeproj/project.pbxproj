@@ -1287,7 +1287,6 @@
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/vendor/libssh2-for-iOS/include/**",
 					"$(SRCROOT)/vendor/AFNetworking/AFNetworking",
 				);
@@ -1317,7 +1316,6 @@
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/vendor/libssh2-for-iOS/include/**",
 					"$(SRCROOT)/vendor/AFNetworking/AFNetworking",
 				);
