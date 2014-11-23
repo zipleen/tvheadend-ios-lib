@@ -174,7 +174,7 @@
     for (int i = 0; i < [responseData length]; ++i)
     {
         char *a = &((char*)[responseData bytes])[i];
-        if ( (int)*a < 0x20 ) {
+        if ( (int)*a >0 && (int)*a < 0x20 ) {
             ((char*)[FileData mutableBytes])[i] = 0x20;
         } else {
             ((char*)[FileData mutableBytes])[i] = ((char*)[responseData bytes])[i];
@@ -190,6 +190,8 @@
 #ifdef TESTING
         NSLog(@"[JSON Error (2nd)]: %@ ", (*error).description);
 #endif
+        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey:[NSString stringWithFormat:NSLocalizedString(@"Tvheadend returned malformed JSON - check your Tvheadend's Character Set for each mux and choose the correct one!", nil)] };
+        *error = [[NSError alloc] initWithDomain:@"Not ready" code:NSURLErrorBadServerResponse userInfo:userInfo];
         return nil;
     }
     
