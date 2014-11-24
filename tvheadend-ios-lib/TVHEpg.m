@@ -104,14 +104,6 @@
 }
 
 - (NSString*)chicon {
-    if (_channelIcon) {
-        return _channelIcon;
-    }
-    
-    if (_chicon) {
-        return _chicon;
-    }
-    
     // try to fetch picture from channel
     return [self.channelObject imageUrl];
 }
