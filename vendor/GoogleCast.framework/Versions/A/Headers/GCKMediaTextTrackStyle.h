@@ -95,13 +95,13 @@ GCK_EXPORT
 /**
  * Designated initializer. All properties are mutable and so can be supplied after construction.
  */
-- (id)init;
+- (instancetype)init;
 
 /**
  * Create an instance with default values based on the system's closed captioning settings. This
  * method will return nil on systems older than iOS 7.
  */
-+ (GCKMediaTextTrackStyle *)createDefault;
++ (instancetype)createDefault;
 
 /** The font scaling factor for the text. */
 @property(nonatomic) CGFloat fontScale;

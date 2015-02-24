@@ -10,19 +10,30 @@
 @class GCKLaunchOptions;
 @class GCKReceiverControlChannel;
 
-/** Enum defining GCKDeviceManager connection states. */
+/**
+ * @file GCKDeviceManager.h
+ * GCKConnectionState and GCKConnectionSuspendedReason enums.
+ */
+
+/**
+ * @enum GCKConnectionState
+ * Enum defining GCKDeviceManager connection states.
+ */
 typedef NS_ENUM(NSInteger, GCKConnectionState) {
-  /** Disconnected from the device. */
+  /** Disconnected from the device or application. */
   GCKConnectionStateDisconnected = 0,
-  /** Connecting to the device. */
+  /** Connecting to the device or application. */
   GCKConnectionStateConnecting = 1,
-  /** Connected to the device. */
+  /** Connected to the device or application. */
   GCKConnectionStateConnected = 2,
   /** Disconnecting from the device. */
   GCKConnectionStateDisconnecting = 3
 };
 
-/** Enum defining the reasons for a connection becoming suspended. */
+/**
+ * @enum GCKConnectionSuspendReason
+ * Enum defining the reasons for a connection becoming suspended.
+ */
 typedef NS_ENUM(NSInteger, GCKConnectionSuspendReason) {
   /** The connection was suspended because the application is going into the background. */
   GCKConnectionSuspendReasonAppBackgrounded = 1,
@@ -34,7 +45,8 @@ typedef NS_ENUM(NSInteger, GCKConnectionSuspendReason) {
 
 /**
  * Controls a Cast device. This class can send messages to, receive messages from, launch, and
- * close applications running on a Cast device.
+ * close applications running on a Cast device. <b>All methods and properties of this class may
+ * only be accessed from the main thread.</b>
  *
  * @ingroup DeviceControl
  */
@@ -47,12 +59,21 @@ GCK_EXPORT
 @property(nonatomic, readonly) GCKConnectionState connectionState;
 
 /**
+ * The device manager's current application connection state.
+ */
+@property(nonatomic, readonly) GCKConnectionState applicationConnectionState;
+
+/**
  * True if the device manager has established a connection to the device.
+ *
+ * @deprecated Use @link connectionState @endlink.
  */
 @property(nonatomic, readonly) BOOL isConnected;
 
 /**
  * True if the device manager has established a connection to an application on the device.
+ *
+ * @deprecated Use @link applicationConnectionState @endlink.
  */
 @property(nonatomic, readonly) BOOL isConnectedToApp;
 
@@ -119,7 +140,7 @@ GCK_EXPORT
  * @param device The device to control.
  * @param clientPackageName The client package name.
  */
-- (id)initWithDevice:(GCKDevice *)device clientPackageName:(NSString *)clientPackageName;
+- (instancetype)initWithDevice:(GCKDevice *)device clientPackageName:(NSString *)clientPackageName;
 
 /**
  * Designated initializer. Constructs a new GCKDeviceManager for controlling the given device.
@@ -137,7 +158,7 @@ GCK_EXPORT
  * @param clientPackageName The client package name.
  * @param ignoreAppStateNotifications Whether this object will ignore app state notifications.
  */
-- (id)initWithDevice:(GCKDevice *)device
+- (instancetype)initWithDevice:(GCKDevice *)device
               clientPackageName:(NSString *)clientPackageName
     ignoreAppStateNotifications:(BOOL)ignoreAppStateNotifications;
 
@@ -149,10 +170,25 @@ GCK_EXPORT
 - (void)connect;
 
 /**
- * Disconnects from the device. This method <b>must</b> be called at some point after
- * @link #connect @endlink was called and before this object is released by its owner.
+ * Disconnects from the device. This is an explicit disconnect.
+ * <p>
+ * One of the disconnect methods <b>must</b> be called at some point after @link #connect @endlink
+ * was called and before this object is released by its owner.
  */
 - (void)disconnect;
+
+/**
+ * Disconnects from the device. This method <b>must</b> be called at some point after
+ * @link #connect @endlink was called and before this object is released by its owner.
+ * <p>
+ * One of the disconnect methods <b>must</b> be called at some point after @link #connect @endlink
+ * was called and before this object is released by its owner.
+ *
+ * @param leaveApplication <code>YES</code> if this is an explicit disconnect that should
+ * disconnect from ("leave") the receiver application before closing the connection; <code>NO</code>
+ * if this is an implicit disconnect that should just close the connection.
+ */
+- (void)disconnectWithLeave:(BOOL)leaveApplication;
 
 #pragma mark Channels
 
@@ -186,7 +222,7 @@ GCK_EXPORT
 - (NSInteger)launchApplication:(NSString *)applicationID;
 
 /**
- * Launches an application, optionally relaunching it if it is already running.
+ * Launches an application using the given launch options.
  *
  * @param applicationID The application ID.
  * @param launchOptions The launch options for this request. If <code>nil</code>, defaults will be
@@ -199,10 +235,10 @@ GCK_EXPORT
 /**
  * Launches an application, optionally relaunching it if it is already running.
  * <p>
- * @deprecated Use -[launchApplication:withLaunchOptions:] instead.
+ * This method is deprecated. Use <code>-[launchApplication:withLaunchOptions:]</code> instead.
  *
  * @param applicationID The application ID.
- * @param relaunchIfRunning If <code>YES</code., relaunches the application if it is already
+ * @param relaunchIfRunning If <code>YES</code>, relaunches the application if it is already
  * running instead of joining the running application.
  * @return The request ID, or <code>kGCKInvalidRequestID</code> if the request could not be sent.
  */
@@ -242,9 +278,9 @@ GCK_EXPORT
 - (NSInteger)stopApplication;
 
 /**
- * Stops the application with the given session ID. Session ID must be non-negative.
+ * Stops the application with the given session ID.
  *
- * @param sessionID The session ID.
+ * @param sessionID The session ID, which must be non-negative.
  * @return The request ID, or <code>kGCKInvalidRequestID</code> if the request could not be sent.
  */
 - (NSInteger)stopApplicationWithSessionID:(NSString *)sessionID;
@@ -269,9 +305,8 @@ GCK_EXPORT
 - (NSInteger)setMuted:(BOOL)muted;
 
 /**
- * Requests the device's current status. This may cause an application status callback, if
- * currently connected to an application, and may cause a device volume callback, if the
- * device volume has changed.
+ * Requests the device's current status. This will result in all of the delegate status update
+ * callbacks being invoked once the updated status information is received.
  *
  * @return The request ID, or <code>kGCKInvalidRequestID</code> if the request could not be sent.
  */

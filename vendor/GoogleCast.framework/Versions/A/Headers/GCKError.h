@@ -5,14 +5,18 @@
 #import "GCKDefines.h"
 
 /** @file GCKError.h
- *  @brief Error codes
+ *  Error codes
  */
 
 /**
  * @enum GCKErrorCode
- * @brief Description of error codes
+ * Description of error codes
  */
 typedef NS_ENUM(NSInteger, GCKErrorCode) {
+  /**
+   * Error Code indicating no error.
+   */
+  GCKErrorCodeNoError = 0,
 
   /**
    * Error code indicating a network I/O error.
@@ -55,6 +59,11 @@ typedef NS_ENUM(NSInteger, GCKErrorCode) {
    * still in process.
    */
   GCKErrorCodeDuplicateRequest = 8,
+
+  /**
+   * Error code indicating that the request is not allowed in the current state.
+   */
+  GCKErrorCodeInvalidState = 9,
 
   /**
    * Error code indicating that a requested application could not be found.

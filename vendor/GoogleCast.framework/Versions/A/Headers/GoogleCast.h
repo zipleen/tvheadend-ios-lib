@@ -1,6 +1,6 @@
-// Cast SDK v2.4.0
-// Build 1210, generated on 2014-09-16 20:53.
-// Copyright 2013-2014 Google Inc.
+// Cast SDK v2.5.2
+// Build 1456, generated on 2015-01-19 00:34.
+// Copyright 2013-2015 Google Inc.
 
 
 #import <GoogleCast/GCKApplicationMetadata.h>

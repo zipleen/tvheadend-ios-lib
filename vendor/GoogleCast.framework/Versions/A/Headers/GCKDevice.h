@@ -4,7 +4,15 @@
 
 #import "GCKDefines.h"
 
-/** Enum defining the device status at the time the device was scanned. */
+/**
+ * @file GCKDevice.h
+ * GCKDeviceStatus enum.
+ */
+
+/**
+ * @enum GCKDeviceStatus
+ * Enum defining the device status at the time the device was scanned.
+ */
 typedef NS_ENUM(NSInteger, GCKDeviceStatus) {
   /** Unknown status. */
   GCKDeviceStatusUnknown = -1,
@@ -56,7 +64,7 @@ GCK_EXPORT
  * @param ipAddress The device's IPv4 address, in dot-notation.
  * @param servicePort The device's service port.
  */
-- (id)initWithIPAddress:(NSString *)ipAddress servicePort:(UInt32)servicePort;
+- (instancetype)initWithIPAddress:(NSString *)ipAddress servicePort:(UInt32)servicePort;
 
 /**
  * Tests if this device refers to the same physical device as another. Returns YES if both

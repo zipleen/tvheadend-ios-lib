@@ -20,13 +20,13 @@ GCK_EXPORT
 @property(nonatomic) BOOL relaunchIfRunning;
 
 /** Initializes the object with default values. */
-- (id)init;
+- (instancetype)init;
 
 /** Initializes the object with the system's language and the given relaunch behavior. */
-- (id)initWithRelaunchIfRunning:(BOOL)relaunchIfRunning;
+- (instancetype)initWithRelaunchIfRunning:(BOOL)relaunchIfRunning;
 
 /** Designated initializer. */
-- (id)initWithLanguageCode:(NSString *)languageCode
-         relaunchIfRunning:(BOOL)relaunchIfRunning;
+- (instancetype)initWithLanguageCode:(NSString *)languageCode
+                   relaunchIfRunning:(BOOL)relaunchIfRunning;
 
 @end

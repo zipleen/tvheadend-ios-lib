@@ -11,7 +11,8 @@
 /**
  * A class that (asynchronously) scans for available devices and sends corresponding notifications
  * to its listener(s). This class is implicitly a singleton; since it does a network scan, it isn't
- * useful to have more than one instance of it in use.
+ * useful to have more than one instance of it in use. <b>All methods and properties of this class
+ * may only be accessed from the main thread.</b>
  *
  * @ingroup Discovery
  */
@@ -31,20 +32,26 @@ GCK_EXPORT
 @property(nonatomic, copy) GCKFilterCriteria *filterCriteria;
 
 /**
+ * Whether the scan should be a passive scan. A passive scan sends discovery queries less
+ * frequently, so it is more efficient, but the results will not be as fresh. It's appropriate to
+ * do a passive scan when the user is not actively selecting a Cast target.
+ */
+@property(nonatomic, assign) BOOL passiveScan;
+
+/**
  * Designated initializer. Constructs a new GCKDeviceScanner.
  */
-- (id)init;
+- (instancetype)init;
 
 /**
  * Starts a new device scan. The scan must eventually be stopped by calling
- * @link #stopScan @endlink. Must only be called from the main thread.
+ * @link #stopScan @endlink.
  */
 - (void)startScan;
 
 /**
  * Stops any in-progress device scan. This method <b>must</b> be called at some point after
- * @link #startScan @endlink was called and before this object is released by its owner. Must only
- * be called from the main thread.
+ * @link #startScan @endlink was called and before this object is released by its owner.
  */
 - (void)stopScan;
 

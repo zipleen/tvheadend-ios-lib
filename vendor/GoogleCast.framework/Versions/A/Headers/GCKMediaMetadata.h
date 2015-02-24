@@ -4,7 +4,15 @@
 
 @class GCKImage;
 
-/** Media metadata types. */
+/**
+ * @file GCKMediaMetadata.h
+ * GCKMediaMetadataType enum.
+ */
+
+/**
+ * @enum GCKMediaMetadataType
+ * Enum defining the media metadata types.
+ */
 typedef NS_ENUM(NSInteger, GCKMediaMetadataType) {
   /** A media type representing generic media content. */
   GCKMediaMetadataTypeGeneric = 0,
@@ -216,12 +224,12 @@ GCK_EXPORT
  * @param metadataType The media type; one of the {@code MEDIA_TYPE_*} constants, or a value greater
  * than or equal to {@link MEDIA_TYPE_USER} for custom media types.
  */
-- (id)initWithMetadataType:(GCKMediaMetadataType)metadataType;
+- (instancetype)initWithMetadataType:(GCKMediaMetadataType)metadataType;
 
 /**
  * Initialize with the generic metadata type.
  */
-- (id)init;
+- (instancetype)init;
 
 /**
  * The metadata type.

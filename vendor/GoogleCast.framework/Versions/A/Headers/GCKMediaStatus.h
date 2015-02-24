@@ -6,6 +6,11 @@
 
 @class GCKMediaInformation;
 
+/**
+ * @file GCKMediaStatus.h
+ * GCKMediaPlayerState and GCKMediaPlayerIdleReason enums.
+ */
+
 /** A flag (bitmask) indicating that a media item can be paused. */
 GCK_EXTERN const NSInteger kGCKMediaCommandPause;
 
@@ -24,6 +29,10 @@ GCK_EXTERN const NSInteger kGCKMediaCommandSkipForward;
 /** A flag (bitmask) indicating that a media item supports skipping backward. */
 GCK_EXTERN const NSInteger kGCKMediaCommandSkipBackward;
 
+/**
+ * @enum GCKMediaPlayerState
+ * Media player states.
+ */
 typedef NS_ENUM(NSInteger, GCKMediaPlayerState) {
   /** Constant indicating unknown player state. */
   GCKMediaPlayerStateUnknown = 0,
@@ -37,6 +46,10 @@ typedef NS_ENUM(NSInteger, GCKMediaPlayerState) {
   GCKMediaPlayerStateBuffering = 4,
 };
 
+/**
+ * @enum GCKMediaPlayerIdleReason
+ * Media player idle reasons.
+ */
 typedef NS_ENUM(NSInteger, GCKMediaPlayerIdleReason) {
   /** Constant indicating that the player currently has no idle reason. */
   GCKMediaPlayerIdleReasonNone = 0,
@@ -128,8 +141,8 @@ GCK_EXPORT
  * @param mediaSessionID The media session ID.
  * @param mediaInformation The media information.
  */
-- (id)initWithSessionID:(NSInteger)mediaSessionID
-       mediaInformation:(GCKMediaInformation *)mediaInformation;
+- (instancetype)initWithSessionID:(NSInteger)mediaSessionID
+                 mediaInformation:(GCKMediaInformation *)mediaInformation;
 
 /**
  * Checks if the stream supports a given control command.

@@ -3,6 +3,12 @@
 #import "GCKDefines.h"
 
 /**
+ * @file GCKMediaTrack.h
+ * GCKMediaTrackType and GCKMediaTextTrackSubtype enums.
+ */
+
+/**
+ * @enum GCKMediaTrackType
  * Media track types.
  *
  * @ingroup MediaControl
@@ -19,6 +25,7 @@ typedef NS_ENUM(NSInteger, GCKMediaTrackType) {
 };
 
 /**
+ * @enum GCKMediaTextTrackSubtype
  * Media text track subtypes.
  *
  * @ingroup MediaControl
@@ -49,14 +56,14 @@ GCK_EXPORT
 /**
  * Designated initializer. Constructs a new GCKMediaTrack with the given property values.
  */
-- (id)initWithIdentifier:(NSInteger)identifier
-       contentIdentifier:(NSString *)contentIdentifier
-             contentType:(NSString *)contentType
-                    type:(GCKMediaTrackType)type
-             textSubtype:(GCKMediaTextTrackSubtype)textSubtype
-                    name:(NSString *)name
-            languageCode:(NSString *)languageCode
-              customData:(id)customData;
+- (instancetype)initWithIdentifier:(NSInteger)identifier
+                 contentIdentifier:(NSString *)contentIdentifier
+                       contentType:(NSString *)contentType
+                              type:(GCKMediaTrackType)type
+                       textSubtype:(GCKMediaTextTrackSubtype)textSubtype
+                              name:(NSString *)name
+                      languageCode:(NSString *)languageCode
+                        customData:(id)customData;
 
 /** The track's unique numeric identifier. */
 @property(nonatomic, readonly) NSInteger identifier;

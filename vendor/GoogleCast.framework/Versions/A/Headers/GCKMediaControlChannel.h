@@ -9,6 +9,11 @@
 @protocol GCKMediaControlChannelDelegate;
 
 /**
+ * @file GCKMediaControlChannel.h
+ * GCKMediaControlChannelResumeState enum.
+ */
+
+/**
  * The receiver application ID for the Default Media Receiver.
  *
  * Any operations which apply to a currently active stream (play, pause, seek, stop, etc) require
@@ -24,6 +29,10 @@
  */
 GCK_EXTERN NSString *const kGCKMediaDefaultReceiverApplicationID;
 
+/**
+ * @enum GCKMediaControlChannelResumeState
+ * Enum defining the media control channel resume state.
+ */
 typedef NS_ENUM(NSInteger, GCKMediaControlChannelResumeState) {
   /** A resume state indicating that the player state should be left unchanged. */
   GCKMediaControlChannelResumeStateUnchanged = 0,
@@ -62,7 +71,7 @@ GCK_EXPORT
 /**
  * Designated initializer.
  */
-- (id)init;
+- (instancetype)init;
 
 /**
  * Loads and starts playback of a new media item.
@@ -291,6 +300,17 @@ GCK_EXPORT
  */
 - (NSTimeInterval)approximateStreamPosition;
 
+/**
+ * Cancels an in-progress request. Cancelling a request does not prevent it from being executed;
+ * it simply indicates that the calling application is no longer interested in the results of the
+ * request, so any state associated with the tracking of the request will be cleared.
+ *
+ * @param The ID of the request to cancel.
+ * @return YES if the request was cancelled, or NO if there is no request being tracked with the
+ * given ID.
+ */
+- (BOOL)cancelRequestWithID:(NSInteger)requestID;
+
 @end
 
 /**
@@ -342,6 +362,15 @@ GCK_EXPORT
  */
 - (void)mediaControlChannel:(GCKMediaControlChannel *)mediaControlChannel
     didReplaceRequestWithID:(NSInteger)requestID;
+
+/**
+ * Called when a request is no longer being tracked because it has been explicitly cancelled.
+ *
+ * @param requestID The request ID that has been cancelled. This is the ID returned when the request
+ * was made.
+ */
+- (void)mediaControlChannel:(GCKMediaControlChannel *)mediaControlChannel
+    didCancelRequestWithID:(NSInteger)requestID;
 
 /**
  * Called when a request fails.
