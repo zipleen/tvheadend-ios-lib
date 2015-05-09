@@ -126,7 +126,7 @@
 
 - (void)signalWillLoadTags {
     if ([self.delegate respondsToSelector:@selector(willLoadTags)]) {
-        [self.delegate didLoadTags];
+        [self.delegate willLoadTags];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:TVHTagStoreWillLoadNotification
                                                         object:self];
