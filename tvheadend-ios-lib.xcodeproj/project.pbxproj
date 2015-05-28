@@ -12,8 +12,8 @@
 		AA01DE241A18435D00F7B3D2 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA01DE211A18435D00F7B3D2 /* libssl.a */; };
 		AA2C7E2919BCCE2F001EDC67 /* GoogleCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */; };
 		AA2C7E2D19BCCFCA001EDC67 /* TVHPlayChromeCast.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2C7E2C19BCCFCA001EDC67 /* TVHPlayChromeCast.m */; };
-		AA2C7E3319BCDAA1001EDC67 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; };
-		AA2C7E3519BCDAB3001EDC67 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; };
+		AA2C7E3319BCDAA1001EDC67 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		AA2C7E3519BCDAB3001EDC67 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		AA336F7A1889B8F300FD2A03 /* Log.287.invalid in Resources */ = {isa = PBXBuildFile; fileRef = AA336F791889B8F300FD2A03 /* Log.287.invalid */; };
 		AA43C9F41A06F26A007597F9 /* TVHEpgStoreA14.m in Sources */ = {isa = PBXBuildFile; fileRef = AA43C9F31A06F26A007597F9 /* TVHEpgStoreA14.m */; };
 		AA43C9F71A06FE0B007597F9 /* TVHEpgStoreA12.m in Sources */ = {isa = PBXBuildFile; fileRef = AA43C9F61A06FE0B007597F9 /* TVHEpgStoreA12.m */; };
