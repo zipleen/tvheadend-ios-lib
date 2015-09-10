@@ -127,10 +127,10 @@
         return [streamObject streamUrlWithTranscoding:transcoding withInternal:NO];
     }
     
-    url = [streamObject htspStreamURL];
-    if ( ! url ) {
+    //url = [streamObject htspStreamURL];
+    //if ( ! url ) {
         url = [streamObject streamURL];
-    }
+    //}
     return url;
 }
 
