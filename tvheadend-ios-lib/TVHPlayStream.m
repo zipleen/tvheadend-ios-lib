@@ -12,8 +12,16 @@
 
 #import "TVHPlayStream.h"
 #import "TVHServer.h"
+
+#ifdef ENABLE_XBMC
 #import "TVHPlayXbmc.h"
+#define TVH_ICON_XBMC @"icon-xbmc.png"
+#endif
+
+#ifdef ENABLE_CHROMECAST
 #import "TVHPlayChromeCast.h"
+#define TVH_ICON_CHROMECAST @"icon-cast-identified.png"
+#endif
 
 #define TVH_PROGRAMS @{@"VLC":@"vlc", @"Oplayer":@"oplayer", @"Buzz Player":@"buzzplayer", @"GoodPlayer":@"goodplayer", @"Ace Player":@"aceplayer", @"nPlayer":@"nplayer-http" }
 #define TVH_PROGRAMS_REMOVE_HTTP @[ @"nplayer-http" ]
@@ -21,8 +29,6 @@
 #define TVHS_TVHEADEND_STREAM_URL @"?transcode=1&resolution=%@%@%@%@&scodec=PASS"
 
 #define TVH_ICON_PROGRAM @""
-#define TVH_ICON_XBMC @"icon-xbmc.png"
-#define TVH_ICON_CHROMECAST @"icon-cast-identified.png"
 
 @interface TVHPlayStream()
 @property (nonatomic, weak) TVHServer *tvhServer;
@@ -66,17 +72,20 @@
         }
     }
     
+#ifdef ENABLE_XBMC
     // xbmc
     for (NSString* xbmcServer in [[TVHPlayXbmc sharedInstance] availableServers]) {
         [available setObject:TVH_ICON_XBMC forKey:xbmcServer];
     }
-    
+#endif
+#ifdef ENABLE_CHROMECAST
     if ( withTranscoding ) {
         // chromecast - can only cast with transcoding, no "mkv" or "mpeg2" support...
         for (NSString* ccServer in [[TVHPlayChromeCast sharedInstance] availableServers]) {
             [available setObject:TVH_ICON_CHROMECAST forKey:ccServer];
         }
     }
+#endif
     
     return [available copy];
 }
@@ -92,12 +101,16 @@
     if ( [self playInternalStreamIn:program forObject:streamObject withTranscoding:transcoding] ) {
         return true;
     }
-    
+#ifdef ENABLE_XBMC
     if ( [self playToXbmc:program forObject:streamObject withTranscoding:transcoding] ) {
         return true;
     }
-    
+#endif
+#ifdef ENABLE_CHROMECAST
     return [self playToChromeCast:program forObject:streamObject withTranscoding:transcoding];
+#else
+    return false;
+#endif
 }
 
 - (BOOL)playInternalStreamIn:(NSString*)program forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding {
@@ -114,15 +127,18 @@
     return false;
 }
 
+#ifdef ENABLE_XBMC
 - (BOOL)playToXbmc:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding {
     TVHPlayXbmc *playXbmcService = [TVHPlayXbmc sharedInstance];
     return [playXbmcService playStream:xbmcName forObject:streamObject withTranscoding:transcoding withAnalytics:self.tvhServer.analytics];
 }
-
+#endif
+#ifdef ENABLE_CHROMECAST
 - (BOOL)playToChromeCast:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding {
     TVHPlayChromeCast *playChromeCastService = [TVHPlayChromeCast sharedInstance];
     return [playChromeCastService playStream:xbmcName forObject:streamObject withTranscoding:transcoding withAnalytics:self.tvhServer.analytics];
 }
+#endif
 
 - (NSString*)streamUrlForObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding withInternal:(BOOL)internal
 {

@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 zipleen. All rights reserved.
 //
 
+#ifdef ENABLE_CHROMECAST
+
 #import "TVHPlayChromeCast.h"
 
 static NSString * kReceiverAppID;
@@ -259,16 +261,14 @@ didReceiveStatusForApplication:(GCKApplicationMetadata *)applicationMetadata {
 
 #pragma mark - misc
 - (void)showError:(NSError *)error {
-#ifdef DEVICE_IS_TVOS
-    
-#else
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
                                                     message:NSLocalizedString(error.description, nil)
                                                    delegate:nil
                                           cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                           otherButtonTitles:nil];
     [alert show];
-#endif
 }
 
 @end
+
+#endif

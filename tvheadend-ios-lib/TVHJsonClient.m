@@ -13,8 +13,11 @@
 #import "TVHServerSettings.h"
 #import "TVHJsonClient.h"
 #import "AFJSONRequestOperation.h"
+#ifdef ENABLE_SSH
 #import "SSHWrapper.h"
+#endif
 
+#ifndef DEVICE_IS_TVOS
 @implementation TVHNetworkActivityIndicatorManager
 
 - (void)networkingOperationDidStart:(NSNotification *)notification {
@@ -36,9 +39,12 @@
 }
 
 @end
+#endif
 
 @implementation TVHJsonClient {
+#ifdef ENABLE_SSH
     SSHWrapper *sshPortForwardWrapper;
+#endif
 }
 
 #pragma mark - Methods
@@ -95,7 +101,9 @@
     //[self setDefaultHeader:@"Accept" value:@"application/json"];
     //[self setParameterEncoding:AFJSONParameterEncoding];
     
+#ifndef DEVICE_IS_TVOS
     [[TVHNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+#endif
     
     if ( self.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable ) {
         _readyToUse = NO;
@@ -255,7 +263,7 @@
                    onLocalPort:(unsigned int)localPort
                         toHost:(NSString*)remoteIp
                   onRemotePort:(unsigned int)remotePort  {
-    
+#ifdef ENABLE_SSH
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
         NSError *error;
@@ -269,9 +277,11 @@
             NSLog(@"erro ssh pf: %@", error.localizedDescription);
         }
     });
+#endif
 }
 
 - (void)stopPortForward {
+#ifdef ENABLE_SSH
     if ( ! sshPortForwardWrapper ) {
         return ;
     }
@@ -280,5 +290,6 @@
         [sshPortForwardWrapper closeConnection];
         sshPortForwardWrapper = nil;
     });
+#endif
 }
 @end

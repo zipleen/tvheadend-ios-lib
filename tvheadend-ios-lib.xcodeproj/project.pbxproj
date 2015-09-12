@@ -127,16 +127,11 @@
 		AAC6346F1A1579430005EA99 /* Log.epg.utf.invalid in Resources */ = {isa = PBXBuildFile; fileRef = AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */; };
 		F08C12811BA24E2E0049A63A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F08C12801BA24E2E0049A63A /* SystemConfiguration.framework */; };
 		F0CDE47F1BA214C3000A969B /* libtvheadend-tvOS-lib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0CDE46D1BA214A2000A969B /* libtvheadend-tvOS-lib.a */; };
-		F0CDE4851BA2152C000A969B /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA01DE1F1A18435D00F7B3D2 /* libcrypto.a */; };
-		F0CDE4861BA2152F000A969B /* libssh2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA01DE201A18435D00F7B3D2 /* libssh2.a */; };
-		F0CDE4871BA21531000A969B /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA01DE211A18435D00F7B3D2 /* libssl.a */; };
-		F0CDE4881BA21538000A969B /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F0CDE4891BA21539000A969B /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; };
 		F0CDE48A1BA2153D000A969B /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F0CDE48B1BA2153D000A969B /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; };
 		F0CDE48E1BA21556000A969B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA89DE41861245200AE4C13 /* MobileCoreServices.framework */; };
 		F0CDE48F1BA21568000A969B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA89DE21861244C00AE4C13 /* libz.dylib */; };
-		F0CDE4901BA2156C000A969B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */; };
 		F0CDE4911BA2156D000A969B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */; };
 		F0CDE4921BA21570000A969B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B57185E5F6600E62240 /* CFNetwork.framework */; };
 		F0CDE4931BA21573000A969B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
@@ -222,7 +217,6 @@
 		F0CDE4E31BA21657000A969B /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B41185E5F2000E62240 /* AFHTTPRequestOperation.m */; };
 		F0CDE4E41BA21657000A969B /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B43185E5F2000E62240 /* AFImageRequestOperation.m */; };
 		F0CDE4E51BA21657000A969B /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B45185E5F2000E62240 /* AFJSONRequestOperation.m */; };
-		F0CDE4E61BA21657000A969B /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B47185E5F2000E62240 /* AFNetworkActivityIndicatorManager.m */; };
 		F0CDE4E71BA21657000A969B /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B4A185E5F2000E62240 /* AFPropertyListRequestOperation.m */; };
 		F0CDE4E81BA21657000A969B /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B4C185E5F2000E62240 /* AFURLConnectionOperation.m */; };
 		F0CDE4E91BA21657000A969B /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B4E185E5F2000E62240 /* AFXMLRequestOperation.m */; };
@@ -233,7 +227,6 @@
 		F0CDE4EE1BA216C9000A969B /* TVHChannelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6A185E603300E62240 /* TVHChannelTests.m */; };
 		F0CDE4EF1BA216C9000A969B /* TVHTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6C185E603300E62240 /* TVHTestHelper.m */; };
 		F0CDE4F01BA216C9000A969B /* TVHServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6E185E603300E62240 /* TVHServerTests.m */; };
-		F0CDE5011BA22094000A969B /* GoogleCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -536,13 +529,7 @@
 			files = (
 				F08C12811BA24E2E0049A63A /* SystemConfiguration.framework in Frameworks */,
 				F0CDE48A1BA2153D000A969B /* MediaAccessibility.framework in Frameworks */,
-				F0CDE4881BA21538000A969B /* CoreText.framework in Frameworks */,
 				F0CDE4921BA21570000A969B /* CFNetwork.framework in Frameworks */,
-				F0CDE5011BA22094000A969B /* GoogleCast.framework in Frameworks */,
-				F0CDE4851BA2152C000A969B /* libcrypto.a in Frameworks */,
-				F0CDE4861BA2152F000A969B /* libssh2.a in Frameworks */,
-				F0CDE4901BA2156C000A969B /* SystemConfiguration.framework in Frameworks */,
-				F0CDE4871BA21531000A969B /* libssl.a in Frameworks */,
 				F0CDE4931BA21573000A969B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1409,7 +1396,6 @@
 				F0CDE4CD1BA21610000A969B /* TVHNetwork.m in Sources */,
 				F0CDE49F1BA215BC000A969B /* TVHChannelStoreA15.m in Sources */,
 				F0CDE4C31BA215FD000A969B /* TVHStatusInputStore34.m in Sources */,
-				F0CDE4E61BA21657000A969B /* AFNetworkActivityIndicatorManager.m in Sources */,
 				F0CDE4D11BA21618000A969B /* TVHMuxStoreA15.m in Sources */,
 				F0CDE4B91BA215E4000A969B /* TVHDvrActions.m in Sources */,
 				F0CDE4DF1BA21636000A969B /* TVHPlayXbmc.m in Sources */,
@@ -1621,8 +1607,11 @@
 					"$(PROJECT_DIR)/vendor/libssh2-compiled",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "";
-				"OTHER_CFLAGS[arch=*]" = "";
+				OTHER_CFLAGS = (
+					"-DENABLE_CHROMECAST",
+					"-DENABLE_XBMC",
+					"-DENABLE_SSH",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -1649,7 +1638,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/vendor/libssh2-compiled",
 				);
-				OTHER_CFLAGS = "";
+				OTHER_CFLAGS = (
+					"-DENABLE_CHROMECAST",
+					"-DENABLE_XBMC",
+					"-DENABLE_SSH",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
