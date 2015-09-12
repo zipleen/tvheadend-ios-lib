@@ -5,6 +5,11 @@
 //
 
 #import <Availability.h>
+#ifdef __TVOS_9_0
+#define DEVICE_IS_TVOS YES
+#else
+#define DEVICE_IS_TVOS NO
+#endif
 
 //#define TESTING
 #ifdef __OBJC__
