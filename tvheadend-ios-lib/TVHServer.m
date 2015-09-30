@@ -280,6 +280,10 @@
 
 - (id <TVHEpgStore>)createEpgStoreWithName:(NSString*)statsName {
     Class myClass = NSClassFromString([@"TVHEpgStore" stringByAppendingString:self.version]);
+    if ( !myClass ) {
+        myClass = NSClassFromString([@"TVHEpgStore" stringByAppendingString:TVH_LATEST_SUPPORTED_API]);
+    }
+    
     id <TVHEpgStore> epgStore = [[myClass alloc] initWithStatsEpgName:statsName withTvhServer:self];
     return epgStore;
 }
