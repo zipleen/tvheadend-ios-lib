@@ -36,6 +36,35 @@
     dateFormatter = nil;
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    id copy = [[TVHChannel alloc] init];
+    
+    if (copy) {
+        [copy setTvhServer:self.tvhServer];
+        [copy setDelegate:self.delegate];
+        [copy setName:[self.name copyWithZone:zone]];
+        [copy setDetail:[self.detail copyWithZone:zone]];
+        [copy setImageUrl:[self.imageUrl copyWithZone:zone]];
+        [copy setCh_icon:[self.ch_icon copyWithZone:zone]];
+        [copy setChicon:[self.chicon copyWithZone:zone]];
+        [copy setNumber:self.number];
+        [copy setImage:[self.image copyWithZone:zone]];
+        [copy setChid:self.chid];
+        [copy setTags:[self.tags copyWithZone:zone]];
+        [copy setServices:[self.services copyWithZone:zone]];
+        [copy setEpg_pre_start:self.epg_pre_start];
+        [copy setEpg_post_end:self.epg_post_end];
+        [copy setEpggrabsrc:[self.epggrabsrc copyWithZone:zone]];
+        [copy setUuid:[self.uuid copyWithZone:zone]];
+        [copy setIcon:[self.icon copyWithZone:zone]];
+        [copy setIcon_public_url:[self.icon_public_url copyWithZone:zone]];
+        [copy setChannelEpgDataByDay:[self.channelEpgDataByDay copyWithZone:zone]];
+        [copy setRestOfEpgStore:self.restOfEpgStore];
+    }
+    
+    return copy;
+}
+
 - (id <TVHEpgStore>)restOfEpgStore {
     if ( ! _restOfEpgStore ) {
         _restOfEpgStore = [self.tvhServer createEpgStoreWithName:@"ChannelEPG"];
@@ -154,6 +183,10 @@
         }
     }
     return [NSString stringWithFormat:@"%@/tags/0/%@.ts", self.tvhServer.htspUrl, self.channelIdKey];
+}
+
+- (BOOL)isLive {
+    return YES;
 }
 
 - (NSString*)streamUrlWithTranscoding:(BOOL)transcoding withInternal:(BOOL)internal
@@ -337,6 +370,10 @@
         return NO;
     TVHChannel *otherCast = other;
     return self.channelIdKey == otherCast.channelIdKey;
+}
+
+- (NSUInteger)hash {
+    return [self.channelIdKey hash];
 }
 
 // TODO refactor the whole ChannelEPG crap - it should be a self contained day/program store!

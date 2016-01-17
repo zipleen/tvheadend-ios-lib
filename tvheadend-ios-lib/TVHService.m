@@ -72,6 +72,14 @@
     return [NSString stringWithFormat:@"%@/service/%@.ts", self.tvhServer.htspUrl, self.id];
 }
 
+- (BOOL)isLive {
+    return YES;
+}
+
+- (TVHEpg*)currentPlayingProgram {
+    return nil;
+}
+
 - (NSString*)streamUrlWithTranscoding:(BOOL)transcoding withInternal:(BOOL)internal
 {
     return [self.tvhServer.playStream streamUrlForObject:self withTranscoding:transcoding withInternal:internal];

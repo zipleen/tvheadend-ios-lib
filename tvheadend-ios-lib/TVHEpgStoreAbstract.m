@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NSArray *epgStore;
 @property (nonatomic, weak) id <TVHEpgStoreDelegate> delegate;
 @property (nonatomic) NSInteger totalEventCount;
-
+@property (nonatomic, strong) NSMutableDictionary *epgByChannel;
 @end
 
 @implementation TVHEpgStoreAbstract
@@ -37,7 +37,7 @@
 
 - (void)removeOldProgramsFromStore {
     BOOL __block didRemove = false;
-    NSMutableArray *myStore = [[NSMutableArray alloc ] init];
+    NSMutableArray *myStore = [[NSMutableArray alloc] init];
     if ( self.epgStore ) {
         for ( TVHEpg *obj in self.epgStore ) {
             if ( [obj progress] >= 1.0 ) {
@@ -49,6 +49,9 @@
     }
     if ( didRemove ) {
         self.epgStore = [myStore copy];
+        for ( TVHEpg *obj in self.epgStore ) {
+            [self addEpgItemToStoreByChannel:obj];
+        }
         [self signalDidLoadEpg];
     }
 }
@@ -83,8 +86,33 @@
 - (NSArray*)epgStore {
     if ( !_epgStore ) {
         _epgStore = [[NSArray alloc] init];
+        _epgByChannel = [[NSMutableDictionary alloc] init];
     }
     return _epgStore;
+}
+
+- (NSMutableDictionary*)epgByChannel {
+    if ( !_epgByChannel ) {
+        _epgByChannel = [[NSMutableDictionary alloc] init];
+    }
+    return _epgByChannel;
+}
+
+- (NSDictionary*)epgByChannelCopy {
+    return [self.epgByChannel copy];
+}
+
+/**
+ * channels for the epgByChannel dictionary 
+ **/
+- (NSArray*)channelsOfEpgByChannel {
+    NSArray *channels;
+    if ( [self.tvhServer.settings sortChannel] == TVHS_SORT_CHANNEL_BY_NAME ) {
+        channels =  [self.epgByChannel.allKeys sortedArrayUsingSelector:@selector(compareByName:)];
+    } else {
+        channels =  [self.epgByChannel.allKeys sortedArrayUsingSelector:@selector(compareByNumber:)];
+    }
+    return channels;
 }
 
 - (void)dealloc {
@@ -99,12 +127,23 @@
     // don't add duplicate items - need to search in the array!
     if ( [self.epgStore indexOfObject:epgItem] == NSNotFound ) {
         self.epgStore = [self.epgStore arrayByAddingObject:epgItem];
+        [self addEpgItemToStoreByChannel:epgItem];
     }
 #ifdef TESTING
     else {
         NSLog(@"[EpgStore-%@: duplicate EPG: %@", self.statsEpgName, [epgItem title] );
     }
 #endif
+}
+
+- (void)addEpgItemToStoreByChannel:(TVHEpg*)epgItem {
+    TVHChannel *channel = epgItem.channelObject;
+    NSArray *channelEpg = [self.epgByChannel objectForKey:channel];
+    if (channelEpg == nil) {
+        channelEpg = [[NSArray alloc] init];
+    }
+    channelEpg = [channelEpg arrayByAddingObject:epgItem];
+    [self.epgByChannel setObject:channelEpg forKey:channel];
 }
 
 #pragma mark ApiClient Implementation

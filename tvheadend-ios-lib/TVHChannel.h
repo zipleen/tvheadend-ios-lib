@@ -25,7 +25,7 @@
 - (void)didErrorLoadingEpgChannel:(NSError*)error;
 @end
 
-@interface TVHChannel : NSObject <TVHPlayStreamDelegate>
+@interface TVHChannel : NSObject <TVHPlayStreamDelegate, NSCopying>
 @property (nonatomic, weak) TVHServer *tvhServer;
 @property (nonatomic, weak) id <TVHChannelDelegate> delegate;
 @property (nonatomic, strong) NSString *name;
@@ -50,14 +50,16 @@
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 
-- (NSString*)channelIdKey;
-- (BOOL)hasTag:(NSString*)tag;
+// playStream delegate
 - (NSString*)streamURL;
 - (NSString*)playlistStreamURL;
+- (NSString*)description;
+
+- (NSString*)channelIdKey;
+- (BOOL)hasTag:(NSString*)tag;
 - (void)addEpg:(TVHEpg*)epg;
 - (TVHEpg*)currentPlayingProgram;
 - (NSArray*)nextPrograms:(int)numberOfNextPrograms;
-- (NSString*)description;
 
 - (void)downloadRestOfEpg;
 - (void)resetChannelEpgStore;

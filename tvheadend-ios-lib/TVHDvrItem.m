@@ -172,6 +172,14 @@
     return nil;
 }
 
+- (BOOL)isLive {
+    return NO;
+}
+
+- (TVHEpg*)currentPlayingProgram {
+    return nil;
+}
+
 - (NSString*)streamUrlWithTranscoding:(BOOL)transcoding withInternal:(BOOL)internal
 {
     return [self.tvhServer.playStream streamUrlForObject:self withTranscoding:transcoding withInternal:internal];

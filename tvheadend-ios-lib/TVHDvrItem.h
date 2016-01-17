@@ -46,6 +46,9 @@
 - (void)updateValuesFromDictionary:(NSDictionary*) values;
 - (void)deleteRecording;
 - (TVHChannel*)channelObject;
+
+// playStream delegate
+
 - (NSString*)streamURL;
 - (NSString*)playlistStreamURL;
 - (NSString*)name;
