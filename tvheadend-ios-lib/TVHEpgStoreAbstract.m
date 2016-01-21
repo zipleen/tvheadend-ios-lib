@@ -106,13 +106,24 @@
  * channels for the epgByChannel dictionary 
  **/
 - (NSArray*)channelsOfEpgByChannel {
-    NSArray *channels;
+    NSMutableArray *channels = [[NSMutableArray alloc] init];
+    
+    // for each epgByChannel first entry, we shall collect the channelId and then get the corresponding object
+    [self.epgByChannel enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull channelIdKey, NSArray*  _Nonnull epgArray, BOOL * _Nonnull stop) {
+        TVHEpg *epg = [epgArray objectAtIndex:0];
+        if (epg != nil) {
+            TVHChannel *channel = epg.channelObject;
+            if (channel != nil) {
+                [channels addObject:epg.channelObject];
+            }
+        }
+    }];
+    
     if ( [self.tvhServer.settings sortChannel] == TVHS_SORT_CHANNEL_BY_NAME ) {
-        channels =  [self.epgByChannel.allKeys sortedArrayUsingSelector:@selector(compareByName:)];
+        return [channels sortedArrayUsingSelector:@selector(compareByName:)];
     } else {
-        channels =  [self.epgByChannel.allKeys sortedArrayUsingSelector:@selector(compareByNumber:)];
+        return [channels sortedArrayUsingSelector:@selector(compareByNumber:)];
     }
-    return channels;
 }
 
 - (void)dealloc {
@@ -137,13 +148,13 @@
 }
 
 - (void)addEpgItemToStoreByChannel:(TVHEpg*)epgItem {
-    TVHChannel *channel = epgItem.channelObject;
-    NSArray *channelEpg = [self.epgByChannel objectForKey:channel];
+    NSString *channelIdKey = epgItem.channelIdKey;
+    NSArray *channelEpg = [self.epgByChannel objectForKey:channelIdKey];
     if (channelEpg == nil) {
         channelEpg = [[NSArray alloc] init];
     }
     channelEpg = [channelEpg arrayByAddingObject:epgItem];
-    [self.epgByChannel setObject:channelEpg forKey:channel];
+    [self.epgByChannel setObject:channelEpg forKey:channelIdKey];
 }
 
 #pragma mark ApiClient Implementation

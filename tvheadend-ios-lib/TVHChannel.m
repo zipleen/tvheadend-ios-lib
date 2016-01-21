@@ -268,6 +268,9 @@
                 }
             }
         }
+        if ( i >= numberOfNextPrograms ) {
+            break;
+        }
     }
     return [nextPrograms copy];
 
