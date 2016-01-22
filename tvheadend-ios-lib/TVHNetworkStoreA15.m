@@ -95,7 +95,7 @@
 }
 
 - (NSDictionary*)apiParameters {
-    return @{@"limit":@"9999999999"};
+    return @{@"limit":@"99999999"};
 }
 
 

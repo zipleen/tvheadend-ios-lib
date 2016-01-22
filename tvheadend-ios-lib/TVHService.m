@@ -77,6 +77,9 @@
 }
 
 - (TVHEpg*)currentPlayingProgram {
+    if (self.mappedChannel) {
+        return self.mappedChannel.currentPlayingProgram;
+    }
     return nil;
 }
 
@@ -92,7 +95,10 @@
 
 - (NSString*)name
 {
-    return [self.mappedChannel name];
+    if (self.mappedChannel) {
+        return [self.mappedChannel name];
+    }
+    return self.svcname;
 }
 
 @end
