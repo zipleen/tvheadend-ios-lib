@@ -157,13 +157,25 @@
 #pragma mark Controller delegate stuff
 
 - (NSArray*)filteredChannelList {
+    return [self filteredChannelList:self.filterTag];
+}
+
+- (NSArray*)filteredChannelList:(NSString*)filterTag {
     NSMutableArray *filteredChannels = [[NSMutableArray alloc] init];
     for (TVHChannel *channel in self.channels) {
-        if( [channel hasTag:self.filterTag] ) {
+        if( [channel hasTag:filterTag] ) {
             [filteredChannels addObject:channel];
         }
     }
     return [filteredChannels copy];
+}
+
+- (NSArray*)channelsWithTag:(NSString*)tag {
+    if ( [tag isEqualToString:@"0"] ) {
+        return [self.channels copy];
+    } else {
+        return [self filteredChannelList:tag];
+    }
 }
 
 - (NSArray*)arrayChannels {

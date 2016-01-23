@@ -22,6 +22,7 @@
 
 - (NSArray*)channels;
 - (NSArray*)arrayChannels;
+- (NSArray*)channelsWithTag:(NSString*)tag;
 - (TVHChannel*)channelWithName:(NSString*)name;
 - (TVHChannel*)channelWithId:(NSString*)channelId;
 - (NSArray*)filteredChannelList;
