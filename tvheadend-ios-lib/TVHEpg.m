@@ -73,7 +73,7 @@
 - (void)didSuccessfulyAddEpgToRecording:(NSNotification *)notification {
     if ([[notification name] isEqualToString:TVHDidSuccessfulyAddEpgToRecording]) {
         NSNumber *number = [notification object];
-        if ( [number intValue] == self.id ) {
+        if ( [number intValue] == self.id || [number intValue] == self.eventId ) {
             // not exactly right, but it's better than having to get ALL the epg again :p
             if ( [self progress] > 0 ) {
                 self.schedstate = @"recording";
@@ -221,10 +221,16 @@
 }
 
 - (BOOL)isScheduledForRecording {
+    if (self.dvrState) {
+        return [self.dvrState isEqualToString:@"scheduled"];
+    }
     return [[self schedstate] isEqualToString:@"scheduled"];
 }
 
 - (BOOL)isRecording {
+    if (self.dvrState) {
+        return [self.dvrState isEqualToString:@"recording"];
+    }
     return [[self schedstate] isEqualToString:@"recording"];
 }
 

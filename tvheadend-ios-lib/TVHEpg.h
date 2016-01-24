@@ -50,6 +50,9 @@
 @property (nonatomic, strong) NSString *channelName;
 @property (nonatomic, strong) NSString *channelNumber;
 @property (nonatomic, strong) NSString *channelIcon;
+// 4.1
+@property (nonatomic, strong) NSString *dvrUuid;
+@property (nonatomic, strong) NSString *dvrState;
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)updateValuesFromDictionary:(NSDictionary*) values;
