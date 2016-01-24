@@ -20,6 +20,8 @@
 #define TVHChannelStoreDidErrorNotification @"didErrorLoadChannels"
 @class TVHServer;
 
+typedef void (^ChannelLoadedCompletionBlock)(NSArray *channels);
+
 @protocol TVHChannelStoreDelegate <NSObject>
 @optional
 - (void)willLoadChannels;
@@ -33,6 +35,7 @@
 @property (nonatomic, strong) NSString *filterTag;
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchChannelList;
+- (void)fetchChannelListWithSuccess:(ChannelLoadedCompletionBlock)successBlock failure:(ChannelLoadedCompletionBlock)failureBlock loadEpgForChannels:(BOOL)loadEpg;
 
 - (NSArray*)channels;
 - (NSArray*)arrayChannels;

@@ -106,6 +106,13 @@
 }
 
 - (void)fetchChannelList {
+    return [self fetchChannelListWithSuccess:nil failure:nil loadEpgForChannels:YES];
+}
+
+- (void)fetchChannelListWithSuccess:(ChannelLoadedCompletionBlock)successBlock
+                            failure:(ChannelLoadedCompletionBlock)failureBlock
+                 loadEpgForChannels:(BOOL)loadEpg
+{
     __block NSDate *profilingDate = [NSDate date];
     [self signalWillLoadChannels];
     
@@ -121,16 +128,30 @@
         NSLog(@"[ChannelList Profiling Network]: %f", time);
 #endif
         if ( [strongSelf fetchedData:responseObject] ) {
+            if (successBlock != nil) {
+                successBlock(self.channels);
+            }
             if ([strongSelf.delegate respondsToSelector:@selector(didLoadChannels)]) {
                 [strongSelf.delegate didLoadChannels];
             }
+            
             [[strongSelf.tvhServer tagStore] signalDidLoadTags];
-            [strongSelf.currentlyPlayingEpgStore downloadEpgList];
+            
+            if (loadEpg) {
+                [strongSelf.currentlyPlayingEpgStore downloadEpgList];
+            }
+        } else {
+            if (failureBlock != nil) {
+                failureBlock(nil);
+            }
         }
         
        // NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
        // NSLog(@"Request Successful, response '%@'", responseStr);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (failureBlock != nil) {
+            failureBlock(nil);
+        }
         [weakSelf signalDidErrorLoadingChannelStore:error];
         NSLog(@"[ChannelList HTTPClient Error]: %@", error.localizedDescription);
     }];

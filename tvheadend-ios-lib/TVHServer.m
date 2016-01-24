@@ -332,6 +332,13 @@
     return false;
 }
 
+- (BOOL)isReady {
+    if (!self.jsonClient) {
+        return NO;
+    }
+    return self.jsonClient.readyToUse;
+}
+
 - (TVHPlayStream*)playStream
 {
     if ( ! _playStream ) {
