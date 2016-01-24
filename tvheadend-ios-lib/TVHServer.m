@@ -80,12 +80,8 @@
 #pragma mark init
 
 - (TVHServer*)initWithSettings:(TVHServerSettings*)settings {
-    self = [super init];
+    self = [self initWithSettingsButDontInit:settings];
     if (self) {
-        if ( ! settings ) {
-            return nil;
-        }
-        self.inProcessing = NO;
 #ifdef ENABLE_XBMC
         [TVHPlayXbmc sharedInstance];
 #endif
@@ -95,9 +91,6 @@
             [TVHPlayChromeCast sharedInstance];
         }
 #endif
-        self.settings = settings;
-        self.version = settings.version;
-        self.apiVersion = settings.apiVersion;
         [self.tagStore fetchTagList];
         [self.channelStore fetchChannelList];
         [self.statusStore fetchStatusSubscriptions];
@@ -125,6 +118,21 @@
                                                      name:UIApplicationWillEnterForegroundNotification
                                                    object:nil];
         [self startTimer];
+    }
+    return self;
+}
+
+- (TVHServer*)initWithSettingsButDontInit:(TVHServerSettings*)settings {
+    self = [super init];
+    if (self) {
+        if ( ! settings ) {
+            return nil;
+        }
+        self.inProcessing = NO;
+
+        self.settings = settings;
+        self.version = settings.version;
+        self.apiVersion = settings.apiVersion;
     }
     return self;
 }

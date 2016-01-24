@@ -167,7 +167,12 @@
             [filteredChannels addObject:channel];
         }
     }
-    return [filteredChannels copy];
+    
+    if ( [self.tvhServer.settings sortChannel] == TVHS_SORT_CHANNEL_BY_NAME ) {
+        return [[filteredChannels copy] sortedArrayUsingSelector:@selector(compareByName:)];
+    } else {
+        return [[filteredChannels copy] sortedArrayUsingSelector:@selector(compareByNumber:)];
+    }
 }
 
 - (NSArray*)channelsWithTag:(NSString*)tag {

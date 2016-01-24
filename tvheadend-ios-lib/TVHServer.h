@@ -62,6 +62,7 @@
 - (BOOL)isVersionFour;
 
 - (TVHServer*)initWithSettings:(TVHServerSettings*)settings;
+- (TVHServer*)initWithSettingsButDontInit:(TVHServerSettings*)settings;
 - (id <TVHEpgStore>)createEpgStoreWithName:(NSString*)statsName;
 - (void)fetchServerVersion;
 - (BOOL)isTranscodingCapable;

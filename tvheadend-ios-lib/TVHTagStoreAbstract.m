@@ -75,6 +75,15 @@
     return true;
 }
 
+- (TVHTag*)tagWithIdKey:(NSString*)idKey {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idKey == %@", idKey];
+    NSArray *filteredArray = [self.tags filteredArrayUsingPredicate:predicate];
+    if ([filteredArray count] > 0) {
+        return [filteredArray objectAtIndex:0];
+    }
+    return nil;
+}
+
 #pragma mark Api Client delegates
 
 - (NSString*)apiMethod {
