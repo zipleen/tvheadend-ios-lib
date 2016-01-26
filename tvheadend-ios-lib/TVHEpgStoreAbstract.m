@@ -166,6 +166,7 @@
 - (bool)fetchedData:(NSData *)responseData {
     
     NSError __autoreleasing *error;
+    NSDate *nowTime = [NSDate dateWithTimeIntervalSinceNow:-600];
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
     if( error ) {
         if ([self.delegate respondsToSelector:@selector(didErrorLoadingEpgStore:)]) {
@@ -180,7 +181,9 @@
     [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         TVHEpg *epg = [[TVHEpg alloc] initWithTvhServer:self.tvhServer];
         [epg updateValuesFromDictionary:obj];
-        [self addEpgItemToStore:epg];
+        if ([epg.end timeIntervalSinceDate:nowTime] > 0) {
+            [self addEpgItemToStore:epg];
+        }
     }];
     
 #ifdef TESTING
@@ -265,6 +268,10 @@
 }
 
 - (void)getMoreEpg:(NSInteger)start limit:(NSInteger)limit fetchAll:(BOOL)fetchAll {
+    if ( start > self.totalEventCount ) {
+        NSLog(@"Reached the end of the epg!");
+        return ;
+    }
     // get last epg
     // check date
     // if date > datenow, get more 50 (DEFAULT_REQUEST_EPG_ITEMS)
@@ -280,10 +287,16 @@
             //NSLog(@"localdate: %@ | last start date: %@ ", localDate, last.start);
     #endif
             if ( [localDate compare:last.start] == NSOrderedDescending && (start+limit) < self.totalEventCount ) {
-                [self retrieveEpgDataFromTVHeadend:(start+limit) limit:DEFAULT_REQUEST_EPG_ITEMS fetchAll:false];
+                [self retrieveEpgDataFromTVHeadend:(start+limit) limit:self.numberOfRequestedEpgItems fetchAll:false];
             }
+        } else {
+            [self retrieveEpgDataFromTVHeadend:(start+limit) limit:self.numberOfRequestedEpgItems fetchAll:false];
         }
     }
+}
+
+- (NSInteger)numberOfRequestedEpgItems {
+    return DEFAULT_REQUEST_EPG_ITEMS;
 }
 
 - (void)downloadAllEpgItems {
@@ -291,11 +304,11 @@
 }
 
 - (void)downloadEpgList {
-    [self retrieveEpgDataFromTVHeadend:0 limit:DEFAULT_REQUEST_EPG_ITEMS fetchAll:false];
+    [self retrieveEpgDataFromTVHeadend:0 limit:self.numberOfRequestedEpgItems fetchAll:false];
 }
 
 - (void)downloadMoreEpgList {
-    [self retrieveEpgDataFromTVHeadend:[self.epgStore count] limit:DEFAULT_REQUEST_EPG_ITEMS fetchAll:false];
+    [self retrieveEpgDataFromTVHeadend:[self.epgStore count] limit:self.numberOfRequestedEpgItems fetchAll:false];
 }
 
 - (void)clearEpgData {

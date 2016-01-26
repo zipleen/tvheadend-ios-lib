@@ -28,6 +28,7 @@
 - (id)initWithStatsEpgName:(NSString*)statsEpgName withTvhServer:(TVHServer*)tvhServer;
 - (void)appWillEnterForeground:(NSNotification*)note;
 
+- (NSInteger)numberOfRequestedEpgItems;
 - (void)downloadAllEpgItems;
 - (void)downloadEpgList;
 - (void)downloadMoreEpgList;
