@@ -117,7 +117,7 @@
 
 - (void)didChangeNetworkReachability:(NSNotification*)note {
     NSNumber *status = [note.userInfo objectForKey:AFNetworkingReachabilityNotificationStatusItem];
-    NSLog(@"%@", status );
+    
     if ( [status integerValue] == AFNetworkReachabilityStatusNotReachable ) {
         @synchronized(self) {
             _readyToUse = NO;

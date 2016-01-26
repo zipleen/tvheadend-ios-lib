@@ -39,4 +39,8 @@
     }
 }
 
+- (NSInteger)numberOfRequestedEpgItems {
+    return 300;
+}
+
 @end
