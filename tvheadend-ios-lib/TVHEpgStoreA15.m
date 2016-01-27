@@ -40,6 +40,20 @@
 }
 
 - (NSInteger)numberOfRequestedEpgItems {
+    NSUInteger channelCount = self.tvhServer.channelStore.channelCount;
+    
+    if (channelCount > 300) {
+        return 3000;
+    }
+    
+    if (channelCount > 200) {
+        return 2000;
+    }
+    
+    if (channelCount > 100) {
+        return 1000;
+    }
+    
     return 300;
 }
 

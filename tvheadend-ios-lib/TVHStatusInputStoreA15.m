@@ -104,10 +104,12 @@
     [self signalWillLoadStatusInputs];
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
         typeof (self) strongSelf = weakSelf;
-        if ( [strongSelf fetchedData:responseObject] ) {
-            [strongSelf signalDidLoadStatusInputs];
-        }
         
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            if ( [strongSelf fetchedData:responseObject] ) {
+                [strongSelf signalDidLoadStatusInputs];
+            }
+        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [weakSelf signalDidErrorStatusInputStore:error];
         NSLog(@"[Status Input HTTPClient Error]: %@", error.localizedDescription);
@@ -134,11 +136,13 @@
 #pragma mark Signal delegates
 
 - (void)signalDidLoadStatusInputs {
-    if ([self.delegate respondsToSelector:@selector(didLoadStatusInputs)]) {
-        [self.delegate didLoadStatusInputs];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusInputStoreDidLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didLoadStatusInputs)]) {
+            [self.delegate didLoadStatusInputs];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusInputStoreDidLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalWillLoadStatusInputs {

@@ -108,10 +108,12 @@
     [self signalWillLoadStatusSubscriptions];
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
         typeof (self) strongSelf = weakSelf;
-        if ( [strongSelf fetchedData:responseObject] ) {
-            [strongSelf signalDidLoadStatusSubscriptions];
-        }
         
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            if ( [strongSelf fetchedData:responseObject] ) {
+                [strongSelf signalDidLoadStatusSubscriptions];
+            }
+        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [weakSelf signalDidErrorStatusSubscriptionsStore:error];
         NSLog(@"[Subscription HTTPClient Error]: %@", error.localizedDescription);
@@ -138,11 +140,14 @@
 #pragma mark Signal delegates
 
 - (void)signalDidLoadStatusSubscriptions {
-    if ([self.delegate respondsToSelector:@selector(didLoadStatusSubscriptions)]) {
-        [self.delegate didLoadStatusSubscriptions];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusSubscriptionStoreDidLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didLoadStatusSubscriptions)]) {
+            [self.delegate didLoadStatusSubscriptions];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusSubscriptionStoreDidLoadNotification
+                                                            object:self];
+    });
+    
 }
 
 - (void)signalWillLoadStatusSubscriptions {

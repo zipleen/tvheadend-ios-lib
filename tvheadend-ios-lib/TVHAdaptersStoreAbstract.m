@@ -107,10 +107,12 @@
     
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
         typeof (self) strongSelf = weakSelf;
-        if ( [strongSelf fetchedData:responseObject] ) {
-            [strongSelf signalDidLoadAdapters];
-        }
         
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            if ( [strongSelf fetchedData:responseObject] ) {
+                [strongSelf signalDidLoadAdapters];
+            }
+        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [weakSelf signalDidErrorAdaptersStore:error];
         NSLog(@"[Adapter Store HTTPClient Error]: %@", error.localizedDescription);
@@ -144,11 +146,14 @@
 }
 
 - (void)signalDidLoadAdapters {
-    if ([self.delegate respondsToSelector:@selector(didLoadAdapters)]) {
-        [self.delegate didLoadAdapters];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAdapterStoreDidLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didLoadAdapters)]) {
+            [self.delegate didLoadAdapters];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHAdapterStoreDidLoadNotification
+                                                            object:self];
+    });
+    
 }
 
 - (void)signalDidErrorAdaptersStore:(NSError*)error {

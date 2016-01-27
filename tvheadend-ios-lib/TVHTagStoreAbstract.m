@@ -113,9 +113,12 @@
 #ifdef TESTING
         NSLog(@"[TagStore Profiling Network]: %f", time);
 #endif
-        if ( [strongSelf fetchedData:responseObject] ) {
-            [strongSelf signalDidLoadTags];
-        }
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            if ( [strongSelf fetchedData:responseObject] ) {
+                [strongSelf signalDidLoadTags];
+            }
+        });
         
         //NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         //NSLog(@"Request Successful, response '%@'", responseStr);
@@ -142,12 +145,14 @@
 }
 
 - (void)signalDidLoadTags {
-    if ([self.delegate respondsToSelector:@selector(didLoadTags)]) {
-        [self.delegate didLoadTags];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didLoadTags)]) {
+            [self.delegate didLoadTags];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHTagStoreDidLoadNotification
+                                                            object:self];
+    });
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHTagStoreDidLoadNotification
-                                                        object:self];
-}
 
 - (void)signalDidErrorLoadingTagStore:(NSError*)error {
     if ([self.delegate respondsToSelector:@selector(didErrorLoadingTagStore:)]) {

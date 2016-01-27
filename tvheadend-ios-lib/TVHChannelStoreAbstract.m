@@ -127,24 +127,31 @@
 #ifdef TESTING
         NSLog(@"[ChannelList Profiling Network]: %f", time);
 #endif
-        if ( [strongSelf fetchedData:responseObject] ) {
-            if (successBlock != nil) {
-                successBlock(self.channels);
-            }
-            if ([strongSelf.delegate respondsToSelector:@selector(didLoadChannels)]) {
-                [strongSelf.delegate didLoadChannels];
-            }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             
-            [[strongSelf.tvhServer tagStore] signalDidLoadTags];
-            
-            if (loadEpg) {
-                [strongSelf.currentlyPlayingEpgStore downloadEpgList];
+            if ( [strongSelf fetchedData:responseObject] ) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (successBlock != nil) {
+                        successBlock(self.channels);
+                    }
+                    if ([strongSelf.delegate respondsToSelector:@selector(didLoadChannels)]) {
+                        [strongSelf.delegate didLoadChannels];
+                    }
+                    
+                    [[strongSelf.tvhServer tagStore] signalDidLoadTags];
+                    
+                    if (loadEpg) {
+                        [strongSelf.currentlyPlayingEpgStore downloadEpgList];
+                    }
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (failureBlock != nil) {
+                        failureBlock(nil);
+                    }
+                });
             }
-        } else {
-            if (failureBlock != nil) {
-                failureBlock(nil);
-            }
-        }
+        });
         
        // NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
        // NSLog(@"Request Successful, response '%@'", responseStr);
@@ -212,6 +219,10 @@
     }
 }
 
+- (NSUInteger)channelCount {
+    return self.channels.count;
+}
+
 - (TVHChannel*)channelWithName:(NSString*)name {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
     NSArray *filteredArray = [self.channels filteredArrayUsingPredicate:predicate];
@@ -246,11 +257,13 @@
 }
 
 - (void)signalDidLoadChannels {
-    if ([self.delegate respondsToSelector:@selector(didLoadChannels)]) {
-        [self.delegate didLoadChannels];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelStoreDidLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didLoadChannels)]) {
+            [self.delegate didLoadChannels];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelStoreDidLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidErrorLoadingChannelStore:(NSError*)error {

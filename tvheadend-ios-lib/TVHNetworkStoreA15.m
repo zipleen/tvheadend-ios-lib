@@ -105,10 +105,13 @@
     [self signalWillLoadNetwork];
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
         typeof (self) strongSelf = weakSelf;
-        if ( [strongSelf fetchedData:responseObject] ) {
-            [strongSelf signalDidLoadNetwork];
-        }
         
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            if ( [strongSelf fetchedData:responseObject] ) {
+                [strongSelf signalDidLoadNetwork];
+            }
+        });
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [weakSelf signalDidErrorNetworkStore:error];
         NSLog(@"[Network HTTPClient Error]: %@", error.localizedDescription);
@@ -135,11 +138,14 @@
 #pragma mark Signal delegates
 
 - (void)signalDidLoadNetwork {
-    if ([self.delegate respondsToSelector:@selector(didLoadNetwork)]) {
-        [self.delegate didLoadNetwork];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHNetworkStoreDidLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didLoadNetwork)]) {
+            [self.delegate didLoadNetwork];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHNetworkStoreDidLoadNotification
+                                                            object:self];
+    });
+    
 }
 
 - (void)signalWillLoadNetwork {

@@ -154,11 +154,12 @@
 #ifdef TESTING
         NSLog(@"[DvrStore Profiling Network]: %f", time);
 #endif
-
-        if ( [strongSelf fetchedData:responseObject withType:type] ) {
-            [strongSelf signalDidLoadDvr:type];
-            [strongSelf getMoreDvrItems:url withType:type start:start limit:limit];
-        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            if ( [strongSelf fetchedData:responseObject withType:type] ) {
+                [strongSelf signalDidLoadDvr:type];
+                [strongSelf getMoreDvrItems:url withType:type start:start limit:limit];
+            }
+        });
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [weakSelf signalDidErrorDvrStore:error];
@@ -231,11 +232,13 @@
 }
 
 - (void)signalDidLoadDvr:(NSInteger)type {
-    if ([self.delegate respondsToSelector:@selector(didLoadDvr:)]) {
-        [self.delegate didLoadDvr:type];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHDvrStoreDidLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didLoadDvr:)]) {
+            [self.delegate didLoadDvr:type];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDvrStoreDidLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidErrorDvrStore:(NSError*)error {

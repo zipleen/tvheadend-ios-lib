@@ -21,6 +21,7 @@
 @property (nonatomic, weak) id <TVHEpgStoreDelegate> delegate;
 @property (nonatomic) NSInteger totalEventCount;
 @property (nonatomic, strong) NSMutableDictionary *epgByChannel;
+@property (nonatomic) NSUInteger lastStart;
 @end
 
 @implementation TVHEpgStoreAbstract
@@ -134,17 +135,19 @@
     self.filterToTagName = nil;
 }
 
-- (void)addEpgItemToStore:(TVHEpg*)epgItem {
+- (BOOL)addEpgItemToStore:(TVHEpg*)epgItem {
     // don't add duplicate items - need to search in the array!
     if ( [self.epgStore indexOfObject:epgItem] == NSNotFound ) {
         self.epgStore = [self.epgStore arrayByAddingObject:epgItem];
         [self addEpgItemToStoreByChannel:epgItem];
+        return YES;
     }
 #ifdef TESTING
     else {
         NSLog(@"[EpgStore-%@: duplicate EPG: %@", self.statsEpgName, [epgItem title] );
     }
 #endif
+    return NO;
 }
 
 - (void)addEpgItemToStoreByChannel:(TVHEpg*)epgItem {
@@ -164,7 +167,7 @@
 }
 
 - (bool)fetchedData:(NSData *)responseData {
-    
+    __block NSUInteger duplicate = 0;
     NSError __autoreleasing *error;
     NSDate *nowTime = [NSDate dateWithTimeIntervalSinceNow:-600];
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
@@ -177,14 +180,18 @@
     
     self.totalEventCount = [[json objectForKey:@"totalCount"] intValue];
     NSArray *entries = [json objectForKey:self.jsonApiFieldEntries];
-    
+
     [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         TVHEpg *epg = [[TVHEpg alloc] initWithTvhServer:self.tvhServer];
         [epg updateValuesFromDictionary:obj];
         if ([epg.end timeIntervalSinceDate:nowTime] > 0) {
-            [self addEpgItemToStore:epg];
+            if (![self addEpgItemToStore:epg]) {
+                duplicate++;
+            }
         }
     }];
+    
+    self.lastStart += (entries.count - duplicate);
     
 #ifdef TESTING
     NSLog(@"[%@: Loaded EPG programs (ch:%@ | pr:%@ | tag:%@ | evcount:%d)]: %d", self.statsEpgName, self.filterToChannelName, self.filterToProgramTitle, self.filterToTagName, (int)self.totalEventCount, (int)[self.epgStore count]);
@@ -255,10 +262,12 @@
 #ifdef TESTING
         NSLog(@"[%@ Profiling Network]: %f", weakSelf.statsEpgName, time);
 #endif
-        if ( [strongSelf fetchedData:responseObject] ) {
-            [strongSelf signalDidLoadEpg];
-            [strongSelf getMoreEpg:start limit:limit fetchAll:fetchAll];
-        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            if ( [strongSelf fetchedData:responseObject] ) {
+                [strongSelf signalDidLoadEpg];
+                [strongSelf getMoreEpg:start limit:limit fetchAll:fetchAll];
+            }
+        });
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[EpgStore HTTPClient Error]: %@", error.localizedDescription);
@@ -308,7 +317,7 @@
 }
 
 - (void)downloadMoreEpgList {
-    [self retrieveEpgDataFromTVHeadend:[self.epgStore count] limit:self.numberOfRequestedEpgItems fetchAll:false];
+    [self retrieveEpgDataFromTVHeadend:self.lastStart limit:self.numberOfRequestedEpgItems fetchAll:false];
 }
 
 - (void)clearEpgData {
@@ -368,11 +377,13 @@
 }
 
 - (void)signalDidLoadEpg {
-    if ([self.delegate respondsToSelector:@selector(didLoadEpg)]) {
-        [self.delegate didLoadEpg];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHEpgStoreDidLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didLoadEpg)]) {
+            [self.delegate didLoadEpg];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHEpgStoreDidLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidErrorLoadingEpgStore:(NSError*)error {
