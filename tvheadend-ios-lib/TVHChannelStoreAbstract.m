@@ -120,13 +120,18 @@
 #ifdef TESTING
         NSLog(@"[ChannelList Profiling Network]: %f", time);
 #endif
-        if ( [strongSelf fetchedData:responseObject] ) {
-            if ([strongSelf.delegate respondsToSelector:@selector(didLoadChannels)]) {
-                [strongSelf.delegate didLoadChannels];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            
+            if ( [strongSelf fetchedData:responseObject] ) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ([strongSelf.delegate respondsToSelector:@selector(didLoadChannels)]) {
+                        [strongSelf.delegate didLoadChannels];
+                    }
+                    [[strongSelf.tvhServer tagStore] signalDidLoadTags];
+                    [strongSelf.currentlyPlayingEpgStore downloadEpgList];
+                });
             }
-            [[strongSelf.tvhServer tagStore] signalDidLoadTags];
-            [strongSelf.currentlyPlayingEpgStore downloadEpgList];
-        }
+        });
         
        // NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
        // NSLog(@"Request Successful, response '%@'", responseStr);
@@ -174,6 +179,10 @@
     }
 }
 
+- (NSUInteger)channelCount {
+    return self.channels.count;
+}
+
 - (TVHChannel*)channelWithName:(NSString*)name {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
     NSArray *filteredArray = [self.channels filteredArrayUsingPredicate:predicate];
@@ -208,11 +217,13 @@
 }
 
 - (void)signalDidLoadChannels {
-    if ([self.delegate respondsToSelector:@selector(didLoadChannels)]) {
-        [self.delegate didLoadChannels];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelStoreDidLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didLoadChannels)]) {
+            [self.delegate didLoadChannels];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelStoreDidLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidErrorLoadingChannelStore:(NSError*)error {

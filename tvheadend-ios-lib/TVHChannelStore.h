@@ -34,6 +34,7 @@
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchChannelList;
 
+- (NSUInteger)channelCount;
 - (NSArray*)channels;
 - (NSArray*)arrayChannels;
 - (TVHChannel*)channelWithName:(NSString*)name;
