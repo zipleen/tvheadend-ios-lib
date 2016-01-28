@@ -30,7 +30,7 @@
 // dates
 @property (nonatomic, strong) NSDate *start;
 @property (nonatomic, strong) NSDate *end;
-@property (nonatomic) NSInteger duration;
+@property (nonatomic) NSInteger duration; // in seconds
 // recording and metadata
 @property (nonatomic, strong) NSString *schedstate;
 @property (nonatomic) NSInteger serieslink;

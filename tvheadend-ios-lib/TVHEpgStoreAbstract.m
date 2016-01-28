@@ -22,6 +22,7 @@
 @property (nonatomic) NSInteger totalEventCount;
 @property (nonatomic, strong) NSMutableDictionary *epgByChannel;
 @property (nonatomic) NSUInteger lastStart;
+@property (nonatomic, strong) NSDate *lastStartDate;
 @end
 
 @implementation TVHEpgStoreAbstract
@@ -191,6 +192,9 @@
         }
     }];
     
+    if (self.lastStartDate == nil) {
+        self.lastStartDate = [NSDate date];
+    }
     self.lastStart += (entries.count - duplicate);
     
 #ifdef TESTING
@@ -264,8 +268,11 @@
 #endif
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             if ( [strongSelf fetchedData:responseObject] ) {
-                [strongSelf signalDidLoadEpg];
-                [strongSelf getMoreEpg:start limit:limit fetchAll:fetchAll];
+                if ([strongSelf getMoreEpg:start limit:limit fetchAll:fetchAll]) {
+                    [strongSelf signalDidLoadEpgButWillLoadMore];
+                } else {
+                    [strongSelf signalDidLoadEpg];
+                }
             }
         });
         
@@ -276,10 +283,10 @@
     
 }
 
-- (void)getMoreEpg:(NSInteger)start limit:(NSInteger)limit fetchAll:(BOOL)fetchAll {
+- (BOOL)getMoreEpg:(NSInteger)start limit:(NSInteger)limit fetchAll:(BOOL)fetchAll {
     if ( start > self.totalEventCount ) {
         NSLog(@"Reached the end of the epg!");
-        return ;
+        return NO;
     }
     // get last epg
     // check date
@@ -287,6 +294,7 @@
     if ( fetchAll ) {
         if ( (start+limit) < self.totalEventCount ) {
             [self retrieveEpgDataFromTVHeadend:(start+limit) limit:MAX_REQUEST_EPG_ITEMS fetchAll:true];
+            return YES;
         }
     } else {
         TVHEpg *last = [self.epgStore lastObject];
@@ -297,11 +305,15 @@
     #endif
             if ( [localDate compare:last.start] == NSOrderedDescending && (start+limit) < self.totalEventCount ) {
                 [self retrieveEpgDataFromTVHeadend:(start+limit) limit:self.numberOfRequestedEpgItems fetchAll:false];
+                return YES;
             }
         } else {
             [self retrieveEpgDataFromTVHeadend:(start+limit) limit:self.numberOfRequestedEpgItems fetchAll:false];
+            return YES;
         }
     }
+    
+    return NO;
 }
 
 - (NSInteger)numberOfRequestedEpgItems {
@@ -317,6 +329,11 @@
 }
 
 - (void)downloadMoreEpgList {
+    // only cache the lastStart for 2 hours. after that we reload everything from the start!
+    if (self.lastStartDate != nil && [self.lastStartDate timeIntervalSinceNow] < -7200) {
+        self.lastStartDate = nil;
+        self.lastStart = 0;
+    }
     [self retrieveEpgDataFromTVHeadend:self.lastStart limit:self.numberOfRequestedEpgItems fetchAll:false];
 }
 
@@ -383,6 +400,14 @@
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:TVHEpgStoreDidLoadNotification
                                                             object:self];
+    });
+}
+
+- (void)signalDidLoadEpgButWillLoadMore {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didLoadEpgButWillLoadMore)]) {
+            [self.delegate didLoadEpgButWillLoadMore];
+        }
     });
 }
 
