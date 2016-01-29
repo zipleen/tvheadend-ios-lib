@@ -50,16 +50,16 @@
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
-    NSMutableArray *tags = [[NSMutableArray alloc] init];
+    NSMutableArray *tags = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
-    [entries enumerateObjectsUsingBlock:^(id entry, NSUInteger idx, BOOL *stop) {
+    for (id entry in entries) {
         NSInteger enabled = [[entry objectForKey:@"enabled"] intValue];
         if( enabled ) {
             TVHTag *tag = [[TVHTag alloc] initWithTvhServer:self.tvhServer];
             [tag updateValuesFromDictionary:entry];
             [tags addObject:tag];
         }
-    }];
+    }
      
     NSMutableArray *orderedTags = [[tags sortedArrayUsingSelector:@selector(compareByName:)] mutableCopy];
     

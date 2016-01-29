@@ -105,10 +105,10 @@
     NSNumber *totalCount = [[NSNumber alloc] initWithInt:[[json objectForKey:self.jsonApiFieldTotalCount] intValue]];
     [self.totalEventCount replaceObjectAtIndex:type withObject:totalCount];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for(id obj in entries) {
         TVHDvrItem *dvritem = [self createDvrItemFromDictionary:obj ofType:type];
         [self addDvrItemToStore:dvritem];
-    }];
+    }
     
 #ifdef TESTING
     NSLog(@"[Loaded DVR Items, Count]: %d", (int)[self.dvrItems count]);

@@ -69,21 +69,21 @@
 - (BOOL)fetchedServiceData:(NSData *)responseData {
     NSError __autoreleasing *error;
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
+    if (error) {
         NSLog(@"[TV Service Channel JSON error]: %@", error.localizedDescription);
         return false;
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHService *service = [[TVHService alloc] initWithTvhServer:self.tvhServer];
         [service updateValuesFromDictionary:obj];
         
         if ( [self addServiceToStore:service] == NO ) {
             [self updateServiceFromStore:service];
         }
-    }];
+    }
     
 #ifdef TESTING
     NSLog(@"[Loaded Services]: %d", (int)[self.services count]);

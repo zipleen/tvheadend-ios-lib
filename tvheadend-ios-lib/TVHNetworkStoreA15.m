@@ -60,20 +60,20 @@
 - (BOOL)fetchedData:(NSData *)responseData {
     NSError __autoreleasing *error;
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
+    if (error) {
         [self signalDidErrorNetworkStore:error];
         return false;
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
-    NSMutableArray *networks = [[NSMutableArray alloc] init];
+    NSMutableArray *networks = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHNetwork *network = [[TVHNetwork alloc] initWithTvhServer:self.tvhServer];
         [network updateValuesFromDictionary:obj];
         
         [networks addObject:network];
-    }];
+    }
     
     self.networks = [networks copy];
     

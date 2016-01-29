@@ -64,20 +64,20 @@
 - (BOOL)fetchedData:(NSData *)responseData {
     NSError __autoreleasing *error;
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
+    if (error) {
         [self signalDidErrorStatusSubscriptionsStore:error];
         return false;
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
-    NSMutableArray *subscriptions = [[NSMutableArray alloc] init];
+    NSMutableArray *subscriptions = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHStatusSubscription *subscription = [[TVHStatusSubscription alloc] init];
         [subscription updateValuesFromDictionary:obj];
         
         [subscriptions addObject:subscription];
-    }];
+    }
     
     self.subscriptions = [subscriptions copy];
     

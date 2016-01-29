@@ -61,22 +61,21 @@
 - (BOOL)fetchedData:(NSData *)responseData {
     NSError __autoreleasing *error;
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
+    if (error) {
         [self signalDidErrorLoadingChannelStore:error];
         return false;
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
-    NSMutableArray *channels = [[NSMutableArray alloc] init];
+    NSMutableArray *channels = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHChannel *channel = [[TVHChannel alloc] initWithTvhServer:self.tvhServer];
         [obj enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             [channel setValue:obj forKey:key];
         }];
         [channels addObject:channel];
-
-    }];
+    }
     
     if ( [self.tvhServer.settings sortChannel] == TVHS_SORT_CHANNEL_BY_NAME ) {
         self.channels =  [[channels copy] sortedArrayUsingSelector:@selector(compareByName:)];
@@ -189,7 +188,7 @@
 }
 
 - (NSArray*)filteredChannelList:(NSString*)filterTag {
-    NSMutableArray *filteredChannels = [[NSMutableArray alloc] init];
+    NSMutableArray *filteredChannels = [[NSMutableArray alloc] initWithCapacity:self.channelCount];
     for (TVHChannel *channel in self.channels) {
         if( [channel hasTag:filterTag] ) {
             [filteredChannels addObject:channel];
