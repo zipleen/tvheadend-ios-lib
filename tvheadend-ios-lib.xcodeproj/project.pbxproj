@@ -125,6 +125,8 @@
 		AAC6346C1A15741C0005EA99 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; };
 		AAC6346D1A1574240005EA99 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; };
 		AAC6346F1A1579430005EA99 /* Log.epg.utf.invalid in Resources */ = {isa = PBXBuildFile; fileRef = AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */; };
+		F00817941C5BEECA0008C3EF /* NSDateFormatter+TVH.m in Sources */ = {isa = PBXBuildFile; fileRef = F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */; };
+		F00817951C5BF5380008C3EF /* NSDateFormatter+TVH.m in Sources */ = {isa = PBXBuildFile; fileRef = F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */; };
 		F08C12811BA24E2E0049A63A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F08C12801BA24E2E0049A63A /* SystemConfiguration.framework */; };
 		F0CDE47F1BA214C3000A969B /* libtvheadend-tvOS-lib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0CDE46D1BA214A2000A969B /* libtvheadend-tvOS-lib.a */; };
 		F0CDE4891BA21539000A969B /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; };
@@ -484,6 +486,8 @@
 		AABF3C07185E6EB500E62240 /* NSArray+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Utils.m"; sourceTree = "<group>"; };
 		AAC6346A1A1573830005EA99 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Log.epg.utf.invalid; sourceTree = "<group>"; };
+		F00817921C5BEECA0008C3EF /* NSDateFormatter+TVH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+TVH.h"; sourceTree = "<group>"; };
+		F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+TVH.m"; sourceTree = "<group>"; };
 		F08C12801BA24E2E0049A63A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		F0CDE46D1BA214A2000A969B /* libtvheadend-tvOS-lib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libtvheadend-tvOS-lib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CDE47A1BA214C3000A969B /* tvheadend-tvOS-libTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tvheadend-tvOS-libTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1143,6 +1147,8 @@
 			children = (
 				AABF3C06185E6EB500E62240 /* NSArray+Utils.h */,
 				AABF3C07185E6EB500E62240 /* NSArray+Utils.m */,
+				F00817921C5BEECA0008C3EF /* NSDateFormatter+TVH.h */,
+				F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */,
 			);
 			name = Properties;
 			sourceTree = "<group>";
@@ -1370,6 +1376,7 @@
 				AABF3BC3185E6C9400E62240 /* TVHChannelStoreAbstract.m in Sources */,
 				AA72FD3E1868482D00EDCE05 /* TVHNetworkStore32.m in Sources */,
 				AABF3B4F185E5F2000E62240 /* AFHTTPClient.m in Sources */,
+				F00817941C5BEECA0008C3EF /* NSDateFormatter+TVH.m in Sources */,
 				AABF3BEF185E6CEC00E62240 /* TVHMuxStore32.m in Sources */,
 				AABF3BE1185E6CD000E62240 /* TVHStatusSubscriptionsStore32.m in Sources */,
 			);
@@ -1412,6 +1419,7 @@
 				F0CDE4D31BA21620000A969B /* TVHServiceStoreAbstract.m in Sources */,
 				F0CDE4B11BA215E4000A969B /* TVHAutoRecStoreA15.m in Sources */,
 				F0CDE4B71BA215E4000A969B /* TVHAutoRecItem.m in Sources */,
+				F00817951C5BF5380008C3EF /* NSDateFormatter+TVH.m in Sources */,
 				F0CDE4A41BA215C6000A969B /* TVHTagStore34.m in Sources */,
 				F0CDE4CA1BA21610000A969B /* TVHNetworkStoreA15.m in Sources */,
 				F0CDE4C51BA21610000A969B /* TVHAdaptersStoreAbstract.m in Sources */,

@@ -209,8 +209,7 @@
 
 - (void)addEpg:(TVHEpg*)epg {
     if( !dateFormatter ) {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"MM/dd/yy";
+        dateFormatter = [NSDateFormatter dateFormatterMMddyy];
     }
     
     NSString *dateString = [dateFormatter stringFromDate:epg.start];    
