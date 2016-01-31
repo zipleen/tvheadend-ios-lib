@@ -212,11 +212,11 @@
     return nil;
 }
 
-- (int)count:(NSInteger)type {
+- (NSUInteger)count:(NSInteger)type {
     [self checkCachedDvrItemsForType:type];
     
     if ( self.cachedDvrItems ) {
-        return (int)[self.cachedDvrItems count];
+        return [self.cachedDvrItems count];
     }
     return 0;
 }

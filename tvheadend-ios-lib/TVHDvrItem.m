@@ -134,7 +134,7 @@
     if ([self.tvhServer isVersionFour]) {
         [TVHDvrActions doIdnodeAction:@"delete" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
     } else {
-        if ( [self.schedstate isEqualToString:@"scheduled"] || [self.schedstate isEqualToString:@"recording"] ) {
+        if ( self.isScheduledForRecording || self.isRecording ) {
             [TVHDvrActions cancelRecording:self.id withTvhServer:self.tvhServer];
         } else {
             [TVHDvrActions deleteRecording:self.id withTvhServer:self.tvhServer];
@@ -142,6 +142,14 @@
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:TVHWillRemoveEpgFromRecording
                                                         object:self];
+}
+
+- (BOOL)isScheduledForRecording {
+    return [[self schedstate] isEqualToString:@"scheduled"];
+}
+
+- (BOOL)isRecording {
+    return [[self schedstate] isEqualToString:@"recording"];
 }
 
 - (TVHChannel*)channelObject {

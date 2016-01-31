@@ -12,4 +12,5 @@
 + (NSDateFormatter *)dateFormatterMMddyy;
 + (NSDateFormatter *)dateFormatterDayExtended;
 + (NSDateFormatter *)timeFormatterHHmm;
++ (NSDateFormatter *)dateFormatterLongDate;
 @end

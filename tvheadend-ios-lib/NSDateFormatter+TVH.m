@@ -21,7 +21,6 @@
     return _dateFormatterMMddyy;
 }
 
-
 + (NSDateFormatter *)dateFormatterDayExtended
 {
     static dispatch_once_t once;
@@ -33,7 +32,6 @@
     return _dateFormatterDayExtended;
 }
 
-
 + (NSDateFormatter *)timeFormatterHHmm
 {
     static dispatch_once_t once;
@@ -44,5 +42,17 @@
     });
     return _timeFormatterHHmm;
 }
+
++ (NSDateFormatter *)dateFormatterLongDate
+{
+    static dispatch_once_t once;
+    static NSDateFormatter *_dateFormatterLongDate;
+    dispatch_once(&once, ^ {
+        _dateFormatterLongDate = [[NSDateFormatter alloc] init];
+        _dateFormatterLongDate.dateFormat = @"E d MMM, HH:mm";
+    });
+    return _dateFormatterLongDate;
+}
+
 
 @end

@@ -46,6 +46,8 @@
 - (void)updateValuesFromDictionary:(NSDictionary*) values;
 - (void)deleteRecording;
 - (TVHChannel*)channelObject;
+- (BOOL)isRecording;
+- (BOOL)isScheduledForRecording;
 
 // playStream delegate
 
