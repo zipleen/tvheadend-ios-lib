@@ -65,4 +65,5 @@
 - (void)addAutoRec;
 - (BOOL)isRecording;
 - (BOOL)isScheduledForRecording;
+- (NSString*)startTimeAndTitle;
 @end

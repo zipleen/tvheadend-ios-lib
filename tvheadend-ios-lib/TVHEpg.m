@@ -256,4 +256,17 @@
     return [self.end timeIntervalSinceDate:self.start];
 }
 
+- (NSString*)startTimeAndTitle {
+    if (self.start == nil) {
+        return @"";
+    }
+    
+    NSString *time = [NSString stringWithFormat:@"%@ ", [[NSDateFormatter timeFormatterHHmm] stringFromDate:self.start]];
+    NSString *title = @"";
+    if (self.title != nil) {
+        title = self.title;
+    }
+    return [time stringByAppendingString:title];
+}
+
 @end
