@@ -21,6 +21,7 @@
 }
 @property (nonatomic, strong) NSMutableArray *channelEpgDataByDay;
 @property (nonatomic, strong) id <TVHEpgStore> restOfEpgStore;
+@property (strong, nonatomic) NSCache *tvhImageCache;
 @end
 
 @implementation TVHChannel
@@ -459,5 +460,22 @@
     if ([self.delegate respondsToSelector:@selector(didErrorLoadingEpgChannel:)]) {
         [self.delegate didErrorLoadingEpgChannel:error];
     }
+}
+
+#pragma mark UIImage internal cache!
+
+- (NSCache*)tvhImageCache {
+    if (_tvhImageCache == nil) {
+        _tvhImageCache = [[NSCache alloc] init];
+    }
+    return _tvhImageCache;
+}
+
+- (void)saveCache:(UIImage*)image withWidth:(int)width andHeight:(int)height {
+    [self.tvhImageCache setObject:image forKey:[NSString stringWithFormat:@"%d_%d", width, height]];
+}
+
+- (UIImage*)imageFromCacheWithWidth:(int)width andHeight:(int)height {
+    return [self.tvhImageCache objectForKey:[NSString stringWithFormat:@"%d_%d", width, height]];
 }
 @end

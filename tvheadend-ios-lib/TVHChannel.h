@@ -79,4 +79,8 @@
 - (void)setDelegate:(id <TVHChannelDelegate>) delegate;
 - (void)didLoadEpg;
 - (void)signalDidLoadEpgChannel; // only to be used by tvhEpg
+
+- (UIImage*)imageFromCacheWithWidth:(int)width andHeight:(int)height;
+- (void)saveCache:(UIImage*)image withWidth:(int)width andHeight:(int)height;
+
 @end
