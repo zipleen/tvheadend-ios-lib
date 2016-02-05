@@ -66,4 +66,5 @@
 - (BOOL)isRecording;
 - (BOOL)isScheduledForRecording;
 - (NSString*)startTimeAndTitle;
+- (NSString*)startEndTime;
 @end

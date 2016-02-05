@@ -269,4 +269,8 @@
     return [time stringByAppendingString:title];
 }
 
+- (NSString*)startEndTime {
+    return  [NSString stringWithFormat:@"%@ - %@ ", [[NSDateFormatter timeFormatterHHmm] stringFromDate:self.start], [[NSDateFormatter timeFormatterHHmm] stringFromDate:self.end]];
+}
+
 @end
