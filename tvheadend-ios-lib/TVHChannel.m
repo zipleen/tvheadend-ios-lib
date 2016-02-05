@@ -289,12 +289,17 @@
 }
 
 - (NSComparisonResult)compareByNumber:(TVHChannel *)otherObject {
-    if ( self.number < otherObject.number ) {
-        return NSOrderedAscending;
-    } else if ( self.number > otherObject.number ) {
+    
+    if(self.number == otherObject.number) {
+        return NSOrderedSame;
+    } else if(self.number == 0)  //Channels without number should be placed last - treat number 0 as infinity
+    {
         return NSOrderedDescending;
+    } else if(otherObject.number == 0) {
+        return NSOrderedAscending;
     }
-    return NSOrderedSame;
+    
+    return self.number < otherObject.number ? NSOrderedAscending : NSOrderedDescending;
 }
 
 - (void)resetChannelEpgStore {
