@@ -70,4 +70,5 @@
 - (NSURL*)baseURL;
 - (NSString*)httpURL;
 - (NSString*)htspURL;
+- (NSDictionary*)settings;
 @end

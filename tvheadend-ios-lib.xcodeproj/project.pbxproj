@@ -128,6 +128,8 @@
 		F00817941C5BEECA0008C3EF /* NSDateFormatter+TVH.m in Sources */ = {isa = PBXBuildFile; fileRef = F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */; };
 		F00817951C5BF5380008C3EF /* NSDateFormatter+TVH.m in Sources */ = {isa = PBXBuildFile; fileRef = F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */; };
 		F08C12811BA24E2E0049A63A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F08C12801BA24E2E0049A63A /* SystemConfiguration.framework */; };
+		F0AEEC341C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
+		F0AEEC351C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
 		F0CDE47F1BA214C3000A969B /* libtvheadend-tvOS-lib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0CDE46D1BA214A2000A969B /* libtvheadend-tvOS-lib.a */; };
 		F0CDE4891BA21539000A969B /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; };
 		F0CDE48A1BA2153D000A969B /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -489,6 +491,8 @@
 		F00817921C5BEECA0008C3EF /* NSDateFormatter+TVH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+TVH.h"; sourceTree = "<group>"; };
 		F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+TVH.m"; sourceTree = "<group>"; };
 		F08C12801BA24E2E0049A63A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		F0AEEC321C6D40BD00D7861D /* TVHAutoDiscovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAutoDiscovery.h; sourceTree = "<group>"; };
+		F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoDiscovery.m; sourceTree = "<group>"; };
 		F0CDE46D1BA214A2000A969B /* libtvheadend-tvOS-lib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libtvheadend-tvOS-lib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CDE47A1BA214C3000A969B /* tvheadend-tvOS-libTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tvheadend-tvOS-libTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1078,6 +1082,8 @@
 				AABF3B26185E590D00E62240 /* TVHApiClient.m */,
 				AABF3B27185E590D00E62240 /* TVHServer.h */,
 				AABF3B28185E590D00E62240 /* TVHServer.m */,
+				F0AEEC321C6D40BD00D7861D /* TVHAutoDiscovery.h */,
+				F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */,
 				AABF3B29185E590D00E62240 /* TVHServerSettings.h */,
 				AABF3B2A185E590D00E62240 /* TVHServerSettings.m */,
 				AABF3C09185E6EB900E62240 /* Properties */,
@@ -1336,6 +1342,7 @@
 				AABF3BC0185E6C6000E62240 /* TVHServer.m in Sources */,
 				AABF3B54185E5F2000E62240 /* AFPropertyListRequestOperation.m in Sources */,
 				AABF3BD6185E6CC000E62240 /* TVHAutoRecStoreA15.m in Sources */,
+				F0AEEC341C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */,
 				AABF3B52185E5F2000E62240 /* AFJSONRequestOperation.m in Sources */,
 				AABF3B55185E5F2000E62240 /* AFURLConnectionOperation.m in Sources */,
 				AABF3BBE185E6C5B00E62240 /* TVHJsonClient.m in Sources */,
@@ -1416,6 +1423,7 @@
 				F0CDE4BF1BA215F3000A969B /* TVHStatusSubscriptionsStoreA15.m in Sources */,
 				F0CDE4A31BA215C6000A969B /* TVHTagStore32.m in Sources */,
 				F0CDE4AB1BA215D1000A969B /* TVHEpgStoreA14.m in Sources */,
+				F0AEEC351C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */,
 				F0CDE4D31BA21620000A969B /* TVHServiceStoreAbstract.m in Sources */,
 				F0CDE4B11BA215E4000A969B /* TVHAutoRecStoreA15.m in Sources */,
 				F0CDE4B71BA215E4000A969B /* TVHAutoRecItem.m in Sources */,
