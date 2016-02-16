@@ -47,6 +47,7 @@
 @property (nonatomic, strong) NSString *icon;
 @property (nonatomic, strong) NSString *icon_public_url;
 
+@property (nonatomic, strong) UIColor *iconBackgroundColor;
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 
