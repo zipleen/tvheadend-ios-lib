@@ -133,9 +133,8 @@
                     if (successBlock != nil) {
                         successBlock(self.channels);
                     }
-                    if ([strongSelf.delegate respondsToSelector:@selector(didLoadChannels)]) {
-                        [strongSelf.delegate didLoadChannels];
-                    }
+                    
+                    [strongSelf signalDidLoadChannels];
                     
                     [[strongSelf.tvhServer tagStore] signalDidLoadTags];
                     

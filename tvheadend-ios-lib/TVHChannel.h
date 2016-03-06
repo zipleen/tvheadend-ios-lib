@@ -15,6 +15,9 @@
 #import "TVHEpg.h"
 #import "TVHPlayStreamDelegate.h"
 
+#define TVHChannelDidLoadEpgFromItself @"didLoadEpgChannel"
+#define TVHChannelWillLoadEpgFromItself @"willLoadEpgChannel"
+
 @class TVHEpgStore;
 @class TVHServer;
 

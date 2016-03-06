@@ -5,7 +5,7 @@
 //
 
 #import <Availability.h>
-#ifdef __TVOS_9_0
+#ifdef __TVOS_AVAILABLE
 #define DEVICE_IS_TVOS YES
 #else
 #define DEVICE_IS_TVOS NO

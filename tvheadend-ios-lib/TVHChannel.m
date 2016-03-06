@@ -444,7 +444,7 @@
     if ([self.delegate respondsToSelector:@selector(willLoadEpgChannel)]) {
         [self.delegate willLoadEpgChannel];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"willLoadEpgChannel"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelWillLoadEpgFromItself
                                                         object:self];
 }
 
@@ -452,7 +452,7 @@
     if ([self.delegate respondsToSelector:@selector(didLoadEpgChannel)]) {
         [self.delegate didLoadEpgChannel];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadEpgChannel"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelDidLoadEpgFromItself
                                                         object:self];
 }
 
