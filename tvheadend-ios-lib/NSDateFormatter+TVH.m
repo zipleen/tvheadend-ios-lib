@@ -16,7 +16,8 @@
     static NSDateFormatter *_dateFormatterMMddyy;
     dispatch_once(&once, ^ {
         _dateFormatterMMddyy = [[NSDateFormatter alloc] init];
-        _dateFormatterMMddyy.dateFormat = @"MM/dd/yy";
+        [_dateFormatterMMddyy setDateStyle:NSDateFormatterShortStyle];
+        [_dateFormatterMMddyy setTimeStyle:NO];
     });
     return _dateFormatterMMddyy;
 }
@@ -38,7 +39,8 @@
     static NSDateFormatter *_timeFormatterHHmm;
     dispatch_once(&once, ^ {
         _timeFormatterHHmm = [[NSDateFormatter alloc] init];
-        _timeFormatterHHmm.dateFormat = @"HH:mm";
+        [_timeFormatterHHmm setDateStyle:NO];
+        [_timeFormatterHHmm setTimeStyle:NSDateFormatterShortStyle];
     });
     return _timeFormatterHHmm;
 }
@@ -49,7 +51,8 @@
     static NSDateFormatter *_dateFormatterLongDate;
     dispatch_once(&once, ^ {
         _dateFormatterLongDate = [[NSDateFormatter alloc] init];
-        _dateFormatterLongDate.dateFormat = @"E d MMM, HH:mm";
+        [_dateFormatterLongDate setDateStyle:NSDateFormatterMediumStyle];
+        [_dateFormatterLongDate setTimeStyle:NSDateFormatterMediumStyle];
     });
     return _dateFormatterLongDate;
 }
