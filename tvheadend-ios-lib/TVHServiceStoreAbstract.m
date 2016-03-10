@@ -57,9 +57,12 @@
     
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
         typeof (self) strongSelf = weakSelf;
-        if ( [strongSelf fetchedServiceData:responseObject] ) {
-            [strongSelf signalDidLoadServices];
-        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            if ( [strongSelf fetchedServiceData:responseObject] ) {
+                [strongSelf signalDidLoadServices];
+            }
+        });
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[TV Services HTTPClient Error]: %@", error.localizedDescription);
     }];
