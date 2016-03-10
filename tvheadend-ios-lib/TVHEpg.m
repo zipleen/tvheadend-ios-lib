@@ -273,4 +273,12 @@
     return  [NSString stringWithFormat:@"%@ - %@ ", [[NSDateFormatter timeFormatterHHmm] stringFromDate:self.start], [[NSDateFormatter timeFormatterHHmm] stringFromDate:self.end]];
 }
 
+- (BOOL)isInSameTimeslot:(TVHEpg*)epg {
+    return
+        ([self.start compare:epg.start] == NSOrderedDescending || [self.start compare:epg.start] == NSOrderedSame)
+    &&
+        ([self.start compare:epg.end] == NSOrderedAscending)
+    ;
+}
+
 @end

@@ -67,4 +67,5 @@
 - (BOOL)isScheduledForRecording;
 - (NSString*)startTimeAndTitle;
 - (NSString*)startEndTime;
+- (BOOL)isInSameTimeslot:(TVHEpg*)epg;
 @end

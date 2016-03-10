@@ -39,6 +39,15 @@
 @property (nonatomic, strong) NSString *uuid;
 @property (nonatomic, strong) NSString *disp_title;
 @property (nonatomic, strong) NSString *disp_description;
+@property (nonatomic, strong) NSString *disp_subtitle;
+@property (nonatomic, strong) NSString *sched_status;
+@property (nonatomic) NSInteger errorcode;
+@property (nonatomic) NSInteger errors;
+@property (nonatomic, strong) NSString *filename;
+@property (nonatomic, strong) NSDate *start_real;
+@property (nonatomic, strong) NSDate *stop_real;
+
+@property (nonatomic, strong) NSString *autorec; // autorec uuid
 
 - (NSString*)fullTitle;
 
