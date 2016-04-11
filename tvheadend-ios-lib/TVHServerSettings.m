@@ -52,7 +52,7 @@
              TVHS_PASSWORD_KEY:self.password != nil ? self.password : @"",
              TVHS_USE_HTTPS:self.useHTTPS != nil ? self.useHTTPS : @"",
              TVHS_SERVER_WEBROOT:self.webroot != nil ? self.webroot : @"",
-             TVHS_VLC_NETWORK_LATENCY:@"333",
+             TVHS_VLC_NETWORK_LATENCY:@"999",
              TVHS_VLC_DEINTERLACE: @"0",
              TVHS_SSH_PF_HOST:self.sshPortForwardHost != nil ? self.sshPortForwardHost : @"",
              TVHS_SSH_PF_PORT:self.sshPortForwardPort != nil ? self.sshPortForwardPort : @"",

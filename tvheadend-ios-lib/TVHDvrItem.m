@@ -145,7 +145,7 @@
 - (void)deleteRecording {
     if ([self.tvhServer isVersionFour]) {
         if (self.isRecording) {
-            [TVHDvrActions doAction:@"api/dvr/entry/cancel" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
+            [TVHDvrActions doAction:@"api/dvr/entry/stop" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
         } else {
             [TVHDvrActions doIdnodeAction:@"delete" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
         }
