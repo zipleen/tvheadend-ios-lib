@@ -145,7 +145,13 @@
 - (void)deleteRecording {
     if ([self.tvhServer isVersionFour]) {
         if (self.isRecording) {
-            [TVHDvrActions doAction:@"api/dvr/entry/stop" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
+            if (self.tvhServer.apiVersion.integerValue >= 16) {
+                // api version 16, or 4.1.x has STOP (whereas cancel will stop AND delete the file)
+                [TVHDvrActions doAction:@"api/dvr/entry/stop" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
+            } else {
+                // 4.0.x (max version 15) only has cancel
+                [TVHDvrActions doAction:@"api/dvr/entry/cancel" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
+            }
         } else {
             [TVHDvrActions doIdnodeAction:@"delete" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
         }
