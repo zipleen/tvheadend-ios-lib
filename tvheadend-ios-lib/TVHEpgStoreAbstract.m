@@ -182,7 +182,7 @@
     self.totalEventCount = [[json objectForKey:@"totalCount"] intValue];
     NSArray *entries = [json objectForKey:self.jsonApiFieldEntries];
 
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHEpg *epg = [[TVHEpg alloc] initWithTvhServer:self.tvhServer];
         [epg updateValuesFromDictionary:obj];
         if ([epg.end timeIntervalSinceDate:nowTime] > 0) {
@@ -190,12 +190,15 @@
                 duplicate++;
             }
         }
-    }];
+    }
     
     if (self.lastStartDate == nil) {
         self.lastStartDate = [NSDate date];
     }
     self.lastStart += (entries.count - duplicate);
+    
+    [self.tvhServer.analytics setIntValue:self.epgStore.count forKey:[NSString stringWithFormat:@"event_epgStoreCount_%@", self.statsEpgName]];
+    [self.tvhServer.analytics setIntValue:self.totalEventCount forKey:[NSString stringWithFormat:@"event_totalEventCount_%@", self.statsEpgName]];
     
 #ifdef TESTING
     NSLog(@"[%@: Loaded EPG programs (ch:%@ | pr:%@ | tag:%@ | evcount:%d)]: %d", self.statsEpgName, self.filterToChannelName, self.filterToProgramTitle, self.filterToTagName, (int)self.totalEventCount, (int)[self.epgStore count]);
