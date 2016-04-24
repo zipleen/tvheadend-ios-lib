@@ -114,7 +114,7 @@
         NSLog(@"[TagStore Profiling Network]: %f", time);
 #endif
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             if ( [strongSelf fetchedData:responseObject] ) {
                 [strongSelf signalDidLoadTags];
             }
