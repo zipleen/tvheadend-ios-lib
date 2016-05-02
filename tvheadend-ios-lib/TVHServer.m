@@ -46,10 +46,12 @@
 #pragma mark NSNotification
 
 - (void)appWillResignActive:(NSNotification*)note {
+    NSLog(@"TVHServer: appWillResignActive");
     [self stopTimer];
 }
 
 - (void)appWillEnterForeground:(NSNotification*)note {
+    NSLog(@"TVHServer: appWillEnterForeground");
     [self processTimerEvents];
     [self startTimer];
 }
@@ -72,8 +74,10 @@
 - (void)processTimerEvents {
     if ( ! self.inProcessing ) {
         self.inProcessing = YES;
-        [self.channelStore updateChannelsProgress];
-        self.inProcessing = NO;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self.channelStore updateChannelsProgress];
+            self.inProcessing = NO;
+        });
     }
 }
 

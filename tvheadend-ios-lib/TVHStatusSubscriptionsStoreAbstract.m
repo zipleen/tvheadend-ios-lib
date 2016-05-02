@@ -51,11 +51,11 @@
             [self fetchStatusSubscriptions];
         }
         
-        [self.subscriptions enumerateObjectsUsingBlock:^(TVHStatusSubscription* obj, NSUInteger idx, BOOL *stop) {
+        for (TVHStatusSubscription* obj in self.subscriptions) {
             if ( obj.id == [[message objectForKey:@"id"] intValue] ) {
                 [obj updateValuesFromDictionary:message];
             }
-        }];
+        }
         
         [self signalDidLoadStatusSubscriptions];
     }

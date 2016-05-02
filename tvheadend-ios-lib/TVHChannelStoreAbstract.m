@@ -14,7 +14,9 @@
 #import "TVHEpg.h"
 #import "TVHServer.h"
 
-@interface TVHChannelStoreAbstract ()
+@interface TVHChannelStoreAbstract () {
+    NSLock *channelUpdateInProgress;
+}
 @property (nonatomic, weak) TVHApiClient *apiClient;
 @property (nonatomic, strong) NSArray *channels;
 @property (nonatomic, strong) id <TVHEpgStore> currentlyPlayingEpgStore;
@@ -41,6 +43,8 @@
     self.tvhServer = tvhServer;
     self.apiClient = [self.tvhServer apiClient];
     self.filterTag = @"0";
+    channelUpdateInProgress = [NSLock new];
+    channelUpdateInProgress.name = @"channelUpdateInProgress";
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(fetchChannelList)
@@ -77,11 +81,13 @@
         [channels addObject:channel];
     }
     
+    [channelUpdateInProgress lock];
     if ( [self.tvhServer.settings sortChannel] == TVHS_SORT_CHANNEL_BY_NAME ) {
         self.channels =  [[channels copy] sortedArrayUsingSelector:@selector(compareByName:)];
     } else {
         self.channels =  [[channels copy] sortedArrayUsingSelector:@selector(compareByNumber:)];
     }
+    [channelUpdateInProgress unlock];
 #ifdef TESTING
     NSLog(@"[Loaded Channels]: %d", (int)[self.channels count]);
 #endif
@@ -273,25 +279,33 @@
 }
 
 - (void)updateChannelsProgress {
-    // 1 - remove old programs, from currentlyPlaying and from each Channel
-    [self.currentlyPlayingEpgStore removeOldProgramsFromStore];
-    
-    // 2 - check if we need to download more programs
-    for ( TVHChannel *channel in self.channels ) {
-        if ( [channel isLastEpgFromThePast] ) {
-            [self.currentlyPlayingEpgStore downloadEpgList];
-            break;
+    // if we cannot acquire a lock, ignore the update channel progress
+    if ([channelUpdateInProgress tryLock]) {
+        
+        // 1 - remove old programs, from currentlyPlaying and from each Channel
+        [self.currentlyPlayingEpgStore removeOldProgramsFromStore];
+        
+        // 2 - check if we need to download more programs
+        for ( TVHChannel *channel in self.channels ) {
+            if ( [channel isLastEpgFromThePast] ) {
+                [self.currentlyPlayingEpgStore downloadEpgList];
+                break;
+            }
         }
-    }
-    
-    // 3 - remove old programs from channels (this should have the previous more programs already added)
-    for ( TVHChannel *channel in self.channels ) {
-        [channel removeOldProgramsFromStore];
-    }
-    
-    // 4 - signal the refresh of channel data, with updated EPG
-    if (self.channels) {
-        [self signalDidLoadChannels];
+        
+        // 3 - remove old programs from channels (this should have the previous more programs already added)
+        for ( TVHChannel *channel in self.channels ) {
+            [channel removeOldProgramsFromStore];
+        }
+        
+        // 4 - signal the refresh of channel data, with updated EPG
+        if (self.channels) {
+            [self signalDidLoadChannels];
+        }
+        
+        [channelUpdateInProgress unlock];
+    } else {
+        NSLog(@"updateChannelsProgress ignored because we could not acquire the updateLock");
     }
 }
 

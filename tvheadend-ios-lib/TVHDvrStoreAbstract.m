@@ -186,11 +186,11 @@
 - (NSArray*)dvrItemsForType:(NSInteger)type {
     NSMutableArray *itemsForType = [[NSMutableArray alloc] init];
     
-    [self.dvrItems enumerateObjectsUsingBlock:^(TVHDvrItem* item, NSUInteger idx, BOOL *stop) {
+    for (TVHDvrItem* item in self.dvrItems) {
         if ( item.dvrType == type ) {
             [itemsForType addObject:item];
         }
-    }];
+    }
     self.cachedType = -1;
     self.cachedDvrItems = nil;
     return [itemsForType copy];
