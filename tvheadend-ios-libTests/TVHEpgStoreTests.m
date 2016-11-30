@@ -57,12 +57,36 @@
     XCTAssertEqualObjects(epg.title, @"Nacional x Benfica - Primeira Liga", @"epg title doesnt match");
     XCTAssertEqual(epg.channelid, (NSInteger)131, @"epg channel id doesnt match");
     XCTAssertEqualObjects(epg.channel, @"Sport TV 1 Meo", @"channel name does not match" );
-    XCTAssertEqualObjects(epg.chicon, @"https://dl.dropbox.com/u/a/TVLogos/sport_tv1_pt.jpg", @"channel name does not match" );
+    // chicon now gets the channelObject from channelStore, so this is impossible to test =)
+    //XCTAssertEqualObjects(epg.chicon, @"https://dl.dropbox.com/u/a/TVLogos/sport_tv1_pt.jpg", @"channel icon does not match" );
     XCTAssertFalse([epg.description isEqualToString:@""], @"description empty");
     XCTAssertEqual(epg.id, (NSInteger)400297, @"epg id does not match" );
     XCTAssertEqual(epg.duration, (NSInteger)8100, @"epg id does not match" );
     XCTAssertEqualObjects(epg.start, [NSDate dateWithTimeIntervalSince1970:1360519200], @"start date does not match" );
-    XCTAssertEqualObjects(epg.end, [NSDate dateWithTimeIntervalSince1970:1360527300], @"end date does not match" );
+    XCTAssertEqualObjects(epg.end, [NSDate dateWithTimeIntervalSince1970:1560527300], @"end date does not match" );
+}
+
+- (void)testConvertingAllLogFiles
+{
+    NSError __autoreleasing *error;
+    
+    // get a list of "log" files in the test's bundle
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:bundle.bundlePath error:nil];
+    NSPredicate *logPred = [NSPredicate predicateWithFormat:@"self BEGINSWITH 'Log'"];
+    NSArray *logFiles = [dirFiles filteredArrayUsingPredicate:logPred];
+    
+    // see if we got any, and if so, test each one
+    if ( logFiles ) {
+        for ( int index=0; index < logFiles.count; index++ ) {
+            NSString *file = [logFiles objectAtIndex:index];
+            NSLog(@"processing %@", file);
+            NSData *data = [TVHTestHelper loadFixture:file];
+            XCTAssertNotNil(data, @"error loading json from file");
+            NSDictionary *dict = [TVHJsonClient convertFromJsonToObject:data error:&error];
+            XCTAssertNotNil(dict, @"error processing json");
+        }
+    }
 }
 
 - (void)testConvertFromJsonToObject
@@ -78,7 +102,7 @@
     NSData *data = [TVHTestHelper loadFixture:@"Log.epg.utf.invalid"];
     NSError __autoreleasing *error;
     [TVHJsonClient convertFromJsonToObject:data error:&error];
-    XCTAssertNotNil(error, @"json has no errors? - was this fixed?");
+    XCTAssertNil(error, @"json has no errors? - was this fixed?");
 }
 
 @end

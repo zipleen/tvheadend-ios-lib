@@ -127,6 +127,8 @@
 		AAC6346F1A1579430005EA99 /* Log.epg.utf.invalid in Resources */ = {isa = PBXBuildFile; fileRef = AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */; };
 		F00817941C5BEECA0008C3EF /* NSDateFormatter+TVH.m in Sources */ = {isa = PBXBuildFile; fileRef = F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */; };
 		F00817951C5BF5380008C3EF /* NSDateFormatter+TVH.m in Sources */ = {isa = PBXBuildFile; fileRef = F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */; };
+		F04E38B61DEF8D0100AE25E6 /* NSDateFormatter+TVH.m in Sources */ = {isa = PBXBuildFile; fileRef = F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */; };
+		F04E38B71DEF8D0700AE25E6 /* NSArray+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3C07185E6EB500E62240 /* NSArray+Utils.m */; };
 		F0A14A9C1C8DF88D00336A24 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */; };
 		F0AEEC341C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
 		F0AEEC351C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
@@ -1395,6 +1397,8 @@
 				AAA89DE0186123B600AE4C13 /* TVHServerTests.m in Sources */,
 				AAA89DE81861254C00AE4C13 /* TVHTagStoreTests.m in Sources */,
 				AAA89DEC186125AA00AE4C13 /* TVHEpgStoreTests.m in Sources */,
+				F04E38B71DEF8D0700AE25E6 /* NSArray+Utils.m in Sources */,
+				F04E38B61DEF8D0100AE25E6 /* NSDateFormatter+TVH.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
