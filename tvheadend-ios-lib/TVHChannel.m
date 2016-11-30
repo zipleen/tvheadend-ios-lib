@@ -21,6 +21,7 @@
 }
 @property (nonatomic, strong) NSMutableArray *channelEpgDataByDay;
 @property (nonatomic, strong) id <TVHEpgStore> restOfEpgStore;
+@property (strong, nonatomic) NSCache *tvhImageCache;
 @end
 
 @implementation TVHChannel
@@ -34,6 +35,35 @@
     self.channelEpgDataByDay = nil;
     self.restOfEpgStore = nil;
     dateFormatter = nil;
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    id copy = [[TVHChannel alloc] init];
+    
+    if (copy) {
+        [copy setTvhServer:self.tvhServer];
+        [copy setDelegate:self.delegate];
+        [copy setName:[self.name copyWithZone:zone]];
+        [copy setDetail:[self.detail copyWithZone:zone]];
+        [copy setImageUrl:[self.imageUrl copyWithZone:zone]];
+        [copy setCh_icon:[self.ch_icon copyWithZone:zone]];
+        [copy setChicon:[self.chicon copyWithZone:zone]];
+        [copy setNumber:self.number];
+        [copy setImage:[self.image copyWithZone:zone]];
+        [copy setChid:self.chid];
+        [copy setTags:[self.tags copyWithZone:zone]];
+        [copy setServices:[self.services copyWithZone:zone]];
+        [copy setEpg_pre_start:self.epg_pre_start];
+        [copy setEpg_post_end:self.epg_post_end];
+        [copy setEpggrabsrc:[self.epggrabsrc copyWithZone:zone]];
+        [copy setUuid:[self.uuid copyWithZone:zone]];
+        [copy setIcon:[self.icon copyWithZone:zone]];
+        [copy setIcon_public_url:[self.icon_public_url copyWithZone:zone]];
+        [copy setChannelEpgDataByDay:[self.channelEpgDataByDay copyWithZone:zone]];
+        [copy setRestOfEpgStore:self.restOfEpgStore];
+    }
+    
+    return copy;
 }
 
 - (id <TVHEpgStore>)restOfEpgStore {
@@ -156,6 +186,10 @@
     return [NSString stringWithFormat:@"%@/tags/0/%@.ts", self.tvhServer.htspUrl, self.channelIdKey];
 }
 
+- (BOOL)isLive {
+    return YES;
+}
+
 - (NSString*)streamUrlWithTranscoding:(BOOL)transcoding withInternal:(BOOL)internal
 {
     return [self.tvhServer.playStream streamUrlForObject:self withTranscoding:transcoding withInternal:internal];
@@ -176,8 +210,7 @@
 
 - (void)addEpg:(TVHEpg*)epg {
     if( !dateFormatter ) {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"MM/dd/yy";
+        dateFormatter = [NSDateFormatter dateFormatterMMddyy];
     }
     
     NSString *dateString = [dateFormatter stringFromDate:epg.start];    
@@ -235,6 +268,9 @@
                 }
             }
         }
+        if ( i >= numberOfNextPrograms ) {
+            break;
+        }
     }
     return [nextPrograms copy];
 
@@ -254,12 +290,17 @@
 }
 
 - (NSComparisonResult)compareByNumber:(TVHChannel *)otherObject {
-    if ( self.number < otherObject.number ) {
-        return NSOrderedAscending;
-    } else if ( self.number > otherObject.number ) {
+    
+    if(self.number == otherObject.number) {
+        return NSOrderedSame;
+    } else if(self.number == 0)  //Channels without number should be placed last - treat number 0 as infinity
+    {
         return NSOrderedDescending;
+    } else if(otherObject.number == 0) {
+        return NSOrderedAscending;
     }
-    return NSOrderedSame;
+    
+    return self.number < otherObject.number ? NSOrderedAscending : NSOrderedDescending;
 }
 
 - (void)resetChannelEpgStore {
@@ -339,6 +380,10 @@
     return self.channelIdKey == otherCast.channelIdKey;
 }
 
+- (NSUInteger)hash {
+    return [self.channelIdKey hash];
+}
+
 // TODO refactor the whole ChannelEPG crap - it should be a self contained day/program store!
 - (void)removeOldProgramsFromStore {
     if ( self.channelEpgDataByDay ) {
@@ -399,7 +444,7 @@
     if ([self.delegate respondsToSelector:@selector(willLoadEpgChannel)]) {
         [self.delegate willLoadEpgChannel];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"willLoadEpgChannel"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelWillLoadEpgFromItself
                                                         object:self];
 }
 
@@ -407,7 +452,7 @@
     if ([self.delegate respondsToSelector:@selector(didLoadEpgChannel)]) {
         [self.delegate didLoadEpgChannel];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadEpgChannel"
+    [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelDidLoadEpgFromItself
                                                         object:self];
 }
 
@@ -415,5 +460,22 @@
     if ([self.delegate respondsToSelector:@selector(didErrorLoadingEpgChannel:)]) {
         [self.delegate didErrorLoadingEpgChannel:error];
     }
+}
+
+#pragma mark UIImage internal cache!
+
+- (NSCache*)tvhImageCache {
+    if (_tvhImageCache == nil) {
+        _tvhImageCache = [[NSCache alloc] init];
+    }
+    return _tvhImageCache;
+}
+
+- (void)saveCache:(UIImage*)image withWidth:(int)width andHeight:(int)height {
+    [self.tvhImageCache setObject:image forKey:[NSString stringWithFormat:@"%d_%d", width, height]];
+}
+
+- (UIImage*)imageFromCacheWithWidth:(int)width andHeight:(int)height {
+    return [self.tvhImageCache objectForKey:[NSString stringWithFormat:@"%d_%d", width, height]];
 }
 @end

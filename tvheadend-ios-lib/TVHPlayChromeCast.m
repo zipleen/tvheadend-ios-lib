@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 zipleen. All rights reserved.
 //
 
+#ifdef ENABLE_CHROMECAST
+
 #import "TVHPlayChromeCast.h"
 
 static NSString * kReceiverAppID;
@@ -268,3 +270,5 @@ didReceiveStatusForApplication:(GCKApplicationMetadata *)applicationMetadata {
 }
 
 @end
+
+#endif

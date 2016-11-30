@@ -33,6 +33,7 @@
 @protocol TVHEpgStoreDelegate <NSObject>
 - (void)didLoadEpg;
 @optional
+- (void)didLoadEpgButWillLoadMore;
 - (void)willLoadEpg;
 - (void)didErrorLoadingEpgStore:(NSError*)error;
 @end
@@ -56,6 +57,8 @@
 - (void)downloadMoreEpgList;
 - (void)clearEpgData;
 - (NSArray*)epgStoreItems;
+- (NSDictionary*)epgByChannelCopy;
+- (NSArray*)channelsOfEpgByChannel;
 - (void)setDelegate:(id <TVHEpgStoreDelegate>)delegate;
 - (void)removeOldProgramsFromStore;
 - (BOOL)isLastEpgFromThePast;

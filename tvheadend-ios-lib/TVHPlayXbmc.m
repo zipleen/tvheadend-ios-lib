@@ -10,6 +10,8 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
+#ifdef ENABLE_XBMC
+
 #import "TVHPlayXbmc.h"
 #include <arpa/inet.h>
 #include "AFHTTPClient.h"
@@ -230,3 +232,5 @@
 }
 
 @end
+
+#endif

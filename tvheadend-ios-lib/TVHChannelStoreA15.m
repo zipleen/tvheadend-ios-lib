@@ -24,7 +24,7 @@
 }
 
 - (NSDictionary*)apiParameters {
-    return @{@"start":@"0", @"limit":@"999999999", @"sort":@"number", @"dir":@"ASC"};
+    return @{@"start":@"0", @"limit":@"99999999", @"sort":@"number", @"dir":@"ASC"};
 }
 
 - (void)didLoadEpg {

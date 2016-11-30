@@ -46,10 +46,12 @@
 #pragma mark NSNotification
 
 - (void)appWillResignActive:(NSNotification*)note {
+    NSLog(@"TVHServer: appWillResignActive");
     [self stopTimer];
 }
 
 - (void)appWillEnterForeground:(NSNotification*)note {
+    NSLog(@"TVHServer: appWillEnterForeground");
     [self processTimerEvents];
     [self startTimer];
 }
@@ -72,28 +74,27 @@
 - (void)processTimerEvents {
     if ( ! self.inProcessing ) {
         self.inProcessing = YES;
-        [self.channelStore updateChannelsProgress];
-        self.inProcessing = NO;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self.channelStore updateChannelsProgress];
+            self.inProcessing = NO;
+        });
     }
 }
 
 #pragma mark init
 
 - (TVHServer*)initWithSettings:(TVHServerSettings*)settings {
-    self = [super init];
+    self = [self initWithSettingsButDontInit:settings];
     if (self) {
-        if ( ! settings ) {
-            return nil;
-        }
-        self.inProcessing = NO;
+#ifdef ENABLE_XBMC
         [TVHPlayXbmc sharedInstance];
+#endif
+#ifdef ENABLE_CHROMECAST
         // in unit tests, the chromecast init crashes. it seems in unit tests the sharedapplication returns nil
         if ([UIApplication sharedApplication] != nil) {
             [TVHPlayChromeCast sharedInstance];
         }
-        self.settings = settings;
-        self.version = settings.version;
-        self.apiVersion = settings.apiVersion;
+#endif
         [self.tagStore fetchTagList];
         [self.channelStore fetchChannelList];
         [self.statusStore fetchStatusSubscriptions];
@@ -121,6 +122,21 @@
                                                      name:UIApplicationWillEnterForegroundNotification
                                                    object:nil];
         [self startTimer];
+    }
+    return self;
+}
+
+- (TVHServer*)initWithSettingsButDontInit:(TVHServerSettings*)settings {
+    self = [super init];
+    if (self) {
+        if ( ! settings ) {
+            return nil;
+        }
+        self.inProcessing = NO;
+
+        self.settings = settings;
+        self.version = settings.version;
+        self.apiVersion = settings.apiVersion;
     }
     return self;
 }
@@ -318,6 +334,13 @@
     }
     
     return false;
+}
+
+- (BOOL)isReady {
+    if (!self.jsonClient) {
+        return NO;
+    }
+    return self.jsonClient.readyToUse;
 }
 
 - (TVHPlayStream*)playStream

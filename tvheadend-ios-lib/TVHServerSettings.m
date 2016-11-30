@@ -43,6 +43,27 @@
     return self;
 }
 
+- (NSDictionary*)settings {
+    return @{TVHS_SERVER_NAME:self.name != nil ? self.name : @"",
+             TVHS_IP_KEY:self.ip != nil ? self.ip : @"",
+             TVHS_PORT_KEY:self.port != nil ? self.port : @"",
+             TVHS_HTSP_PORT_KEY:self.portHTSP != nil ? self.portHTSP : @"",
+             TVHS_USERNAME_KEY:self.username != nil ? self.username : @"",
+             TVHS_PASSWORD_KEY:self.password != nil ? self.password : @"",
+             TVHS_USE_HTTPS:self.useHTTPS != nil ? self.useHTTPS : @"",
+             TVHS_SERVER_WEBROOT:self.webroot != nil ? self.webroot : @"",
+             TVHS_VLC_NETWORK_LATENCY:@"999",
+             TVHS_VLC_DEINTERLACE: @"0",
+             TVHS_SSH_PF_HOST:self.sshPortForwardHost != nil ? self.sshPortForwardHost : @"",
+             TVHS_SSH_PF_PORT:self.sshPortForwardPort != nil ? self.sshPortForwardPort : @"",
+             TVHS_SSH_PF_USERNAME:self.sshPortForwardUsername != nil ? self.sshPortForwardUsername : @"",
+             TVHS_SSH_PF_PASSWORD:self.sshPortForwardPassword != nil ? self.sshPortForwardPassword : @"",
+             TVHS_SERVER_VERSION:self.version != nil ? self.version : @"34",
+             TVHS_API_VERSION:self.apiVersion != nil ? self.apiVersion : @0
+             };
+    
+}
+
 - (NSString*)ipForSettings:(NSDictionary*)settings
 {
     NSString *ip;

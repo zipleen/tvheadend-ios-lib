@@ -13,8 +13,11 @@
 #import "TVHServerSettings.h"
 #import "TVHJsonClient.h"
 #import "AFJSONRequestOperation.h"
+#ifdef ENABLE_SSH
 #import "SSHWrapper.h"
+#endif
 
+#ifndef DEVICE_IS_TVOS
 @implementation TVHNetworkActivityIndicatorManager
 
 - (void)networkingOperationDidStart:(NSNotification *)notification {
@@ -36,9 +39,12 @@
 }
 
 @end
+#endif
 
 @implementation TVHJsonClient {
+#ifdef ENABLE_SSH
     SSHWrapper *sshPortForwardWrapper;
+#endif
 }
 
 #pragma mark - Methods
@@ -95,7 +101,9 @@
     //[self setDefaultHeader:@"Accept" value:@"application/json"];
     //[self setParameterEncoding:AFJSONParameterEncoding];
     
+#ifndef DEVICE_IS_TVOS
     [[TVHNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+#endif
     
     if ( self.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable ) {
         _readyToUse = NO;
@@ -173,9 +181,15 @@
     NSMutableData *FileData = [NSMutableData dataWithLength:[responseData length]];
     for (int i = 0; i < [responseData length]; ++i)
     {
+		if (i > 10700 && i < 10800) {
+			
+		}
+		
         char *a = &((char*)[responseData bytes])[i];
-        if ( (int)*a >0 && (int)*a < 0x20 ) {
+        if ( (int)*a > 0 && (int)*a < 0x20 ) {
             ((char*)[FileData mutableBytes])[i] = 0x20;
+		} else if ( (int)*a > 0x7F ) {
+			((char*)[FileData mutableBytes])[i] = 0x20;
         } else {
             ((char*)[FileData mutableBytes])[i] = ((char*)[responseData bytes])[i];
         }
@@ -198,8 +212,14 @@
     return json;
 }
 
+/// This is the main conversion method, taking data from the various JSON feeds from the server
+/// and converting it into an NSDictionary for further processing. Due to odd data that is returned
+/// from the server, it has several tests and conversions to attempt to strip out this data before
+/// trying to process it.
 + (NSDictionary*)convertFromJsonToObject:(NSData*)responseData error:(__autoreleasing NSError**)error {
     NSError __autoreleasing *errorForThisMethod;
+	
+	// if we weren't passed any data, complain...
     if ( ! responseData ) {
         NSDictionary *errorDetail = @{NSLocalizedDescriptionKey: @"No data received"};
         if (error != NULL) {
@@ -209,17 +229,51 @@
         }
         return nil;
     }
-    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:responseData
+	// try various encodings to see if any of them produce a working string
+	// note that the ordering here is "best guess", there's no real promise it will
+	// do the right thing in a wide variety of cases, but it seems that it will produce
+	// some sort of readable text in most cases.
+	NSString *str = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+	if ( str == nil ) {
+		str = [[NSString alloc] initWithData:responseData encoding:NSISOLatin1StringEncoding];
+	}
+	if ( str == nil ) {
+		str = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+	}
+	// at this point we hope to have something, but let's check to be sure
+	if ( ! str ) {
+		NSDictionary *errorDetail = @{NSLocalizedDescriptionKey: @"JSON data could not be converted to a string"};
+		if (error != NULL) {
+			*error = [[NSError alloc] initWithDomain:@"JSON data could not be converted to a string"
+												code:-1
+											userInfo:errorDetail];
+		}
+		return nil;
+	}
+	
+	// now the next problem is that we are also receiving control characters. these are properly
+	// escaped, but the JSON parser won't accept them. So here we'll use an NSScanner to remove them
+	NSCharacterSet *controls = [NSCharacterSet controlCharacterSet];
+	NSString *stripped = [[str componentsSeparatedByCharactersInSet:controls] componentsJoinedByString:@""];
+
+	// now we try converting the string to data and error out if that didn't work
+	NSData *data = [stripped dataUsingEncoding:NSUTF8StringEncoding];
+	if ( ! data ) {
+		NSDictionary *errorDetail = @{NSLocalizedDescriptionKey: @"JSON string could not be converted back to data"};
+		if (error != NULL) {
+			*error = [[NSError alloc] initWithDomain:@"JSON string could not be converted back to data"
+												code:-1
+											userInfo:errorDetail];
+		}
+		return nil;
+	}
+
+	// and finally, try parsing the data as JSON
+	NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
                                                          options:kNilOptions
                                                            error:&errorForThisMethod];
     
     if( errorForThisMethod ) {
-        /*NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-         NSString *documentsDirectory = [paths objectAtIndex:0];
-         NSString *appFile = [documentsDirectory stringByAppendingPathComponent:@"MyFile"];
-         [responseData writeToFile:appFile atomically:YES];
-         NSLog(@"%@",documentsDirectory);
-         */
 #ifdef TESTING
         NSLog(@"[JSON Error (1st)]: %@", errorForThisMethod.description);
 #endif
@@ -255,7 +309,7 @@
                    onLocalPort:(unsigned int)localPort
                         toHost:(NSString*)remoteIp
                   onRemotePort:(unsigned int)remotePort  {
-    
+#ifdef ENABLE_SSH
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
         NSError *error;
@@ -269,9 +323,11 @@
             NSLog(@"erro ssh pf: %@", error.localizedDescription);
         }
     });
+#endif
 }
 
 - (void)stopPortForward {
+#ifdef ENABLE_SSH
     if ( ! sshPortForwardWrapper ) {
         return ;
     }
@@ -280,5 +336,6 @@
         [sshPortForwardWrapper closeConnection];
         sshPortForwardWrapper = nil;
     });
+#endif
 }
 @end

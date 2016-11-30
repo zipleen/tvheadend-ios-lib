@@ -72,6 +72,17 @@
     return [NSString stringWithFormat:@"%@/service/%@.ts", self.tvhServer.htspUrl, self.id];
 }
 
+- (BOOL)isLive {
+    return YES;
+}
+
+- (TVHEpg*)currentPlayingProgram {
+    if (self.mappedChannel) {
+        return self.mappedChannel.currentPlayingProgram;
+    }
+    return nil;
+}
+
 - (NSString*)streamUrlWithTranscoding:(BOOL)transcoding withInternal:(BOOL)internal
 {
     return [self.tvhServer.playStream streamUrlForObject:self withTranscoding:transcoding withInternal:internal];
@@ -84,7 +95,10 @@
 
 - (NSString*)name
 {
-    return [self.mappedChannel name];
+    if (self.mappedChannel) {
+        return [self.mappedChannel name];
+    }
+    return self.svcname;
 }
 
 @end

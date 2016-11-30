@@ -57,14 +57,14 @@
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
-    NSMutableArray *dvrAutoRecItems = [[NSMutableArray alloc] init];
+    NSMutableArray *dvrAutoRecItems = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for(id obj in entries) {
         TVHAutoRecItem *dvritem = [[TVHAutoRecItem alloc] initWithTvhServer:self.tvhServer];
         [dvritem updateValuesFromDictionary:obj];
         
         [dvrAutoRecItems addObject:dvritem];
-    }];
+    }
     
     self.dvrAutoRecItems = [dvrAutoRecItems copy];
     

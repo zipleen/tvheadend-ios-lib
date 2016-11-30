@@ -57,9 +57,12 @@
     
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
         typeof (self) strongSelf = weakSelf;
-        if ( [strongSelf fetchedServiceData:responseObject] ) {
-            [strongSelf signalDidLoadServices];
-        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            if ( [strongSelf fetchedServiceData:responseObject] ) {
+                [strongSelf signalDidLoadServices];
+            }
+        });
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[TV Services HTTPClient Error]: %@", error.localizedDescription);
     }];
@@ -69,21 +72,21 @@
 - (BOOL)fetchedServiceData:(NSData *)responseData {
     NSError __autoreleasing *error;
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
+    if (error) {
         NSLog(@"[TV Service Channel JSON error]: %@", error.localizedDescription);
         return false;
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHService *service = [[TVHService alloc] initWithTvhServer:self.tvhServer];
         [service updateValuesFromDictionary:obj];
         
         if ( [self addServiceToStore:service] == NO ) {
             [self updateServiceFromStore:service];
         }
-    }];
+    }
     
 #ifdef TESTING
     NSLog(@"[Loaded Services]: %d", (int)[self.services count]);

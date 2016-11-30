@@ -47,7 +47,8 @@
 
 - (void)testJsonCharacterBug
 {
-    NSData *data = [TVHTestHelper loadFixture:@"Log.287"];
+    NSData *data = [TVHTestHelper loadFixture:@"Log.epg.maury.txt"]; //Log.287
+	XCTAssertNotNil(data, @"error loading json from file");
     TVHEpgStore34 *tvhe = [[TVHEpgStore34 alloc] init];
     XCTAssertNotNil(tvhe, @"creating tvepg store object");
     [tvhe fetchedData:data];
@@ -67,18 +68,48 @@
 
 - (void)testConvertFromJsonToObject
 {
-    NSData *data = [TVHTestHelper loadFixture:@"Log.287.invalid"];
-    NSError __autoreleasing *error;
+	NSError __autoreleasing *error;
+    NSData *data = [TVHTestHelper loadFixture:@"Log.epg.maury.txt"]; //Log.287.invalid ir EPG
+	//NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+	//NSString *path = [bundle pathForResource:@"Log.epg.maury" ofType:@"txt"];
+	//NSString *content = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:&error];
+	//NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
+	
+	XCTAssertNotNil(data, @"error loading json from file");
+	
     NSDictionary *dict = [TVHJsonClient convertFromJsonToObject:data error:&error];
     XCTAssertNotNil(dict, @"error processing json");
+}
+
+- (void)testConvertingAllLogFiles
+{
+	NSError __autoreleasing *error;
+
+	// get a list of "log" files in the test's bundle
+	NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+	NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:bundle.bundlePath error:nil];
+	NSPredicate *logPred = [NSPredicate predicateWithFormat:@"self BEGINSWITH 'Log'"];
+	NSArray *logFiles = [dirFiles filteredArrayUsingPredicate:logPred];
+	
+	// see if we got any, and if so, test each one
+	if ( logFiles ) {
+		for ( int index=0; index<logFiles.count; index++ ) {
+			NSString *file = [logFiles objectAtIndex:index];
+			NSData *data = [TVHTestHelper loadFixture:file]; //Log.287.invalid ir EPG
+			XCTAssertNotNil(data, @"error loading json from file");
+			NSDictionary *dict = [TVHJsonClient convertFromJsonToObject:data error:&error];
+			XCTAssertNotNil(dict, @"error processing json");
+		}
+	}
 }
 
 - (void)testConvertFromJsonToObject2
 {
     NSData *data = [TVHTestHelper loadFixture:@"Log.epg.utf.invalid"];
+	XCTAssertNotNil(data, @"error loading json from file");
     NSError __autoreleasing *error;
     [TVHJsonClient convertFromJsonToObject:data error:&error];
-    XCTAssertNotNil(error, @"json has no errors? - was this fixed?");
+    XCTAssertNil(error, @"json has no errors? - was this fixed?");
 }
 
 @end

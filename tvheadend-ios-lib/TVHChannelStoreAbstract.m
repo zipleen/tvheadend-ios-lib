@@ -14,7 +14,9 @@
 #import "TVHEpg.h"
 #import "TVHServer.h"
 
-@interface TVHChannelStoreAbstract ()
+@interface TVHChannelStoreAbstract () {
+    NSLock *channelUpdateInProgress;
+}
 @property (nonatomic, weak) TVHApiClient *apiClient;
 @property (nonatomic, strong) NSArray *channels;
 @property (nonatomic, strong) id <TVHEpgStore> currentlyPlayingEpgStore;
@@ -41,6 +43,8 @@
     self.tvhServer = tvhServer;
     self.apiClient = [self.tvhServer apiClient];
     self.filterTag = @"0";
+    channelUpdateInProgress = [NSLock new];
+    channelUpdateInProgress.name = @"channelUpdateInProgress";
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(fetchChannelList)
@@ -61,28 +65,29 @@
 - (BOOL)fetchedData:(NSData *)responseData {
     NSError __autoreleasing *error;
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
+    if (error) {
         [self signalDidErrorLoadingChannelStore:error];
         return false;
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
-    NSMutableArray *channels = [[NSMutableArray alloc] init];
+    NSMutableArray *channels = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHChannel *channel = [[TVHChannel alloc] initWithTvhServer:self.tvhServer];
         [obj enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             [channel setValue:obj forKey:key];
         }];
         [channels addObject:channel];
-
-    }];
+    }
     
+    [channelUpdateInProgress lock];
     if ( [self.tvhServer.settings sortChannel] == TVHS_SORT_CHANNEL_BY_NAME ) {
         self.channels =  [[channels copy] sortedArrayUsingSelector:@selector(compareByName:)];
     } else {
         self.channels =  [[channels copy] sortedArrayUsingSelector:@selector(compareByNumber:)];
     }
+    [channelUpdateInProgress unlock];
 #ifdef TESTING
     NSLog(@"[Loaded Channels]: %d", (int)[self.channels count]);
 #endif
@@ -106,6 +111,13 @@
 }
 
 - (void)fetchChannelList {
+    return [self fetchChannelListWithSuccess:nil failure:nil loadEpgForChannels:YES];
+}
+
+- (void)fetchChannelListWithSuccess:(ChannelLoadedCompletionBlock)successBlock
+                            failure:(ChannelLoadedCompletionBlock)failureBlock
+                 loadEpgForChannels:(BOOL)loadEpg
+{
     __block NSDate *profilingDate = [NSDate date];
     [self signalWillLoadChannels];
     
@@ -120,15 +132,27 @@
 #ifdef TESTING
         NSLog(@"[ChannelList Profiling Network]: %f", time);
 #endif
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             if ( [strongSelf fetchedData:responseObject] ) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if ([strongSelf.delegate respondsToSelector:@selector(didLoadChannels)]) {
-                        [strongSelf.delegate didLoadChannels];
+                    if (successBlock != nil) {
+                        successBlock(self.channels);
                     }
+                    
+                    [strongSelf signalDidLoadChannels];
+                    
                     [[strongSelf.tvhServer tagStore] signalDidLoadTags];
-                    [strongSelf.currentlyPlayingEpgStore downloadEpgList];
+                    
+                    if (loadEpg) {
+                        [strongSelf.currentlyPlayingEpgStore downloadEpgList];
+                    }
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (failureBlock != nil) {
+                        failureBlock(nil);
+                    }
                 });
             }
         });
@@ -136,6 +160,9 @@
        // NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
        // NSLog(@"Request Successful, response '%@'", responseStr);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (failureBlock != nil) {
+            failureBlock(nil);
+        }
         [weakSelf signalDidErrorLoadingChannelStore:error];
         NSLog(@"[ChannelList HTTPClient Error]: %@", error.localizedDescription);
     }];
@@ -162,13 +189,30 @@
 #pragma mark Controller delegate stuff
 
 - (NSArray*)filteredChannelList {
-    NSMutableArray *filteredChannels = [[NSMutableArray alloc] init];
+    return [self filteredChannelList:self.filterTag];
+}
+
+- (NSArray*)filteredChannelList:(NSString*)filterTag {
+    NSMutableArray *filteredChannels = [[NSMutableArray alloc] initWithCapacity:self.channelCount];
     for (TVHChannel *channel in self.channels) {
-        if( [channel hasTag:self.filterTag] ) {
+        if( [channel hasTag:filterTag] ) {
             [filteredChannels addObject:channel];
         }
     }
-    return [filteredChannels copy];
+    
+    if ( [self.tvhServer.settings sortChannel] == TVHS_SORT_CHANNEL_BY_NAME ) {
+        return [[filteredChannels copy] sortedArrayUsingSelector:@selector(compareByName:)];
+    } else {
+        return [[filteredChannels copy] sortedArrayUsingSelector:@selector(compareByNumber:)];
+    }
+}
+
+- (NSArray*)channelsWithTag:(NSString*)tag {
+    if ( [tag isEqualToString:@"0"] ) {
+        return [self.channels copy];
+    } else {
+        return [self filteredChannelList:tag];
+    }
 }
 
 - (NSArray*)arrayChannels {
@@ -235,25 +279,33 @@
 }
 
 - (void)updateChannelsProgress {
-    // 1 - remove old programs, from currentlyPlaying and from each Channel
-    [self.currentlyPlayingEpgStore removeOldProgramsFromStore];
-    
-    // 2 - check if we need to download more programs
-    for ( TVHChannel *channel in self.channels ) {
-        if ( [channel isLastEpgFromThePast] ) {
-            [self.currentlyPlayingEpgStore downloadEpgList];
-            break;
+    // if we cannot acquire a lock, ignore the update channel progress
+    if ([channelUpdateInProgress tryLock]) {
+        
+        // 1 - remove old programs, from currentlyPlaying and from each Channel
+        [self.currentlyPlayingEpgStore removeOldProgramsFromStore];
+        
+        // 2 - check if we need to download more programs
+        for ( TVHChannel *channel in self.channels ) {
+            if ( [channel isLastEpgFromThePast] ) {
+                [self.currentlyPlayingEpgStore downloadEpgList];
+                break;
+            }
         }
-    }
-    
-    // 3 - remove old programs from channels (this should have the previous more programs already added)
-    for ( TVHChannel *channel in self.channels ) {
-        [channel removeOldProgramsFromStore];
-    }
-    
-    // 4 - signal the refresh of channel data, with updated EPG
-    if (self.channels) {
-        [self signalDidLoadChannels];
+        
+        // 3 - remove old programs from channels (this should have the previous more programs already added)
+        for ( TVHChannel *channel in self.channels ) {
+            [channel removeOldProgramsFromStore];
+        }
+        
+        // 4 - signal the refresh of channel data, with updated EPG
+        if (self.channels) {
+            [self signalDidLoadChannels];
+        }
+        
+        [channelUpdateInProgress unlock];
+    } else {
+        NSLog(@"updateChannelsProgress ignored because we could not acquire the updateLock");
     }
 }
 

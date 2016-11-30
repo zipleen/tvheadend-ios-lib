@@ -50,16 +50,16 @@
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
-    NSMutableArray *tags = [[NSMutableArray alloc] init];
+    NSMutableArray *tags = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
-    [entries enumerateObjectsUsingBlock:^(id entry, NSUInteger idx, BOOL *stop) {
+    for (id entry in entries) {
         NSInteger enabled = [[entry objectForKey:@"enabled"] intValue];
         if( enabled ) {
             TVHTag *tag = [[TVHTag alloc] initWithTvhServer:self.tvhServer];
             [tag updateValuesFromDictionary:entry];
             [tags addObject:tag];
         }
-    }];
+    }
      
     NSMutableArray *orderedTags = [[tags sortedArrayUsingSelector:@selector(compareByName:)] mutableCopy];
     
@@ -73,6 +73,15 @@
 #endif
     [self.tvhServer.analytics setIntValue:[self.tags count] forKey:@"tags"];
     return true;
+}
+
+- (TVHTag*)tagWithIdKey:(NSString*)idKey {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idKey == %@", idKey];
+    NSArray *filteredArray = [self.tags filteredArrayUsingPredicate:predicate];
+    if ([filteredArray count] > 0) {
+        return [filteredArray objectAtIndex:0];
+    }
+    return nil;
 }
 
 #pragma mark Api Client delegates
@@ -105,7 +114,7 @@
         NSLog(@"[TagStore Profiling Network]: %f", time);
 #endif
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             if ( [strongSelf fetchedData:responseObject] ) {
                 [strongSelf signalDidLoadTags];
             }

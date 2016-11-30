@@ -58,6 +58,7 @@
 
 // "system wide" settings
 @property (nonatomic) NSInteger sortChannel;
+@property (nonatomic) NSInteger sortRecordings;
 @property (nonatomic) BOOL autoStartPolling;
 @property (nonatomic, strong) NSString *transcodeResolution;
 @property (nonatomic, strong) NSString *transcodeVideo;
@@ -69,4 +70,5 @@
 - (NSURL*)baseURL;
 - (NSString*)httpURL;
 - (NSString*)htspURL;
+- (NSDictionary*)settings;
 @end

@@ -120,6 +120,18 @@
     }
 }
 
+- (void)setStart_real:(id)start_real {
+    if( ! [start_real isKindOfClass:[NSString class]] ) {
+        _start_real = [NSDate dateWithTimeIntervalSince1970:[start_real intValue]];
+    }
+}
+
+- (void)setStop_real:(id)stop_real {
+    if( ! [stop_real isKindOfClass:[NSString class]] ) {
+        _stop_real = [NSDate dateWithTimeIntervalSince1970:[stop_real intValue]];
+    }
+}
+
 - (void)updateValuesFromDictionary:(NSDictionary*) values {
     [values enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [self setValue:obj forKey:key];
@@ -132,9 +144,19 @@
 
 - (void)deleteRecording {
     if ([self.tvhServer isVersionFour]) {
-        [TVHDvrActions doIdnodeAction:@"delete" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
+        if (self.isRecording) {
+            if (self.tvhServer.apiVersion.integerValue >= 16) {
+                // api version 16, or 4.1.x has STOP (whereas cancel will stop AND delete the file)
+                [TVHDvrActions doAction:@"api/dvr/entry/stop" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
+            } else {
+                // 4.0.x (max version 15) only has cancel
+                [TVHDvrActions doAction:@"api/dvr/entry/cancel" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
+            }
+        } else {
+            [TVHDvrActions doIdnodeAction:@"delete" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
+        }
     } else {
-        if ( [self.schedstate isEqualToString:@"scheduled"] || [self.schedstate isEqualToString:@"recording"] ) {
+        if ( self.isScheduledForRecording || self.isRecording ) {
             [TVHDvrActions cancelRecording:self.id withTvhServer:self.tvhServer];
         } else {
             [TVHDvrActions deleteRecording:self.id withTvhServer:self.tvhServer];
@@ -142,6 +164,20 @@
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:TVHWillRemoveEpgFromRecording
                                                         object:self];
+}
+
+- (BOOL)isScheduledForRecording {
+    if (self.sched_status != nil) {
+        return [self.sched_status isEqualToString:@"scheduled"];
+    }
+    return [[self schedstate] isEqualToString:@"scheduled"];
+}
+
+- (BOOL)isRecording {
+    if (self.sched_status != nil) {
+        return [self.sched_status isEqualToString:@"recording"];
+    }
+    return [[self schedstate] isEqualToString:@"recording"];
 }
 
 - (TVHChannel*)channelObject {
@@ -157,6 +193,8 @@
     return channel;
 }
 
+// http://xxx:9981/dvrfile/cc9e5a804b06176a709daccc2f23c3cd
+// "%@/dvrfile/%@", self.tvhServer.httpUrl, self.uuid
 - (NSString*)streamURL {
     if ( self.url && ![self.url isEqualToString:@"(null)"]) {
         return [NSString stringWithFormat:@"%@/%@", self.tvhServer.httpUrl, self.url];
@@ -169,6 +207,14 @@
 }
 
 - (NSString*)htspStreamURL {
+    return nil;
+}
+
+- (BOOL)isLive {
+    return NO;
+}
+
+- (TVHEpg*)currentPlayingProgram {
     return nil;
 }
 

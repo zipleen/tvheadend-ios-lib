@@ -60,21 +60,21 @@
 - (BOOL)fetchedData:(NSData *)responseData {
     NSError __autoreleasing *error;
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
+    if (error) {
         [self signalDidErrorAdaptersStore:error];
         return false;
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
-    NSMutableArray *adapters = [[NSMutableArray alloc] init];
+    NSMutableArray *adapters = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHAdapter *adapter = [[TVHAdapter alloc] initWithTvhServer:self.tvhServer];
         [adapter updateValuesFromDictionary:obj];
         [self setupMoreValuesForAdapter:adapter];
         
         [adapters addObject:adapter];
-    }];
+    }
     
     self.adapters = [adapters copy];
     

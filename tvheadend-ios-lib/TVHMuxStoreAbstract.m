@@ -55,9 +55,11 @@
     
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
         typeof (self) strongSelf = weakSelf;
-        if ( [strongSelf fetchedData:responseObject] ) {
-            [strongSelf signalDidLoadAdapterMuxes];
-        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            if ( [strongSelf fetchedData:responseObject] ) {
+                [strongSelf signalDidLoadAdapterMuxes];
+            }
+        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[TV Adapter Mux HTTPClient Error]: %@", error.localizedDescription);
     }];
@@ -67,21 +69,21 @@
 - (BOOL)fetchedData:(NSData *)responseData {
     NSError __autoreleasing *error;
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
+    if (error) {
         NSLog(@"[Mux JSON error]: %@", error.localizedDescription);
         return false;
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHMux *mux = [[TVHMux alloc] initWithTvhServer:self.tvhServer];
         [mux updateValuesFromDictionary:obj];
         
         if ( [self addMuxToStore:mux] == NO ) {
             [self updateMuxFromStore:mux];
         }
-    }];
+    }
     
 #ifdef TESTING
     NSLog(@"[Loaded Adapter Muxes]: %d", (int)[self.muxes count]);

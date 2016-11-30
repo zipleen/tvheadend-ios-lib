@@ -90,4 +90,24 @@
     return count;
 }
 
+- (NSArray*)channels {
+    NSArray *channels = [[self.tvhServer channelStore] channels];
+    if ( [self.idKey isEqualToString:@"0"] ) {
+        return channels;
+    }
+
+    NSMutableArray *tagChannels = [[NSMutableArray alloc] init];
+    for (TVHChannel *channel in channels) {
+        if ( [channel hasTag:self.idKey] ) {
+            [tagChannels addObject:channel];
+        }
+    }
+    
+    if ( [self.tvhServer.settings sortChannel] == TVHS_SORT_CHANNEL_BY_NAME ) {
+        return [[tagChannels copy] sortedArrayUsingSelector:@selector(compareByName:)];
+    } else {
+        return [[tagChannels copy] sortedArrayUsingSelector:@selector(compareByNumber:)];
+    }
+}
+
 @end

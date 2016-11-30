@@ -73,7 +73,7 @@
 - (void)didSuccessfulyAddEpgToRecording:(NSNotification *)notification {
     if ([[notification name] isEqualToString:TVHDidSuccessfulyAddEpgToRecording]) {
         NSNumber *number = [notification object];
-        if ( [number intValue] == self.id ) {
+        if ( [number intValue] == self.id || [number intValue] == self.eventId ) {
             // not exactly right, but it's better than having to get ALL the epg again :p
             if ( [self progress] > 0 ) {
                 self.schedstate = @"recording";
@@ -221,10 +221,16 @@
 }
 
 - (BOOL)isScheduledForRecording {
+    if (self.dvrState) {
+        return [self.dvrState isEqualToString:@"scheduled"];
+    }
     return [[self schedstate] isEqualToString:@"scheduled"];
 }
 
 - (BOOL)isRecording {
+    if (self.dvrState) {
+        return [self.dvrState isEqualToString:@"recording"];
+    }
     return [[self schedstate] isEqualToString:@"recording"];
 }
 
@@ -248,6 +254,31 @@
     }
     
     return [self.end timeIntervalSinceDate:self.start];
+}
+
+- (NSString*)startTimeAndTitle {
+    if (self.start == nil) {
+        return @"";
+    }
+    
+    NSString *time = [NSString stringWithFormat:@"%@ ", [[NSDateFormatter timeFormatterHHmm] stringFromDate:self.start]];
+    NSString *title = @"";
+    if (self.title != nil) {
+        title = self.title;
+    }
+    return [time stringByAppendingString:title];
+}
+
+- (NSString*)startEndTime {
+    return  [NSString stringWithFormat:@"%@ - %@ ", [[NSDateFormatter timeFormatterHHmm] stringFromDate:self.start], [[NSDateFormatter timeFormatterHHmm] stringFromDate:self.end]];
+}
+
+- (BOOL)isInSameTimeslot:(TVHEpg*)epg {
+    return
+        ([self.start compare:epg.start] == NSOrderedDescending || [self.start compare:epg.start] == NSOrderedSame)
+    &&
+        ([self.start compare:epg.end] == NSOrderedAscending)
+    ;
 }
 
 @end

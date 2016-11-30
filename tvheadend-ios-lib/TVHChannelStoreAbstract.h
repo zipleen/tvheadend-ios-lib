@@ -19,10 +19,12 @@
 @property (nonatomic, strong) NSString *filterTag;
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchChannelList;
+- (void)fetchChannelListWithSuccess:(ChannelLoadedCompletionBlock)successBlock failure:(ChannelLoadedCompletionBlock)failureBlock loadEpgForChannels:(BOOL)loadEpg;
 
 - (NSUInteger)channelCount;
 - (NSArray*)channels;
 - (NSArray*)arrayChannels;
+- (NSArray*)channelsWithTag:(NSString*)tag;
 - (TVHChannel*)channelWithName:(NSString*)name;
 - (TVHChannel*)channelWithId:(NSString*)channelId;
 - (NSArray*)filteredChannelList;

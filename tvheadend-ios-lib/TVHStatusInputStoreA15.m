@@ -47,11 +47,11 @@
             [self fetchStatusInputs];
         }
         
-        [self.inputs enumerateObjectsUsingBlock:^(TVHStatusInput* obj, NSUInteger idx, BOOL *stop) {
-            if (  [[message objectForKey:@"uuid"] isEqualToString:obj.uuid] ) {
+        for (TVHStatusInput* obj in self.inputs) {
+            if ([[message objectForKey:@"uuid"] isEqualToString:obj.uuid]) {
                 [obj updateValuesFromDictionary:message];
             }
-        }];
+        }
         
         [self signalDidLoadStatusInputs];
     }
@@ -66,14 +66,14 @@
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
-    NSMutableArray *inputs = [[NSMutableArray alloc] init];
+    NSMutableArray *inputs = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHStatusInput *statusInput = [[TVHStatusInput alloc] init];
         [statusInput updateValuesFromDictionary:obj];
         
         [inputs addObject:statusInput];
-    }];
+    }
     
     self.inputs = [inputs copy];
     
