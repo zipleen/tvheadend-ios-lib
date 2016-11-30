@@ -7,16 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		55ABD66E1DEE326A009ABF27 /* EPG in Resources */ = {isa = PBXBuildFile; fileRef = 55ABD66D1DEE3204009ABF27 /* EPG */; };
-		55ABD66F1DEE32BA009ABF27 /* EPG in Resources */ = {isa = PBXBuildFile; fileRef = 55ABD66D1DEE3204009ABF27 /* EPG */; };
 		55ABD6701DEE330B009ABF27 /* Log.epg.utf.invalid in Resources */ = {isa = PBXBuildFile; fileRef = AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */; };
 		55ABD6711DEE330B009ABF27 /* Log.287.invalid in Resources */ = {isa = PBXBuildFile; fileRef = AA336F791889B8F300FD2A03 /* Log.287.invalid */; };
 		55ABD6721DEE330B009ABF27 /* Log.287 in Resources */ = {isa = PBXBuildFile; fileRef = AABF3B5B185E603300E62240 /* Log.287 */; };
 		55ABD6731DEE330B009ABF27 /* Log.tags in Resources */ = {isa = PBXBuildFile; fileRef = AABF3B5C185E603300E62240 /* Log.tags */; };
 		55ABD6741DEE330B009ABF27 /* Log.channels in Resources */ = {isa = PBXBuildFile; fileRef = AABF3B5D185E603300E62240 /* Log.channels */; };
 		55ABD6751DEE330B009ABF27 /* Log.oneChannelEpg in Resources */ = {isa = PBXBuildFile; fileRef = AABF3B5E185E603300E62240 /* Log.oneChannelEpg */; };
-		55ABD6791DEE3650009ABF27 /* Log.epg.maury.txt in Resources */ = {isa = PBXBuildFile; fileRef = 55ABD6781DEE3650009ABF27 /* Log.epg.maury.txt */; };
-		55ABD67A1DEE3659009ABF27 /* Log.epg.maury.txt in Resources */ = {isa = PBXBuildFile; fileRef = 55ABD6781DEE3650009ABF27 /* Log.epg.maury.txt */; };
 		55E6C99C1DEE1E0E004E1ACF /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E6C99B1DEE1E0E004E1ACF /* XCTest.framework */; };
 		55E6C99E1DEE1E1A004E1ACF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E6C99D1DEE1E1A004E1ACF /* UIKit.framework */; };
 		55E6C9A51DEE216D004E1ACF /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E6C9A31DEE215A004E1ACF /* libz.1.dylib */; };
@@ -1286,8 +1282,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55ABD6791DEE3650009ABF27 /* Log.epg.maury.txt in Resources */,
-				55ABD66E1DEE326A009ABF27 /* EPG in Resources */,
 				AAC6346F1A1579430005EA99 /* Log.epg.utf.invalid in Resources */,
 				AABF3B72185E603300E62240 /* Log.oneChannelEpg in Resources */,
 				AABF3B73185E603300E62240 /* extjs.html in Resources */,
@@ -1304,14 +1298,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55ABD67A1DEE3659009ABF27 /* Log.epg.maury.txt in Resources */,
 				55ABD6701DEE330B009ABF27 /* Log.epg.utf.invalid in Resources */,
 				55ABD6711DEE330B009ABF27 /* Log.287.invalid in Resources */,
 				55ABD6721DEE330B009ABF27 /* Log.287 in Resources */,
 				55ABD6731DEE330B009ABF27 /* Log.tags in Resources */,
 				55ABD6741DEE330B009ABF27 /* Log.channels in Resources */,
 				55ABD6751DEE330B009ABF27 /* Log.oneChannelEpg in Resources */,
-				55ABD66F1DEE32BA009ABF27 /* EPG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1711,7 +1703,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "/Developer/tvhclient/tvheadend-ios-lib/tvheadend-ios-libTests/tvheadend-ios-libTests-Info.plist";
+				INFOPLIST_FILE = "tvheadend-ios-libTests/tvheadend-ios-libTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zipleen.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
@@ -1729,7 +1721,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
-				INFOPLIST_FILE = "/Developer/tvhclient/tvheadend-ios-lib/tvheadend-ios-libTests/tvheadend-ios-libTests-Info.plist";
+				INFOPLIST_FILE = "tvheadend-ios-libTests/tvheadend-ios-libTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zipleen.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
@@ -1807,7 +1799,7 @@
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "/Developer/tvhclient/tvheadend-ios-lib/tvheadend-ios-libTests/tvheadend-ios-libTests-Info.plist";
+				INFOPLIST_FILE = "tvheadend-ios-libTests/tvheadend-ios-libTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zipleen.tvheadend-tvOS-libTests";
@@ -1830,7 +1822,7 @@
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "/Developer/tvhclient/tvheadend-ios-lib/tvheadend-ios-libTests/tvheadend-ios-libTests-Info.plist";
+				INFOPLIST_FILE = "tvheadend-ios-libTests/tvheadend-ios-libTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zipleen.tvheadend-tvOS-libTests";
