@@ -431,7 +431,9 @@
 }
 
 - (void)didErrorLoadingEpgStore:(NSError*)error {
-    [self signalDidErrorLoadingEpgChannel:error];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self signalDidErrorLoadingEpgChannel:error];
+    });
 }
 
 - (void)setDelegate:(id <TVHChannelDelegate>)delegate {
@@ -441,25 +443,31 @@
 }
 
 - (void)signalWillLoadEpgChannel {
-    if ([self.delegate respondsToSelector:@selector(willLoadEpgChannel)]) {
-        [self.delegate willLoadEpgChannel];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelWillLoadEpgFromItself
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadEpgChannel)]) {
+            [self.delegate willLoadEpgChannel];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelWillLoadEpgFromItself
+                                                            object:self];
+    });
 }
 
 - (void)signalDidLoadEpgChannel {
-    if ([self.delegate respondsToSelector:@selector(didLoadEpgChannel)]) {
-        [self.delegate didLoadEpgChannel];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelDidLoadEpgFromItself
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didLoadEpgChannel)]) {
+            [self.delegate didLoadEpgChannel];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelDidLoadEpgFromItself
+                                                            object:self];
+    });
 }
 
 - (void)signalDidErrorLoadingEpgChannel:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorLoadingEpgChannel:)]) {
-        [self.delegate didErrorLoadingEpgChannel:error];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorLoadingEpgChannel:)]) {
+            [self.delegate didErrorLoadingEpgChannel:error];
+        }
+    });
 }
 
 #pragma mark UIImage internal cache!
