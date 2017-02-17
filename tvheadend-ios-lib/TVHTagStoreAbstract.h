@@ -22,6 +22,7 @@
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (NSArray*)tags;
 - (TVHTag*)tagWithIdKey:(NSString*)idKey;
+- (TVHTag*)tagWithName:(NSString*)name;
 - (void)fetchTagList;
 - (void)signalDidLoadTags;
 @end

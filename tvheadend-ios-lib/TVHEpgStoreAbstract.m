@@ -238,6 +238,7 @@
     
     if( self.filterToTagName != nil ) {
         [params setObject:self.filterToTagName forKey:@"tag"];
+        [params setObject:self.filterToTagName forKey:@"channelTag"];
     }
     
     if( self.filterToContentTypeId != nil ) {
@@ -388,9 +389,9 @@
     }
 }
 
-- (void)setFilterToTagName:(NSString *)filterToTagName {
-    if ( ! [filterToTagName isEqualToString:_filterToTagName] ) {
-        _filterToTagName = filterToTagName;
+- (void)setFilterToTag:(TVHTag *)filterToTag {
+    if ( ! [filterToTag.name isEqualToString:_filterToTagName] ) {
+        _filterToTagName = filterToTag.name;
         self.epgStore = nil;
     }
 }

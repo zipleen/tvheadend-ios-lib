@@ -29,6 +29,7 @@
 @class TVHServer;
 @class TVHEpgStore;
 @class TVHChannel;
+@class TVHTag;
 
 @protocol TVHEpgStoreDelegate <NSObject>
 - (void)didLoadEpg;
@@ -63,4 +64,5 @@
 - (void)removeOldProgramsFromStore;
 - (BOOL)isLastEpgFromThePast;
 - (void)setFilterToChannel:(TVHChannel *)filterToChannel;
+- (void)setFilterToTag:(TVHTag *)filterToTag;
 @end

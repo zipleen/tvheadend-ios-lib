@@ -84,6 +84,15 @@
     return nil;
 }
 
+- (TVHTag*)tagWithName:(NSString*)name {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
+    NSArray *filteredArray = [self.tags filteredArrayUsingPredicate:predicate];
+    if ([filteredArray count] > 0) {
+        return [filteredArray objectAtIndex:0];
+    }
+    return nil;
+}
+
 #pragma mark Api Client delegates
 
 - (NSString*)apiMethod {
