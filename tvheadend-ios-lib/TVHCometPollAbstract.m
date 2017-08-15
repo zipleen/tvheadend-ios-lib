@@ -76,7 +76,7 @@
 - (BOOL)fetchedData:(NSData *)responseData {
     NSError __autoreleasing *error;
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
+    if (error) {
         [[NSNotificationCenter defaultCenter]
             postNotificationName:TVHDidErrorCometPollNotification
             object:error];

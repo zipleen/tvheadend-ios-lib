@@ -79,7 +79,11 @@
         [subscriptions addObject:subscription];
     }
     
+    entries = nil;
+    
     self.subscriptions = [subscriptions copy];
+    
+    subscriptions = nil;
     
 #ifdef TESTING
     NSLog(@"[Loaded Subscription]: %d", (int)[self.subscriptions count]);
@@ -151,19 +155,23 @@
 }
 
 - (void)signalWillLoadStatusSubscriptions {
-    if ([self.delegate respondsToSelector:@selector(willLoadStatusSubscriptions)]) {
-        [self.delegate willLoadStatusSubscriptions];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusSubscriptionStoreWillLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadStatusSubscriptions)]) {
+            [self.delegate willLoadStatusSubscriptions];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusSubscriptionStoreWillLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidErrorStatusSubscriptionsStore:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorStatusSubscriptionsStore:)]) {
-        [self.delegate didErrorStatusSubscriptionsStore:error];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusSubscriptionStoreDidErrorNotification
-                                                        object:error];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorStatusSubscriptionsStore:)]) {
+            [self.delegate didErrorStatusSubscriptionsStore:error];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusSubscriptionStoreDidErrorNotification
+                                                            object:error];
+    });
 }
 
 @end

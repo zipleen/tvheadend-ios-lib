@@ -78,15 +78,16 @@
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
+    NSMutableArray *services = [self.services mutableCopy];
     
     for (id obj in entries) {
         TVHService *service = [[TVHService alloc] initWithTvhServer:self.tvhServer];
         [service updateValuesFromDictionary:obj];
         
-        if ( [self addServiceToStore:service] == NO ) {
-            [self updateServiceFromStore:service];
-        }
+        [self updateServiceToArray:service array:services];
     }
+    
+    self.services = [services copy];
     
 #ifdef TESTING
     NSLog(@"[Loaded Services]: %d", (int)[self.services count]);
@@ -94,21 +95,15 @@
     return true;
 }
 
-- (BOOL)addServiceToStore:(TVHService*)serviceItem {
-    if ( [self.services indexOfObject:serviceItem] == NSNotFound ) {
-        self.services = [self.services arrayByAddingObject:serviceItem];
-        return YES;
-    }
-    return NO;
-}
-
-- (BOOL)updateServiceFromStore:(TVHService*)serviceItem {
-    if ( [self.services indexOfObject:serviceItem] != NSNotFound ) {
-        TVHService *foundService = [self.services objectAtIndex:[self.services indexOfObject:serviceItem]];
+- (void)updateServiceToArray:(TVHService*)serviceItem array:(NSMutableArray*)services {
+    NSUInteger indexOfObject = [services indexOfObject:serviceItem];
+    if ( indexOfObject == NSNotFound ) {
+        [services addObject:serviceItem];
+    } else {
+        // update
+        TVHService *foundService = [services objectAtIndex:indexOfObject];
         [foundService updateValuesFromService:serviceItem];
-        return YES;
     }
-    return NO;
 }
 
 - (NSArray*)servicesForMux:(TVHMux*)adapterMux {

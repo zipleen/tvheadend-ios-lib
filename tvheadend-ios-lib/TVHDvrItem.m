@@ -59,7 +59,7 @@
     id title = _title;
     
     if( [title isKindOfClass:[NSDictionary class]] ) {
-        return [title objectForKey:0];
+        return [title objectForKey:@0];
     }
     
     return title;
@@ -74,7 +74,7 @@
     id description = _description;
     
     if( [description isKindOfClass:[NSDictionary class]] ) {
-        return [description objectForKey:0];
+        return [description objectForKey:@0];
     }
     
     return description;

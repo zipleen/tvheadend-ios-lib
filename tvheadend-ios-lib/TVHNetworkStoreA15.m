@@ -47,11 +47,11 @@
             [self fetchNetworks];
         }
         
-        [self.networks enumerateObjectsUsingBlock:^(TVHNetwork* obj, NSUInteger idx, BOOL *stop) {
-            if (  [[message objectForKey:@"uuid"] isEqualToString:obj.uuid] ) {
+        for (TVHNetwork* obj in self.networks) {
+            if ([[message objectForKey:@"uuid"] isEqualToString:obj.uuid]) {
                 [obj updateValuesFromDictionary:message];
             }
-        }];
+        }
         
         [self signalDidLoadNetwork];
     }
@@ -149,19 +149,23 @@
 }
 
 - (void)signalWillLoadNetwork {
-    if ([self.delegate respondsToSelector:@selector(willLoadNetwork)]) {
-        [self.delegate willLoadNetwork];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHNetworkStoreWillLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadNetwork)]) {
+            [self.delegate willLoadNetwork];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHNetworkStoreWillLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidErrorNetworkStore:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorNetworkStore:)]) {
-        [self.delegate didErrorNetworkStore:error];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHNetworkStoreDidErrorNotification
-                                                        object:error];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorNetworkStore:)]) {
+            [self.delegate didErrorNetworkStore:error];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHNetworkStoreDidErrorNotification
+                                                            object:error];
+    });
 }
 
 @end

@@ -85,11 +85,13 @@
 }
 
 - (void)signalDidLoadLog {
-    if ([self.delegate respondsToSelector:@selector(didLoadLog)]) {
-        [self.delegate didLoadLog];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadLog"
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didLoadLog)]) {
+            [self.delegate didLoadLog];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadLog"
+                                                            object:self];
+    });
 }
 
 @end

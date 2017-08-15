@@ -146,19 +146,23 @@
 }
 
 - (void)signalWillLoadStatusInputs {
-    if ([self.delegate respondsToSelector:@selector(willLoadStatusInputs)]) {
-        [self.delegate willLoadStatusInputs];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusInputStoreWillLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadStatusInputs)]) {
+            [self.delegate willLoadStatusInputs];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusInputStoreWillLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidErrorStatusInputStore:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorStatusInputStore:)]) {
-        [self.delegate didErrorStatusInputStore:error];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusInputStoreDidErrorNotification
-                                                        object:error];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorStatusInputStore:)]) {
+            [self.delegate didErrorStatusInputStore:error];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusInputStoreDidErrorNotification
+                                                            object:error];
+    });
 }
 
 @end

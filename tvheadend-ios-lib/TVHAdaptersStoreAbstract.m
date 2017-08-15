@@ -47,11 +47,11 @@
     if ([[notification name] isEqualToString:TVHAdapterStoreReloadNotification]) {
         NSDictionary *message = (NSDictionary*)[notification object];
         
-        [self.adapters enumerateObjectsUsingBlock:^(TVHAdapter* obj, NSUInteger idx, BOOL *stop) {
+        for (TVHAdapter* obj in self.adapters) {
             if ( [obj.identifier isEqualToString:[message objectForKey:@"identifier"]] ) {
                 [obj updateValuesFromDictionary:message];
             }
-        }];
+        }
         
         [self signalDidLoadAdapters];
     }
@@ -138,11 +138,13 @@
 }
 
 - (void)signalWillLoadAdapters {
-    if ([self.delegate respondsToSelector:@selector(willLoadAdapters)]) {
-        [self.delegate willLoadAdapters];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAdapterStoreWillLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadAdapters)]) {
+            [self.delegate willLoadAdapters];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHAdapterStoreWillLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidLoadAdapters {
@@ -157,11 +159,13 @@
 }
 
 - (void)signalDidErrorAdaptersStore:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorAdaptersStore:)]) {
-        [self.delegate didErrorAdaptersStore:error];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAdapterStoreDidErrorNotification
-                                                        object:error];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorAdaptersStore:)]) {
+            [self.delegate didErrorAdaptersStore:error];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHAdapterStoreDidErrorNotification
+                                                            object:error];
+    });
 }
 
 @end

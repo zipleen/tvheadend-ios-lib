@@ -75,15 +75,16 @@
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
+    NSMutableArray *muxes = [self.muxes mutableCopy];
     
     for (id obj in entries) {
         TVHMux *mux = [[TVHMux alloc] initWithTvhServer:self.tvhServer];
         [mux updateValuesFromDictionary:obj];
         
-        if ( [self addMuxToStore:mux] == NO ) {
-            [self updateMuxFromStore:mux];
-        }
+        [self updateMuxToArray:mux array:muxes];
     }
+    
+    self.muxes = [muxes copy];
     
 #ifdef TESTING
     NSLog(@"[Loaded Adapter Muxes]: %d", (int)[self.muxes count]);
@@ -91,21 +92,15 @@
     return true;
 }
 
-- (BOOL)addMuxToStore:(TVHMux*)muxItem {
-    if ( [self.muxes indexOfObject:muxItem] == NSNotFound ) {
-        self.muxes = [self.muxes arrayByAddingObject:muxItem];
-        return YES;
-    }
-    return NO;
-}
-
-- (BOOL)updateMuxFromStore:(TVHMux*)muxItem {
-    if ( [self.muxes indexOfObject:muxItem] != NSNotFound ) {
-        TVHMux *foundMux = [self.muxes objectAtIndex:[self.muxes indexOfObject:muxItem]];
+- (void)updateMuxToArray:(TVHMux*)muxItem array:(NSMutableArray*)muxes {
+    NSUInteger indexOfMux = [self.muxes indexOfObject:muxItem];
+    if ( indexOfMux == NSNotFound ) {
+        [muxes addObject:muxItem];
+    } else {
+        // update
+        TVHMux *foundMux = [muxes objectAtIndex:indexOfMux];
         [foundMux updateValuesFromTVHMux:muxItem];
-        return YES;
     }
-    return NO;
 }
 
 - (NSArray*)muxesFor:(id <TVHMuxNetwork>)network {
