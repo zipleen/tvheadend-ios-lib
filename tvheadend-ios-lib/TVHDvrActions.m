@@ -44,13 +44,15 @@
         
         NSError __autoreleasing *error;
         NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseObject error:&error];
-        if( error ) {
+        if (error) {
 #ifdef TESTING
             NSLog(@"[DVR ACTIONS ERROR processing JSON]: %@", error.localizedDescription);
 #endif
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:TVHDvrActionDidErrorNotification
-             object:error];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:TVHDvrActionDidErrorNotification
+                 object:nil];
+            });
         }
         NSInteger success = 1;
         if (![tvhServer isVersionFour]) {
@@ -68,9 +70,11 @@
 #ifdef TESTING
         NSLog(@"[DVR ACTIONS ERROR]: %@", error.localizedDescription);
 #endif
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:TVHDvrActionDidErrorNotification
-         object:error];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:TVHDvrActionDidErrorNotification
+             object:error];
+        });
     }];
 
 }
@@ -78,16 +82,20 @@
 + (void)postRecordingSuccess:(NSInteger)success withAction:(id)action withInt:(int)idint
 {
     if ( success ) {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:TVHDvrActionDidSucceedNotification
-         object:action];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidSuccessfulyAddEpgToRecording
-                                                            object:[NSNumber numberWithInt:(int)idint]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:TVHDvrActionDidSucceedNotification
+             object:action];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidSuccessfulyAddEpgToRecording
+                                                                object:[NSNumber numberWithInt:(int)idint]];
+        });
     } else {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:TVHDvrActionDidReturnErrorNotification
-         object:action];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:TVHDvrActionDidReturnErrorNotification
+             object:action];
+        });
     }
 
 }
@@ -103,9 +111,11 @@
     
     [httpClient postPath:action parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:TVHDvrActionDidSucceedNotification
-         object:action];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:TVHDvrActionDidSucceedNotification
+             object:action];
+        });
         
         // reload dvr
         id <TVHDvrStore> store = [tvhServer dvrStore];
@@ -117,9 +127,11 @@
 #ifdef TESTING
         NSLog(@"[DVR ACTIONS ERROR]: %@", error.localizedDescription);
 #endif
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:TVHDvrActionDidReturnErrorNotification
-         object:action];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:TVHDvrActionDidReturnErrorNotification
+             object:action];
+        });
     }];
     
 }

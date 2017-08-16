@@ -224,11 +224,13 @@
 #pragma mark Signal delegate
 
 - (void)signalWillLoadDvr:(NSInteger)type {
-    if ([self.delegate respondsToSelector:@selector(willLoadDvr:)]) {
-        [self.delegate willLoadDvr:type];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHDvrStoreWillLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadDvr:)]) {
+            [self.delegate willLoadDvr:type];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDvrStoreWillLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidLoadDvr:(NSInteger)type {
@@ -242,9 +244,11 @@
 }
 
 - (void)signalDidErrorDvrStore:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorDvrStore:)]) {
-        [self.delegate didErrorDvrStore:error];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorDvrStore:)]) {
+            [self.delegate didErrorDvrStore:error];
+        }
+    });
 }
 
 @end

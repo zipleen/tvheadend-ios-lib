@@ -162,8 +162,10 @@
             [TVHDvrActions deleteRecording:self.id withTvhServer:self.tvhServer];
         }
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHWillRemoveEpgFromRecording
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHWillRemoveEpgFromRecording
+                                                            object:self];
+    });
 }
 
 - (BOOL)isScheduledForRecording {

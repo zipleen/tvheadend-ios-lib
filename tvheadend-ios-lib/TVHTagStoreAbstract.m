@@ -146,11 +146,13 @@
 #pragma mark singals
 
 - (void)signalWillLoadTags {
-    if ([self.delegate respondsToSelector:@selector(willLoadTags)]) {
-        [self.delegate willLoadTags];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHTagStoreWillLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadTags)]) {
+            [self.delegate willLoadTags];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHTagStoreWillLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidLoadTags {
@@ -161,12 +163,14 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:TVHTagStoreDidLoadNotification
                                                             object:self];
     });
-    }
+}
 
 - (void)signalDidErrorLoadingTagStore:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorLoadingTagStore:)]) {
-        [self.delegate didErrorLoadingTagStore:error];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorLoadingTagStore:)]) {
+            [self.delegate didErrorLoadingTagStore:error];
+        }
+    });
 }
 
 @end

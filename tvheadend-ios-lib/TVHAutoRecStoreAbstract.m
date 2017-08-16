@@ -128,26 +128,33 @@
 }
 
 - (void)signalWillLoadDvrAutoRec {
-    if ([self.delegate respondsToSelector:@selector(willLoadDvrAutoRec)]) {
-        [self.delegate willLoadDvrAutoRec];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreWillLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadDvrAutoRec)]) {
+            [self.delegate willLoadDvrAutoRec];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreWillLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidLoadDvrAutoRec {
-    if ([self.delegate respondsToSelector:@selector(didLoadDvrAutoRec)]) {
-        [self.delegate didLoadDvrAutoRec];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreDidLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didLoadDvrAutoRec)]) {
+            [self.delegate didLoadDvrAutoRec];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreDidLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidErrorDvrAutoStore:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorDvrAutoStore:)]) {
-        [self.delegate didErrorDvrAutoStore:error];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreDidErrorNotification                                                        object:error];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorDvrAutoStore:)]) {
+            [self.delegate didErrorDvrAutoStore:error];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreDidErrorNotification
+                                                            object:error];
+    });
 }
 
 @end

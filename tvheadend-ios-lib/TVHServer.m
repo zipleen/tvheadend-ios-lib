@@ -411,8 +411,10 @@
         NSLog(@"[TVHServer getVersion]: %@", self.version);
 #endif
         [self.analytics setObjectValue:self.version forKey:@"version"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadVersionNotification
-                                                            object:self];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadVersionNotification
+                                                                object:self];
+        });
     }
 }
 
@@ -433,8 +435,10 @@
         NSLog(@"[TVHServer capabilities]: %@", _capabilities);
 #endif
         [strongSelf.analytics setObjectValue:_capabilities forKey:@"server.capabilities"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadCapabilitiesNotification
-                                                            object:weakSelf];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadCapabilitiesNotification
+                                                                object:weakSelf];
+        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[TVHServer capabilities]: %@", error.localizedDescription);
     }];
@@ -467,8 +471,10 @@
         NSLog(@"[TVHServer configSettings]: %@", self.configSettings);
 #endif
         [strongSelf.analytics setObjectValue:self.configSettings forKey:@"server.configSettings"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadConfigSettingsNotification
-                                                            object:weakSelf];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadConfigSettingsNotification
+                                                                object:weakSelf];
+        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[TVHServer capabilities]: %@", error.localizedDescription);
     }];

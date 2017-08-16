@@ -253,11 +253,13 @@
 }
 
 - (void)signalWillLoadChannels {
-    if ([self.delegate respondsToSelector:@selector(willLoadChannels)]) {
-        [self.delegate didLoadChannels];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelStoreWillLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadChannels)]) {
+            [self.delegate didLoadChannels];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelStoreWillLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidLoadChannels {
@@ -271,11 +273,13 @@
 }
 
 - (void)signalDidErrorLoadingChannelStore:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorLoadingChannelStore:)]) {
-        [self.delegate didErrorLoadingChannelStore:error];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelStoreDidErrorNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorLoadingChannelStore:)]) {
+            [self.delegate didErrorLoadingChannelStore:error];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHChannelStoreDidErrorNotification
+                                                            object:self];
+    });
 }
 
 - (void)updateChannelsProgress {

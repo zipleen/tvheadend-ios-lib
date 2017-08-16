@@ -95,9 +95,11 @@
                 [self setValue:obj forKey:key];
             }];
             
-            // signal table update
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"didRefreshAdapterMux"
-                                                                object:self];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // signal table update
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"didRefreshAdapterMux"
+                                                                    object:self];
+            });
         }
     }
 }
