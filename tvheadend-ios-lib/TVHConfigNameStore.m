@@ -71,6 +71,10 @@
 }
 
 - (void)fetchConfigNames {
+    if (!self.tvhServer.userHasAdminAccess) {
+        return;
+    }
+    
     __weak typeof (self) weakSelf = self;
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
         typeof (self) strongSelf = weakSelf;

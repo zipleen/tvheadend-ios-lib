@@ -107,6 +107,10 @@
 }
 
 - (void)fetchStatusSubscriptions {
+    if (!self.tvhServer.userHasAdminAccess) {
+        return;
+    }
+    
     __weak typeof (self) weakSelf = self;
     
     [self signalWillLoadStatusSubscriptions];

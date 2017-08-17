@@ -34,7 +34,8 @@
 @property (nonatomic, strong) id <TVHNetworkStore> networkStore;
 @property (nonatomic, strong) NSString *version;     // version like 32, 34, 40 - legacy only!
 @property (nonatomic, strong) NSString *realVersion; // real version number, unmodified
-@property (nonatomic, strong) NSNumber *apiVersion;  // the new API JSON version 
+@property (nonatomic, strong) NSNumber *apiVersion;  // the new API JSON version
+@property (nonatomic) BOOL userHasAdminAccess;
 @property (nonatomic, strong) NSArray *capabilities;
 @property (nonatomic, strong) NSDictionary *configSettings;
 @property (nonatomic, strong) NSTimer *timer;
@@ -95,19 +96,23 @@
             [TVHPlayChromeCast sharedInstance];
         }
 #endif
+        [self fetchServerVersion];
+        if ( ! [self.version isEqualToString:@"32"] ) {
+            [self fetchCapabilities];
+        }
+        
         [self.tagStore fetchTagList];
         [self.channelStore fetchChannelList];
+        
         [self.statusStore fetchStatusSubscriptions];
         [self.adapterStore fetchAdapters];
         [self.networkStore fetchNetworks];
         [self.inputStore fetchStatusInputs];
         [self.muxStore fetchMuxes];
         [self.serviceStore fetchServices];
+        
         [self logStore];
-        [self fetchServerVersion];
-        if ( ! [self.version isEqualToString:@"32"] ) {
-            [self fetchCapabilities];
-        }
+        
         [self.configNameStore fetchConfigNames];
         [self fetchConfigSettings];
         [self cometStore];
@@ -137,6 +142,7 @@
         self.settings = settings;
         self.version = settings.version;
         self.apiVersion = settings.apiVersion;
+        self.userHasAdminAccess = settings.userHasAdminAccess;
     }
     return self;
 }
@@ -446,6 +452,9 @@
 }
 
 - (void)fetchConfigSettings {
+    if (!self.userHasAdminAccess) {
+        return;
+    }
     __weak typeof (self) weakSelf = self;
     [self.jsonClient getPath:@"config" parameters:@{@"op":@"loadSettings"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         typeof (self) strongSelf = weakSelf;
@@ -476,7 +485,7 @@
                                                                 object:weakSelf];
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"[TVHServer capabilities]: %@", error.localizedDescription);
+        NSLog(@"[TVHServer fetchConfigSettings]: %@", error.localizedDescription);
     }];
     
 }

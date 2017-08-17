@@ -59,6 +59,7 @@
 - (NSNumber*)apiVersion;
 - (NSString*)version;
 - (NSString*)realVersion;
+- (BOOL)userHasAdminAccess;
 - (BOOL)isVersionFour;
 - (BOOL)isReady;
 

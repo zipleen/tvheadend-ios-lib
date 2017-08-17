@@ -39,6 +39,11 @@
         _sshPortTo = [settings objectForKey:TVHS_PORT_KEY];
         _version = [settings objectForKey:TVHS_SERVER_VERSION];
         _apiVersion = [settings objectForKey:TVHS_API_VERSION];
+        _adminAccessEnabled = [settings objectForKey:TVHS_ADMIN_ACCESS];
+        
+        if (_adminAccessEnabled == nil) {
+            _adminAccessEnabled = @1;
+        }
     }
     return self;
 }
@@ -59,7 +64,8 @@
              TVHS_SSH_PF_USERNAME:self.sshPortForwardUsername != nil ? self.sshPortForwardUsername : @"",
              TVHS_SSH_PF_PASSWORD:self.sshPortForwardPassword != nil ? self.sshPortForwardPassword : @"",
              TVHS_SERVER_VERSION:self.version != nil ? self.version : @"34",
-             TVHS_API_VERSION:self.apiVersion != nil ? self.apiVersion : @0
+             TVHS_API_VERSION:self.apiVersion != nil ? self.apiVersion : @0,
+             TVHS_ADMIN_ACCESS:self.adminAccessEnabled != nil ? self.adminAccessEnabled : @1
              };
     
 }
@@ -124,11 +130,15 @@
     return webroot;
 }
 
+- (BOOL)userHasAdminAccess {
+    return [self.adminAccessEnabled boolValue];
+}
+
 #pragma mark URL building
 
 - (NSURL*)baseURL
 {
-    if( ! _baseURL ) {
+    if (!_baseURL) {
         NSString *baseUrlString = [NSString stringWithFormat:@"http%@://%@:%@%@", self.useHTTPS, self.ip, self.port, self.webroot];
         NSURL *url = [NSURL URLWithString:baseUrlString];
         _baseURL = url;
