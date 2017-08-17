@@ -22,7 +22,7 @@
 @property (nonatomic, strong) NSString *boxid;
 @property (nonatomic) BOOL debugActive;
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, strong) NSLock *activePoll;
+@property (atomic) unsigned int activePolls;
 @end
 
 @implementation TVHCometPollAbstract
@@ -34,8 +34,7 @@
     self.jsonClient = [self.tvhServer jsonClient];
     
     self.debugActive = false;
-    self.activePoll = [NSLock new];
-    self.activePoll.name = @"activeCometPool";
+    self.activePolls = 0;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(appWillResignActive:)
@@ -211,11 +210,11 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             typeof (self) strongSelf = weakSelf;
             [strongSelf fetchedData:responseObject];
-            [strongSelf.activePoll unlock];
+            strongSelf.activePolls = 0;
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         typeof (self) strongSelf = weakSelf;
-        [strongSelf.activePoll unlock];
+        strongSelf.activePolls = 0;
 #ifdef TESTING
         NSLog(@"[CometPollStore HTTPClient Error]: %@", error.localizedDescription);
 #endif
@@ -223,10 +222,11 @@
 }
 
 - (void)timerRefreshCometPoll {
+    __weak typeof (self) weakSelf = self;
     // the activePoll lock needs to be done in the main thread
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([self.activePoll tryLock]) {
-            __weak typeof(self) weakSelf = self;
+        if (self.activePolls == 0) {
+            self.activePolls = 1;
             
             // but after the lock is done, we want to send the actual "fetch" to a low priority
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
