@@ -10,10 +10,7 @@ TvhClient is a TVHeadend iOS (iPhone, iPad) Client app, which allows you to remo
 ## Getting the code
 
     git clone --recursive git://github.com/zipleen/tvheadend-ios-lib.git
-    cd tvheadend-ios-lib/vendor/libssh2-for-iOS
-    ./build-all openssl
 
-Don't forget to have the command line tools installed from Xcode, otherwise libssh2 won't compile.
 Build and run ! Send your patches to me via a pull request ;)
 
 ## License

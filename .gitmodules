@@ -1,9 +1,6 @@
 [submodule "vendor/AFNetworking"]
 	path = vendor/AFNetworking
 	url = git://github.com/zipleen/AFNetworking.git
-[submodule "vendor/libssh2-for-iOS"]
-	path = vendor/libssh2-for-iOS
-	url = git://github.com/x2on/libssh2-for-iOS.git
 [submodule "vendor/AFHTTPRequestOperationLogger"]
 	path = vendor/AFHTTPRequestOperationLogger
 	url = https://github.com/AFNetworking/AFHTTPRequestOperationLogger.git

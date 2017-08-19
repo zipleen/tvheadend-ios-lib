@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA01DE221A18435D00F7B3D2 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA01DE1F1A18435D00F7B3D2 /* libcrypto.a */; };
-		AA01DE231A18435D00F7B3D2 /* libssh2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA01DE201A18435D00F7B3D2 /* libssh2.a */; };
-		AA01DE241A18435D00F7B3D2 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA01DE211A18435D00F7B3D2 /* libssl.a */; };
 		AA2C7E2919BCCE2F001EDC67 /* GoogleCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */; };
 		AA2C7E2D19BCCFCA001EDC67 /* TVHPlayChromeCast.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2C7E2C19BCCFCA001EDC67 /* TVHPlayChromeCast.m */; };
 		AA2C7E3319BCDAA1001EDC67 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -58,7 +55,6 @@
 		AABF3BBF185E6C5E00E62240 /* TVHApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B26185E590D00E62240 /* TVHApiClient.m */; };
 		AABF3BC0185E6C6000E62240 /* TVHServer.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B28185E590D00E62240 /* TVHServer.m */; };
 		AABF3BC1185E6C6200E62240 /* TVHServerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B2A185E590D00E62240 /* TVHServerSettings.m */; };
-		AABF3BC2185E6C7D00E62240 /* SSHWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A7F185E590D00E62240 /* SSHWrapper.m */; };
 		AABF3BC3185E6C9400E62240 /* TVHChannelStoreAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A83185E590D00E62240 /* TVHChannelStoreAbstract.m */; };
 		AABF3BC4185E6CA100E62240 /* TVHChannelStore32.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A85185E590D00E62240 /* TVHChannelStore32.m */; };
 		AABF3BC5185E6CA100E62240 /* TVHChannelStore34.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A87185E590D00E62240 /* TVHChannelStore34.m */; };
@@ -159,7 +155,6 @@
 		F0CDE4981BA215A9000A969B /* TVHApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B26185E590D00E62240 /* TVHApiClient.m */; };
 		F0CDE4991BA215A9000A969B /* TVHServer.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B28185E590D00E62240 /* TVHServer.m */; };
 		F0CDE49A1BA215A9000A969B /* TVHServerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B2A185E590D00E62240 /* TVHServerSettings.m */; };
-		F0CDE49B1BA215AF000A969B /* SSHWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A7F185E590D00E62240 /* SSHWrapper.m */; };
 		F0CDE49C1BA215BC000A969B /* TVHChannelStoreAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A83185E590D00E62240 /* TVHChannelStoreAbstract.m */; };
 		F0CDE49D1BA215BC000A969B /* TVHChannelStore32.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A85185E590D00E62240 /* TVHChannelStore32.m */; };
 		F0CDE49E1BA215BC000A969B /* TVHChannelStore34.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A87185E590D00E62240 /* TVHChannelStore34.m */; };
@@ -319,8 +314,6 @@
 		AABF3A60185E586700E62240 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		AABF3A67185E586700E62240 /* tvheadend-ios-libTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "tvheadend-ios-libTests-Info.plist"; sourceTree = "<group>"; };
 		AABF3A69185E586700E62240 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		AABF3A7E185E590D00E62240 /* SSHWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSHWrapper.h; sourceTree = "<group>"; };
-		AABF3A7F185E590D00E62240 /* SSHWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSHWrapper.m; sourceTree = "<group>"; };
 		AABF3A81185E590D00E62240 /* TVHChannelStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHChannelStore.h; sourceTree = "<group>"; };
 		AABF3A82185E590D00E62240 /* TVHChannelStoreAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHChannelStoreAbstract.h; sourceTree = "<group>"; };
 		AABF3A83185E590D00E62240 /* TVHChannelStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHChannelStoreAbstract.m; sourceTree = "<group>"; };
@@ -515,9 +508,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA01DE221A18435D00F7B3D2 /* libcrypto.a in Frameworks */,
-				AA01DE231A18435D00F7B3D2 /* libssh2.a in Frameworks */,
-				AA01DE241A18435D00F7B3D2 /* libssl.a in Frameworks */,
 				AA2C7E3519BCDAB3001EDC67 /* CoreText.framework in Frameworks */,
 				AA2C7E3319BCDAA1001EDC67 /* MediaAccessibility.framework in Frameworks */,
 				AA2C7E2919BCCE2F001EDC67 /* GoogleCast.framework in Frameworks */,
@@ -719,15 +709,6 @@
 				AABF3A68185E586700E62240 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		AABF3A80185E590D00E62240 /* SSH */ = {
-			isa = PBXGroup;
-			children = (
-				AABF3A7E185E590D00E62240 /* SSHWrapper.h */,
-				AABF3A7F185E590D00E62240 /* SSHWrapper.m */,
-			);
-			name = SSH;
 			sourceTree = "<group>";
 		};
 		AABF3A8A185E590D00E62240 /* TVHChannelStore */ = {
@@ -1078,7 +1059,6 @@
 		AABF3B2B185E590D00E62240 /* Tvh Server */ = {
 			isa = PBXGroup;
 			children = (
-				AABF3A80185E590D00E62240 /* SSH */,
 				AABF3AAA185E590D00E62240 /* Channels */,
 				AABF3ACA185E590D00E62240 /* DVR */,
 				AABF3B17185E590D00E62240 /* Status */,
@@ -1401,7 +1381,6 @@
 				AABF3BD9185E6CC000E62240 /* TVHDvrStore32.m in Sources */,
 				AA43C9F41A06F26A007597F9 /* TVHEpgStoreA14.m in Sources */,
 				AABF3BC1185E6C6200E62240 /* TVHServerSettings.m in Sources */,
-				AABF3BC2185E6C7D00E62240 /* SSHWrapper.m in Sources */,
 				AABF3BC3185E6C9400E62240 /* TVHChannelStoreAbstract.m in Sources */,
 				AA72FD3E1868482D00EDCE05 /* TVHNetworkStore32.m in Sources */,
 				AABF3B4F185E5F2000E62240 /* AFHTTPClient.m in Sources */,
@@ -1499,7 +1478,6 @@
 				F0CDE4A11BA215BC000A969B /* TVHChannelEpg.m in Sources */,
 				F0CDE4C61BA21610000A969B /* TVHAdaptersStore32.m in Sources */,
 				F0CDE4C81BA21610000A969B /* TVHAdaptersStoreA15.m in Sources */,
-				F0CDE49B1BA215AF000A969B /* SSHWrapper.m in Sources */,
 				F0CDE4E71BA21657000A969B /* AFPropertyListRequestOperation.m in Sources */,
 				F0CDE4B61BA215E4000A969B /* TVHDvrStoreA15.m in Sources */,
 				F0CDE4C71BA21610000A969B /* TVHAdaptersStore34.m in Sources */,
@@ -1641,19 +1619,12 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/vendor/libssh2-for-iOS/include/**",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor/libssh2-compiled",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-DENABLE_CHROMECAST",
 					"-DENABLE_XBMC",
-					"-DENABLE_SSH",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1675,18 +1646,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/vendor/libssh2-for-iOS/include/**",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor/libssh2-compiled",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"-DENABLE_CHROMECAST",
 					"-DENABLE_XBMC",
-					"-DENABLE_SSH",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1753,10 +1717,7 @@
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor/libssh2-compiled",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1782,10 +1743,7 @@
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor/libssh2-compiled",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
