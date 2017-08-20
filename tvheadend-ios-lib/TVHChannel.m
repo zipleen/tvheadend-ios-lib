@@ -19,6 +19,7 @@
 @interface TVHChannel() <TVHEpgStoreDelegate> {
     NSDateFormatter *dateFormatter;
 }
+@property (nonatomic, weak) TVHServer *tvhServer;
 @property (nonatomic, strong) NSMutableArray *channelEpgDataByDay;
 @property (nonatomic, strong) id <TVHEpgStore> restOfEpgStore;
 @property (strong, nonatomic) NSCache *tvhImageCache;
@@ -201,8 +202,7 @@
     if ([filteredArray count] > 0) {
         return [filteredArray objectAtIndex:0];
     } else {
-        TVHChannelEpg *tvh = [[TVHChannelEpg alloc] init];
-        [tvh setDate:dateString];
+        TVHChannelEpg *tvh = [[TVHChannelEpg alloc] initWithDate:dateString];
         [self.channelEpgDataByDay addObject:tvh];
         return tvh;
     }
@@ -215,11 +215,7 @@
     
     NSString *dateString = [dateFormatter stringFromDate:epg.start];    
     TVHChannelEpg *tvhepg = [self getChannelEpgDataByDayString:dateString];
-    
-    // don't add duplicate epg - need to search in the array!
-    if ( [tvhepg.programs indexOfObject:epg] == NSNotFound ) {
-        [tvhepg.programs addObject:epg];
-    }
+    [tvhepg addEpg:epg];
 }
 
 - (TVHEpg*)currentPlayingProgram {
@@ -389,12 +385,12 @@
     if ( self.channelEpgDataByDay ) {
         NSArray *testingChannelEpgDataByDay = [self.channelEpgDataByDay copy];
         for ( TVHChannelEpg *channelEpg in testingChannelEpgDataByDay ) {
-            NSArray *testingPrograms = [channelEpg.programs copy];
-            for ( TVHEpg *obj in testingPrograms ) {
-                if ( [obj progress] >= 1.0 ) {
+            
+            for ( TVHEpg *epg in channelEpg.programs ) {
+                if ( [epg progress] >= 1.0 ) {
                     // to remove the channel, we need to fetch the original channelEpg array
                     TVHChannelEpg *originalPrograms = [self.channelEpgDataByDay objectAtIndex:[self.channelEpgDataByDay indexOfObject:channelEpg]];
-                    [originalPrograms.programs removeObject:obj];
+                    [originalPrograms removeEpg:epg];
                 }
             }
             

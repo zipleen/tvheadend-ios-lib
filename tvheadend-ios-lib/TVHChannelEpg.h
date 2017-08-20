@@ -10,9 +10,12 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import <Foundation/Foundation.h>
+#import "TVHEpg.h"
 
 @interface TVHChannelEpg : NSObject
-@property (nonatomic, strong) NSString *date;
-@property (nonatomic, strong) NSMutableArray *programs;
+- (id)initWithDate:(NSString*)startDate;
+- (NSString*) date;
+- (NSArray*) programs;
+- (void)addEpg:(TVHEpg*)epg;
+- (void)removeEpg:(TVHEpg*)epg;
 @end

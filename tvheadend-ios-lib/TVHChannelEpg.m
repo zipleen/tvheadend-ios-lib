@@ -12,18 +12,45 @@
 
 #import "TVHChannelEpg.h"
 
+@interface TVHChannelEpg()
+@property (nonatomic, strong) NSString *date;
+@property (nonatomic, strong) NSMutableArray *channelPrograms;
+@end
+
 @implementation TVHChannelEpg
 
-- (NSMutableArray*)programs {
-    if (!_programs) {
-        _programs = [[NSMutableArray alloc] init];
-    }
-    return _programs;
+- (id)initWithDate:(NSString*)startDate {
+    self = [super init];
+    if (!self) return nil;
+    
+    self.date = startDate;
+    
+    return self;
 }
 
-- (void)dealloc {
-    self.programs = nil;
-    self.date = nil;
+- (NSMutableArray*)channelPrograms {
+    if (!_channelPrograms) {
+        _channelPrograms = [[NSMutableArray alloc] init];
+    }
+    return _channelPrograms;
+}
+
+- (NSArray*)programs {
+    return [self.channelPrograms copy];
+}
+
+- (void)addEpg:(TVHEpg*)epg {
+    @synchronized (self.channelPrograms) {
+        if ( [self.channelPrograms indexOfObject:epg] == NSNotFound ) {
+            [self.channelPrograms addObject:epg];
+        }
+    }
+}
+
+- (void)removeEpg:(TVHEpg*)epg {
+    @synchronized (self.channelPrograms) {
+        [self.channelPrograms removeObject:epg];
+    }
 }
 
 @end

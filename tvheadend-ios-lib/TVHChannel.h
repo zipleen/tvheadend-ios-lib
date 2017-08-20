@@ -29,7 +29,6 @@
 @end
 
 @interface TVHChannel : NSObject <TVHPlayStreamDelegate, NSCopying>
-@property (nonatomic, weak) TVHServer *tvhServer;
 @property (nonatomic, weak) id <TVHChannelDelegate> delegate;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *detail;
