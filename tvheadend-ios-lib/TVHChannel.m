@@ -19,7 +19,6 @@
 @interface TVHChannel() <TVHEpgStoreDelegate> {
     NSDateFormatter *dateFormatter;
 }
-@property (nonatomic, weak) TVHServer *tvhServer;
 @property (nonatomic, strong) NSMutableArray *channelEpgDataByDay;
 @property (nonatomic, strong) id <TVHEpgStore> restOfEpgStore;
 @property (strong, nonatomic) NSCache *tvhImageCache;
