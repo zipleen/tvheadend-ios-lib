@@ -34,7 +34,8 @@
 @property (nonatomic, strong) id <TVHNetworkStore> networkStore;
 @property (nonatomic, strong) NSString *version;     // version like 32, 34, 40 - legacy only!
 @property (nonatomic, strong) NSString *realVersion; // real version number, unmodified
-@property (nonatomic, strong) NSNumber *apiVersion;  // the new API JSON version 
+@property (nonatomic, strong) NSNumber *apiVersion;  // the new API JSON version
+@property (nonatomic) BOOL userHasAdminAccess;
 @property (nonatomic, strong) NSArray *capabilities;
 @property (nonatomic, strong) NSDictionary *configSettings;
 @property (nonatomic, strong) NSTimer *timer;
@@ -46,10 +47,12 @@
 #pragma mark NSNotification
 
 - (void)appWillResignActive:(NSNotification*)note {
+    NSLog(@"TVHServer: appWillResignActive");
     [self stopTimer];
 }
 
 - (void)appWillEnterForeground:(NSNotification*)note {
+    NSLog(@"TVHServer: appWillEnterForeground");
     [self processTimerEvents];
     [self startTimer];
 }
@@ -72,41 +75,44 @@
 - (void)processTimerEvents {
     if ( ! self.inProcessing ) {
         self.inProcessing = YES;
-        [self.channelStore updateChannelsProgress];
-        self.inProcessing = NO;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self.channelStore updateChannelsProgress];
+            self.inProcessing = NO;
+        });
     }
 }
 
 #pragma mark init
 
 - (TVHServer*)initWithSettings:(TVHServerSettings*)settings {
-    self = [super init];
+    self = [self initWithSettingsButDontInit:settings];
     if (self) {
-        if ( ! settings ) {
-            return nil;
-        }
-        self.inProcessing = NO;
+#ifdef ENABLE_XBMC
         [TVHPlayXbmc sharedInstance];
+#endif
+#ifdef ENABLE_CHROMECAST
         // in unit tests, the chromecast init crashes. it seems in unit tests the sharedapplication returns nil
         if ([UIApplication sharedApplication] != nil) {
             [TVHPlayChromeCast sharedInstance];
         }
-        self.settings = settings;
-        self.version = settings.version;
-        self.apiVersion = settings.apiVersion;
+#endif
+        [self fetchServerVersion];
+        if ( ! [self.version isEqualToString:@"32"] ) {
+            [self fetchCapabilities];
+        }
+        
         [self.tagStore fetchTagList];
         [self.channelStore fetchChannelList];
+        
         [self.statusStore fetchStatusSubscriptions];
         [self.adapterStore fetchAdapters];
         [self.networkStore fetchNetworks];
         [self.inputStore fetchStatusInputs];
         [self.muxStore fetchMuxes];
         [self.serviceStore fetchServices];
+        
         [self logStore];
-        [self fetchServerVersion];
-        if ( ! [self.version isEqualToString:@"32"] ) {
-            [self fetchCapabilities];
-        }
+        
         [self.configNameStore fetchConfigNames];
         [self fetchConfigSettings];
         [self cometStore];
@@ -121,6 +127,22 @@
                                                      name:UIApplicationWillEnterForegroundNotification
                                                    object:nil];
         [self startTimer];
+    }
+    return self;
+}
+
+- (TVHServer*)initWithSettingsButDontInit:(TVHServerSettings*)settings {
+    self = [super init];
+    if (self) {
+        if ( ! settings ) {
+            return nil;
+        }
+        self.inProcessing = NO;
+
+        self.settings = settings;
+        self.version = settings.version;
+        self.apiVersion = settings.apiVersion;
+        self.userHasAdminAccess = settings.userHasAdminAccess;
     }
     return self;
 }
@@ -320,6 +342,13 @@
     return false;
 }
 
+- (BOOL)isReady {
+    if (!self.jsonClient) {
+        return NO;
+    }
+    return self.jsonClient.readyToUse;
+}
+
 - (TVHPlayStream*)playStream
 {
     if ( ! _playStream ) {
@@ -388,8 +417,10 @@
         NSLog(@"[TVHServer getVersion]: %@", self.version);
 #endif
         [self.analytics setObjectValue:self.version forKey:@"version"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadVersionNotification
-                                                            object:self];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadVersionNotification
+                                                                object:self];
+        });
     }
 }
 
@@ -410,8 +441,10 @@
         NSLog(@"[TVHServer capabilities]: %@", _capabilities);
 #endif
         [strongSelf.analytics setObjectValue:_capabilities forKey:@"server.capabilities"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadCapabilitiesNotification
-                                                            object:weakSelf];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadCapabilitiesNotification
+                                                                object:weakSelf];
+        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[TVHServer capabilities]: %@", error.localizedDescription);
     }];
@@ -419,6 +452,9 @@
 }
 
 - (void)fetchConfigSettings {
+    if (!self.userHasAdminAccess) {
+        return;
+    }
     __weak typeof (self) weakSelf = self;
     [self.jsonClient getPath:@"config" parameters:@{@"op":@"loadSettings"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         typeof (self) strongSelf = weakSelf;
@@ -444,10 +480,12 @@
         NSLog(@"[TVHServer configSettings]: %@", self.configSettings);
 #endif
         [strongSelf.analytics setObjectValue:self.configSettings forKey:@"server.configSettings"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadConfigSettingsNotification
-                                                            object:weakSelf];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadConfigSettingsNotification
+                                                                object:weakSelf];
+        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"[TVHServer capabilities]: %@", error.localizedDescription);
+        NSLog(@"[TVHServer fetchConfigSettings]: %@", error.localizedDescription);
     }];
     
 }

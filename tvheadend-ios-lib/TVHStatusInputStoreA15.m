@@ -47,11 +47,11 @@
             [self fetchStatusInputs];
         }
         
-        [self.inputs enumerateObjectsUsingBlock:^(TVHStatusInput* obj, NSUInteger idx, BOOL *stop) {
-            if (  [[message objectForKey:@"uuid"] isEqualToString:obj.uuid] ) {
+        for (TVHStatusInput* obj in self.inputs) {
+            if ([[message objectForKey:@"uuid"] isEqualToString:obj.uuid]) {
                 [obj updateValuesFromDictionary:message];
             }
-        }];
+        }
         
         [self signalDidLoadStatusInputs];
     }
@@ -66,14 +66,14 @@
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
-    NSMutableArray *inputs = [[NSMutableArray alloc] init];
+    NSMutableArray *inputs = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHStatusInput *statusInput = [[TVHStatusInput alloc] init];
         [statusInput updateValuesFromDictionary:obj];
         
         [inputs addObject:statusInput];
-    }];
+    }
     
     self.inputs = [inputs copy];
     
@@ -99,6 +99,10 @@
 }
 
 - (void)fetchStatusInputs {
+    if (!self.tvhServer.userHasAdminAccess) {
+        return;
+    }
+    
     __weak typeof (self) weakSelf = self;
     
     [self signalWillLoadStatusInputs];
@@ -146,19 +150,23 @@
 }
 
 - (void)signalWillLoadStatusInputs {
-    if ([self.delegate respondsToSelector:@selector(willLoadStatusInputs)]) {
-        [self.delegate willLoadStatusInputs];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusInputStoreWillLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadStatusInputs)]) {
+            [self.delegate willLoadStatusInputs];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusInputStoreWillLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidErrorStatusInputStore:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorStatusInputStore:)]) {
-        [self.delegate didErrorStatusInputStore:error];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusInputStoreDidErrorNotification
-                                                        object:error];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorStatusInputStore:)]) {
+            [self.delegate didErrorStatusInputStore:error];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusInputStoreDidErrorNotification
+                                                            object:error];
+    });
 }
 
 @end

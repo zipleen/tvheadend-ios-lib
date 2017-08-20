@@ -35,6 +35,7 @@
     
     self.debugActive = false;
     self.activePolls = 0;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(appWillResignActive:)
                                                  name:UIApplicationWillResignActiveNotification
@@ -43,11 +44,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(appWillEnterForeground:)
                                                  name:UIApplicationWillEnterForegroundNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(fetchCometPollStatus)
-                                                 name:TVHDoFetchCometStatusNotification
                                                object:nil];
     
     return self;
@@ -76,7 +72,7 @@
 - (BOOL)fetchedData:(NSData *)responseData {
     NSError __autoreleasing *error;
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
+    if (error) {
         [[NSNotificationCenter defaultCenter]
             postNotificationName:TVHDidErrorCometPollNotification
             object:error];
@@ -87,10 +83,10 @@
     self.boxid = boxid;
     
     NSArray *messages = [json objectForKey:@"messages"];
-    [messages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in messages) {
         NSString *notificationClass = [obj objectForKey:@"notificationClass"];
 #ifdef TESTING
-        //NSLog(@"[Comet Poll Received notificationClass]: %@ {%@}", notificationClass, obj);
+        NSLog(@"[Comet Poll Received notificationClass]: %@ {%@}", notificationClass, obj);
         BOOL print = YES;
 #endif
         if( [notificationClass isEqualToString:@"subscriptions"] ) {
@@ -188,7 +184,7 @@
             NSLog(@"[CometPollStore log]: %@", obj);
         }
 #endif
-    }];
+    }
     
     return true;
 }
@@ -200,7 +196,7 @@
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:self.boxid, @"boxid", @"0", @"immediate", nil];
     
     [self.jsonClient postPath:@"comet/debug" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self fetchCometPollStatus];
+        [self timerRefreshCometPoll];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
     }];
     
@@ -208,29 +204,37 @@
 
 - (void)fetchCometPollStatus {
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:self.boxid, @"boxid", @"0", @"immediate", nil];
-    
-    if ( self.activePolls < 1 ) {
-        self.activePolls++;
-        __weak typeof (self) weakSelf = self;
-        [[self.jsonClient proxyQueueNamed:@"cometQueue"] postPath:@"comet/poll" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    __weak typeof (self) weakSelf = self;
+    [[self.jsonClient proxyQueueNamed:@"cometQueue"] postPath:@"comet/poll" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // sending to main queue so the notification messages are sent in the main queue - and also to unlock the NSLock
+        dispatch_async(dispatch_get_main_queue(), ^{
             typeof (self) strongSelf = weakSelf;
-            if ( [strongSelf fetchedData:responseObject] ) {
-                self.activePolls--;
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            self.activePolls--;
+            [strongSelf fetchedData:responseObject];
+            strongSelf.activePolls = 0;
+        });
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        typeof (self) strongSelf = weakSelf;
+        strongSelf.activePolls = 0;
 #ifdef TESTING
-            NSLog(@"[CometPollStore HTTPClient Error]: %@", error.localizedDescription);
+        NSLog(@"[CometPollStore HTTPClient Error]: %@", error.localizedDescription);
 #endif
-        }];
-    }
+    }];
 }
 
 - (void)timerRefreshCometPoll {
-    if ( self.activePolls < 1 ) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDoFetchCometStatusNotification
-                                                            object:nil];
-    }
+    __weak typeof (self) weakSelf = self;
+    // the activePoll lock needs to be done in the main thread
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.activePolls == 0) {
+            self.activePolls = 1;
+            
+            // but after the lock is done, we want to send the actual "fetch" to a low priority
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                typeof(self) strongSelf = weakSelf;
+                [strongSelf fetchCometPollStatus];
+            });
+        }
+    });
 }
 
 - (void)startRefreshingCometPoll {

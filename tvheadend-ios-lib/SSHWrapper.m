@@ -21,6 +21,8 @@
 
 #import "SSHWrapper.h"
 
+#ifdef ENABLE_SSH
+
 #include "libssh2.h"
 #include "libssh2_config.h"
 #include "libssh2_sftp.h"
@@ -360,3 +362,5 @@ static int waitsocket(int socket_fd, LIBSSH2_SESSION *session)
     
 }
 @end
+
+#endif

@@ -11,14 +11,17 @@
 //
 
 #import <Foundation/Foundation.h>
+@class TVHEpg;
 
 @protocol TVHPlayStreamDelegate <NSObject>
 - (NSString*)streamURL;
 - (NSString*)playlistStreamURL;
 - (NSString*)htspStreamURL;
 - (NSString*)streamUrlWithTranscoding:(BOOL)transcoding withInternal:(BOOL)internal;
+- (BOOL)isLive;
 
 - (NSString*)imageUrl;
 - (NSString*)name;
 - (NSString*)description;
+- (TVHEpg*)currentPlayingProgram;
 @end

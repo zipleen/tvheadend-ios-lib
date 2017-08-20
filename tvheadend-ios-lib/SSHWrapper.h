@@ -19,6 +19,7 @@
 
 #import <Foundation/Foundation.h>
 
+#ifdef ENABLE_SSH
 
 @interface SSHWrapper : NSObject {
 
@@ -30,3 +31,5 @@
 - (void) setPortForwardFromPort:(unsigned int)localPort toHost:(NSString*)remoteHost onPort:(unsigned int)remotePort;
 - (const char *)addressesForHostname:(NSString *)hostname;
 @end
+
+#endif

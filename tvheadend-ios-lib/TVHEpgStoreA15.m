@@ -19,6 +19,7 @@
 
 @implementation TVHEpgStoreA15
 @synthesize filterToChannelName = _filterToChannelName;
+@synthesize filterToTagName = _filterToTagName;
 
 - (NSString*)jsonApiFieldEntries {
     return @"entries";
@@ -35,6 +36,13 @@
 - (void)setFilterToChannel:(TVHChannel *)filterToChannel {
     if ( ! [filterToChannel.channelIdKey isEqualToString:_filterToChannelName] ) {
         _filterToChannelName = filterToChannel.channelIdKey;
+        self.epgStore = nil;
+    }
+}
+
+- (void)setFilterToTag:(TVHTag *)filterToTag {
+    if ( ! [filterToTag.idKey isEqualToString:_filterToTagName] ) {
+        _filterToTagName = filterToTag.idKey;
         self.epgStore = nil;
     }
 }

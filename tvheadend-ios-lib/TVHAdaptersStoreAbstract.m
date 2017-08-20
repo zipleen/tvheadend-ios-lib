@@ -47,11 +47,11 @@
     if ([[notification name] isEqualToString:TVHAdapterStoreReloadNotification]) {
         NSDictionary *message = (NSDictionary*)[notification object];
         
-        [self.adapters enumerateObjectsUsingBlock:^(TVHAdapter* obj, NSUInteger idx, BOOL *stop) {
+        for (TVHAdapter* obj in self.adapters) {
             if ( [obj.identifier isEqualToString:[message objectForKey:@"identifier"]] ) {
                 [obj updateValuesFromDictionary:message];
             }
-        }];
+        }
         
         [self signalDidLoadAdapters];
     }
@@ -60,21 +60,21 @@
 - (BOOL)fetchedData:(NSData *)responseData {
     NSError __autoreleasing *error;
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
+    if (error) {
         [self signalDidErrorAdaptersStore:error];
         return false;
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
-    NSMutableArray *adapters = [[NSMutableArray alloc] init];
+    NSMutableArray *adapters = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHAdapter *adapter = [[TVHAdapter alloc] initWithTvhServer:self.tvhServer];
         [adapter updateValuesFromDictionary:obj];
         [self setupMoreValuesForAdapter:adapter];
         
         [adapters addObject:adapter];
-    }];
+    }
     
     self.adapters = [adapters copy];
     
@@ -103,6 +103,10 @@
 }
 
 - (void)fetchAdapters {
+    if (!self.tvhServer.userHasAdminAccess) {
+        return;
+    }
+    
     __weak typeof (self) weakSelf = self;
     
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -138,11 +142,13 @@
 }
 
 - (void)signalWillLoadAdapters {
-    if ([self.delegate respondsToSelector:@selector(willLoadAdapters)]) {
-        [self.delegate willLoadAdapters];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAdapterStoreWillLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadAdapters)]) {
+            [self.delegate willLoadAdapters];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHAdapterStoreWillLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidLoadAdapters {
@@ -157,11 +163,13 @@
 }
 
 - (void)signalDidErrorAdaptersStore:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorAdaptersStore:)]) {
-        [self.delegate didErrorAdaptersStore:error];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAdapterStoreDidErrorNotification
-                                                        object:error];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorAdaptersStore:)]) {
+            [self.delegate didErrorAdaptersStore:error];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHAdapterStoreDidErrorNotification
+                                                            object:error];
+    });
 }
 
 @end

@@ -15,6 +15,9 @@
 #import "TVHEpg.h"
 #import "TVHPlayStreamDelegate.h"
 
+#define TVHChannelDidLoadEpgFromItself @"didLoadEpgChannel"
+#define TVHChannelWillLoadEpgFromItself @"willLoadEpgChannel"
+
 @class TVHEpgStore;
 @class TVHServer;
 
@@ -25,7 +28,7 @@
 - (void)didErrorLoadingEpgChannel:(NSError*)error;
 @end
 
-@interface TVHChannel : NSObject <TVHPlayStreamDelegate>
+@interface TVHChannel : NSObject <TVHPlayStreamDelegate, NSCopying>
 @property (nonatomic, weak) TVHServer *tvhServer;
 @property (nonatomic, weak) id <TVHChannelDelegate> delegate;
 @property (nonatomic, strong) NSString *name;
@@ -47,17 +50,20 @@
 @property (nonatomic, strong) NSString *icon;
 @property (nonatomic, strong) NSString *icon_public_url;
 
+@property (nonatomic, strong) UIColor *iconBackgroundColor;
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 
-- (NSString*)channelIdKey;
-- (BOOL)hasTag:(NSString*)tag;
+// playStream delegate
 - (NSString*)streamURL;
 - (NSString*)playlistStreamURL;
+- (NSString*)description;
+
+- (NSString*)channelIdKey;
+- (BOOL)hasTag:(NSString*)tag;
 - (void)addEpg:(TVHEpg*)epg;
 - (TVHEpg*)currentPlayingProgram;
 - (NSArray*)nextPrograms:(int)numberOfNextPrograms;
-- (NSString*)description;
 
 - (void)downloadRestOfEpg;
 - (void)resetChannelEpgStore;
@@ -77,4 +83,8 @@
 - (void)setDelegate:(id <TVHChannelDelegate>) delegate;
 - (void)didLoadEpg;
 - (void)signalDidLoadEpgChannel; // only to be used by tvhEpg
+
+- (UIImage*)imageFromCacheWithWidth:(int)width andHeight:(int)height;
+- (void)saveCache:(UIImage*)image withWidth:(int)width andHeight:(int)height;
+
 @end

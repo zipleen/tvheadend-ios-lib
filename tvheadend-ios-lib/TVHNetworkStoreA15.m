@@ -47,11 +47,11 @@
             [self fetchNetworks];
         }
         
-        [self.networks enumerateObjectsUsingBlock:^(TVHNetwork* obj, NSUInteger idx, BOOL *stop) {
-            if (  [[message objectForKey:@"uuid"] isEqualToString:obj.uuid] ) {
+        for (TVHNetwork* obj in self.networks) {
+            if ([[message objectForKey:@"uuid"] isEqualToString:obj.uuid]) {
                 [obj updateValuesFromDictionary:message];
             }
-        }];
+        }
         
         [self signalDidLoadNetwork];
     }
@@ -60,20 +60,20 @@
 - (BOOL)fetchedData:(NSData *)responseData {
     NSError __autoreleasing *error;
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
+    if (error) {
         [self signalDidErrorNetworkStore:error];
         return false;
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
-    NSMutableArray *networks = [[NSMutableArray alloc] init];
+    NSMutableArray *networks = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHNetwork *network = [[TVHNetwork alloc] initWithTvhServer:self.tvhServer];
         [network updateValuesFromDictionary:obj];
         
         [networks addObject:network];
-    }];
+    }
     
     self.networks = [networks copy];
     
@@ -95,11 +95,15 @@
 }
 
 - (NSDictionary*)apiParameters {
-    return @{@"limit":@"9999999999"};
+    return @{@"limit":@"99999999"};
 }
 
 
 - (void)fetchNetworks {
+    if (!self.tvhServer.userHasAdminAccess) {
+        return;
+    }
+    
     __weak typeof (self) weakSelf = self;
     
     [self signalWillLoadNetwork];
@@ -149,19 +153,23 @@
 }
 
 - (void)signalWillLoadNetwork {
-    if ([self.delegate respondsToSelector:@selector(willLoadNetwork)]) {
-        [self.delegate willLoadNetwork];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHNetworkStoreWillLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadNetwork)]) {
+            [self.delegate willLoadNetwork];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHNetworkStoreWillLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidErrorNetworkStore:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorNetworkStore:)]) {
-        [self.delegate didErrorNetworkStore:error];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHNetworkStoreDidErrorNotification
-                                                        object:error];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorNetworkStore:)]) {
+            [self.delegate didErrorNetworkStore:error];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHNetworkStoreDidErrorNotification
+                                                            object:error];
+    });
 }
 
 @end

@@ -23,6 +23,6 @@
 - (void)fetchDvr;
 
 - (TVHDvrItem *)objectAtIndex:(NSUInteger)row forType:(NSInteger)type;
-- (int)count:(NSInteger)type;
+- (NSUInteger)count:(NSInteger)type;
 - (void)signalDidLoadDvr:(NSInteger)type;
 @end

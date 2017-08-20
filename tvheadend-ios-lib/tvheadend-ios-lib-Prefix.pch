@@ -5,6 +5,11 @@
 //
 
 #import <Availability.h>
+#ifdef __TVOS_AVAILABLE
+#define DEVICE_IS_TVOS YES
+#else
+#define DEVICE_IS_TVOS NO
+#endif
 
 //#define TESTING
 #ifdef __OBJC__
@@ -12,4 +17,5 @@
     #import <Foundation/Foundation.h>
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <MobileCoreServices/MobileCoreServices.h>
+    #import "NSDateFormatter+TVH.h"
 #endif

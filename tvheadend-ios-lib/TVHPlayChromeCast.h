@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 zipleen. All rights reserved.
 //
 
+#ifdef ENABLE_CHROMECAST
+
 #import <Foundation/Foundation.h>
 #import "TVHPlayStreamDelegate.h"
 #import <GoogleCast/GoogleCast.h>
@@ -18,3 +20,5 @@
 - (NSArray*)availableServers;
 - (BOOL)playStream:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding withAnalytics:(id<TVHModelAnalyticsProtocol>)analytics;
 @end
+
+#endif

@@ -10,6 +10,8 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
+#ifdef ENABLE_XBMC
+
 #import <Foundation/Foundation.h>
 #import "TVHPlayStreamDelegate.h"
 #import "TVHModelAnalyticsProtocol.h"
@@ -19,3 +21,5 @@
 - (NSArray*)availableServers;
 - (BOOL)playStream:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding withAnalytics:(id<TVHModelAnalyticsProtocol>)analytics;
 @end
+
+#endif

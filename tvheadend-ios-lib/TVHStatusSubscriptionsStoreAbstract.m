@@ -51,11 +51,11 @@
             [self fetchStatusSubscriptions];
         }
         
-        [self.subscriptions enumerateObjectsUsingBlock:^(TVHStatusSubscription* obj, NSUInteger idx, BOOL *stop) {
+        for (TVHStatusSubscription* obj in self.subscriptions) {
             if ( obj.id == [[message objectForKey:@"id"] intValue] ) {
                 [obj updateValuesFromDictionary:message];
             }
-        }];
+        }
         
         [self signalDidLoadStatusSubscriptions];
     }
@@ -64,22 +64,26 @@
 - (BOOL)fetchedData:(NSData *)responseData {
     NSError __autoreleasing *error;
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
+    if (error) {
         [self signalDidErrorStatusSubscriptionsStore:error];
         return false;
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
-    NSMutableArray *subscriptions = [[NSMutableArray alloc] init];
+    NSMutableArray *subscriptions = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHStatusSubscription *subscription = [[TVHStatusSubscription alloc] init];
         [subscription updateValuesFromDictionary:obj];
         
         [subscriptions addObject:subscription];
-    }];
+    }
+    
+    entries = nil;
     
     self.subscriptions = [subscriptions copy];
+    
+    subscriptions = nil;
     
 #ifdef TESTING
     NSLog(@"[Loaded Subscription]: %d", (int)[self.subscriptions count]);
@@ -103,17 +107,21 @@
 }
 
 - (void)fetchStatusSubscriptions {
+    if (!self.tvhServer.userHasAdminAccess) {
+        return;
+    }
+    
     __weak typeof (self) weakSelf = self;
     
     [self signalWillLoadStatusSubscriptions];
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        typeof (self) strongSelf = weakSelf;
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            typeof (self) strongSelf = weakSelf;
             if ( [strongSelf fetchedData:responseObject] ) {
                 [strongSelf signalDidLoadStatusSubscriptions];
             }
-        });
+        //});
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [weakSelf signalDidErrorStatusSubscriptionsStore:error];
         NSLog(@"[Subscription HTTPClient Error]: %@", error.localizedDescription);
@@ -151,19 +159,23 @@
 }
 
 - (void)signalWillLoadStatusSubscriptions {
-    if ([self.delegate respondsToSelector:@selector(willLoadStatusSubscriptions)]) {
-        [self.delegate willLoadStatusSubscriptions];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusSubscriptionStoreWillLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadStatusSubscriptions)]) {
+            [self.delegate willLoadStatusSubscriptions];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusSubscriptionStoreWillLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidErrorStatusSubscriptionsStore:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorStatusSubscriptionsStore:)]) {
-        [self.delegate didErrorStatusSubscriptionsStore:error];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusSubscriptionStoreDidErrorNotification
-                                                        object:error];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorStatusSubscriptionsStore:)]) {
+            [self.delegate didErrorStatusSubscriptionsStore:error];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHStatusSubscriptionStoreDidErrorNotification
+                                                            object:error];
+    });
 }
 
 @end

@@ -57,14 +57,14 @@
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
-    NSMutableArray *dvrAutoRecItems = [[NSMutableArray alloc] init];
+    NSMutableArray *dvrAutoRecItems = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for(id obj in entries) {
         TVHAutoRecItem *dvritem = [[TVHAutoRecItem alloc] initWithTvhServer:self.tvhServer];
         [dvritem updateValuesFromDictionary:obj];
         
         [dvrAutoRecItems addObject:dvritem];
-    }];
+    }
     
     self.dvrAutoRecItems = [dvrAutoRecItems copy];
     
@@ -128,26 +128,33 @@
 }
 
 - (void)signalWillLoadDvrAutoRec {
-    if ([self.delegate respondsToSelector:@selector(willLoadDvrAutoRec)]) {
-        [self.delegate willLoadDvrAutoRec];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreWillLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadDvrAutoRec)]) {
+            [self.delegate willLoadDvrAutoRec];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreWillLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidLoadDvrAutoRec {
-    if ([self.delegate respondsToSelector:@selector(didLoadDvrAutoRec)]) {
-        [self.delegate didLoadDvrAutoRec];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreDidLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didLoadDvrAutoRec)]) {
+            [self.delegate didLoadDvrAutoRec];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreDidLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidErrorDvrAutoStore:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorDvrAutoStore:)]) {
-        [self.delegate didErrorDvrAutoStore:error];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreDidErrorNotification                                                        object:error];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorDvrAutoStore:)]) {
+            [self.delegate didErrorDvrAutoStore:error];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHAutoRecStoreDidErrorNotification
+                                                            object:error];
+    });
 }
 
 @end

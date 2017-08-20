@@ -53,13 +53,20 @@
 }
 
 - (void)fetchServices {
+    if (!self.tvhServer.userHasAdminAccess) {
+        return;
+    }
+    
     __weak typeof (self) weakSelf = self;
     
     [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
         typeof (self) strongSelf = weakSelf;
-        if ( [strongSelf fetchedServiceData:responseObject] ) {
-            [strongSelf signalDidLoadServices];
-        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            if ( [strongSelf fetchedServiceData:responseObject] ) {
+                [strongSelf signalDidLoadServices];
+            }
+        });
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[TV Services HTTPClient Error]: %@", error.localizedDescription);
     }];
@@ -69,21 +76,22 @@
 - (BOOL)fetchedServiceData:(NSData *)responseData {
     NSError __autoreleasing *error;
     NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
+    if (error) {
         NSLog(@"[TV Service Channel JSON error]: %@", error.localizedDescription);
         return false;
     }
     
     NSArray *entries = [json objectForKey:@"entries"];
+    NSMutableArray *services = [self.services mutableCopy];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in entries) {
         TVHService *service = [[TVHService alloc] initWithTvhServer:self.tvhServer];
         [service updateValuesFromDictionary:obj];
         
-        if ( [self addServiceToStore:service] == NO ) {
-            [self updateServiceFromStore:service];
-        }
-    }];
+        [self updateServiceToArray:service array:services];
+    }
+    
+    self.services = [services copy];
     
 #ifdef TESTING
     NSLog(@"[Loaded Services]: %d", (int)[self.services count]);
@@ -91,21 +99,15 @@
     return true;
 }
 
-- (BOOL)addServiceToStore:(TVHService*)serviceItem {
-    if ( [self.services indexOfObject:serviceItem] == NSNotFound ) {
-        self.services = [self.services arrayByAddingObject:serviceItem];
-        return YES;
-    }
-    return NO;
-}
-
-- (BOOL)updateServiceFromStore:(TVHService*)serviceItem {
-    if ( [self.services indexOfObject:serviceItem] != NSNotFound ) {
-        TVHService *foundService = [self.services objectAtIndex:[self.services indexOfObject:serviceItem]];
+- (void)updateServiceToArray:(TVHService*)serviceItem array:(NSMutableArray*)services {
+    NSUInteger indexOfObject = [services indexOfObject:serviceItem];
+    if ( indexOfObject == NSNotFound ) {
+        [services addObject:serviceItem];
+    } else {
+        // update
+        TVHService *foundService = [services objectAtIndex:indexOfObject];
         [foundService updateValuesFromService:serviceItem];
-        return YES;
     }
-    return NO;
 }
 
 - (NSArray*)servicesForMux:(TVHMux*)adapterMux {

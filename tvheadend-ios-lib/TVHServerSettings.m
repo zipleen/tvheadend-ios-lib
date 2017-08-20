@@ -39,8 +39,35 @@
         _sshPortTo = [settings objectForKey:TVHS_PORT_KEY];
         _version = [settings objectForKey:TVHS_SERVER_VERSION];
         _apiVersion = [settings objectForKey:TVHS_API_VERSION];
+        _adminAccessEnabled = [settings objectForKey:TVHS_ADMIN_ACCESS];
+        
+        if (_adminAccessEnabled == nil) {
+            _adminAccessEnabled = @1;
+        }
     }
     return self;
+}
+
+- (NSDictionary*)settings {
+    return @{TVHS_SERVER_NAME:self.name != nil ? self.name : @"",
+             TVHS_IP_KEY:self.ip != nil ? self.ip : @"",
+             TVHS_PORT_KEY:self.port != nil ? self.port : @"",
+             TVHS_HTSP_PORT_KEY:self.portHTSP != nil ? self.portHTSP : @"",
+             TVHS_USERNAME_KEY:self.username != nil ? self.username : @"",
+             TVHS_PASSWORD_KEY:self.password != nil ? self.password : @"",
+             TVHS_USE_HTTPS:self.useHTTPS != nil ? self.useHTTPS : @"",
+             TVHS_SERVER_WEBROOT:self.webroot != nil ? self.webroot : @"",
+             TVHS_VLC_NETWORK_LATENCY:@"999",
+             TVHS_VLC_DEINTERLACE: @"0",
+             TVHS_SSH_PF_HOST:self.sshPortForwardHost != nil ? self.sshPortForwardHost : @"",
+             TVHS_SSH_PF_PORT:self.sshPortForwardPort != nil ? self.sshPortForwardPort : @"",
+             TVHS_SSH_PF_USERNAME:self.sshPortForwardUsername != nil ? self.sshPortForwardUsername : @"",
+             TVHS_SSH_PF_PASSWORD:self.sshPortForwardPassword != nil ? self.sshPortForwardPassword : @"",
+             TVHS_SERVER_VERSION:self.version != nil ? self.version : @"34",
+             TVHS_API_VERSION:self.apiVersion != nil ? self.apiVersion : @0,
+             TVHS_ADMIN_ACCESS:self.adminAccessEnabled != nil ? self.adminAccessEnabled : @1
+             };
+    
 }
 
 - (NSString*)ipForSettings:(NSDictionary*)settings
@@ -103,11 +130,15 @@
     return webroot;
 }
 
+- (BOOL)userHasAdminAccess {
+    return [self.adminAccessEnabled boolValue];
+}
+
 #pragma mark URL building
 
 - (NSURL*)baseURL
 {
-    if( ! _baseURL ) {
+    if (!_baseURL) {
         NSString *baseUrlString = [NSString stringWithFormat:@"http%@://%@:%@%@", self.useHTTPS, self.ip, self.port, self.webroot];
         NSURL *url = [NSURL URLWithString:baseUrlString];
         _baseURL = url;

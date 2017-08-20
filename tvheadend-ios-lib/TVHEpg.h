@@ -30,7 +30,7 @@
 // dates
 @property (nonatomic, strong) NSDate *start;
 @property (nonatomic, strong) NSDate *end;
-@property (nonatomic) NSInteger duration;
+@property (nonatomic) NSInteger duration; // in seconds
 // recording and metadata
 @property (nonatomic, strong) NSString *schedstate;
 @property (nonatomic) NSInteger serieslink;
@@ -50,6 +50,9 @@
 @property (nonatomic, strong) NSString *channelName;
 @property (nonatomic, strong) NSString *channelNumber;
 @property (nonatomic, strong) NSString *channelIcon;
+// 4.1
+@property (nonatomic, strong) NSString *dvrUuid;
+@property (nonatomic, strong) NSString *dvrState;
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)updateValuesFromDictionary:(NSDictionary*) values;
@@ -62,4 +65,7 @@
 - (void)addAutoRec;
 - (BOOL)isRecording;
 - (BOOL)isScheduledForRecording;
+- (NSString*)startTimeAndTitle;
+- (NSString*)startEndTime;
+- (BOOL)isInSameTimeslot:(TVHEpg*)epg;
 @end

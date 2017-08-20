@@ -34,8 +34,11 @@
 - (void)downloadMoreEpgList;
 - (void)clearEpgData;
 - (NSArray*)epgStoreItems;
+- (NSDictionary*)epgByChannelCopy;
+- (NSArray*)channelsOfEpgByChannel;
 - (void)setDelegate:(id <TVHEpgStoreDelegate>)delegate;
 - (void)removeOldProgramsFromStore;
 - (BOOL)isLastEpgFromThePast;
 - (void)setFilterToChannel:(TVHChannel *)filterToChannel;
+- (void)setFilterToTag:(TVHTag *)filterToTag;
 @end

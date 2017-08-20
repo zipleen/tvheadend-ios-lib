@@ -109,4 +109,22 @@
     XCTAssertTrue( ([chepg.programs count] == 0), @"epg day was not removed when last epg got removed");
 }
 
+
+- (void)testSortByNumber {
+    TVHChannel *channel1 = [self channel];
+    TVHChannel *channel2 = [self channel];
+    TVHChannel *channelNoNumber = [self channel];
+    
+    channel1.number = 1;
+    channel2.number = 2;
+    
+    XCTAssertEqual(NSOrderedAscending, [channel1 compareByNumber:channel2]);
+    XCTAssertEqual(NSOrderedAscending, [channel2 compareByNumber:channelNoNumber]);
+    XCTAssertEqual(NSOrderedDescending, [channelNoNumber compareByNumber:channel2]);
+    XCTAssertEqual(NSOrderedSame, [channel1 compareByNumber:channel1]);
+    XCTAssertEqual(NSOrderedSame, [channelNoNumber compareByNumber:channelNoNumber]);
+
+}
+
+
 @end

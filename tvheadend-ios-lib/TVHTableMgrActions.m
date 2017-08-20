@@ -35,9 +35,11 @@
                             @"table",nil];
     
     [httpClient postPath:@"tablemgr" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[NSNotificationCenter defaultCenter]
-             postNotificationName:TVHDidSuccessedTableMgrActionNotification
-             object:action];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter]
+                 postNotificationName:TVHDidSuccessedTableMgrActionNotification
+                 object:action];
+        });
                 
         NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSLog(@"Request Successful, response '%@'", responseStr);
@@ -53,9 +55,11 @@
 #ifdef TESTING
         NSLog(@"[TableMgr ACTIONS ERROR]: %@", error.localizedDescription);
 #endif
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"didErrorTableMgrAction"
-         object:error];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"didErrorTableMgrAction"
+             object:error];
+        });
     }];
     
 }

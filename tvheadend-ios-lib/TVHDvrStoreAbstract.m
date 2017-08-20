@@ -105,10 +105,10 @@
     NSNumber *totalCount = [[NSNumber alloc] initWithInt:[[json objectForKey:self.jsonApiFieldTotalCount] intValue]];
     [self.totalEventCount replaceObjectAtIndex:type withObject:totalCount];
     
-    [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for(id obj in entries) {
         TVHDvrItem *dvritem = [self createDvrItemFromDictionary:obj ofType:type];
         [self addDvrItemToStore:dvritem];
-    }];
+    }
     
 #ifdef TESTING
     NSLog(@"[Loaded DVR Items, Count]: %d", (int)[self.dvrItems count]);
@@ -154,7 +154,7 @@
 #ifdef TESTING
         NSLog(@"[DvrStore Profiling Network]: %f", time);
 #endif
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             if ( [strongSelf fetchedData:responseObject withType:type] ) {
                 [strongSelf signalDidLoadDvr:type];
                 [strongSelf getMoreDvrItems:url withType:type start:start limit:limit];
@@ -186,11 +186,11 @@
 - (NSArray*)dvrItemsForType:(NSInteger)type {
     NSMutableArray *itemsForType = [[NSMutableArray alloc] init];
     
-    [self.dvrItems enumerateObjectsUsingBlock:^(TVHDvrItem* item, NSUInteger idx, BOOL *stop) {
+    for (TVHDvrItem* item in self.dvrItems) {
         if ( item.dvrType == type ) {
             [itemsForType addObject:item];
         }
-    }];
+    }
     self.cachedType = -1;
     self.cachedDvrItems = nil;
     return [itemsForType copy];
@@ -212,11 +212,11 @@
     return nil;
 }
 
-- (int)count:(NSInteger)type {
+- (NSUInteger)count:(NSInteger)type {
     [self checkCachedDvrItemsForType:type];
     
     if ( self.cachedDvrItems ) {
-        return (int)[self.cachedDvrItems count];
+        return [self.cachedDvrItems count];
     }
     return 0;
 }
@@ -224,11 +224,13 @@
 #pragma mark Signal delegate
 
 - (void)signalWillLoadDvr:(NSInteger)type {
-    if ([self.delegate respondsToSelector:@selector(willLoadDvr:)]) {
-        [self.delegate willLoadDvr:type];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:TVHDvrStoreWillLoadNotification
-                                                        object:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(willLoadDvr:)]) {
+            [self.delegate willLoadDvr:type];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDvrStoreWillLoadNotification
+                                                            object:self];
+    });
 }
 
 - (void)signalDidLoadDvr:(NSInteger)type {
@@ -242,9 +244,11 @@
 }
 
 - (void)signalDidErrorDvrStore:(NSError*)error {
-    if ([self.delegate respondsToSelector:@selector(didErrorDvrStore:)]) {
-        [self.delegate didErrorDvrStore:error];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(didErrorDvrStore:)]) {
+            [self.delegate didErrorDvrStore:error];
+        }
+    });
 }
 
 @end
