@@ -18,7 +18,7 @@
     BOOL timerActiveWhenSendingToBackground;
 }
 @property (nonatomic, weak) TVHServer *tvhServer;
-@property (nonatomic, weak) TVHJsonClient *jsonClient;
+@property (nonatomic, weak) TVHApiClient *apiClient;
 @property (nonatomic, strong) NSString *boxid;
 @property (nonatomic) BOOL debugActive;
 @property (nonatomic, strong) NSTimer *timer;
@@ -31,7 +31,7 @@
     self = [super init];
     if (!self) return nil;
     self.tvhServer = tvhServer;
-    self.jsonClient = [self.tvhServer jsonClient];
+    self.apiClient = self.tvhServer.apiClient;
     
     self.debugActive = false;
     self.activePolls = 0;
@@ -195,9 +195,9 @@
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:self.boxid, @"boxid", @"0", @"immediate", nil];
     
-    [self.jsonClient postPath:@"comet/debug" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient postPath:@"comet/debug" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         [self timerRefreshCometPoll];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
     }];
     
 }
@@ -205,14 +205,14 @@
 - (void)fetchCometPollStatus {
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:self.boxid, @"boxid", @"0", @"immediate", nil];
     __weak typeof (self) weakSelf = self;
-    [[self.jsonClient proxyQueueNamed:@"cometQueue"] postPath:@"comet/poll" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient postPath:@"comet/poll" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         // sending to main queue so the notification messages are sent in the main queue - and also to unlock the NSLock
         dispatch_async(dispatch_get_main_queue(), ^{
             typeof (self) strongSelf = weakSelf;
             [strongSelf fetchedData:responseObject];
             strongSelf.activePolls = 0;
         });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         typeof (self) strongSelf = weakSelf;
         strongSelf.activePolls = 0;
 #ifdef TESTING

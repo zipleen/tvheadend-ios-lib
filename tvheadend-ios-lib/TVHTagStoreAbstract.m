@@ -112,7 +112,7 @@
     __block NSDate *profilingDate = [NSDate date];
     
     __weak typeof (self) weakSelf = self;
-    [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient doApiCall:self success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:profilingDate];
         [strongSelf.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
@@ -131,7 +131,7 @@
         
         //NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         //NSLog(@"Request Successful, response '%@'", responseStr);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [weakSelf signalDidErrorLoadingTagStore:error];
         NSLog(@"[TagStore HTTPClient Error]: %@", error.description);
     }];

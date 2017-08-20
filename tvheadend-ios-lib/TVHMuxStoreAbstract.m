@@ -57,14 +57,14 @@
     
     __weak typeof (self) weakSelf = self;
     
-    [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient doApiCall:self success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             if ( [strongSelf fetchedData:responseObject] ) {
                 [strongSelf signalDidLoadAdapterMuxes];
             }
         });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"[TV Adapter Mux HTTPClient Error]: %@", error.localizedDescription);
     }];
     

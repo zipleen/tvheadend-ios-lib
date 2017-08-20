@@ -34,8 +34,8 @@
 }
 
 - (void)doApiCall:(id <TVHApiClientDelegate>)object
-          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+          success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+          failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
     
     if ( [[object apiMethod] isEqualToString:@"POST"] ) {
         [self.jsonClient postPath:[object apiPath]
@@ -48,5 +48,27 @@
                          failure:failure];
     }
 }
+
+
+- (NSURLSessionDataTask*)getPath:(NSString *)path
+                      parameters:(NSDictionary *)parameters
+                         success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+                         failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
+    return [self.jsonClient getPath:path
+                         parameters:parameters
+                            success:success
+                            failure:failure];
+}
+
+- (NSURLSessionDataTask*)postPath:(NSString *)path
+                       parameters:(NSDictionary *)parameters
+                          success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+                          failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
+    return [self.jsonClient postPath:path
+                          parameters:parameters
+                             success:success
+                             failure:failure];
+}
+
 
 @end

@@ -10,7 +10,7 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import <Foundation/Foundation.h>
+
 
 #define TVHS_SORT_CHANNEL_BY_NAME 0
 #define TVHS_SORT_CHANNEL_BY_NUMBER 1

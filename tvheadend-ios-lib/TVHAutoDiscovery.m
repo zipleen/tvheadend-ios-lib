@@ -8,7 +8,6 @@
 
 #import "TVHAutoDiscovery.h"
 #include <arpa/inet.h>
-#include "AFHTTPClient.h"
 #include "TVHServerSettings.h"
 
 #define SERVICE_TYPE_HTTP @"_http._tcp."

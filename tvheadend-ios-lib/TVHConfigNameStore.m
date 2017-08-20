@@ -76,13 +76,13 @@
     }
     
     __weak typeof (self) weakSelf = self;
-    [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient doApiCall:self success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         if ( [strongSelf fetchedData:responseObject] ) {
             // signal
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"[ConfigNames HTTPClient Error]: %@", error.localizedDescription);
     }];
 }

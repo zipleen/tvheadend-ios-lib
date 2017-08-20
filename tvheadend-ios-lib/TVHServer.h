@@ -10,7 +10,7 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import <Foundation/Foundation.h>
+
 #import "TVHServerSettings.h"
 #import "TVHTagStore.h"
 #import "TVHChannelStore.h"
@@ -41,7 +41,6 @@
 @property (nonatomic, strong) TVHServerSettings *settings;
 @property (nonatomic, strong) TVHPlayStream *playStream;
 @property (nonatomic, weak) id<TVHModelAnalyticsProtocol> analytics;
-- (TVHJsonClient*)jsonClient;
 - (TVHApiClient*)apiClient;
 - (id <TVHTagStore>)tagStore;
 - (id <TVHChannelStore>)channelStore;

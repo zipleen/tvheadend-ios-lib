@@ -131,6 +131,7 @@
     return self;
 }
 
+// settingsInit
 - (TVHServer*)initWithSettingsButDontInit:(TVHServerSettings*)settings {
     self = [super init];
     if (self) {
@@ -361,7 +362,7 @@
 
 - (void)fetchServerVersion {
     __weak typeof (self) weakSelf = self;
-    [self.jsonClient getPath:@"api/serverinfo" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient getPath:@"api/serverinfo" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         NSError *error;
         NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseObject error:&error];
@@ -375,7 +376,7 @@
         strongSelf.apiVersion = [json valueForKey:@"api_version"];
         strongSelf.realVersion = [json valueForKey:@"sw_version"];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         typeof (self) strongSelf = weakSelf;
 #ifdef TESTING
         NSLog(@"TVHeadend does not have api/serverinfo, calling legacy.. (%@)", error.localizedDescription);
@@ -386,11 +387,11 @@
 
 - (void)fetchServerVersionLegacy {
     __weak typeof (self) weakSelf = self;
-    [self.jsonClient getPath:@"extjs.html" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient getPath:@"extjs.html" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         NSString *response = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         [strongSelf handleFetchedServerVersionLegacy:response];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"[TVHServer getVersion]: %@", error.localizedDescription);
     }];
 }
@@ -428,7 +429,7 @@
 
 - (void)fetchCapabilities {
     __weak typeof (self) weakSelf = self;
-    [self.jsonClient getPath:@"capabilities" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient getPath:@"capabilities" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         NSError *error;
         NSArray *json = [TVHJsonClient convertFromJsonToArray:responseObject error:&error];
@@ -445,7 +446,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadCapabilitiesNotification
                                                                 object:weakSelf];
         });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"[TVHServer capabilities]: %@", error.localizedDescription);
     }];
 
@@ -456,7 +457,7 @@
         return;
     }
     __weak typeof (self) weakSelf = self;
-    [self.jsonClient getPath:@"config" parameters:@{@"op":@"loadSettings"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient getPath:@"config" parameters:@{@"op":@"loadSettings"} success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         NSError *error;
         NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseObject error:&error];
@@ -484,7 +485,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadConfigSettingsNotification
                                                                 object:weakSelf];
         });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"[TVHServer fetchConfigSettings]: %@", error.localizedDescription);
     }];
     

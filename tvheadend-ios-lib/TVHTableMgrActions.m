@@ -14,7 +14,7 @@
 
 @implementation TVHTableMgrActions
 
-+ (void)doTableMgrAction:(NSString*)action withJsonClient:(TVHJsonClient*)httpClient inTable:(NSString*)table withEntries:(id)entries {
++ (void)doTableMgrAction:(NSString*)action withApiClient:(TVHApiClient*)httpClient inTable:(NSString*)table withEntries:(id)entries {
     NSString *stringEntries;
     
     if ( [entries isKindOfClass:[NSString class]] ) {
@@ -34,7 +34,7 @@
                             table,
                             @"table",nil];
     
-    [httpClient postPath:@"tablemgr" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [httpClient postPath:@"tablemgr" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter]
                  postNotificationName:TVHDidSuccessedTableMgrActionNotification
@@ -51,7 +51,7 @@
         id<TVHDvrStore> dvrStore = [[TVHSingletonServer sharedServerInstance] dvrStore];
         [dvrStore fetchDvr];*/
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
 #ifdef TESTING
         NSLog(@"[TableMgr ACTIONS ERROR]: %@", error.localizedDescription);
 #endif

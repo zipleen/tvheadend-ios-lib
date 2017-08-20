@@ -16,7 +16,7 @@
 #import "TVHServer.h"
 
 @interface TVHAutoRecItem ()
-@property (nonatomic, weak) TVHJsonClient *jsonClient;
+@property (nonatomic, weak) TVHApiClient *apiClient;
 @property (nonatomic, strong) NSMutableArray *updatedProperties;
 @end
 
@@ -27,7 +27,7 @@
     self = [super init];
     if (!self) return nil;
     self.tvhServer = tvhServer;
-    self.jsonClient = [self.tvhServer jsonClient];
+    self.apiClient = [self.tvhServer apiClient];
     
     return self;
 }
@@ -54,7 +54,7 @@
     item.tag = self.tag;
     item.weekdays = self.weekdays;
     item.genre = self.genre;
-    item.jsonClient = self.jsonClient;
+    item.apiClient = self.apiClient;
     item.uuid = self.uuid;
     return item;
 }
@@ -118,7 +118,7 @@
         return [TVHDvrActions doIdnodeAction:@"delete" withData:@{@"uuid":self.uuid} withTvhServer:self.tvhServer];
     }
     // TODO: fix this self.id thing
-    [TVHTableMgrActions doTableMgrAction:@"delete" withJsonClient:self.jsonClient inTable:@"autorec" withEntries:[NSString stringWithFormat:@"%d", (int)self.id] ];
+    [TVHTableMgrActions doTableMgrAction:@"delete" withApiClient:self.apiClient inTable:@"autorec" withEntries:[NSString stringWithFormat:@"%d", (int)self.id] ];
 }
 
 - (void)updateAutoRec {
@@ -139,7 +139,7 @@
     }
     
     [sendProperties setValue:[NSString stringWithFormat:@"%d", (int)self.id] forKey:@"id"];
-    [TVHTableMgrActions doTableMgrAction:@"update" withJsonClient:self.jsonClient inTable:@"autorec" withEntries:sendProperties ];
+    [TVHTableMgrActions doTableMgrAction:@"update" withApiClient:self.apiClient inTable:@"autorec" withEntries:sendProperties ];
 }
 
 - (TVHChannel*)channelObject

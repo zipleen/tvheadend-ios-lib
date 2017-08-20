@@ -1,9 +1,3 @@
-[submodule "vendor/AFNetworking"]
-	path = vendor/AFNetworking
-	url = git://github.com/zipleen/AFNetworking.git
-[submodule "vendor/AFHTTPRequestOperationLogger"]
-	path = vendor/AFHTTPRequestOperationLogger
-	url = https://github.com/AFNetworking/AFHTTPRequestOperationLogger.git
-[submodule "vendor/AFNetworking-ProxyQueue"]
-	path = vendor/AFNetworking-ProxyQueue
-	url = https://github.com/mystcolor/AFNetworking-ProxyQueue.git
+[submodule "vendor/AFNetworking3"]
+	path = vendor/AFNetworking3
+	url = git@github.com:AFNetworking/AFNetworking.git

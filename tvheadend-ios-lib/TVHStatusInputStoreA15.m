@@ -106,7 +106,7 @@
     __weak typeof (self) weakSelf = self;
     
     [self signalWillLoadStatusInputs];
-    [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient doApiCall:self success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -114,7 +114,7 @@
                 [strongSelf signalDidLoadStatusInputs];
             }
         });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [weakSelf signalDidErrorStatusInputStore:error];
         NSLog(@"[Status Input HTTPClient Error]: %@", error.localizedDescription);
     }];

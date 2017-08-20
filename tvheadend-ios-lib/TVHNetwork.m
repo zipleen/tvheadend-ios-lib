@@ -11,7 +11,7 @@
 
 @interface TVHNetwork()
 @property (nonatomic, weak) TVHServer *tvhServer;
-@property (nonatomic, weak) TVHJsonClient *jsonClient;
+@property (nonatomic, weak) TVHApiClient *apiClient;
 @end
 
 @implementation TVHNetwork
@@ -19,7 +19,7 @@
     self = [super init];
     if (!self) return nil;
     self.tvhServer = tvhServer;
-    self.jsonClient = [self.tvhServer jsonClient];
+    self.apiClient = [self.tvhServer apiClient];
     
     return self;
 }

@@ -109,7 +109,7 @@
     
     __weak typeof (self) weakSelf = self;
     
-    [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient doApiCall:self success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -117,7 +117,7 @@
                 [strongSelf signalDidLoadAdapters];
             }
         });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [weakSelf signalDidErrorAdaptersStore:error];
         NSLog(@"[Adapter Store HTTPClient Error]: %@", error.localizedDescription);
     }];

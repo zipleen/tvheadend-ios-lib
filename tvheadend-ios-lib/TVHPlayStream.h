@@ -10,7 +10,7 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import <Foundation/Foundation.h>
+
 #import "TVHPlayStreamDelegate.h"
 
 #define TVHS_TRANSCODE_RESOLUTIONS @[@"288", @"384", @"480", @"576", @"720"]

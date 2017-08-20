@@ -10,19 +10,21 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import "AFHTTPClient.h"
-#import "AFNetworkActivityIndicatorManager.h"
-#import "AFHTTPClient+ProxyQueue.h"
+#import <AFNetworking.h>
+#import <AFNetworkActivityIndicatorManager.h>
 
 @class TVHServerSettings;
 
+#ifndef __TVOS_AVAILABLE
 @interface TVHNetworkActivityIndicatorManager : AFNetworkActivityIndicatorManager
 @end
+#endif
 
-@interface TVHJsonClient : AFHTTPClient
+@interface TVHJsonClient : AFHTTPSessionManager
 @property (nonatomic, readonly) BOOL readyToUse;
 - (id)initWithSettings:(TVHServerSettings *)settings;
-- (void)setUsername:(NSString *)username password:(NSString *)password;
+- (NSURLSessionDataTask*)getPath:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(NSURLSessionDataTask *task, id responseObject))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+- (NSURLSessionDataTask*)postPath:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(NSURLSessionDataTask *task, id responseObject))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 
 + (NSDictionary*)convertFromJsonToObject:(NSData*)responseData error:(__autoreleasing NSError**)error;
 + (NSArray*)convertFromJsonToArray:(NSData*)responseData error:(__autoreleasing NSError**)error;

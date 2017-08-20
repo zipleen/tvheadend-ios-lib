@@ -10,7 +10,7 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import <Foundation/Foundation.h>
+
 
 @interface TVHConfigName : NSObject
 @property (nonatomic) NSInteger id;

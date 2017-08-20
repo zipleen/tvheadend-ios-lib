@@ -265,7 +265,7 @@
     __block NSDate *profilingDate = [NSDate date];
     __weak typeof (self) weakSelf = self;
     [self.apiClient doApiCall:self
-                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         if( ! (strongSelf.filterStart == start && strongSelf.filterLimit == limit) ) {
 #ifdef TESTING
@@ -294,7 +294,7 @@
             }
         });
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"[EpgStore HTTPClient Error]: %@", error.localizedDescription);
         [weakSelf signalDidErrorLoadingEpgStore:error];
     }];

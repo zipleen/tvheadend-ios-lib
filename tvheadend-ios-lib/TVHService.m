@@ -15,7 +15,6 @@
 
 @interface TVHService()
 @property (nonatomic, weak) TVHServer *tvhServer;
-@property (nonatomic, weak) TVHJsonClient *jsonClient;
 @end
 
 @implementation TVHService
@@ -24,7 +23,6 @@
     self = [super init];
     if (!self) return nil;
     self.tvhServer = tvhServer;
-    self.jsonClient = [self.tvhServer jsonClient];
     
     return self;
 }

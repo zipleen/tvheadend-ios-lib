@@ -21,6 +21,10 @@
 @interface TVHApiClient : NSObject
 - (id)initWithClient:(TVHJsonClient*)jsonClient;
 - (void)doApiCall:(id <TVHApiClientDelegate>)object
-          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+          success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+          failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+
+- (NSURLSessionDataTask*)getPath:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(NSURLSessionDataTask *task, id responseObject))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+- (NSURLSessionDataTask*)postPath:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(NSURLSessionDataTask *task, id responseObject))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+
 @end

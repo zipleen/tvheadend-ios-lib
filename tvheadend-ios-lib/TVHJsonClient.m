@@ -12,7 +12,6 @@
 
 #import "TVHServerSettings.h"
 #import "TVHJsonClient.h"
-#import "AFJSONRequestOperation.h"
 #ifdef ENABLE_SSH
 #import "SSHWrapper.h"
 #endif
@@ -20,19 +19,19 @@
 #ifndef DEVICE_IS_TVOS
 @implementation TVHNetworkActivityIndicatorManager
 
-- (void)networkingOperationDidStart:(NSNotification *)notification {
-    AFURLConnectionOperation *connectionOperation = [notification object];
-    if (connectionOperation.request.URL) {
-        if ( ! [connectionOperation.request.URL.path isEqualToString:@"/comet/poll"] ) {
+- (void)networkRequestDidStart:(NSNotification *)notification {
+    NSURL *url = [AFNetworkRequestFromNotification(notification) URL];
+    if (url) {
+        if ( ! [url.path isEqualToString:@"/comet/poll"] ) {
             [self incrementActivityCount];
         }
     }
 }
 
-- (void)networkingOperationDidFinish:(NSNotification *)notification {
-    AFURLConnectionOperation *connectionOperation = [notification object];
-    if (connectionOperation.request.URL) {
-        if ( ! [connectionOperation.request.URL.path isEqualToString:@"/comet/poll"] ) {
+- (void)networkRequestDidFinish:(NSNotification *)notification {
+    NSURL *url = [AFNetworkRequestFromNotification(notification) URL];
+    if (url) {
+        if ( ! [url.path isEqualToString:@"/comet/poll"] ) {
             [self decrementActivityCount];
         }
     }
@@ -49,9 +48,9 @@
 
 #pragma mark - Methods
 
-- (void)setUsername:(NSString *)username password:(NSString *)password {
-    [self clearAuthorizationHeader];
-    [self setAuthorizationHeaderWithUsername:username password:password];
+- (void)setUsername:(NSString *)username password:(NSString *)password in:(AFJSONRequestSerializer*)requestSerializer {
+    [requestSerializer clearAuthorizationHeader];
+    [requestSerializer setAuthorizationHeaderFieldWithUsername:username password:password];
     /*
      // for future reference, MD5 DIGEST. tvheadend uses basic
     NSURLCredential *newCredential;
@@ -93,26 +92,35 @@
         return nil;
     }
     
+    AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
     if( [settings.username length] > 0 ) {
-        [self setUsername:settings.username password:settings.password];
+        [self setUsername:settings.username password:settings.password in:jsonRequestSerializer];
     }
+    self.requestSerializer = jsonRequestSerializer;
     
-    [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
-    //[self setDefaultHeader:@"Accept" value:@"application/json"];
-    //[self setParameterEncoding:AFJSONParameterEncoding];
+    // @todo: for now, hack this using the "basic" http response serializer instead of the new way of decoding the response
+    self.responseSerializer = [AFHTTPResponseSerializer serializer];;
     
 #ifndef DEVICE_IS_TVOS
     [[TVHNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 #endif
     
-    if ( self.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable ) {
+    if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
         _readyToUse = NO;
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didChangeNetworkReachability:)
-                                                 name:AFNetworkingReachabilityDidChangeNotification
-                                               object:nil];
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        if ( status == AFNetworkReachabilityStatusNotReachable ) {
+            @synchronized(self) {
+                _readyToUse = NO;
+            }
+        } else {
+            @synchronized(self) {
+                _readyToUse = YES;
+            }
+        }
+    }];
     
     return self;
 }
@@ -120,52 +128,37 @@
 - (void)dealloc {
     [[self operationQueue] cancelAllOperations];
     [self stopPortForward];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)didChangeNetworkReachability:(NSNotification*)note {
-    NSNumber *status = [note.userInfo objectForKey:AFNetworkingReachabilityNotificationStatusItem];
-    
-    if ( [status integerValue] == AFNetworkReachabilityStatusNotReachable ) {
-        @synchronized(self) {
-            _readyToUse = NO;
-        }
-    } else {
-        @synchronized(self) {
-            _readyToUse = YES;
-        }
-    }
 }
 
 #pragma mark AFHTTPClient methods
 
-- (void)getPath:(NSString *)path
+- (NSURLSessionDataTask*)getPath:(NSString *)path
      parameters:(NSDictionary *)parameters
-        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+        success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+        failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
     
     if ( ! [self readyToUse] ) {
         [self dispatchNotReadyError:failure];
-        return;
+        return nil;
     }
-    return [super getPath:path parameters:parameters success:success failure:failure];
+    
+    return [self GET:path parameters:parameters progress:nil success:success failure:failure];
 }
 
 
-- (void)postPath:(NSString *)path
+- (NSURLSessionDataTask*)postPath:(NSString *)path
       parameters:(NSDictionary *)parameters
-         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+         success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+         failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
     
     if ( ! [self readyToUse] ) {
         [self dispatchNotReadyError:failure];
-        return;
+        return nil;
     }
-    return [super postPath:path parameters:parameters success:success failure:failure];
+    return [super POST:path parameters:parameters progress:nil success:success failure:failure];
 }
 
-- (void)dispatchNotReadyError:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
-{
+- (void)dispatchNotReadyError:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
     NSLog(@"TVHJsonClient: not ready or not reachable yet, aborting... ");
     NSDictionary *userInfo = @{ NSLocalizedDescriptionKey:[NSString stringWithFormat:NSLocalizedString(@"Server not reachable or not yet ready to connect.", nil)] };
     NSError *error = [[NSError alloc] initWithDomain:@"Not ready" code:NSURLErrorBadServerResponse userInfo:userInfo];

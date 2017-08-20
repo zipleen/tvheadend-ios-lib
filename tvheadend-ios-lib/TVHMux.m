@@ -16,7 +16,6 @@
 
 @interface TVHMux()
 @property (nonatomic, weak) TVHServer *tvhServer;
-@property (nonatomic, weak) TVHJsonClient *jsonClient;
 @property (nonatomic, strong) NSArray *services;
 @end
 
@@ -26,7 +25,6 @@
     self = [super init];
     if (!self) return nil;
     self.tvhServer = tvhServer;
-    self.jsonClient = [self.tvhServer jsonClient];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateDvbMux:)

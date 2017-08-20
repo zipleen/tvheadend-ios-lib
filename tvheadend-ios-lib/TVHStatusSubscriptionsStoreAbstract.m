@@ -114,7 +114,7 @@
     __weak typeof (self) weakSelf = self;
     
     [self signalWillLoadStatusSubscriptions];
-    [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient doApiCall:self success:^(NSURLSessionDataTask *task, id responseObject) {
         
         //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             typeof (self) strongSelf = weakSelf;
@@ -122,7 +122,7 @@
                 [strongSelf signalDidLoadStatusSubscriptions];
             }
         //});
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [weakSelf signalDidErrorStatusSubscriptionsStore:error];
         NSLog(@"[Subscription HTTPClient Error]: %@", error.localizedDescription);
     }];

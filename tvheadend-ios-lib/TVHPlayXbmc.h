@@ -12,7 +12,7 @@
 
 #ifdef ENABLE_XBMC
 
-#import <Foundation/Foundation.h>
+
 #import "TVHPlayStreamDelegate.h"
 #import "TVHModelAnalyticsProtocol.h"
 
