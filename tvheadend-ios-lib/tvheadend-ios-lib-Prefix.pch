@@ -4,7 +4,6 @@
 //  The contents of this file are implicitly included at the beginning of every source file.
 //
 
-#import <Availability.h>
 #ifdef __TVOS_AVAILABLE
 #define DEVICE_IS_TVOS YES
 #else
@@ -13,9 +12,8 @@
 
 //#define TESTING
 #ifdef __OBJC__
+    #import <Availability.h>
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
-    #import <SystemConfiguration/SystemConfiguration.h>
-    #import <MobileCoreServices/MobileCoreServices.h>
     #import "NSDateFormatter+TVH.h"
 #endif

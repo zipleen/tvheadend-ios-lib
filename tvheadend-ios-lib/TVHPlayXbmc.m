@@ -14,7 +14,7 @@
 
 #import "TVHPlayXbmc.h"
 #include <arpa/inet.h>
-#import <AFNetworking.h>
+#import "AFNetworking.h"
 
 #define SERVICE_TYPE @"_xbmc-jsonrpc-h._tcp"
 #define DOMAIN_NAME @"local"

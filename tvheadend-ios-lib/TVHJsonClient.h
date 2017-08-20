@@ -10,12 +10,12 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import <AFNetworking.h>
-#import <AFNetworkActivityIndicatorManager.h>
+#import <AFNetworking/AFNetworking.h>
 
 @class TVHServerSettings;
 
 #ifndef __TVOS_AVAILABLE
+#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 @interface TVHNetworkActivityIndicatorManager : AFNetworkActivityIndicatorManager
 @end
 #endif

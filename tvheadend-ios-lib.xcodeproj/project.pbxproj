@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA2C7E2919BCCE2F001EDC67 /* GoogleCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */; };
+		4639E4A0F030AFC02FF69E03 /* Pods_tvheadend_tvOS_lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A12111CF5CD72235BB71C3 /* Pods_tvheadend_tvOS_lib.framework */; };
 		AA2C7E2D19BCCFCA001EDC67 /* TVHPlayChromeCast.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2C7E2C19BCCFCA001EDC67 /* TVHPlayChromeCast.m */; };
 		AA2C7E3319BCDAA1001EDC67 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		AA2C7E3519BCDAB3001EDC67 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -106,15 +106,18 @@
 		AABF3BFE185E6D0500E62240 /* TVHPlayStream.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B1F185E590D00E62240 /* TVHPlayStream.m */; };
 		AABF3BFF185E6D0500E62240 /* TVHPlayXbmc.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B21185E590D00E62240 /* TVHPlayXbmc.m */; };
 		AABF3C08185E6EB500E62240 /* NSArray+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3C07185E6EB500E62240 /* NSArray+Utils.m */; };
-		AAC634691A1573510005EA99 /* GoogleCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */; };
 		AAC6346C1A15741C0005EA99 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; };
 		AAC6346D1A1574240005EA99 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; };
 		AAC6346F1A1579430005EA99 /* Log.epg.utf.invalid in Resources */ = {isa = PBXBuildFile; fileRef = AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */; };
+		DF3629AB6F4FBE290440BA99 /* Pods_tvheadend_tvOS_libTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59396B1A8019B50A9F2F2E82 /* Pods_tvheadend_tvOS_libTests.framework */; };
+		E64FDF2C57F765B01E8E1B32 /* Pods_tvheadend_ios_libTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C03C2C6E2FF07EBAFCEA9331 /* Pods_tvheadend_ios_libTests.framework */; };
 		F00817941C5BEECA0008C3EF /* NSDateFormatter+TVH.m in Sources */ = {isa = PBXBuildFile; fileRef = F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */; };
 		F00817951C5BF5380008C3EF /* NSDateFormatter+TVH.m in Sources */ = {isa = PBXBuildFile; fileRef = F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */; };
+		F009F12C1F49FF0C002726F2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA89DE41861245200AE4C13 /* MobileCoreServices.framework */; };
+		F009F12D1F49FF17002726F2 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B57185E5F6600E62240 /* CFNetwork.framework */; };
 		F04245871F498C9600D3CC5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
-		F04245A81F49A3A600D3CC5F /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F03C0D4E1F485D8800EDFE53 /* AFNetworking.framework */; };
-		F04245A91F49A3AB00D3CC5F /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F03C0D481F485D8800EDFE53 /* AFNetworking.framework */; };
+		F04245D31F49E14600D3CC5F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */; };
+		F04245D41F49E14D00D3CC5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
 		F0AEEC341C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
 		F0AEEC351C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
 		F0CCEF851F421F5200AAC25B /* Log.services.mine in Resources */ = {isa = PBXBuildFile; fileRef = F0CCEF841F421F5200AAC25B /* Log.services.mine */; };
@@ -216,6 +219,7 @@
 		F0CDE4EE1BA216C9000A969B /* TVHChannelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6A185E603300E62240 /* TVHChannelTests.m */; };
 		F0CDE4EF1BA216C9000A969B /* TVHTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6C185E603300E62240 /* TVHTestHelper.m */; };
 		F0CDE4F01BA216C9000A969B /* TVHServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6E185E603300E62240 /* TVHServerTests.m */; };
+		F7306CE0903448DC6D993099 /* Pods_tvheadend_ios_lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 069D88128E1EAEA4D7D7418D /* Pods_tvheadend_ios_lib.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -225,55 +229,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = AABF3A4B185E586700E62240;
 			remoteInfo = "tvheadend-ios-lib";
-		};
-		F03C0D471F485D8800EDFE53 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F03C0D3D1F485D8800EDFE53 /* AFNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 299522391BBF104D00859F49;
-			remoteInfo = "AFNetworking iOS";
-		};
-		F03C0D491F485D8800EDFE53 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F03C0D3D1F485D8800EDFE53 /* AFNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 299522651BBF129200859F49;
-			remoteInfo = "AFNetworking watchOS";
-		};
-		F03C0D4B1F485D8800EDFE53 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F03C0D3D1F485D8800EDFE53 /* AFNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 299522771BBF136400859F49;
-			remoteInfo = "AFNetworking OS X";
-		};
-		F03C0D4D1F485D8800EDFE53 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F03C0D3D1F485D8800EDFE53 /* AFNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2987B0A51BC408A200179A4C;
-			remoteInfo = "AFNetworking tvOS";
-		};
-		F03C0D4F1F485D8800EDFE53 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F03C0D3D1F485D8800EDFE53 /* AFNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 298D7C3B1BC2C79500FD3B3E;
-			remoteInfo = "AFNetworking iOS Tests";
-		};
-		F03C0D511F485D8800EDFE53 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F03C0D3D1F485D8800EDFE53 /* AFNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 298D7C4A1BC2C7B200FD3B3E;
-			remoteInfo = "AFNetworking Mac OS X Tests";
-		};
-		F03C0D531F485D8800EDFE53 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F03C0D3D1F485D8800EDFE53 /* AFNetworking.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2987B0AE1BC408A200179A4C;
-			remoteInfo = "AFNetworking tvOS Tests";
 		};
 		F0CDE4801BA214C3000A969B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -294,18 +249,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F0CDE46B1BA214A2000A969B /* CopyFiles */ = {
+		F0CDE46B1BA214A2000A969B /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		069D88128E1EAEA4D7D7418D /* Pods_tvheadend_ios_lib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tvheadend_ios_lib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		36532E36A573397F744BDD8B /* Pods-tvheadend-ios-libTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-ios-libTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-ios-libTests/Pods-tvheadend-ios-libTests.release.xcconfig"; sourceTree = "<group>"; };
+		4F3D67C560EF9C47B4FA70F4 /* Pods-tvheadend-ios-lib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-ios-lib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-ios-lib/Pods-tvheadend-ios-lib.debug.xcconfig"; sourceTree = "<group>"; };
+		564A591F3878675A6E59B010 /* Pods-tvheadend-tvOS-lib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-tvOS-lib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-tvOS-lib/Pods-tvheadend-tvOS-lib.debug.xcconfig"; sourceTree = "<group>"; };
+		58F57133ACC530ED344670AC /* Pods-tvheadend-tvOS-libTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-tvOS-libTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-tvOS-libTests/Pods-tvheadend-tvOS-libTests.release.xcconfig"; sourceTree = "<group>"; };
+		59396B1A8019B50A9F2F2E82 /* Pods_tvheadend_tvOS_libTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tvheadend_tvOS_libTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6539CB15C208A70A82A5D139 /* Pods-tvheadend-ios-lib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-ios-lib.release.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-ios-lib/Pods-tvheadend-ios-lib.release.xcconfig"; sourceTree = "<group>"; };
+		6B28440BE21FDEEF0589526A /* Pods-tvheadend-tvOS-lib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-tvOS-lib.release.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-tvOS-lib/Pods-tvheadend-tvOS-lib.release.xcconfig"; sourceTree = "<group>"; };
+		74A12111CF5CD72235BB71C3 /* Pods_tvheadend_tvOS_lib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tvheadend_tvOS_lib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		814501041CDD2186F91C67CB /* Pods-tvheadend-ios-libTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-ios-libTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-ios-libTests/Pods-tvheadend-ios-libTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleCast.framework; path = vendor/GoogleCast.framework; sourceTree = "<group>"; };
 		AA2C7E2B19BCCFCA001EDC67 /* TVHPlayChromeCast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHPlayChromeCast.h; sourceTree = "<group>"; };
 		AA2C7E2C19BCCFCA001EDC67 /* TVHPlayChromeCast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHPlayChromeCast.m; sourceTree = "<group>"; };
@@ -330,7 +296,6 @@
 		AAA89DE41861245200AE4C13 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		AABF3A4C185E586700E62240 /* libtvheadend-ios-lib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libtvheadend-ios-lib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABF3A4F185E586700E62240 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		AABF3A53185E586700E62240 /* tvheadend-ios-lib-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "tvheadend-ios-lib-Prefix.pch"; sourceTree = "<group>"; };
 		AABF3A5C185E586700E62240 /* tvheadend-ios-libTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tvheadend-ios-libTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABF3A5D185E586700E62240 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		AABF3A60185E586700E62240 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -496,9 +461,10 @@
 		AABF3C06185E6EB500E62240 /* NSArray+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Utils.h"; sourceTree = "<group>"; };
 		AABF3C07185E6EB500E62240 /* NSArray+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Utils.m"; sourceTree = "<group>"; };
 		AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Log.epg.utf.invalid; sourceTree = "<group>"; };
+		B1DA09AA5163B40B09E3A331 /* Pods-tvheadend-tvOS-libTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-tvOS-libTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-tvOS-libTests/Pods-tvheadend-tvOS-libTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C03C2C6E2FF07EBAFCEA9331 /* Pods_tvheadend_ios_libTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tvheadend_ios_libTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F00817921C5BEECA0008C3EF /* NSDateFormatter+TVH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+TVH.h"; sourceTree = "<group>"; };
 		F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+TVH.m"; sourceTree = "<group>"; };
-		F03C0D3D1F485D8800EDFE53 /* AFNetworking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AFNetworking.xcodeproj; path = vendor/AFNetworking3/AFNetworking.xcodeproj; sourceTree = SOURCE_ROOT; };
 		F0AEEC321C6D40BD00D7861D /* TVHAutoDiscovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAutoDiscovery.h; sourceTree = "<group>"; };
 		F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoDiscovery.m; sourceTree = "<group>"; };
 		F0CCEF841F421F5200AAC25B /* Log.services.mine */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Log.services.mine; sourceTree = "<group>"; };
@@ -515,9 +481,9 @@
 				F04245871F498C9600D3CC5F /* Foundation.framework in Frameworks */,
 				AA2C7E3519BCDAB3001EDC67 /* CoreText.framework in Frameworks */,
 				AA2C7E3319BCDAA1001EDC67 /* MediaAccessibility.framework in Frameworks */,
-				AA2C7E2919BCCE2F001EDC67 /* GoogleCast.framework in Frameworks */,
 				AABF3B5A185E5F7200E62240 /* SystemConfiguration.framework in Frameworks */,
 				AABF3B58185E5F6600E62240 /* CFNetwork.framework in Frameworks */,
+				F7306CE0903448DC6D993099 /* Pods_tvheadend_ios_lib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,16 +491,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F04245A91F49A3AB00D3CC5F /* AFNetworking.framework in Frameworks */,
 				AAC6346D1A1574240005EA99 /* CoreText.framework in Frameworks */,
 				AAC6346C1A15741C0005EA99 /* MediaAccessibility.framework in Frameworks */,
-				AAC634691A1573510005EA99 /* GoogleCast.framework in Frameworks */,
 				AAA89DE61861245800AE4C13 /* SystemConfiguration.framework in Frameworks */,
 				AAA89DE51861245200AE4C13 /* MobileCoreServices.framework in Frameworks */,
 				AABF3A5E185E586700E62240 /* XCTest.framework in Frameworks */,
 				AABF3A61185E586700E62240 /* UIKit.framework in Frameworks */,
 				AABF3A5F185E586700E62240 /* Foundation.framework in Frameworks */,
 				AABF3A64185E586700E62240 /* libtvheadend-ios-lib.a in Frameworks */,
+				E64FDF2C57F765B01E8E1B32 /* Pods_tvheadend_ios_libTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,6 +507,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F009F12D1F49FF17002726F2 /* CFNetwork.framework in Frameworks */,
+				F009F12C1F49FF0C002726F2 /* MobileCoreServices.framework in Frameworks */,
+				F04245D41F49E14D00D3CC5F /* Foundation.framework in Frameworks */,
+				F04245D31F49E14600D3CC5F /* SystemConfiguration.framework in Frameworks */,
+				4639E4A0F030AFC02FF69E03 /* Pods_tvheadend_tvOS_lib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,7 +519,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F04245A81F49A3A600D3CC5F /* AFNetworking.framework in Frameworks */,
 				F0CDE48B1BA2153D000A969B /* MediaAccessibility.framework in Frameworks */,
 				F0CDE4961BA21579000A969B /* UIKit.framework in Frameworks */,
 				F0CDE4891BA21539000A969B /* CoreText.framework in Frameworks */,
@@ -558,6 +527,7 @@
 				F0CDE4941BA21574000A969B /* Foundation.framework in Frameworks */,
 				F0CDE47F1BA214C3000A969B /* libtvheadend-tvOS-lib.a in Frameworks */,
 				F0CDE4951BA21577000A969B /* XCTest.framework in Frameworks */,
+				DF3629AB6F4FBE290440BA99 /* Pods_tvheadend_tvOS_libTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,6 +611,7 @@
 				AABF3A65185E586700E62240 /* tvheadend-ios-libTests */,
 				AABF3A4E185E586700E62240 /* Frameworks */,
 				AABF3A4D185E586700E62240 /* Products */,
+				EB886B8440DF28EF05F6C2EB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -667,6 +638,10 @@
 				AABF3A4F185E586700E62240 /* Foundation.framework */,
 				AABF3A5D185E586700E62240 /* XCTest.framework */,
 				AABF3A60185E586700E62240 /* UIKit.framework */,
+				069D88128E1EAEA4D7D7418D /* Pods_tvheadend_ios_lib.framework */,
+				C03C2C6E2FF07EBAFCEA9331 /* Pods_tvheadend_ios_libTests.framework */,
+				74A12111CF5CD72235BB71C3 /* Pods_tvheadend_tvOS_lib.framework */,
+				59396B1A8019B50A9F2F2E82 /* Pods_tvheadend_tvOS_libTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -684,7 +659,6 @@
 			isa = PBXGroup;
 			children = (
 				AABF3B34185E5EA700E62240 /* Third Party Frameworks */,
-				AABF3A53185E586700E62240 /* tvheadend-ios-lib-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1079,7 +1053,6 @@
 		AABF3B34185E5EA700E62240 /* Third Party Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F03C0D3D1F485D8800EDFE53 /* AFNetworking.xcodeproj */,
 			);
 			name = "Third Party Frameworks";
 			sourceTree = "<group>";
@@ -1111,18 +1084,19 @@
 			name = Properties;
 			sourceTree = "<group>";
 		};
-		F03C0D3E1F485D8800EDFE53 /* Products */ = {
+		EB886B8440DF28EF05F6C2EB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F03C0D481F485D8800EDFE53 /* AFNetworking.framework */,
-				F03C0D4A1F485D8800EDFE53 /* AFNetworking.framework */,
-				F03C0D4C1F485D8800EDFE53 /* AFNetworking.framework */,
-				F03C0D4E1F485D8800EDFE53 /* AFNetworking.framework */,
-				F03C0D501F485D8800EDFE53 /* AFNetworking iOS Tests.xctest */,
-				F03C0D521F485D8800EDFE53 /* AFNetworking Mac OS X Tests.xctest */,
-				F03C0D541F485D8800EDFE53 /* AFNetworking tvOS Tests.xctest */,
+				4F3D67C560EF9C47B4FA70F4 /* Pods-tvheadend-ios-lib.debug.xcconfig */,
+				6539CB15C208A70A82A5D139 /* Pods-tvheadend-ios-lib.release.xcconfig */,
+				814501041CDD2186F91C67CB /* Pods-tvheadend-ios-libTests.debug.xcconfig */,
+				36532E36A573397F744BDD8B /* Pods-tvheadend-ios-libTests.release.xcconfig */,
+				564A591F3878675A6E59B010 /* Pods-tvheadend-tvOS-lib.debug.xcconfig */,
+				6B28440BE21FDEEF0589526A /* Pods-tvheadend-tvOS-lib.release.xcconfig */,
+				B1DA09AA5163B40B09E3A331 /* Pods-tvheadend-tvOS-libTests.debug.xcconfig */,
+				58F57133ACC530ED344670AC /* Pods-tvheadend-tvOS-libTests.release.xcconfig */,
 			);
-			name = Products;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		F03C0D571F4869C500EDFE53 /* Network Client */ = {
@@ -1143,9 +1117,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AABF3A6F185E586700E62240 /* Build configuration list for PBXNativeTarget "tvheadend-ios-lib" */;
 			buildPhases = (
+				4D31CC462ACA3CB1A52CCD45 /* [CP] Check Pods Manifest.lock */,
 				AABF3A48185E586700E62240 /* Sources */,
 				AABF3A49185E586700E62240 /* Frameworks */,
 				AABF3A4A185E586700E62240 /* CopyFiles */,
+				BA6B9D540957A929402EA817 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1160,9 +1136,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AABF3A72185E586700E62240 /* Build configuration list for PBXNativeTarget "tvheadend-ios-libTests" */;
 			buildPhases = (
+				84055C95BB447173A4E7ED47 /* [CP] Check Pods Manifest.lock */,
 				AABF3A58185E586700E62240 /* Sources */,
 				AABF3A59185E586700E62240 /* Frameworks */,
 				AABF3A5A185E586700E62240 /* Resources */,
+				09B4FA5788469E1F42ADFA31 /* [CP] Embed Pods Frameworks */,
+				285C1229E7932B31D55F3232 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1178,9 +1157,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0CDE4751BA214A2000A969B /* Build configuration list for PBXNativeTarget "tvheadend-tvOS-lib" */;
 			buildPhases = (
+				9C92243D3B3DD7188C46B5F4 /* [CP] Check Pods Manifest.lock */,
 				F0CDE4691BA214A2000A969B /* Sources */,
 				F0CDE46A1BA214A2000A969B /* Frameworks */,
-				F0CDE46B1BA214A2000A969B /* CopyFiles */,
+				F0CDE46B1BA214A2000A969B /* Copy Files */,
+				D1F0CD8E2F9F1A907FB98CED /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1195,9 +1176,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0CDE4821BA214C3000A969B /* Build configuration list for PBXNativeTarget "tvheadend-tvOS-libTests" */;
 			buildPhases = (
+				837D3260A4F2FC7D5E7CF6A5 /* [CP] Check Pods Manifest.lock */,
 				F0CDE4761BA214C3000A969B /* Sources */,
 				F0CDE4771BA214C3000A969B /* Frameworks */,
 				F0CDE4781BA214C3000A969B /* Resources */,
+				88F01C1794C46A287B33A8EC /* [CP] Embed Pods Frameworks */,
+				35E7AE8630C2DA57F69D2073 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1236,12 +1220,6 @@
 			mainGroup = AABF3A43185E586700E62240;
 			productRefGroup = AABF3A4D185E586700E62240 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = F03C0D3E1F485D8800EDFE53 /* Products */;
-					ProjectRef = F03C0D3D1F485D8800EDFE53 /* AFNetworking.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				AABF3A4B185E586700E62240 /* tvheadend-ios-lib */,
@@ -1251,58 +1229,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		F03C0D481F485D8800EDFE53 /* AFNetworking.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AFNetworking.framework;
-			remoteRef = F03C0D471F485D8800EDFE53 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F03C0D4A1F485D8800EDFE53 /* AFNetworking.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AFNetworking.framework;
-			remoteRef = F03C0D491F485D8800EDFE53 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F03C0D4C1F485D8800EDFE53 /* AFNetworking.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AFNetworking.framework;
-			remoteRef = F03C0D4B1F485D8800EDFE53 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F03C0D4E1F485D8800EDFE53 /* AFNetworking.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AFNetworking.framework;
-			remoteRef = F03C0D4D1F485D8800EDFE53 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F03C0D501F485D8800EDFE53 /* AFNetworking iOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "AFNetworking iOS Tests.xctest";
-			remoteRef = F03C0D4F1F485D8800EDFE53 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F03C0D521F485D8800EDFE53 /* AFNetworking Mac OS X Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "AFNetworking Mac OS X Tests.xctest";
-			remoteRef = F03C0D511F485D8800EDFE53 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F03C0D541F485D8800EDFE53 /* AFNetworking tvOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "AFNetworking tvOS Tests.xctest";
-			remoteRef = F03C0D531F485D8800EDFE53 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		AABF3A5A185E586700E62240 /* Resources */ = {
@@ -1338,6 +1264,179 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		09B4FA5788469E1F42ADFA31 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-ios-libTests/Pods-tvheadend-ios-libTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking-iOS/AFNetworking.framework",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-Public-3.5.3-Release/GoogleCast.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleCast.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-ios-libTests/Pods-tvheadend-ios-libTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		285C1229E7932B31D55F3232 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-ios-libTests/Pods-tvheadend-ios-libTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		35E7AE8630C2DA57F69D2073 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-tvOS-libTests/Pods-tvheadend-tvOS-libTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4D31CC462ACA3CB1A52CCD45 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tvheadend-ios-lib-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		837D3260A4F2FC7D5E7CF6A5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tvheadend-tvOS-libTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		84055C95BB447173A4E7ED47 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tvheadend-ios-libTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		88F01C1794C46A287B33A8EC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-tvOS-libTests/Pods-tvheadend-tvOS-libTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking-tvOS/AFNetworking.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-tvOS-libTests/Pods-tvheadend-tvOS-libTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C92243D3B3DD7188C46B5F4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tvheadend-tvOS-lib-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BA6B9D540957A929402EA817 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-ios-lib/Pods-tvheadend-ios-lib-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1F0CD8E2F9F1A907FB98CED /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-tvOS-lib/Pods-tvheadend-tvOS-lib-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AABF3A48185E586700E62240 /* Sources */ = {
@@ -1574,13 +1673,18 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1593,11 +1697,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/vendor/**";
+				HEADER_SEARCH_PATHS = (
+					"${PODS_HEADERS_SEARCH_PATHS}",
+					"$(inherited)",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
+				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -1614,43 +1724,53 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/vendor/**";
+				HEADER_SEARCH_PATHS = (
+					"${PODS_HEADERS_SEARCH_PATHS}",
+					"$(inherited)",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
+				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		AABF3A70185E586700E62240 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F3D67C560EF9C47B4FA70F4 /* Pods-tvheadend-ios-lib.debug.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/tvheadend_ios_lib.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"-DENABLE_CHROMECAST",
 					"-DENABLE_XBMC",
+					"$(inherited)",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SEPARATE_STRIP = NO;
@@ -1662,22 +1782,20 @@
 		};
 		AABF3A71185E586700E62240 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6539CB15C208A70A82A5D139 /* Pods-tvheadend-ios-lib.release.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/tvheadend_ios_lib.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"-DENABLE_CHROMECAST",
 					"-DENABLE_XBMC",
+					"$(inherited)",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SEPARATE_STRIP = NO;
@@ -1689,6 +1807,7 @@
 		};
 		AABF3A73185E586700E62240 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 814501041CDD2186F91C67CB /* Pods-tvheadend-ios-libTests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1703,6 +1822,45 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "tvheadend-ios-libTests/tvheadend-ios-libTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreBluetooth\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GoogleCast\"",
+					"-framework",
+					"\"MediaAccessibility\"",
+					"-framework",
+					"\"MediaPlayer\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zipleen.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
@@ -1711,6 +1869,7 @@
 		};
 		AABF3A74185E586700E62240 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36532E36A573397F744BDD8B /* Pods-tvheadend-ios-libTests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1721,6 +1880,45 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				INFOPLIST_FILE = "tvheadend-ios-libTests/tvheadend-ios-libTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreBluetooth\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GoogleCast\"",
+					"-framework",
+					"\"MediaAccessibility\"",
+					"-framework",
+					"\"MediaPlayer\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zipleen.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
@@ -1729,6 +1927,7 @@
 		};
 		F0CDE4731BA214A2000A969B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 564A591F3878675A6E59B010 /* Pods-tvheadend-tvOS-lib.debug.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1738,10 +1937,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
@@ -1750,19 +1950,20 @@
 		};
 		F0CDE4741BA214A2000A969B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B28440BE21FDEEF0589526A /* Pods-tvheadend-tvOS-lib.release.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
@@ -1771,15 +1972,24 @@
 		};
 		F0CDE4831BA214C3000A969B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B1DA09AA5163B40B09E3A331 /* Pods-tvheadend-tvOS-libTests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zipleen.tvheadend-tvOS-libTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -1789,15 +1999,24 @@
 		};
 		F0CDE4841BA214C3000A969B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 58F57133ACC530ED344670AC /* Pods-tvheadend-tvOS-libTests.release.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zipleen.tvheadend-tvOS-libTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;

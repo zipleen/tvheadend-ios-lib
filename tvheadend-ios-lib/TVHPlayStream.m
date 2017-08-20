@@ -55,6 +55,7 @@
 
 - (NSDictionary*)arrayOfAvailablePrograms:(BOOL)withTranscoding {
     NSMutableDictionary *available = [[NSMutableDictionary alloc] init];
+#ifndef DEVICE_IS_TVOS
     for (NSString* key in TVH_PROGRAMS) {
         NSString *urlTarget = [TVH_PROGRAMS objectForKey:key];
         NSURL *url = [self urlForSchema:urlTarget withURL:nil];
@@ -71,6 +72,7 @@
             [available setObject:TVH_ICON_PROGRAM forKey:NSLocalizedString(@"Custom Player", nil)];
         }
     }
+#endif
     
 #ifdef ENABLE_XBMC
     // xbmc
@@ -114,6 +116,7 @@
 }
 
 - (BOOL)playInternalStreamIn:(NSString*)program forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding {
+#ifndef DEVICE_IS_TVOS
     NSString *streamUrl = [streamObject streamUrlWithTranscoding:transcoding withInternal:NO];
     NSURL *myURL = [self URLforProgramWithName:program forURL:streamUrl];
     if ( myURL ) {
@@ -124,6 +127,7 @@
         [[UIApplication sharedApplication] openURL:myURL];
         return true;
     }
+#endif
     return false;
 }
 
