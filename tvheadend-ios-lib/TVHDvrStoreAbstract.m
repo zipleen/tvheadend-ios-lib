@@ -93,13 +93,7 @@
     return @"totalCount";
 }
 
-- (bool)fetchedData:(NSData *)responseData withType:(NSInteger)type {
-    NSError __autoreleasing *error;
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
-        [self signalDidErrorDvrStore:error];
-        return false;
-    }
+- (bool)fetchedData:(NSDictionary *)json withType:(NSInteger)type {
     
     NSArray *entries = [json objectForKey:self.jsonApiFieldEntries];
     NSNumber *totalCount = [[NSNumber alloc] initWithInt:[[json objectForKey:self.jsonApiFieldTotalCount] intValue]];

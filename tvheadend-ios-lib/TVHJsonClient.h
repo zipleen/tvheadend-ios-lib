@@ -20,12 +20,24 @@
 @end
 #endif
 
+
+/**
+ JsonClient is a wrapper for AFHTTPSessionManager
+ 
+ it basically wraps the get / post parameters of AFNetworking
+ 
+ - it's responsible for setting up the SSH wrapper (not used anymore)
+ - it's responsible for setting up the session manager:
+   - request serializer
+   - response serializer
+   - authentication
+   - ssl pinning
+ 
+ */
 @interface TVHJsonClient : AFHTTPSessionManager
 @property (nonatomic, readonly) BOOL readyToUse;
 - (id)initWithSettings:(TVHServerSettings *)settings;
 - (NSURLSessionDataTask*)getPath:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(NSURLSessionDataTask *task, id responseObject))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 - (NSURLSessionDataTask*)postPath:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(NSURLSessionDataTask *task, id responseObject))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 
-+ (NSDictionary*)convertFromJsonToObject:(NSData*)responseData error:(__autoreleasing NSError**)error;
-+ (NSArray*)convertFromJsonToArray:(NSData*)responseData error:(__autoreleasing NSError**)error;
 @end

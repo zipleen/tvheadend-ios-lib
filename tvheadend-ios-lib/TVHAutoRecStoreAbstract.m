@@ -48,13 +48,7 @@
     }
 }
 
-- (void)fetchedData:(NSData *)responseData {
-    NSError __autoreleasing *error;
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
-        [self signalDidErrorDvrAutoStore:error];
-        return ;
-    }
+- (void)fetchedData:(NSDictionary *)json {
     
     NSArray *entries = [json objectForKey:@"entries"];
     NSMutableArray *dvrAutoRecItems = [[NSMutableArray alloc] initWithCapacity:entries.count];

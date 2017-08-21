@@ -176,15 +176,9 @@
     return @"entries";
 }
 
-- (bool)fetchedData:(NSData *)responseData {
+- (bool)fetchedData:(NSDictionary *)json {
     __block NSUInteger duplicate = 0;
-    NSError __autoreleasing *error;
     NSDate *nowTime = [NSDate dateWithTimeIntervalSinceNow:-600];
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if (error) {
-        [self signalDidErrorLoadingEpgStore:error];
-        return false;
-    }
     
     [epgUpdateInProgress lock];
     

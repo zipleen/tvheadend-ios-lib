@@ -362,14 +362,8 @@
 
 - (void)fetchServerVersion {
     __weak typeof (self) weakSelf = self;
-    [self.apiClient getPath:@"api/serverinfo" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self.apiClient getPath:@"api/serverinfo" parameters:nil success:^(NSURLSessionDataTask *task, NSDictionary *json) {
         typeof (self) strongSelf = weakSelf;
-        NSError *error;
-        NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseObject error:&error];
-        if( error ) {
-            NSLog(@"[TVHServer fetchCapabilities]: error %@", error.description);
-            return ;
-        }
         
         // this capabilities seems to retrieve a different array from /capabilities
         //strongSelf.capabilities = [json valueForKey:@"capabilities"];
@@ -428,15 +422,14 @@
 #pragma mark fetch capabilities
 
 - (void)fetchCapabilities {
+    NSString *path = @"capabilities";
+    if ([self.apiVersion integerValue] > 17) {
+        path = @"api/config/capabilities";
+    }
+    
     __weak typeof (self) weakSelf = self;
-    [self.apiClient getPath:@"capabilities" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self.apiClient getPath:path parameters:nil success:^(NSURLSessionDataTask *task, NSArray *json) {
         typeof (self) strongSelf = weakSelf;
-        NSError *error;
-        NSArray *json = [TVHJsonClient convertFromJsonToArray:responseObject error:&error];
-        if( error ) {
-            NSLog(@"[TVHServer fetchCapabilities]: error %@", error.description);
-            return ;
-        }
         _capabilities = json;
 #ifdef TESTING
         NSLog(@"[TVHServer capabilities]: %@", _capabilities);
@@ -457,15 +450,8 @@
         return;
     }
     __weak typeof (self) weakSelf = self;
-    [self.apiClient getPath:@"config" parameters:@{@"op":@"loadSettings"} success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self.apiClient getPath:@"config" parameters:@{@"op":@"loadSettings"} success:^(NSURLSessionDataTask *task, NSDictionary *json) {
         typeof (self) strongSelf = weakSelf;
-        NSError *error;
-        NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseObject error:&error];
-        
-        if( error ) {
-            NSLog(@"[TVHServer fetchConfigSettings]: error %@", error.description);
-            return ;
-        }
         
         NSArray *entries = [json objectForKey:@"config"];
         NSMutableDictionary *config = [[NSMutableDictionary alloc] init];

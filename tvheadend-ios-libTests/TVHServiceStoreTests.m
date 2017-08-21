@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "TVHTestHelper.h"
 #import "TVHServiceStoreA15.h"
+#import "TVHJsonUTF8AutoCharsetResponseSerializer.h"
 
 @interface TVHServiceStoreTests : XCTestCase
 
@@ -34,14 +35,14 @@
 
 - (void)testLoadingBigServicesJson {
     NSData *data = [TVHTestHelper loadFixture:@"Log.services.mine"];
-    
-    
+    NSError __autoreleasing *error;
+    TVHJsonUTF8AutoCharsetResponseSerializer *serializer = [TVHJsonUTF8AutoCharsetResponseSerializer serializer];
     
     //[self measureBlock:^{
         TVHServiceStoreA15 *services = [[TVHServiceStoreA15 alloc] init];
         XCTAssertNotNil(services, @"creating tvepg store object");
         
-        [services fetchedServiceData:data];
+        [services fetchedServiceData:[serializer responseObjectForResponse:nil data:data error:&error]];
         XCTAssertTrue( ([services.services count] == 29448), @"Failed parsing json data");
     //}];
     

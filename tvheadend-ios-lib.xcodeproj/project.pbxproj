@@ -120,6 +120,10 @@
 		F04245D41F49E14D00D3CC5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
 		F0AEEC341C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
 		F0AEEC351C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
+		F0BE72271F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BE72261F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m */; };
+		F0BE72281F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BE72261F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m */; };
+		F0BE722C1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BE722B1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m */; };
+		F0BE722D1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BE722B1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m */; };
 		F0CCEF851F421F5200AAC25B /* Log.services.mine in Resources */ = {isa = PBXBuildFile; fileRef = F0CCEF841F421F5200AAC25B /* Log.services.mine */; };
 		F0CCEF871F42214100AAC25B /* TVHServiceStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0CCEF861F42214100AAC25B /* TVHServiceStoreTests.m */; };
 		F0CCEF881F422DBB00AAC25B /* TVHServiceStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0CCEF861F42214100AAC25B /* TVHServiceStoreTests.m */; };
@@ -467,6 +471,10 @@
 		F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+TVH.m"; sourceTree = "<group>"; };
 		F0AEEC321C6D40BD00D7861D /* TVHAutoDiscovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAutoDiscovery.h; sourceTree = "<group>"; };
 		F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoDiscovery.m; sourceTree = "<group>"; };
+		F0BE72261F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHJsonUTF8AutoCharsetResponseSerializer.m; sourceTree = "<group>"; };
+		F0BE72291F4B7E1B003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHJsonUTF8AutoCharsetResponseSerializer.h; sourceTree = "<group>"; };
+		F0BE722A1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHJsonUTF8HackResponseSerializer.h; sourceTree = "<group>"; };
+		F0BE722B1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHJsonUTF8HackResponseSerializer.m; sourceTree = "<group>"; };
 		F0CCEF841F421F5200AAC25B /* Log.services.mine */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Log.services.mine; sourceTree = "<group>"; };
 		F0CCEF861F42214100AAC25B /* TVHServiceStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHServiceStoreTests.m; sourceTree = "<group>"; };
 		F0CDE46D1BA214A2000A969B /* libtvheadend-tvOS-lib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libtvheadend-tvOS-lib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1102,12 +1110,24 @@
 		F03C0D571F4869C500EDFE53 /* Network Client */ = {
 			isa = PBXGroup;
 			children = (
+				F0BE72251F4B7B07003AEBE2 /* Response Serializers */,
 				AABF3B23185E590D00E62240 /* TVHJsonClient.h */,
 				AABF3B24185E590D00E62240 /* TVHJsonClient.m */,
 				AABF3B25185E590D00E62240 /* TVHApiClient.h */,
 				AABF3B26185E590D00E62240 /* TVHApiClient.m */,
 			);
 			name = "Network Client";
+			sourceTree = "<group>";
+		};
+		F0BE72251F4B7B07003AEBE2 /* Response Serializers */ = {
+			isa = PBXGroup;
+			children = (
+				F0BE72291F4B7E1B003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.h */,
+				F0BE72261F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m */,
+				F0BE722A1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.h */,
+				F0BE722B1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m */,
+			);
+			name = "Response Serializers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1273,11 +1293,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-ios-libTests/Pods-tvheadend-ios-libTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Expecta-iOS/Expecta.framework",
+				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs-iOS/OHHTTPStubs.framework",
+				"${BUILT_PRODUCTS_DIR}/Specta-iOS/Specta.framework",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking-iOS/AFNetworking.framework",
 				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-Public-3.5.3-Release/GoogleCast.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Expecta.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Specta.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleCast.framework",
 			);
@@ -1377,10 +1403,16 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-tvOS-libTests/Pods-tvheadend-tvOS-libTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Expecta-tvOS/Expecta.framework",
+				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs-tvOS/OHHTTPStubs.framework",
+				"${BUILT_PRODUCTS_DIR}/Specta-tvOS/Specta.framework",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking-tvOS/AFNetworking.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Expecta.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Specta.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1454,6 +1486,7 @@
 				AABF3BFE185E6D0500E62240 /* TVHPlayStream.m in Sources */,
 				AABF3BCA185E6CA900E62240 /* TVHTagStore32.m in Sources */,
 				AABF3BE0185E6CD000E62240 /* TVHStatusSubscriptionsStoreAbstract.m in Sources */,
+				F0BE72271F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m in Sources */,
 				AABF3BED185E6CE400E62240 /* TVHAdapter.m in Sources */,
 				AABF3BEC185E6CE400E62240 /* TVHAdaptersStoreA15.m in Sources */,
 				AABF3BCC185E6CA900E62240 /* TVHTagStoreA15.m in Sources */,
@@ -1511,6 +1544,7 @@
 				AABF3BC7185E6CA100E62240 /* TVHChannel.m in Sources */,
 				AA2C7E2D19BCCFCA001EDC67 /* TVHPlayChromeCast.m in Sources */,
 				AABF3BC4185E6CA100E62240 /* TVHChannelStore32.m in Sources */,
+				F0BE722C1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m in Sources */,
 				AABF3BD9185E6CC000E62240 /* TVHDvrStore32.m in Sources */,
 				AA43C9F41A06F26A007597F9 /* TVHEpgStoreA14.m in Sources */,
 				AABF3BC1185E6C6200E62240 /* TVHServerSettings.m in Sources */,
@@ -1551,6 +1585,7 @@
 				F0CDE4AC1BA215D1000A969B /* TVHEpgStoreA15.m in Sources */,
 				F0CDE4AE1BA215E4000A969B /* TVHAutoRecStoreAbstract.m in Sources */,
 				F0CDE4D51BA21620000A969B /* TVHServiceStore34.m in Sources */,
+				F0BE72281F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m in Sources */,
 				F0CDE4A61BA215C6000A969B /* TVHTag.m in Sources */,
 				F0CDE4BD1BA215F3000A969B /* TVHStatusSubscriptionsStore32.m in Sources */,
 				F0CDE4AF1BA215E4000A969B /* TVHAutoRecStore32.m in Sources */,
@@ -1608,6 +1643,7 @@
 				F0CDE4DD1BA2162F000A969B /* TVHTableMgrActions.m in Sources */,
 				F0CDE4CB1BA21610000A969B /* TVHNetworkStore32.m in Sources */,
 				F0CDE4BA1BA215E9000A969B /* TVHConfigNameStore.m in Sources */,
+				F0BE722D1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m in Sources */,
 				F0CDE4D71BA21620000A969B /* TVHService.m in Sources */,
 				F0CDE4BE1BA215F3000A969B /* TVHStatusSubscriptionsStore34.m in Sources */,
 				F0CDE4B01BA215E4000A969B /* TVHAutoRecStore34.m in Sources */,

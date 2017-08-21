@@ -14,7 +14,7 @@
 #import "TVHTestHelper.h"
 #import "TVHTagStore34.h"
 #import "TVHTag.h"
-
+#import "TVHJsonUTF8AutoCharsetResponseSerializer.h"
 
 @interface TVHTagStoreTests : XCTestCase
 
@@ -34,9 +34,12 @@
 
 - (void)testJsonTagsParsing {
     NSData *data = [TVHTestHelper loadFixture:@"Log.tags"];
+    NSError __autoreleasing *error;
+    TVHJsonUTF8AutoCharsetResponseSerializer *serializer = [TVHJsonUTF8AutoCharsetResponseSerializer serializer];
+    
     TVHTagStore34 *store = [[TVHTagStore34 alloc] init];
     XCTAssertNotNil(store, @"creating tvhtag store object");
-    [store fetchedData:data];
+    [store fetchedData:[serializer responseObjectForResponse:nil data:data error:&error]];
     XCTAssertTrue( ([store.tags count] == 13+1), @"tag count does not match");
     
     TVHTag *tag = [store.tags lastObject];

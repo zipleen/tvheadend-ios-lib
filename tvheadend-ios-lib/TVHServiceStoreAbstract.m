@@ -73,13 +73,7 @@
     
 }
 
-- (BOOL)fetchedServiceData:(NSData *)responseData {
-    NSError __autoreleasing *error;
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if (error) {
-        NSLog(@"[TV Service Channel JSON error]: %@", error.localizedDescription);
-        return false;
-    }
+- (BOOL)fetchedServiceData:(NSDictionary *)json {
     
     NSArray *entries = [json objectForKey:@"entries"];
     NSMutableArray *services = [self.services mutableCopy];

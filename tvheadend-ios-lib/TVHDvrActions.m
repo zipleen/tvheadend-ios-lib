@@ -40,20 +40,8 @@
                  ];
     }
     
-    [httpClient postPath:url parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+    [httpClient postPath:url parameters:params success:^(NSURLSessionDataTask *task, NSDictionary *json) {
         
-        NSError __autoreleasing *error;
-        NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseObject error:&error];
-        if (error) {
-#ifdef TESTING
-            NSLog(@"[DVR ACTIONS ERROR processing JSON]: %@", error.localizedDescription);
-#endif
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:TVHDvrActionDidErrorNotification
-                 object:nil];
-            });
-        }
         NSInteger success = 1;
         if (![tvhServer isVersionFour]) {
             success = [[json objectForKey:@"success"] intValue];

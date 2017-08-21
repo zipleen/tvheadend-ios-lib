@@ -10,12 +10,16 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
+#import <Expecta/Expecta.h>
+
 #import <XCTest/XCTest.h>
 #import "TVHTestHelper.h"
 #import "TVHChannel.h"
 #import "TVHEpg.h"
 #import "TVHEpgStore34.h"
 #import "TVHChannelEpg.h"
+#import "TVHServer.h"
+#import "TVHJsonUTF8AutoCharsetResponseSerializer.h"
 
 
 @interface TVHChannelTests : XCTestCase <TVHChannelDelegate>
@@ -74,8 +78,11 @@
 
 - (void)testDuplicateEpgFromFetchMorePrograms {
     NSData *data = [TVHTestHelper loadFixture:@"Log.oneChannelEpg"];
+    NSError __autoreleasing *error;
+    TVHJsonUTF8AutoCharsetResponseSerializer *serializer = [TVHJsonUTF8AutoCharsetResponseSerializer serializer];
+    
     TVHEpgStore34 *store = [[TVHEpgStore34 alloc ] init];
-    [store fetchedData:data];
+    [store fetchedData:[serializer responseObjectForResponse:nil data:data error:&error]];
     
     TVHChannel *channel = [self channel];
     TVHEpg *epg = [self epg];
@@ -126,5 +133,19 @@
 
 }
 
-
+- (void)testHtspUrl {
+    TVHServerSettings *settings = [[TVHServerSettings alloc] initWithSettings:@{
+                                                                               TVHS_HTSP_PORT_KEY: @"1111",
+                                                                               TVHS_IP_KEY: @"something",
+                                                                               TVHS_USERNAME_KEY: @""
+                                                                               }];
+    
+    TVHServer *server = [[TVHServer alloc] initWithSettingsButDontInit:settings];
+    
+    TVHChannel *channel = [[TVHChannel alloc] initWithTvhServer:server];
+    channel.uuid = @"ad3b0c90ee951c38ac6f5f8b6452fb3c";
+    NSLog(@"->%@", channel.htspStreamURL);
+    XCTAssertTrue([channel.htspStreamURL isEqualToString:@"htsp://something:1111/tags/0/269237165.ts"]);
+    expect(channel.htspStreamURL).to.equal(@"htsp://something:1111/tags/0/269237165.ts");
+}
 @end

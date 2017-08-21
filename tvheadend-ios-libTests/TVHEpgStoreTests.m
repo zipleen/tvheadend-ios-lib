@@ -10,10 +10,13 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
+#import <Expecta/Expecta.h>
+#import "OHHTTPStubs/OHHTTPStubs.h"
 #import <XCTest/XCTest.h>
 #import "TVHTestHelper.h"
 #import "TVHEpgStore34.h"
 #import "TVHEpgStoreA15.h"
+#import "TVHJsonUTF8AutoCharsetResponseSerializer.h"
 
 @interface TVHEpgStoreTests : XCTestCase
 
@@ -47,10 +50,20 @@
 
 - (void)testJsonCharacterBug
 {
-    NSData *data = [TVHTestHelper loadFixture:@"Log.287"];
-    TVHEpgStore34 *tvhe = [[TVHEpgStore34 alloc] init];
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return [request.URL.host isEqualToString:@"testServer"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        NSData* stubData = [TVHTestHelper loadFixture:@"Log.287"];;
+        return [OHHTTPStubsResponse responseWithData:stubData statusCode:200 headers:@{@"Content-Type":@"application/json"}];
+    }];
+
+    TVHEpgStore34 *tvhe = [[TVHEpgStore34 alloc] initWithStatsEpgName:@"bla" withTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
     XCTAssertNotNil(tvhe, @"creating tvepg store object");
-    [tvhe fetchedData:data];
+    [tvhe downloadEpgList];
+    
+    expect(tvhe.epgStore).after(5).willNot.beNil();
+    expect(tvhe.epgStore.count).after(5).to.equal(1);
+    
     XCTAssertTrue( ([tvhe.epgStore count] == 1), @"Failed parsing json data");
     
     TVHEpg *epg = [tvhe.epgStore objectAtIndex:0];
@@ -76,6 +89,8 @@
     NSPredicate *logPred = [NSPredicate predicateWithFormat:@"self BEGINSWITH 'Log'"];
     NSArray *logFiles = [dirFiles filteredArrayUsingPredicate:logPred];
     
+    TVHJsonUTF8AutoCharsetResponseSerializer *serializer = [TVHJsonUTF8AutoCharsetResponseSerializer serializer];
+    
     // see if we got any, and if so, test each one
     if ( logFiles ) {
         for ( int index=0; index < logFiles.count; index++ ) {
@@ -83,7 +98,7 @@
             NSLog(@"processing %@", file);
             NSData *data = [TVHTestHelper loadFixture:file];
             XCTAssertNotNil(data, @"error loading json from file");
-            NSDictionary *dict = [TVHJsonClient convertFromJsonToObject:data error:&error];
+            NSDictionary *dict = [serializer responseObjectForResponse:nil data:data error:&error];
             XCTAssertNotNil(dict, @"error processing json");
         }
     }
@@ -93,7 +108,9 @@
 {
     NSData *data = [TVHTestHelper loadFixture:@"Log.287.invalid"];
     NSError __autoreleasing *error;
-    NSDictionary *dict = [TVHJsonClient convertFromJsonToObject:data error:&error];
+    
+    TVHJsonUTF8AutoCharsetResponseSerializer *serializer = [TVHJsonUTF8AutoCharsetResponseSerializer serializer];
+    NSDictionary *dict = [serializer responseObjectForResponse:nil data:data error:&error];
     XCTAssertNotNil(dict, @"error processing json");
 }
 
@@ -101,7 +118,8 @@
 {
     NSData *data = [TVHTestHelper loadFixture:@"Log.epg.utf.invalid"];
     NSError __autoreleasing *error;
-    [TVHJsonClient convertFromJsonToObject:data error:&error];
+    TVHJsonUTF8AutoCharsetResponseSerializer *serializer = [TVHJsonUTF8AutoCharsetResponseSerializer serializer];
+    [serializer responseObjectForResponse:nil data:data error:&error];
     XCTAssertNil(error, @"json has no errors? - was this fixed?");
 }
 

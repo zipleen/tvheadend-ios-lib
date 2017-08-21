@@ -18,6 +18,10 @@
 - (NSString*)apiPath;
 @end
 
+/**
+  The ApiClient is trying to hide the implementation details of AFNetworking. 
+  With this, the Stores can ask for whatever they need and all network code is abstracted from them.
+ */
 @interface TVHApiClient : NSObject
 - (id)initWithClient:(TVHJsonClient*)jsonClient;
 - (void)doApiCall:(id <TVHApiClientDelegate>)object

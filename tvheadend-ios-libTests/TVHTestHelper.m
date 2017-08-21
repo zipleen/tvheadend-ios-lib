@@ -27,7 +27,7 @@
 + (TVHServer*)mockTVHServer:(NSString*)version
 {
     TVHServerSettings *settings = [[TVHServerSettings alloc] initWithSettings:@{TVHS_SERVER_NAME:@"",
-                                                                                TVHS_IP_KEY:@"",
+                                                                                TVHS_IP_KEY:@"testServer",
                                                                                 TVHS_PORT_KEY:@"9981",
                                                                                 TVHS_HTSP_PORT_KEY:@"9982",
                                                                                 TVHS_USERNAME_KEY:@"",
@@ -42,7 +42,7 @@
     settings.autoStartPolling = YES;
     settings.transcodeResolution = @"384";
     settings.customPrefix = @"";
-    TVHServer *server = [[TVHServer alloc] initWithSettings:settings];
+    TVHServer *server = [[TVHServer alloc] initWithSettingsButDontInit:settings];
     return server;
 }
 

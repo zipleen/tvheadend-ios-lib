@@ -29,12 +29,7 @@
     return self;
 }
 
-- (BOOL)fetchedData:(NSData *)responseData {
-    NSError __autoreleasing *error;
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
-        return false;
-    }
+- (BOOL)fetchedData:(NSDictionary *)json {
     
     NSArray *entries = [json objectForKey:@"entries"];
     NSMutableArray *configNames = [[NSMutableArray alloc] init];

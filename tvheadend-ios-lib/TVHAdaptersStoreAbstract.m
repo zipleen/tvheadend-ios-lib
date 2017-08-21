@@ -57,13 +57,7 @@
     }
 }
 
-- (BOOL)fetchedData:(NSData *)responseData {
-    NSError __autoreleasing *error;
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if (error) {
-        [self signalDidErrorAdaptersStore:error];
-        return false;
-    }
+- (BOOL)fetchedData:(NSDictionary *)json {
     
     NSArray *entries = [json objectForKey:@"entries"];
     NSMutableArray *adapters = [[NSMutableArray alloc] initWithCapacity:entries.count];

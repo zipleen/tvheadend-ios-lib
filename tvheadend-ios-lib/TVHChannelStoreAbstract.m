@@ -62,14 +62,8 @@
     self.apiClient = nil;
 }
 
-- (BOOL)fetchedData:(NSData *)responseData {
-    NSError __autoreleasing *error;
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if (error) {
-        [self signalDidErrorLoadingChannelStore:error];
-        return false;
-    }
-    
+- (BOOL)fetchedData:(NSDictionary *)json {
+        
     NSArray *entries = [json objectForKey:@"entries"];
     NSMutableArray *channels = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
