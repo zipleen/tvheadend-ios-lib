@@ -15,6 +15,7 @@
 @interface TVHChannelEpg()
 @property (nonatomic, strong) NSString *date;
 @property (nonatomic, strong) NSMutableArray *channelPrograms;
+@property (nonatomic, strong) dispatch_queue_t channelProgramsQueue;
 @end
 
 @implementation TVHChannelEpg
@@ -24,7 +25,9 @@
     if (!self) return nil;
     
     self.date = startDate;
-    
+    _channelProgramsQueue = dispatch_queue_create("com.zipleen.TvhClient.channelProgramsQueue",
+                                           DISPATCH_QUEUE_CONCURRENT);
+
     return self;
 }
 
@@ -40,17 +43,17 @@
 }
 
 - (void)addEpg:(TVHEpg*)epg {
-    @synchronized (self.channelPrograms) {
+    dispatch_barrier_sync(self.channelProgramsQueue, ^{
         if ( [self.channelPrograms indexOfObject:epg] == NSNotFound ) {
             [self.channelPrograms addObject:epg];
         }
-    }
+    });
 }
 
 - (void)removeEpg:(TVHEpg*)epg {
-    @synchronized (self.channelPrograms) {
+    dispatch_barrier_sync(self.channelProgramsQueue, ^{
         [self.channelPrograms removeObject:epg];
-    }
+    });
 }
 
 @end
