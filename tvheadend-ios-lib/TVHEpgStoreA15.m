@@ -36,14 +36,14 @@
 - (void)setFilterToChannel:(TVHChannel *)filterToChannel {
     if ( ! [filterToChannel.channelIdKey isEqualToString:_filterToChannelName] ) {
         _filterToChannelName = filterToChannel.channelIdKey;
-        self.epgStore = nil;
+        [self clearEpgData];
     }
 }
 
 - (void)setFilterToTag:(TVHTag *)filterToTag {
     if ( ! [filterToTag.idKey isEqualToString:_filterToTagName] ) {
         _filterToTagName = filterToTag.idKey;
-        self.epgStore = nil;
+        [self clearEpgData];
     }
 }
 

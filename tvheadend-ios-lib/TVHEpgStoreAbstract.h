@@ -41,4 +41,5 @@
 - (BOOL)isLastEpgFromThePast;
 - (void)setFilterToChannel:(TVHChannel *)filterToChannel;
 - (void)setFilterToTag:(TVHTag *)filterToTag;
+- (NSInteger)totalEventCount;
 @end

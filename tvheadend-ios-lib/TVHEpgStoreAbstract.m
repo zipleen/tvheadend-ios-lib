@@ -20,6 +20,7 @@
 }
 @property (nonatomic, strong) TVHApiClient *apiClient;
 @property (nonatomic, strong) NSMutableArray *epgStore;
+@property (nonatomic, strong) dispatch_queue_t epgStoreQueue;
 @property (nonatomic, weak) id <TVHEpgStoreDelegate> delegate;
 @property (nonatomic) NSInteger totalEventCount;
 @property (nonatomic, strong) NSMutableDictionary *epgByChannel;
@@ -35,7 +36,7 @@
         [self removeOldProgramsFromStore];
         
         if ( [self isLastEpgFromThePast] || [self.tvhServer.channelStore channelCount] > self.epgStore.count ) {
-            self.epgStore = nil;
+            [self clearEpgData];
             self.totalEventCount = 0;
             [self downloadEpgList];
         }
@@ -44,22 +45,27 @@
 
 - (void)removeOldProgramsFromStore {
     [epgUpdateInProgress lock];
-    BOOL __block didRemove = false;
-    NSMutableArray *myStore = [[NSMutableArray alloc] init];
+    __block BOOL didRemove = false;
+    __block NSMutableArray *myStore = [[NSMutableArray alloc] init];
+    
     if ( self.epgStore ) {
-        for ( TVHEpg *obj in self.epgStore ) {
-            if ( [obj progress] >= 1.0 ) {
-                didRemove = true;
-            } else {
-                [myStore addObject:obj];
+        dispatch_sync(self.epgStoreQueue, ^{
+            for ( TVHEpg *obj in self.epgStore ) {
+                if ( [obj progress] >= 1.0 ) {
+                    didRemove = true;
+                } else {
+                    [myStore addObject:obj];
+                }
             }
-        }
+        });
     }
     if ( didRemove ) {
-        self.epgStore = myStore;
-        for ( TVHEpg *obj in self.epgStore ) {
-            [self addEpgItemToStoreByChannel:obj];
-        }
+        dispatch_barrier_sync(self.epgStoreQueue, ^{
+            self.epgStore = myStore;
+            for ( TVHEpg *obj in self.epgStore ) {
+                [self addEpgItemToStoreByChannel:obj];
+            }
+        });
         [self signalDidLoadEpg];
     }
     
@@ -67,19 +73,30 @@
 }
 
 - (BOOL)isLastEpgFromThePast {
-    TVHEpg *last = [self.epgStore lastObject];
+    __block TVHEpg *last;
+    dispatch_sync(self.epgStoreQueue, ^{
+        last = [self.epgStore lastObject];
+    });
     return ( last && [last.start compare:[NSDate date]] == NSOrderedDescending );
 }
 
-
-- (id)initWithTvhServer:(TVHServer*)tvhServer {
+- (id)init {
     self = [super init];
     if (!self) return nil;
-    self.tvhServer = tvhServer;
-    self.apiClient = [self.tvhServer apiClient];
     
     self.statsEpgName = @"Shared";
     epgUpdateInProgress = [NSLock new];
+    _epgStoreQueue = dispatch_queue_create("com.zipleen.TvhClient.epgStoreQueue",
+                                           DISPATCH_QUEUE_CONCURRENT);
+    
+    return self;
+}
+
+- (id)initWithTvhServer:(TVHServer*)tvhServer {
+    self = [self init];
+    if (!self) return nil;
+    self.tvhServer = tvhServer;
+    self.apiClient = [self.tvhServer apiClient];
     
     return self;
 }
@@ -121,18 +138,20 @@
  * channels for the epgByChannel dictionary 
  **/
 - (NSArray*)channelsOfEpgByChannel {
-    NSMutableArray *channels = [[NSMutableArray alloc] init];
+    __block NSMutableArray *channels = [[NSMutableArray alloc] init];
     
-    // for each epgByChannel first entry, we shall collect the channelId and then get the corresponding object
-    [self.epgByChannel enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull channelIdKey, NSArray*  _Nonnull epgArray, BOOL * _Nonnull stop) {
-        TVHEpg *epg = [epgArray objectAtIndex:0];
-        if (epg != nil) {
-            TVHChannel *channel = epg.channelObject;
-            if (channel != nil) {
-                [channels addObject:channel];
+    dispatch_sync(self.epgStoreQueue, ^{
+        // for each epgByChannel first entry, we shall collect the channelId and then get the corresponding object
+        [self.epgByChannel enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull channelIdKey, NSArray*  _Nonnull epgArray, BOOL * _Nonnull stop) {
+            TVHEpg *epg = [epgArray objectAtIndex:0];
+            if (epg != nil) {
+                TVHChannel *channel = epg.channelObject;
+                if (channel != nil) {
+                    [channels addObject:channel];
+                }
             }
-        }
-    }];
+        }];
+    });
     
     if ( [self.tvhServer.settings sortChannel] == TVHS_SORT_CHANNEL_BY_NAME ) {
         return [channels sortedArrayUsingSelector:@selector(compareByName:)];
@@ -146,18 +165,22 @@
 }
 
 - (BOOL)addEpgItemToStore:(TVHEpg*)epgItem {
-    // don't add duplicate items - need to search in the array!
-    if ( [self.epgStore indexOfObject:epgItem] == NSNotFound ) {
-        [self.epgStore addObject:epgItem];
-        [self addEpgItemToStoreByChannel:epgItem];
-        return YES;
-    }
-#ifdef TESTING
-    else {
-        NSLog(@"[EpgStore-%@: duplicate EPG: %@", self.statsEpgName, [epgItem title] );
-    }
-#endif
-    return NO;
+    __block BOOL answer = NO;
+    dispatch_barrier_sync(self.epgStoreQueue, ^{
+        // don't add duplicate items - need to search in the array!
+        if ( [self.epgStore indexOfObject:epgItem] == NSNotFound ) {
+            [self.epgStore addObject:epgItem];
+            [self addEpgItemToStoreByChannel:epgItem];
+            answer = YES;
+        }
+    #ifdef TESTING
+        else {
+            NSLog(@"[EpgStore-%@: duplicate EPG: %@", self.statsEpgName, [epgItem title] );
+        }
+    #endif
+    });
+    
+    return answer;
 }
 
 - (void)addEpgItemToStoreByChannel:(TVHEpg*)epgItem {
@@ -261,7 +284,7 @@
     [self.apiClient doApiCall:self
                       success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
-        if( ! (strongSelf.filterStart == start && strongSelf.filterLimit == limit) ) {
+        if ( ! (strongSelf.filterStart == start && strongSelf.filterLimit == limit) ) {
 #ifdef TESTING
             NSLog(@"[%@ Wrong EPG received - discarding request.", strongSelf.statsEpgName );
 #endif
@@ -275,10 +298,11 @@
 #ifdef TESTING
         NSLog(@"[%@ Profiling Network]: %f", weakSelf.statsEpgName, time);
 #endif
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             if ( [strongSelf fetchedData:responseObject] ) {
                 // deploy the get more epg to another thread and quit!
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    typeof (self) strongSelf = weakSelf;
                     if ([strongSelf getMoreEpg:start limit:limit fetchAll:fetchAll]) {
                         [strongSelf signalDidLoadEpgButWillLoadMore];
                     } else {
@@ -309,8 +333,12 @@
             return YES;
         }
     } else {
-        TVHEpg *last = [self.epgStore lastObject];
-        if ( last ) {
+        __block TVHEpg *last;
+        dispatch_sync(self.epgStoreQueue, ^{
+            last = [self.epgStore lastObject];
+        });
+        
+        if (last) {
             NSDate *localDate = [NSDate dateWithTimeIntervalSinceNow:SECONDS_TO_FETCH_AHEAD_EPG_ITEMS];
     #ifdef TESTING
             //NSLog(@"localdate: %@ | last start date: %@ ", localDate, last.start);
@@ -350,16 +378,20 @@
 }
 
 - (void)clearEpgData {
-    self.epgStore = nil;
+    dispatch_barrier_sync(self.epgStoreQueue, ^{
+        self.epgStore = nil;
+    });
 }
 
 - (NSArray*)epgStoreItems{
-    NSMutableArray *items = [[NSMutableArray alloc] init];
-    for ( TVHEpg *epg in self.epgStore ) {
-        if ( [epg progress] < 100 ) {
-            [items addObject:epg];
+    __block NSMutableArray *items = [[NSMutableArray alloc] init];
+    dispatch_barrier_sync(self.epgStoreQueue, ^{
+        for ( TVHEpg *epg in self.epgStore ) {
+            if ( [epg progress] < 100 ) {
+                [items addObject:epg];
+            }
         }
-    }
+    });
     return [items copy];
     
     /* @todo: does this do the same thing as the stuff above? create a unit test please
@@ -377,28 +409,28 @@
 - (void)setFilterToProgramTitle:(NSString *)filterToProgramTitle {
     if( ! [filterToProgramTitle isEqualToString:_filterToProgramTitle] ) {
         _filterToProgramTitle = filterToProgramTitle;
-        self.epgStore = nil;
+        [self clearEpgData];
     }
 }
 
 - (void)setFilterToChannel:(TVHChannel *)filterToChannel {
     if ( ! [filterToChannel.name isEqualToString:_filterToChannelName] ) {
         _filterToChannelName = filterToChannel.name;
-        self.epgStore = nil;
+        [self clearEpgData];
     }
 }
 
 - (void)setFilterToTag:(TVHTag *)filterToTag {
     if ( ! [filterToTag.name isEqualToString:_filterToTagName] ) {
         _filterToTagName = filterToTag.name;
-        self.epgStore = nil;
+        [self clearEpgData];
     }
 }
 
 - (void)setFilterToContentTypeId:(NSString *)filterToContentTypeId {
     if ( ! [filterToContentTypeId isEqualToString:_filterToContentTypeId] ) {
         _filterToContentTypeId = filterToContentTypeId;
-        self.epgStore = nil;
+        [self clearEpgData];
     }
 }
 
