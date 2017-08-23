@@ -1,0 +1,6 @@
+language: objective-c
+xcode_workspace: tvheadend-ios-lib.xcworkspace 
+xcode_scheme: 
+  - tvheadend-ios-libTests 
+  - tvheadend-tvOS-libTests
+osx_image: xcode8.3
