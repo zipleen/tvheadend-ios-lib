@@ -1,6 +1,13 @@
 language: objective-c
 xcode_workspace: tvheadend-ios-lib.xcworkspace 
-xcode_scheme: 
-  - tvheadend-ios-libTests 
-  - tvheadend-tvOS-libTests
+xcode_scheme: ['tvheadend-ios-libTests', 'tvheadend-tvOS-libTests']
 osx_image: xcode8.3
+before_install:
+ - pod repo update
+notifications:
+  webhooks:
+    urls:
+       secure: "tq9DxUXHHCotLFoFmVoe+UMlWFiDrRDr9uJwJCpI9cKXuEyIL/JYBX81UplJhaajSGudRstFdxq4wKwuLSrDD/LvIyoIh3mka9ZvIGwqofWlbu5Lq8YeTgR9xi/mp6dvHYW166vv35MngyKRp/nMe82CRFyvRcQ9ne+BgqvSTg6A+Ars2MNThCn/URe/4xYWvJIaCrSm2+zGhfQILhwBZrYYeB21VfIBNKtr8PKKoF12AbXa02t8LbvriA4MnQ7zUYqkOUGmZleRJxJKHVS10ohJfxIsLx+X25Q0R3yId4O+wh8H+obTTLddWmYVBuynCIWUSyWP1/s3ELMD1V9QspLpMsYPXreuaX4vi/6YyqWohTolEWM2Qffo2YxBc8s2Ypkyt3muITPNI4afT7u2yDJmClPgqH+ziaW5/2d96lPeJZZ9JzZBqxTmCsZIvXm58VZW/pvZtfg9chBTV2ap8PicZEWSHn3PlkTa0TDR3JMz96XjCgQTWWlx8FDyUuv3opjMdsVTdH0bxyXuCEDpTCfQJlPnLcN5oAnCWTt/tK4LaSjSnVd68bauSIFDzpgiJNA4WV7GTdl630rJKLH6E9qSrWkEL5p7+BS/KUAhd0zfbSS+YiMI5DTfn1pjEF9oVfIqn5LJlSsdhj9chQZHNXNHFzYVWqUpdj88WHAEo7o="
+    on_success: change  # options: [always|never|change] default: always
+    on_failure: always  # options: [always|never|change] default: always
+    on_start: never     # options: [always|never|change] default: always
