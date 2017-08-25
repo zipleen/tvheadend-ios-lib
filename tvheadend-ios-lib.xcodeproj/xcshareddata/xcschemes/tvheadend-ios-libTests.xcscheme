@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AABF3A5B185E586700E62240"
+               BuildableName = "tvheadend-ios-libTests.xctest"
+               BlueprintName = "tvheadend-ios-libTests"
+               ReferencedContainer = "container:tvheadend-ios-lib.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -52,6 +66,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "AABF3A5B185E586700E62240"
+            BuildableName = "tvheadend-ios-libTests.xctest"
+            BlueprintName = "tvheadend-ios-libTests"
+            ReferencedContainer = "container:tvheadend-ios-lib.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -61,6 +84,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "AABF3A5B185E586700E62240"
+            BuildableName = "tvheadend-ios-libTests.xctest"
+            BlueprintName = "tvheadend-ios-libTests"
+            ReferencedContainer = "container:tvheadend-ios-lib.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

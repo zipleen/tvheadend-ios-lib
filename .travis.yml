@@ -4,6 +4,11 @@ xcode_scheme: ['tvheadend-ios-libTests', 'tvheadend-tvOS-libTests']
 osx_image: xcode8.3
 before_install:
  - pod repo update
+script:
+ - set -o pipefail 
+ - travis_retry xcodebuild -workspace tvheadend-ios-lib.xcworkspace -scheme tvheadend-ios-libTests -sdk iphonesimulator clean build test -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.3.1' | xcpretty -c
+ - travis_retry xcodebuild -workspace tvheadend-ios-lib.xcworkspace -scheme tvheadend-tvOS-libTests -sdk appletvsimulator clean build test -destination 'platform=tvOS Simulator,name=Apple TV 1080p,OS=10.2' | xcpretty -c
+
 notifications:
   webhooks:
     urls:
