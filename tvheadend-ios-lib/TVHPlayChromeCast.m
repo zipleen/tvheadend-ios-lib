@@ -41,7 +41,7 @@ static NSString * kReceiverAppID;
     if (self) {
         kReceiverAppID=kGCKMediaDefaultReceiverApplicationID;
         
-        self.deviceScanner = [[GCKDeviceScanner alloc] init];
+        self.deviceScanner = [[GCKDeviceScanner alloc] initWithFilterCriteria:[GCKFilterCriteria criteriaForAvailableApplicationWithID:kReceiverAppID]];
         
         [self.deviceScanner addListener:self];
         [self.deviceScanner startScan];

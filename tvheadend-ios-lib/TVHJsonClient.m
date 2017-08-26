@@ -54,17 +54,9 @@
 
 #pragma mark - Authentication
 
-- (void)setUsername:(NSString *)username password:(NSString *)password in:(AFJSONRequestSerializer*)requestSerializer {
+- (void)setUsername:(NSString *)username password:(NSString *)password in:(AFHTTPRequestSerializer*)requestSerializer {
     [requestSerializer clearAuthorizationHeader];
     [requestSerializer setAuthorizationHeaderFieldWithUsername:username password:password];
-    /*
-     // for future reference, MD5 DIGEST. tvheadend uses basic
-    NSURLCredential *newCredential;
-    newCredential = [NSURLCredential credentialWithUser:username
-                                               password:password
-                                            persistence:NSURLCredentialPersistenceForSession];
-    [self setDefaultCredential:newCredential];
-     */
 }
 
 #pragma mark - Initialization
@@ -130,7 +122,7 @@
 
 - (void)setupRequestSerializer:(TVHServerSettings *)settings {
     // requests are done as json calls + authentication
-    AFJSONRequestSerializer *jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+    AFHTTPRequestSerializer *jsonRequestSerializer = [AFHTTPRequestSerializer serializer];
     if( [settings.username length] > 0 ) {
         [self setUsername:settings.username password:settings.password in:jsonRequestSerializer];
     }
