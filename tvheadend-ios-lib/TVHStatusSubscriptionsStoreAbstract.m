@@ -67,7 +67,7 @@
     NSMutableArray *subscriptions = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
     for (id obj in entries) {
-        TVHStatusSubscription *subscription = [[TVHStatusSubscription alloc] init];
+        TVHStatusSubscription *subscription = [[TVHStatusSubscription alloc] initWithTvhServer:self.tvhServer];
         [subscription updateValuesFromDictionary:obj];
         
         [subscriptions addObject:subscription];

@@ -10,7 +10,8 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-
+@class TVHServer;
+#import "TVHChannel.h"
 
 @interface TVHStatusSubscription : NSObject
 @property (strong, nonatomic) NSString *channel;
@@ -27,6 +28,8 @@
 @property NSInteger in;
 @property NSInteger out;
 
+- (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)updateValuesFromDictionary:(NSDictionary*) values;
 - (NSInteger)bandwidth;
+- (TVHChannel*)mappedChannel;
 @end
