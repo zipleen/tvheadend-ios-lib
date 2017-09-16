@@ -118,6 +118,7 @@
 		F04245871F498C9600D3CC5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
 		F04245D31F49E14600D3CC5F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */; };
 		F04245D41F49E14D00D3CC5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
+		F050CB6D1F6DD82400011FC7 /* Epg.summary.marcel in Resources */ = {isa = PBXBuildFile; fileRef = F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */; };
 		F095330D1F6AEFBE00FAF3B8 /* Epg.summary.marcel in Resources */ = {isa = PBXBuildFile; fileRef = F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */; };
 		F0AEEC341C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
 		F0AEEC351C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
@@ -1276,6 +1277,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F050CB6D1F6DD82400011FC7 /* Epg.summary.marcel in Resources */,
 				F0CCEF8B1F42315700AAC25B /* Log.287 in Resources */,
 				F0CCEF8F1F42315700AAC25B /* extjs.html in Resources */,
 				F0CCEF891F42315700AAC25B /* Log.epg.utf.invalid in Resources */,
