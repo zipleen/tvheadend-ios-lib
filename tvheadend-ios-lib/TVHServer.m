@@ -124,7 +124,7 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(appWillEnterForeground:)
-                                                     name:UIApplicationWillEnterForegroundNotification
+                                                     name:UIApplicationDidBecomeActiveNotification
                                                    object:nil];
         [self startTimer];
     }

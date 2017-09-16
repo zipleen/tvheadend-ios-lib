@@ -13,10 +13,12 @@
 
 #import "TVHPlayStreamDelegate.h"
 
-#define TVHS_TRANSCODE_RESOLUTIONS @[@"288", @"384", @"480", @"576", @"720"]
-#define TVHS_TRANSCODE_VIDEO_OPTIONS @[@"H264", @"VP8", @"MPEG2VIDEO", @"PASS", @"NONE"]
-#define TVHS_TRANSCODE_SOUND_OPTIONS @[@"AAC", @"MP3", @"MPEG2AUDIO", @"AC3", @"MP4A", @"VORBIS", @"PASS", @"NONE"]
-#define TVHS_TRANSCODE_MUX_OPTIONS @[@"mpegts", @"mp4", @"matroska", @"webm", @"NONE"]
+#define TVHS_VLC_DEBLOCKING @[NSLocalizedString(@"No deblocking (fastest)", @""), NSLocalizedString(@"Low deblocking", @""), NSLocalizedString(@"Medium deblocking", @"")]
+#define TVHS_VLC_DEBLOCKING_VALUES @[kVLCSettingSkipLoopFilterNone, kVLCSettingSkipLoopFilterNonKey, kVLCSettingSkipLoopFilterNonRef]
+#define TVHS_DEINTERLACE_OPTIONS_DESC @[NSLocalizedString(@"Off", @""), NSLocalizedString(@"Blend (ok for HD - default)", @""), NSLocalizedString(@"Bob (ok for HD", @""), NSLocalizedString(@"Linear (Best Performance for HD)", @""), NSLocalizedString(@"X (Slow in HD)", @""), NSLocalizedString(@"Yadif (Slow in HD)", @""), NSLocalizedString(@"IVTC (Slow in HD)", @""), NSLocalizedString(@"Discard (ok for HD)", @""), NSLocalizedString(@"Mean (Good Quality, bad for Sports)", @""), NSLocalizedString(@"Yadif (2x) (Slow in HD)", @""), NSLocalizedString(@"Phosphor(v1.2.0+)", @"")]
+#define TVHS_VLC_HWDECODING @[@"avcodec,all", @""]
+
+#define TVHS_ON_OFF @[NSLocalizedString(@"Off", @""), NSLocalizedString(@"On", @"")]
 
 @class TVHServer;
 
