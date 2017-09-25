@@ -81,18 +81,15 @@
     return nil;
 }
 
-- (NSString*)streamUrlWithTranscoding:(BOOL)transcoding withInternal:(BOOL)internal
-{
-    return [self.tvhServer.playStream streamUrlForObject:self withTranscoding:transcoding withInternal:internal];
+- (NSString*)streamUrlWithInternalPlayer:(BOOL)internal {
+    return [self.tvhServer.playStream streamUrlForObject:self withInternalPlayer:internal];
 }
 
-- (NSString*)imageUrl
-{
+- (NSString*)imageUrl {
     return [self.mappedChannel imageUrl];
 }
 
-- (NSString*)name
-{
+- (NSString*)name {
     if (self.mappedChannel) {
         return [self.mappedChannel name];
     }

@@ -220,23 +220,19 @@
     return nil;
 }
 
-- (NSString*)streamUrlWithTranscoding:(BOOL)transcoding withInternal:(BOOL)internal
-{
-    return [self.tvhServer.playStream streamUrlForObject:self withTranscoding:transcoding withInternal:internal];
+- (NSString*)streamUrlWithInternalPlayer:(BOOL)internal {
+    return [self.tvhServer.playStream streamUrlForObject:self withInternalPlayer:internal];
 }
 
-- (NSString*)name
-{
+- (NSString*)name {
     return self.fullTitle;
 }
 
-- (NSString*)imageUrl
-{
+- (NSString*)imageUrl {
     return [self.channelObject imageUrl];
 }
 
-- (NSDate*)end
-{
+- (NSDate*)end {
     if (_end) {
         return _end;
     }

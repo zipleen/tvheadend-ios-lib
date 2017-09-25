@@ -40,8 +40,6 @@
                                                                                 TVHS_SSH_PF_PASSWORD:@"",
                                                                                 TVHS_SERVER_VERSION:version}];
     settings.autoStartPolling = YES;
-    settings.transcodeResolution = @"384";
-    settings.customPrefix = @"";
     TVHServer *server = [[TVHServer alloc] initWithSettingsButDontInit:settings];
     server.analytics = nil;
     return server;

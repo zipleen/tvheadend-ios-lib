@@ -80,10 +80,10 @@
 
 # pragma mark - xbmc play action
 
-- (BOOL)playStream:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding withAnalytics:(id<TVHModelAnalyticsProtocol>)analytics {
+- (BOOL)playStream:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withAnalytics:(id<TVHModelAnalyticsProtocol>)analytics {
     
     NSString *xbmcServerAddress = [self.foundServices objectForKey:xbmcName];
-    NSString *url = [self validUrlForObject:streamObject withTranscoding:transcoding];
+    NSString *url = [self validUrlForObject:streamObject];
     if ( xbmcServerAddress && url ) {
         NSURL *jsonRpcXbmcUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/jsonrpc", xbmcServerAddress]];
         
@@ -128,11 +128,10 @@
     return [foundServices copy];
 }
 
-- (NSString*)validUrlForObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding {
+- (NSString*)validUrlForObject:(id<TVHPlayStreamDelegate>)streamObject {
     NSString *url;
-    if ( transcoding ) {
-        return [streamObject streamUrlWithTranscoding:transcoding withInternal:NO];
-    }
+    
+    // once upon a time in xbmc < 15 we could use HTSP.. and then they've removed it from the system
     
     //url = [streamObject htspStreamURL];
     //if ( ! url ) {

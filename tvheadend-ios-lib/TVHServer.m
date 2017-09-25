@@ -97,10 +97,7 @@
         }
 #endif
         [self fetchServerVersion];
-        if ( ! [self.version isEqualToString:@"32"] ) {
-            [self fetchCapabilities];
-        }
-        
+
         [self.tagStore fetchTagList];
         [self.channelStore fetchChannelList];
         
@@ -350,8 +347,7 @@
     return self.jsonClient.readyToUse;
 }
 
-- (TVHPlayStream*)playStream
-{
+- (TVHPlayStream*)playStream {
     if ( ! _playStream ) {
         _playStream = [[TVHPlayStream alloc] initWithTvhServer:self];
     }
@@ -401,8 +397,7 @@
     }
 }
 
-- (void)setRealVersion:(NSString *)realVersion
-{
+- (void)setRealVersion:(NSString *)realVersion {
     _realVersion = realVersion;
     [self.analytics setObjectValue:_realVersion forKey:@"realVersion"];
     NSString *versionString = [_realVersion stringByReplacingOccurrencesOfString:@"." withString:@""];
@@ -421,30 +416,6 @@
 
 #pragma mark fetch capabilities
 
-- (void)fetchCapabilities {
-    NSString *path = @"capabilities";
-    if ([self.apiVersion integerValue] > 17) {
-        path = @"api/config/capabilities";
-    }
-    
-    __weak typeof (self) weakSelf = self;
-    [self.apiClient getPath:path parameters:nil success:^(NSURLSessionDataTask *task, NSArray *json) {
-        typeof (self) strongSelf = weakSelf;
-        _capabilities = json;
-#ifdef TESTING
-        NSLog(@"[TVHServer capabilities]: %@", _capabilities);
-#endif
-        [strongSelf.analytics setObjectValue:_capabilities forKey:@"server.capabilities"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadCapabilitiesNotification
-                                                                object:weakSelf];
-        });
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"[TVHServer capabilities]: %@", error.localizedDescription);
-    }];
-
-}
-
 - (void)fetchConfigSettings {
     if (!self.userHasAdminAccess) {
         return;
@@ -458,7 +429,10 @@
         
         [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [obj enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-                [config setValue:obj forKey:key];
+                // ignore satip keys because they might contain uuid which we do not care
+                if (![key containsString:@"satip"]) {
+                    [config setValue:obj forKey:key];
+                }
             }];
         }];
         
@@ -475,20 +449,6 @@
         NSLog(@"[TVHServer fetchConfigSettings]: %@", error.localizedDescription);
     }];
     
-}
-
-- (BOOL)isTranscodingCapable {
-    if ( self.capabilities ) {
-        NSInteger idx = [self.capabilities indexOfObject:@"transcoding"];
-        if ( idx != NSNotFound ) {
-            // check config settings now
-            NSNumber *transcodingEnabled = [self.configSettings objectForKey:@"transcoding_enabled"];
-            if ( [transcodingEnabled integerValue] == 1 ) {
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
 #pragma mark TVH Server Details

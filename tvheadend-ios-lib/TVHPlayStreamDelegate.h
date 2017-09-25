@@ -17,7 +17,7 @@
 - (NSString*)streamURL;
 - (NSString*)playlistStreamURL;
 - (NSString*)htspStreamURL;
-- (NSString*)streamUrlWithTranscoding:(BOOL)transcoding withInternal:(BOOL)internal;
+- (NSString*)streamUrlWithInternalPlayer:(BOOL)internal;
 - (BOOL)isLive;
 
 - (NSString*)imageUrl;
