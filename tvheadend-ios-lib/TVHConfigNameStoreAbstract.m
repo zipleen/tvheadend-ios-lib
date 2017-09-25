@@ -10,15 +10,15 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import "TVHConfigNameStore.h"
+#import "TVHConfigNameStoreAbstract.h"
 #import "TVHServer.h"
 
-@interface TVHConfigNameStore ()
+@interface TVHConfigNameStoreAbstract ()
 @property (nonatomic, weak) TVHApiClient *apiClient;
 @property (nonatomic, strong) NSArray *configNames;
 @end
 
-@implementation TVHConfigNameStore
+@implementation TVHConfigNameStoreAbstract
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer {
     self = [super init];

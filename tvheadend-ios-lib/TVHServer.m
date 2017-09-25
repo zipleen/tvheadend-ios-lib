@@ -19,6 +19,7 @@
 @interface TVHServer()
 @property (nonatomic, strong) TVHJsonClient *jsonClient;
 @property (nonatomic, strong) TVHApiClient *apiClient;
+@property (nonatomic, strong) TVHPlayStream *playStream;
 @property (nonatomic, strong) id <TVHTagStore> tagStore;
 @property (nonatomic, strong) id <TVHChannelStore> channelStore;
 @property (nonatomic, strong) id <TVHDvrStore> dvrStore;
@@ -29,7 +30,7 @@
 @property (nonatomic, strong) id <TVHServiceStore> serviceStore;
 @property (nonatomic, strong) TVHLogStore *logStore;
 @property (nonatomic, strong) id <TVHCometPoll> cometStore;
-@property (nonatomic, strong) TVHConfigNameStore *configNameStore;
+@property (nonatomic, strong) id <TVHConfigNameStore> configNameStore;
 @property (nonatomic, strong) id <TVHStatusInputStore> inputStore;
 @property (nonatomic, strong) id <TVHNetworkStore> networkStore;
 @property (nonatomic, strong) NSString *version;     // version like 32, 34, 40 - legacy only!
@@ -291,9 +292,9 @@
     return _apiClient;
 }
 
-- (TVHConfigNameStore*)configNameStore {
+- (id <TVHConfigNameStore>)configNameStore {
     if( ! _configNameStore ) {
-        _configNameStore = [[TVHConfigNameStore alloc] initWithTvhServer:self];
+        _configNameStore = [self factory:@"TVHConfigNameStore"];
     }
     return _configNameStore;
 }
@@ -427,14 +428,14 @@
         NSArray *entries = [json objectForKey:@"config"];
         NSMutableDictionary *config = [[NSMutableDictionary alloc] init];
         
-        [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        for (NSDictionary* obj in entries) {
             [obj enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
                 // ignore satip keys because they might contain uuid which we do not care
                 if (![key containsString:@"satip"]) {
                     [config setValue:obj forKey:key];
                 }
             }];
-        }];
+        };
         
         strongSelf.configSettings = [config copy];
 #ifdef TESTING

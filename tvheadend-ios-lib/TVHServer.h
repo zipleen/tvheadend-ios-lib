@@ -39,9 +39,9 @@
 
 @interface TVHServer : NSObject
 @property (nonatomic, strong) TVHServerSettings *settings;
-@property (nonatomic, strong) TVHPlayStream *playStream;
 @property (nonatomic, weak) id<TVHModelAnalyticsProtocol> analytics;
 - (TVHApiClient*)apiClient;
+- (TVHPlayStream*)playStream;
 - (id <TVHTagStore>)tagStore;
 - (id <TVHChannelStore>)channelStore;
 - (id <TVHDvrStore>)dvrStore;
@@ -52,7 +52,7 @@
 - (id <TVHServiceStore>)serviceStore;
 - (TVHLogStore*)logStore;
 - (id <TVHCometPoll>)cometStore;
-- (TVHConfigNameStore*)configNameStore;
+- (id <TVHConfigNameStore>)configNameStore;
 - (id <TVHStatusInputStore>)inputStore;
 - (id <TVHNetworkStore>)networkStore;
 - (NSNumber*)apiVersion;
@@ -66,7 +66,6 @@
 - (TVHServer*)initWithSettingsButDontInit:(TVHServerSettings*)settings;
 - (id <TVHEpgStore>)createEpgStoreWithName:(NSString*)statsName;
 - (void)fetchServerVersion;
-- (BOOL)isTranscodingCapable;
 - (void)cancelAllOperations;
 - (NSString*)htspUrl;
 - (NSString*)httpUrl;
