@@ -29,6 +29,7 @@
 #import "TVHJsonClient.h"
 #import "TVHApiClient.h"
 #import "TVHModelAnalyticsProtocol.h"
+#import "TVHStreamProfileStore.h"
 #import "TVHPlayStream.h"
 
 #define TVHDidLoadConfigSettingsNotification @"didLoadTVHConfigSettings"
@@ -55,6 +56,7 @@
 - (id <TVHConfigNameStore>)configNameStore;
 - (id <TVHStatusInputStore>)inputStore;
 - (id <TVHNetworkStore>)networkStore;
+- (id <TVHStreamProfileStore>)streamProfileStore;
 - (NSNumber*)apiVersion;
 - (NSString*)version;
 - (NSString*)realVersion;

@@ -123,6 +123,16 @@
 		F087A2B91F79A2E600EFB087 /* TVHConfigNameStore32.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2B71F79A2E300EFB087 /* TVHConfigNameStore32.m */; };
 		F087A2BC1F79A2F800EFB087 /* TVHConfigNameStore34.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2BB1F79A2F800EFB087 /* TVHConfigNameStore34.m */; };
 		F087A2BF1F79A30900EFB087 /* TVHConfigNameStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2BE1F79A30900EFB087 /* TVHConfigNameStoreA15.m */; };
+		F087A2C41F79B55E00EFB087 /* TVHStreamProfileStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2C31F79B55E00EFB087 /* TVHStreamProfileStore.m */; };
+		F087A2C71F79B56D00EFB087 /* TVHStreamProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2C61F79B56D00EFB087 /* TVHStreamProfile.m */; };
+		F087A2CA1F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2C91F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m */; };
+		F087A2CB1F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2C91F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m */; };
+		F087A2CC1F79B61400EFB087 /* TVHConfigNameStore34.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2BB1F79A2F800EFB087 /* TVHConfigNameStore34.m */; };
+		F087A2CD1F79B61600EFB087 /* TVHConfigNameStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2BE1F79A30900EFB087 /* TVHConfigNameStoreA15.m */; };
+		F087A2CE1F79B62000EFB087 /* TVHStreamProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2C61F79B56D00EFB087 /* TVHStreamProfile.m */; };
+		F087A2CF1F79B62200EFB087 /* TVHStreamProfileStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2C31F79B55E00EFB087 /* TVHStreamProfileStore.m */; };
+		F087A2D31F79B76C00EFB087 /* TVHStreamProfileStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */; };
+		F087A2D41F79B76C00EFB087 /* TVHStreamProfileStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */; };
 		F095330D1F6AEFBE00FAF3B8 /* Epg.summary.marcel in Resources */ = {isa = PBXBuildFile; fileRef = F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */; };
 		F0AEEC341C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
 		F0AEEC351C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
@@ -482,6 +492,14 @@
 		F087A2BB1F79A2F800EFB087 /* TVHConfigNameStore34.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHConfigNameStore34.m; sourceTree = "<group>"; };
 		F087A2BD1F79A30900EFB087 /* TVHConfigNameStoreA15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHConfigNameStoreA15.h; sourceTree = "<group>"; };
 		F087A2BE1F79A30900EFB087 /* TVHConfigNameStoreA15.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHConfigNameStoreA15.m; sourceTree = "<group>"; };
+		F087A2C21F79B55E00EFB087 /* TVHStreamProfileStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStreamProfileStore.h; sourceTree = "<group>"; };
+		F087A2C31F79B55E00EFB087 /* TVHStreamProfileStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHStreamProfileStore.m; sourceTree = "<group>"; };
+		F087A2C51F79B56D00EFB087 /* TVHStreamProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStreamProfile.h; sourceTree = "<group>"; };
+		F087A2C61F79B56D00EFB087 /* TVHStreamProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHStreamProfile.m; sourceTree = "<group>"; };
+		F087A2C81F79B60900EFB087 /* TVHStreamProfileStoreAbstract.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStreamProfileStoreAbstract.h; sourceTree = "<group>"; };
+		F087A2C91F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHStreamProfileStoreAbstract.m; sourceTree = "<group>"; };
+		F087A2D11F79B76C00EFB087 /* TVHStreamProfileStoreA15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStreamProfileStoreA15.h; sourceTree = "<group>"; };
+		F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHStreamProfileStoreA15.m; sourceTree = "<group>"; };
 		F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */ = {isa = PBXFileReference; lastKnownFileType = text; path = Epg.summary.marcel; sourceTree = "<group>"; };
 		F0AEEC321C6D40BD00D7861D /* TVHAutoDiscovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAutoDiscovery.h; sourceTree = "<group>"; };
 		F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoDiscovery.m; sourceTree = "<group>"; };
@@ -1051,6 +1069,7 @@
 		AABF3B2B185E590D00E62240 /* Tvh Server */ = {
 			isa = PBXGroup;
 			children = (
+				F087A2C11F79B53200EFB087 /* Stream Profile */,
 				F03C0D571F4869C500EDFE53 /* Network Client */,
 				AABF3AAA185E590D00E62240 /* Channels */,
 				AABF3ACA185E590D00E62240 /* DVR */,
@@ -1147,6 +1166,29 @@
 				F087A2BE1F79A30900EFB087 /* TVHConfigNameStoreA15.m */,
 			);
 			name = ConfigNameStore;
+			sourceTree = "<group>";
+		};
+		F087A2C11F79B53200EFB087 /* Stream Profile */ = {
+			isa = PBXGroup;
+			children = (
+				F087A2D01F79B62700EFB087 /* StreamProfileStore */,
+				F087A2C21F79B55E00EFB087 /* TVHStreamProfileStore.h */,
+				F087A2C31F79B55E00EFB087 /* TVHStreamProfileStore.m */,
+				F087A2C51F79B56D00EFB087 /* TVHStreamProfile.h */,
+				F087A2C61F79B56D00EFB087 /* TVHStreamProfile.m */,
+			);
+			name = "Stream Profile";
+			sourceTree = "<group>";
+		};
+		F087A2D01F79B62700EFB087 /* StreamProfileStore */ = {
+			isa = PBXGroup;
+			children = (
+				F087A2C81F79B60900EFB087 /* TVHStreamProfileStoreAbstract.h */,
+				F087A2C91F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m */,
+				F087A2D11F79B76C00EFB087 /* TVHStreamProfileStoreA15.h */,
+				F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */,
+			);
+			name = StreamProfileStore;
 			sourceTree = "<group>";
 		};
 		F0BE72251F4B7B07003AEBE2 /* Response Serializers */ = {
@@ -1510,6 +1552,7 @@
 				AABF3BE9185E6CE400E62240 /* TVHAdaptersStoreAbstract.m in Sources */,
 				AA72FD38186847F800EDCE05 /* TVHNetwork.m in Sources */,
 				AABF3BF7185E6CF500E62240 /* TVHService.m in Sources */,
+				F087A2D31F79B76C00EFB087 /* TVHStreamProfileStoreA15.m in Sources */,
 				AABF3BFF185E6D0500E62240 /* TVHPlayXbmc.m in Sources */,
 				AABF3BD0185E6CB100E62240 /* TVHEpgStore34.m in Sources */,
 				AABF3BDD185E6CC000E62240 /* TVHDvrActions.m in Sources */,
@@ -1527,6 +1570,7 @@
 				AABF3BD8185E6CC000E62240 /* TVHDvrStoreAbstract.m in Sources */,
 				AABF3BF2185E6CEC00E62240 /* TVHMux.m in Sources */,
 				AABF3BF8185E6CFD00E62240 /* TVHLogStore.m in Sources */,
+				F087A2C41F79B55E00EFB087 /* TVHStreamProfileStore.m in Sources */,
 				AABF3BEA185E6CE400E62240 /* TVHAdaptersStore32.m in Sources */,
 				AABF3BF9185E6CFD00E62240 /* TVHCometPollAbstract.m in Sources */,
 				AABF3BC6185E6CA100E62240 /* TVHChannelStoreA15.m in Sources */,
@@ -1546,6 +1590,7 @@
 				AABF3C08185E6EB500E62240 /* NSArray+Utils.m in Sources */,
 				AABF3BF0185E6CEC00E62240 /* TVHMuxStore34.m in Sources */,
 				AABF3BDA185E6CC000E62240 /* TVHDvrStore34.m in Sources */,
+				F087A2C71F79B56D00EFB087 /* TVHStreamProfile.m in Sources */,
 				AABF3BC0185E6C6000E62240 /* TVHServer.m in Sources */,
 				AABF3BD6185E6CC000E62240 /* TVHAutoRecStoreA15.m in Sources */,
 				F0AEEC341C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */,
@@ -1559,6 +1604,7 @@
 				AABF3BFD185E6D0500E62240 /* TVHTableMgrActions.m in Sources */,
 				AABF3BE8185E6CE400E62240 /* TVHStatusInput.m in Sources */,
 				AABF3BF1185E6CEC00E62240 /* TVHMuxStoreA15.m in Sources */,
+				F087A2CA1F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m in Sources */,
 				AA72FD3B1868480C00EDCE05 /* TVHNetworkStoreA15.m in Sources */,
 				AABF3BEE185E6CEC00E62240 /* TVHMuxStoreAbstract.m in Sources */,
 				AABF3BC9185E6CA900E62240 /* TVHTagStoreAbstract.m in Sources */,
@@ -1612,6 +1658,7 @@
 				F0CDE4C11BA215FD000A969B /* TVHStatusInputStoreA15.m in Sources */,
 				F0CDE4CD1BA21610000A969B /* TVHNetwork.m in Sources */,
 				F0CDE49F1BA215BC000A969B /* TVHChannelStoreA15.m in Sources */,
+				F087A2D41F79B76C00EFB087 /* TVHStreamProfileStoreA15.m in Sources */,
 				F0CDE4C31BA215FD000A969B /* TVHStatusInputStore34.m in Sources */,
 				F0CDE4D11BA21618000A969B /* TVHMuxStoreA15.m in Sources */,
 				F0CDE4B91BA215E4000A969B /* TVHDvrActions.m in Sources */,
@@ -1643,12 +1690,14 @@
 				F0CDE49A1BA215A9000A969B /* TVHServerSettings.m in Sources */,
 				F0CDE4D21BA21618000A969B /* TVHMux.m in Sources */,
 				F0CDE4CC1BA21610000A969B /* TVHNetworkStore34.m in Sources */,
+				F087A2CF1F79B62200EFB087 /* TVHStreamProfileStore.m in Sources */,
 				F0CDE4A51BA215C6000A969B /* TVHTagStoreA15.m in Sources */,
 				F0CDE4D01BA21618000A969B /* TVHMuxStore34.m in Sources */,
 				F0CDE4DA1BA21629000A969B /* TVHCometPoll32.m in Sources */,
 				F0CDE4E11BA21647000A969B /* NSArray+Utils.m in Sources */,
 				F0CDE4C41BA215FD000A969B /* TVHStatusInput.m in Sources */,
 				F0CDE4A81BA215D1000A969B /* TVHEpgStore32.m in Sources */,
+				F087A2CE1F79B62000EFB087 /* TVHStreamProfile.m in Sources */,
 				F0CDE4D81BA21629000A969B /* TVHLogStore.m in Sources */,
 				F0CDE4B31BA215E4000A969B /* TVHDvrStore32.m in Sources */,
 				F0CDE4A91BA215D1000A969B /* TVHEpgStore34.m in Sources */,
@@ -1656,6 +1705,7 @@
 				F0CDE4991BA215A9000A969B /* TVHServer.m in Sources */,
 				F0CDE4DB1BA21629000A969B /* TVHCometPoll34.m in Sources */,
 				F0CDE4AD1BA215D1000A969B /* TVHEpg.m in Sources */,
+				F087A2CC1F79B61400EFB087 /* TVHConfigNameStore34.m in Sources */,
 				F0CDE4A71BA215D1000A969B /* TVHEpgStoreAbstract.m in Sources */,
 				F0CDE4AA1BA215D1000A969B /* TVHEpgStoreA12.m in Sources */,
 				F0CDE4D61BA21620000A969B /* TVHServiceStoreA15.m in Sources */,
@@ -1667,9 +1717,11 @@
 				F0CDE4C91BA21610000A969B /* TVHAdapter.m in Sources */,
 				F0CDE4A01BA215BC000A969B /* TVHChannel.m in Sources */,
 				F0CDE4A21BA215C6000A969B /* TVHTagStoreAbstract.m in Sources */,
+				F087A2CB1F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m in Sources */,
 				F0CDE4B81BA215E4000A969B /* TVHDvrItem.m in Sources */,
 				F0CDE49E1BA215BC000A969B /* TVHChannelStore34.m in Sources */,
 				F0CDE4E01BA21636000A969B /* TVHPlayChromeCast.m in Sources */,
+				F087A2CD1F79B61600EFB087 /* TVHConfigNameStoreA15.m in Sources */,
 				F0CDE49C1BA215BC000A969B /* TVHChannelStoreAbstract.m in Sources */,
 				F0CDE4A11BA215BC000A969B /* TVHChannelEpg.m in Sources */,
 				F0CDE4C61BA21610000A969B /* TVHAdaptersStore32.m in Sources */,

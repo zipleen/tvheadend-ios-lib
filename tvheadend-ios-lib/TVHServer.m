@@ -33,6 +33,7 @@
 @property (nonatomic, strong) id <TVHConfigNameStore> configNameStore;
 @property (nonatomic, strong) id <TVHStatusInputStore> inputStore;
 @property (nonatomic, strong) id <TVHNetworkStore> networkStore;
+@property (nonatomic, strong) id <TVHStreamProfileStore> streamProfileStore;
 @property (nonatomic, strong) NSString *version;     // version like 32, 34, 40 - legacy only!
 @property (nonatomic, strong) NSString *realVersion; // real version number, unmodified
 @property (nonatomic, strong) NSNumber *apiVersion;  // the new API JSON version
@@ -108,6 +109,7 @@
         [self.inputStore fetchStatusInputs];
         [self.muxStore fetchMuxes];
         [self.serviceStore fetchServices];
+        [self.streamProfileStore fetchStreamProfiles];
         
         [self logStore];
         
@@ -297,6 +299,13 @@
         _configNameStore = [self factory:@"TVHConfigNameStore"];
     }
     return _configNameStore;
+}
+
+- (id <TVHStreamProfileStore>)streamProfileStore {
+    if( ! _streamProfileStore ) {
+        _streamProfileStore = [self factory:@"TVHStreamProfileStore"];
+    }
+    return _streamProfileStore;
 }
 
 - (id <TVHEpgStore>)createEpgStoreWithName:(NSString*)statsName {

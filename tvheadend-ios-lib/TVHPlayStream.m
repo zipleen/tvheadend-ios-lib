@@ -127,12 +127,20 @@
 #endif
 
 - (NSString*)streamUrlForObject:(id<TVHPlayStreamDelegate>)streamObject withInternalPlayer:(BOOL)internal {
+    NSString *streamUrl;
     if ( internal ) {
         // internal iOS player wants a playlist
-        return streamObject.playlistStreamURL;
+        streamUrl = streamObject.playlistStreamURL;
     } else {
-        return streamObject.streamURL;
+        streamUrl = streamObject.streamURL;
     }
+    
+    // add profile!
+    if (self.tvhServer.settings.streamProfile != nil && ![self.tvhServer.settings.streamProfile isEqualToString:@""]) {
+        return [streamUrl stringByAppendingFormat:@"?profile=%@", self.tvhServer.settings.streamProfile];
+    }
+    
+    return streamUrl;
 }
 
 - (NSURL*)URLforProgramWithName:(NSString*)title forURL:(NSString*)streamUrl {

@@ -40,6 +40,7 @@
         _version = [settings objectForKey:TVHS_SERVER_VERSION];
         _apiVersion = [settings objectForKey:TVHS_API_VERSION];
         _adminAccessEnabled = [settings objectForKey:TVHS_ADMIN_ACCESS];
+        _streamProfile = [settings objectForKey:TVHS_STREAM_PROFILE];
         
         if (_adminAccessEnabled == nil) {
             _adminAccessEnabled = @1;
@@ -65,7 +66,8 @@
              TVHS_SSH_PF_PASSWORD:self.sshPortForwardPassword != nil ? self.sshPortForwardPassword : @"",
              TVHS_SERVER_VERSION:self.version != nil ? self.version : @"34",
              TVHS_API_VERSION:self.apiVersion != nil ? self.apiVersion : @0,
-             TVHS_ADMIN_ACCESS:self.adminAccessEnabled != nil ? self.adminAccessEnabled : @1
+             TVHS_ADMIN_ACCESS:self.adminAccessEnabled != nil ? self.adminAccessEnabled : @1,
+             TVHS_STREAM_PROFILE:self.streamProfile != nil ? self.streamProfile : @""
              };
     
 }
