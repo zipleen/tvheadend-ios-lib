@@ -135,7 +135,8 @@
 }
 
 /**
- * channels for the epgByChannel dictionary 
+ * channels for the epgByChannel dictionary
+ * note: swap this with a call that receives the array you want to get the channels from, so the dispatch_sync is not required at all
  **/
 - (NSArray*)channelsOfEpgByChannel {
     __block NSMutableArray *channels = [[NSMutableArray alloc] init];
@@ -189,8 +190,10 @@
     if (channelEpg == nil) {
         channelEpg = [[NSMutableArray alloc] init];
     }
-    [channelEpg addObject:epgItem];
-    [self.epgByChannel setObject:channelEpg forKey:channelIdKey];
+    if ( [channelEpg indexOfObject:epgItem] == NSNotFound ) {
+        [channelEpg addObject:epgItem];
+        [self.epgByChannel setObject:channelEpg forKey:channelIdKey];
+    }
 }
 
 #pragma mark ApiClient Implementation
