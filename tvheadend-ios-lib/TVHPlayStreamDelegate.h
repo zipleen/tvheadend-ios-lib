@@ -10,14 +10,14 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import <Foundation/Foundation.h>
+
 @class TVHEpg;
 
 @protocol TVHPlayStreamDelegate <NSObject>
 - (NSString*)streamURL;
 - (NSString*)playlistStreamURL;
 - (NSString*)htspStreamURL;
-- (NSString*)streamUrlWithTranscoding:(BOOL)transcoding withInternal:(BOOL)internal;
+- (NSString*)streamUrlWithInternalPlayer:(BOOL)internal;
 - (BOOL)isLive;
 
 - (NSString*)imageUrl;

@@ -93,13 +93,7 @@
     return @"totalCount";
 }
 
-- (bool)fetchedData:(NSData *)responseData withType:(NSInteger)type {
-    NSError __autoreleasing *error;
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
-        [self signalDidErrorDvrStore:error];
-        return false;
-    }
+- (bool)fetchedData:(NSDictionary *)json withType:(NSInteger)type {
     
     NSArray *entries = [json objectForKey:self.jsonApiFieldEntries];
     NSNumber *totalCount = [[NSNumber alloc] initWithInt:[[json objectForKey:self.jsonApiFieldTotalCount] intValue]];
@@ -144,7 +138,7 @@
     self.filterLimit = limit;
     
     __weak typeof (self) weakSelf = self;
-    [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient doApiCall:self success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:profilingDate];
         [strongSelf.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
@@ -161,7 +155,7 @@
             }
         });
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [weakSelf signalDidErrorDvrStore:error];
         NSLog(@"[DVR Items HTTPClient Error]: %@", error.localizedDescription);
     }];

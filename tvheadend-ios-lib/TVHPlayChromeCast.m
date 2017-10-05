@@ -22,7 +22,6 @@ static NSString * kReceiverAppID;
 @property(nonatomic, readonly) GCKMediaInformation *mediaInformation;
 
 @property(nonatomic, strong) id<TVHPlayStreamDelegate> streamObject;
-@property BOOL withTranscoding;
 @end
 
 @implementation TVHPlayChromeCast
@@ -41,7 +40,7 @@ static NSString * kReceiverAppID;
     if (self) {
         kReceiverAppID=kGCKMediaDefaultReceiverApplicationID;
         
-        self.deviceScanner = [[GCKDeviceScanner alloc] init];
+        self.deviceScanner = [[GCKDeviceScanner alloc] initWithFilterCriteria:[GCKFilterCriteria criteriaForAvailableApplicationWithID:kReceiverAppID]];
         
         [self.deviceScanner addListener:self];
         [self.deviceScanner startScan];
@@ -52,7 +51,7 @@ static NSString * kReceiverAppID;
 
 # pragma mark - xbmc play action
 
-- (BOOL)playStream:(NSString*)serverName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding withAnalytics:(id<TVHModelAnalyticsProtocol>)analytics {
+- (BOOL)playStream:(NSString*)serverName forObject:(id<TVHPlayStreamDelegate>)streamObject withAnalytics:(id<TVHModelAnalyticsProtocol>)analytics {
     
     GCKDevice *device = [self.foundServices objectForKey:serverName];
     if ( [device isEqual:@NO] ) {
@@ -69,7 +68,6 @@ static NSString * kReceiverAppID;
         [self connectToDevice:device];
         
         self.streamObject = streamObject;
-        self.withTranscoding = transcoding;
         
         return true;
     }
@@ -112,17 +110,8 @@ static NSString * kReceiverAppID;
     return [[self foundServices] allKeys];
 }
 
-- (NSString*)validUrlForObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding {
-    NSString *url;
-    if ( transcoding ) {
-        return [streamObject streamUrlWithTranscoding:transcoding withInternal:NO];
-    }
-    
-    url = [streamObject htspStreamURL];
-    if ( ! url ) {
-        url = [streamObject streamURL];
-    }
-    return url;
+- (NSString*)validUrlForObject:(id<TVHPlayStreamDelegate>)streamObject  {
+    return [streamObject streamUrlWithInternalPlayer:NO];
 }
 
 
@@ -215,7 +204,7 @@ didConnectToCastApplication:(GCKApplicationMetadata *)applicationMetadata
     //define Media information
     GCKMediaInformation *mediaInformation =
     [[GCKMediaInformation alloc] initWithContentID:
-     [self validUrlForObject:self.streamObject withTranscoding:self.withTranscoding]
+     [self validUrlForObject:self.streamObject]
                                         streamType:GCKMediaStreamTypeLive
                                        contentType:@"video/mp4"
                                           metadata:metadata

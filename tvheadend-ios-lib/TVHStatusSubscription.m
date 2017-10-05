@@ -10,9 +10,22 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
+#import "TVHServer.h"
 #import "TVHStatusSubscription.h"
 
+@interface TVHStatusSubscription()
+@property (nonatomic, weak) TVHServer *tvhServer;
+@end
+
 @implementation TVHStatusSubscription
+
+- (id)initWithTvhServer:(TVHServer*)tvhServer {
+    self = [super init];
+    if (!self) return nil;
+    self.tvhServer = tvhServer;
+    
+    return self;
+}
 
 - (void)setStart:(id)startDate {
     if([startDate isKindOfClass:[NSNumber class]]) {
@@ -38,4 +51,7 @@
     return self.bw;
 }
 
+- (TVHChannel*)mappedChannel {
+    return [[self.tvhServer channelStore] channelWithName:self.channel];
+}
 @end

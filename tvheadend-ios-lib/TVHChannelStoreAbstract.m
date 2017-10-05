@@ -25,14 +25,16 @@
 @implementation TVHChannelStoreAbstract
 
 - (id <TVHEpgStore>)currentlyPlayingEpgStore {
-    if( ! _currentlyPlayingEpgStore ){
+    if (!_currentlyPlayingEpgStore){
         _currentlyPlayingEpgStore = [self.tvhServer createEpgStoreWithName:@"CurrentlyPlaying"];
-        [_currentlyPlayingEpgStore setDelegate:self];
-        // we can't have the object register the notification, because every channel has one epgStore - that would make every epgStore object update itself!!
-        [[NSNotificationCenter defaultCenter] addObserver:_currentlyPlayingEpgStore
-                                                 selector:@selector(appWillEnterForeground:)
-                                                     name:UIApplicationWillEnterForegroundNotification
-                                                   object:nil];
+        if (_currentlyPlayingEpgStore) {
+            [_currentlyPlayingEpgStore setDelegate:self];
+            // we can't have the object register the notification, because every channel has one epgStore - that would make every epgStore object update itself!!
+            [[NSNotificationCenter defaultCenter] addObserver:_currentlyPlayingEpgStore
+                                                     selector:@selector(appWillEnterForeground:)
+                                                         name:UIApplicationWillEnterForegroundNotification
+                                                       object:nil];
+        }
     }
     return _currentlyPlayingEpgStore;
 }
@@ -62,14 +64,8 @@
     self.apiClient = nil;
 }
 
-- (BOOL)fetchedData:(NSData *)responseData {
-    NSError __autoreleasing *error;
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if (error) {
-        [self signalDidErrorLoadingChannelStore:error];
-        return false;
-    }
-    
+- (BOOL)fetchedData:(NSDictionary *)json {
+        
     NSArray *entries = [json objectForKey:@"entries"];
     NSMutableArray *channels = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
@@ -122,7 +118,7 @@
     [self signalWillLoadChannels];
     
     __weak typeof (self) weakSelf = self;
-    [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient doApiCall:self success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:profilingDate];
         [strongSelf.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
@@ -159,7 +155,7 @@
         
        // NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
        // NSLog(@"Request Successful, response '%@'", responseStr);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (failureBlock != nil) {
             failureBlock(nil);
         }

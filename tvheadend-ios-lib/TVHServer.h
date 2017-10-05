@@ -10,7 +10,7 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import <Foundation/Foundation.h>
+
 #import "TVHServerSettings.h"
 #import "TVHTagStore.h"
 #import "TVHChannelStore.h"
@@ -29,6 +29,7 @@
 #import "TVHJsonClient.h"
 #import "TVHApiClient.h"
 #import "TVHModelAnalyticsProtocol.h"
+#import "TVHStreamProfileStore.h"
 #import "TVHPlayStream.h"
 
 #define TVHDidLoadConfigSettingsNotification @"didLoadTVHConfigSettings"
@@ -39,10 +40,9 @@
 
 @interface TVHServer : NSObject
 @property (nonatomic, strong) TVHServerSettings *settings;
-@property (nonatomic, strong) TVHPlayStream *playStream;
 @property (nonatomic, weak) id<TVHModelAnalyticsProtocol> analytics;
-- (TVHJsonClient*)jsonClient;
 - (TVHApiClient*)apiClient;
+- (TVHPlayStream*)playStream;
 - (id <TVHTagStore>)tagStore;
 - (id <TVHChannelStore>)channelStore;
 - (id <TVHDvrStore>)dvrStore;
@@ -53,9 +53,10 @@
 - (id <TVHServiceStore>)serviceStore;
 - (TVHLogStore*)logStore;
 - (id <TVHCometPoll>)cometStore;
-- (TVHConfigNameStore*)configNameStore;
+- (id <TVHConfigNameStore>)configNameStore;
 - (id <TVHStatusInputStore>)inputStore;
 - (id <TVHNetworkStore>)networkStore;
+- (id <TVHStreamProfileStore>)streamProfileStore;
 - (NSNumber*)apiVersion;
 - (NSString*)version;
 - (NSString*)realVersion;
@@ -67,7 +68,6 @@
 - (TVHServer*)initWithSettingsButDontInit:(TVHServerSettings*)settings;
 - (id <TVHEpgStore>)createEpgStoreWithName:(NSString*)statsName;
 - (void)fetchServerVersion;
-- (BOOL)isTranscodingCapable;
 - (void)cancelAllOperations;
 - (NSString*)htspUrl;
 - (NSString*)httpUrl;

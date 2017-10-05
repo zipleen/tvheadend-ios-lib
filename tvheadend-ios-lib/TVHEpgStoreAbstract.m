@@ -135,7 +135,8 @@
 }
 
 /**
- * channels for the epgByChannel dictionary 
+ * channels for the epgByChannel dictionary
+ * note: swap this with a call that receives the array you want to get the channels from, so the dispatch_sync is not required at all
  **/
 - (NSArray*)channelsOfEpgByChannel {
     __block NSMutableArray *channels = [[NSMutableArray alloc] init];
@@ -189,8 +190,10 @@
     if (channelEpg == nil) {
         channelEpg = [[NSMutableArray alloc] init];
     }
-    [channelEpg addObject:epgItem];
-    [self.epgByChannel setObject:channelEpg forKey:channelIdKey];
+    if ( [channelEpg indexOfObject:epgItem] == NSNotFound ) {
+        [channelEpg addObject:epgItem];
+        [self.epgByChannel setObject:channelEpg forKey:channelIdKey];
+    }
 }
 
 #pragma mark ApiClient Implementation
@@ -199,15 +202,9 @@
     return @"entries";
 }
 
-- (bool)fetchedData:(NSData *)responseData {
+- (bool)fetchedData:(NSDictionary *)json {
     __block NSUInteger duplicate = 0;
-    NSError __autoreleasing *error;
     NSDate *nowTime = [NSDate dateWithTimeIntervalSinceNow:-600];
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if (error) {
-        [self signalDidErrorLoadingEpgStore:error];
-        return false;
-    }
     
     [epgUpdateInProgress lock];
     
@@ -288,7 +285,7 @@
     __block NSDate *profilingDate = [NSDate date];
     __weak typeof (self) weakSelf = self;
     [self.apiClient doApiCall:self
-                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         if ( ! (strongSelf.filterStart == start && strongSelf.filterLimit == limit) ) {
 #ifdef TESTING
@@ -318,7 +315,7 @@
             }
         });
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"[EpgStore HTTPClient Error]: %@", error.localizedDescription);
         [weakSelf signalDidErrorLoadingEpgStore:error];
     }];

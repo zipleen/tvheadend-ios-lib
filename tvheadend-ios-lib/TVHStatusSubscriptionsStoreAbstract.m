@@ -61,19 +61,13 @@
     }
 }
 
-- (BOOL)fetchedData:(NSData *)responseData {
-    NSError __autoreleasing *error;
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if (error) {
-        [self signalDidErrorStatusSubscriptionsStore:error];
-        return false;
-    }
+- (BOOL)fetchedData:(NSDictionary *)json {
     
     NSArray *entries = [json objectForKey:@"entries"];
     NSMutableArray *subscriptions = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
     for (id obj in entries) {
-        TVHStatusSubscription *subscription = [[TVHStatusSubscription alloc] init];
+        TVHStatusSubscription *subscription = [[TVHStatusSubscription alloc] initWithTvhServer:self.tvhServer];
         [subscription updateValuesFromDictionary:obj];
         
         [subscriptions addObject:subscription];
@@ -114,7 +108,7 @@
     __weak typeof (self) weakSelf = self;
     
     [self signalWillLoadStatusSubscriptions];
-    [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient doApiCall:self success:^(NSURLSessionDataTask *task, id responseObject) {
         
         //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             typeof (self) strongSelf = weakSelf;
@@ -122,7 +116,7 @@
                 [strongSelf signalDidLoadStatusSubscriptions];
             }
         //});
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [weakSelf signalDidErrorStatusSubscriptionsStore:error];
         NSLog(@"[Subscription HTTPClient Error]: %@", error.localizedDescription);
     }];

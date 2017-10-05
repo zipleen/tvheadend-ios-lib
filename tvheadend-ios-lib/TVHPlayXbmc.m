@@ -14,7 +14,7 @@
 
 #import "TVHPlayXbmc.h"
 #include <arpa/inet.h>
-#include "AFHTTPClient.h"
+#import "AFNetworking.h"
 
 #define SERVICE_TYPE @"_xbmc-jsonrpc-h._tcp"
 #define DOMAIN_NAME @"local"
@@ -80,14 +80,16 @@
 
 # pragma mark - xbmc play action
 
-- (BOOL)playStream:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding withAnalytics:(id<TVHModelAnalyticsProtocol>)analytics {
+- (BOOL)playStream:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withAnalytics:(id<TVHModelAnalyticsProtocol>)analytics {
     
     NSString *xbmcServerAddress = [self.foundServices objectForKey:xbmcName];
-    NSString *url = [self validUrlForObject:streamObject withTranscoding:transcoding];
+    NSString *url = [self validUrlForObject:streamObject];
     if ( xbmcServerAddress && url ) {
-        NSURL *playXbmcUrl = [NSURL URLWithString:xbmcServerAddress];
-        AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:playXbmcUrl];
-        [httpClient setParameterEncoding:AFJSONParameterEncoding];
+        NSURL *jsonRpcXbmcUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/jsonrpc", xbmcServerAddress]];
+        
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        
         NSDictionary *httpParams = @{@"jsonrpc": @"2.0",
                                      @"method": @"player.open",
                                      @"params":
@@ -95,22 +97,25 @@
                                                @{@"file": url}
                                            }
                                      };
+        
         __weak typeof (analytics) weakAnalytics = analytics;
-        [httpClient postPath:@"/jsonrpc" parameters:httpParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [manager POST:jsonRpcXbmcUrl.absoluteString parameters:httpParams progress:nil success:^(NSURLSessionTask *task, id responseObject) {
             typeof (weakAnalytics) strongAnalytics = weakAnalytics;
             //NSLog(@"Did something with %@ and %@ : %@", serverUrl, url, [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
             [strongAnalytics sendEventWithCategory:@"playTo"
-                                                       withAction:@"Xbmc"
-                                                        withLabel:@"Success"
-                                                        withValue:[NSNumber numberWithInt:1]];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                        withAction:@"Xbmc"
+                                         withLabel:@"Success"
+                                         withValue:[NSNumber numberWithInt:1]];
+        } failure:^(NSURLSessionTask *operation, NSError *error) {
             //NSLog(@"Failed to do something with %@ and %@", serverUrl, url);
             typeof (weakAnalytics) strongAnalytics = weakAnalytics;
             [strongAnalytics sendEventWithCategory:@"playTo"
-                                                     withAction:@"Xbmc"
-                                                      withLabel:@"Fail"
-                                                      withValue:[NSNumber numberWithInt:1]];
+                                        withAction:@"Xbmc"
+                                         withLabel:@"Fail"
+                                         withValue:[NSNumber numberWithInt:1]];
         }];
+        
         return true;
     }
     return false;
@@ -123,11 +128,10 @@
     return [foundServices copy];
 }
 
-- (NSString*)validUrlForObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding {
+- (NSString*)validUrlForObject:(id<TVHPlayStreamDelegate>)streamObject {
     NSString *url;
-    if ( transcoding ) {
-        return [streamObject streamUrlWithTranscoding:transcoding withInternal:NO];
-    }
+    
+    // once upon a time in xbmc < 15 we could use HTSP.. and then they've removed it from the system
     
     //url = [streamObject htspStreamURL];
     //if ( ! url ) {

@@ -12,27 +12,32 @@
 
 #import "TVHServerSettings.h"
 #import "TVHJsonClient.h"
-#import "AFJSONRequestOperation.h"
+#import "TVHJsonUTF8AutoCharsetResponseSerializer.h"
+#import "TVHJsonUTF8HackResponseSerializer.h"
+
 #ifdef ENABLE_SSH
 #import "SSHWrapper.h"
 #endif
 
 #ifndef DEVICE_IS_TVOS
+/**
+  we do not want to keep saying we're doing network activity in relation to the comet/poll, so we ignore it. 
+ */
 @implementation TVHNetworkActivityIndicatorManager
 
-- (void)networkingOperationDidStart:(NSNotification *)notification {
-    AFURLConnectionOperation *connectionOperation = [notification object];
-    if (connectionOperation.request.URL) {
-        if ( ! [connectionOperation.request.URL.path isEqualToString:@"/comet/poll"] ) {
+- (void)networkRequestDidStart:(NSNotification *)notification {
+    NSURL *url = [AFNetworkRequestFromNotification(notification) URL];
+    if (url) {
+        if ( ! [url.path isEqualToString:@"/comet/poll"] ) {
             [self incrementActivityCount];
         }
     }
 }
 
-- (void)networkingOperationDidFinish:(NSNotification *)notification {
-    AFURLConnectionOperation *connectionOperation = [notification object];
-    if (connectionOperation.request.URL) {
-        if ( ! [connectionOperation.request.URL.path isEqualToString:@"/comet/poll"] ) {
+- (void)networkRequestDidFinish:(NSNotification *)notification {
+    NSURL *url = [AFNetworkRequestFromNotification(notification) URL];
+    if (url) {
+        if ( ! [url.path isEqualToString:@"/comet/poll"] ) {
             [self decrementActivityCount];
         }
     }
@@ -47,19 +52,11 @@
 #endif
 }
 
-#pragma mark - Methods
+#pragma mark - Authentication
 
-- (void)setUsername:(NSString *)username password:(NSString *)password {
-    [self clearAuthorizationHeader];
-    [self setAuthorizationHeaderWithUsername:username password:password];
-    /*
-     // for future reference, MD5 DIGEST. tvheadend uses basic
-    NSURLCredential *newCredential;
-    newCredential = [NSURLCredential credentialWithUser:username
-                                               password:password
-                                            persistence:NSURLCredentialPersistenceForSession];
-    [self setDefaultCredential:newCredential];
-     */
+- (void)setUsername:(NSString *)username password:(NSString *)password in:(AFHTTPRequestSerializer*)requestSerializer {
+    [requestSerializer clearAuthorizationHeader];
+    [requestSerializer setAuthorizationHeaderFieldWithUsername:username password:password];
 }
 
 #pragma mark - Initialization
@@ -72,7 +69,8 @@
 
 - (id)initWithSettings:(TVHServerSettings *)settings {
     NSParameterAssert(settings);
-    
+
+#ifdef ENABLE_SSH
     // setup port forward
     if ( [settings.sshPortForwardHost length] > 0 ) {
         [self setupPortForwardToHost:settings.sshPortForwardHost
@@ -87,251 +85,106 @@
     } else {
         _readyToUse = YES;
     }
+#else
+    _readyToUse = YES;
+#endif
     
     self = [super initWithBaseURL:settings.baseURL];
-    if( !self ) {
+    if (!self) {
         return nil;
     }
     
-    if( [settings.username length] > 0 ) {
-        [self setUsername:settings.username password:settings.password];
-    }
-    
-    [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
-    //[self setDefaultHeader:@"Accept" value:@"application/json"];
-    //[self setParameterEncoding:AFJSONParameterEncoding];
+    [self setupRequestSerializer:settings];
+    [self setupResponseSerializer:settings];
     
 #ifndef DEVICE_IS_TVOS
     [[TVHNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 #endif
     
-    if ( self.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable ) {
-        _readyToUse = NO;
+    if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
+        _readyToUse = YES;
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didChangeNetworkReachability:)
-                                                 name:AFNetworkingReachabilityDidChangeNotification
-                                               object:nil];
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if ( status == AFNetworkReachabilityStatusNotReachable ) {
+            @synchronized(self) {
+                _readyToUse = NO;
+            }
+        } else {
+            @synchronized(self) {
+                _readyToUse = YES;
+            }
+        }
+    }];
     
     return self;
+}
+
+- (void)setupRequestSerializer:(TVHServerSettings *)settings {
+    // requests are done as json calls + authentication
+    AFHTTPRequestSerializer *jsonRequestSerializer = [AFHTTPRequestSerializer serializer];
+    if( [settings.username length] > 0 ) {
+        [self setUsername:settings.username password:settings.password in:jsonRequestSerializer];
+    }
+    self.requestSerializer = jsonRequestSerializer;
+}
+
+- (void)setupResponseSerializer:(TVHServerSettings *)settings {
+    // 1.
+    AFJSONResponseSerializer *jsonSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:0];
+    NSSet *acceptableContentTypes = jsonSerializer.acceptableContentTypes;
+    acceptableContentTypes = [acceptableContentTypes setByAddingObject:@"text/x-json"];
+    jsonSerializer.acceptableContentTypes = acceptableContentTypes;
+    
+    // 2. the auto charset conversion before decoding the json
+    TVHJsonUTF8AutoCharsetResponseSerializer *jsonAutoCharsetSerializer = [TVHJsonUTF8AutoCharsetResponseSerializer serializer];
+    
+    // 3. my very bad json crap trying to hack what the first one could not (right now I think this never gets triggered)
+    TVHJsonUTF8HackResponseSerializer *jsonHackSerializer = [TVHJsonUTF8HackResponseSerializer serializer];
+    
+    self.responseSerializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:@[jsonSerializer, jsonAutoCharsetSerializer, jsonHackSerializer]];
 }
 
 - (void)dealloc {
     [[self operationQueue] cancelAllOperations];
     [self stopPortForward];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)didChangeNetworkReachability:(NSNotification*)note {
-    NSNumber *status = [note.userInfo objectForKey:AFNetworkingReachabilityNotificationStatusItem];
-    
-    if ( [status integerValue] == AFNetworkReachabilityStatusNotReachable ) {
-        @synchronized(self) {
-            _readyToUse = NO;
-        }
-    } else {
-        @synchronized(self) {
-            _readyToUse = YES;
-        }
-    }
 }
 
 #pragma mark AFHTTPClient methods
 
-- (void)getPath:(NSString *)path
+- (NSURLSessionDataTask*)getPath:(NSString *)path
      parameters:(NSDictionary *)parameters
-        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+        success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+        failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
     
     if ( ! [self readyToUse] ) {
         [self dispatchNotReadyError:failure];
-        return;
+        return nil;
     }
-    return [super getPath:path parameters:parameters success:success failure:failure];
+    
+    return [self GET:path parameters:parameters progress:nil success:success failure:failure];
 }
 
 
-- (void)postPath:(NSString *)path
+- (NSURLSessionDataTask*)postPath:(NSString *)path
       parameters:(NSDictionary *)parameters
-         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+         success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+         failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
     
     if ( ! [self readyToUse] ) {
         [self dispatchNotReadyError:failure];
-        return;
+        return nil;
     }
-    return [super postPath:path parameters:parameters success:success failure:failure];
+    return [super POST:path parameters:parameters progress:nil success:success failure:failure];
 }
 
-- (void)dispatchNotReadyError:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
-{
+- (void)dispatchNotReadyError:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
     NSLog(@"TVHJsonClient: not ready or not reachable yet, aborting... ");
     NSDictionary *userInfo = @{ NSLocalizedDescriptionKey:[NSString stringWithFormat:NSLocalizedString(@"Server not reachable or not yet ready to connect.", nil)] };
     NSError *error = [[NSError alloc] initWithDomain:@"Not ready" code:NSURLErrorBadServerResponse userInfo:userInfo];
     dispatch_async(dispatch_get_main_queue(), ^{
         failure(nil, error);
     });
-}
-
-#pragma mark JsonHelper
-
-+ (NSDictionary*)convertFromJsonToObjectFixUtf8:(NSData*)responseData error:(__autoreleasing NSError**)error {
-    
-    NSMutableData *FileData = [NSMutableData dataWithLength:[responseData length]];
-    for (int i = 0; i < [responseData length]; ++i)
-    {
-        char *a = &((char*)[responseData bytes])[i];
-        if ( (int)*a > 0 && (int)*a < 0x20 ) {
-            ((char*)[FileData mutableBytes])[i] = 0x20;
-        } else if ( (int)*a > 0x7F ) {
-            ((char*)[FileData mutableBytes])[i] = 0x20;
-        } else {
-            ((char*)[FileData mutableBytes])[i] = ((char*)[responseData bytes])[i];
-        }
-    }
-    
-    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:FileData //1
-                                                         options:kNilOptions
-                                                           error:error];
-    
-    if( *error ) {
-        NSLog(@"[JSON Error (3nd)] output - %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
-#ifdef TESTING
-        NSLog(@"[JSON Error (3nd)]: %@ ", (*error).description);
-#endif
-        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey:[NSString stringWithFormat:NSLocalizedString(@"Tvheadend returned malformed JSON - check your Tvheadend's Character Set for each mux and choose the correct one!", nil)] };
-        *error = [[NSError alloc] initWithDomain:@"Not ready" code:NSURLErrorBadServerResponse userInfo:userInfo];
-        return nil;
-    }
-    
-    return json;
-}
-
-/**
- this method will try to convert to a string the various different encodings and then strip the control characters.
- thanks to Maury Markowitz @maurymarkowitz for the testing and fixes for this !
- https://github.com/maurymarkowitz/tvheadend-ios-lib/commit/31644825e4e010046dcc34d377748ca3441fe1c5
- */
-+ (NSDictionary*)converyByGuessingCharset:(NSData*)responseData error:(__autoreleasing NSError**)error {
-    NSError __autoreleasing *errorForThisMethod;
-    NSString *convertedString;
-    
-    // try various encodings to see if any of them produce a working string
-    // note that the ordering here is "best guess", there's no real promise it will
-    // do the right thing in a wide variety of cases, but it seems that it will produce
-    // some sort of readable text in most cases.
-    
-    NSUInteger encodings[18] = {
-        NSUTF8StringEncoding,
-        NSISOLatin1StringEncoding,
-        NSASCIIStringEncoding,
-        NSNEXTSTEPStringEncoding,
-        NSJapaneseEUCStringEncoding,
-        NSSymbolStringEncoding,
-        NSNonLossyASCIIStringEncoding,
-        NSShiftJISStringEncoding,
-        NSISOLatin2StringEncoding,
-        NSUnicodeStringEncoding,
-        NSWindowsCP1251StringEncoding,
-        NSWindowsCP1252StringEncoding,
-        NSWindowsCP1253StringEncoding,
-        NSWindowsCP1254StringEncoding,
-        NSWindowsCP1250StringEncoding,
-        NSISO2022JPStringEncoding,
-        NSMacOSRomanStringEncoding
-    };
-    
-    for (int i = 0; i < 20; i++) {
-        convertedString = [[NSString alloc] initWithData:responseData encoding:encodings[i]];
-        if ( convertedString != nil ) {
-            break;
-        }
-    }
-    
-    if ( !convertedString ) {
-        return [self convertFromJsonToObjectFixUtf8:responseData error:error];
-    }
-
-    // now the next problem is that we are also receiving control characters. these are properly
-    // escaped, but the JSON parser won't accept them. So here we'll use an NSScanner to remove them
-    NSCharacterSet *controls = [NSCharacterSet controlCharacterSet];
-    NSString *stripped = [[convertedString componentsSeparatedByCharactersInSet:controls] componentsJoinedByString:@""];
-    
-    // now we try converting the string to data - if we cannot convert back, fallback to the previous method
-    NSData *data = [stripped dataUsingEncoding:NSUTF8StringEncoding];
-    if ( !data ) {
-        return [self convertFromJsonToObjectFixUtf8:responseData error:error];
-    }
-    
-    // and finally, try parsing the data as JSON
-    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
-                                                         options:kNilOptions
-                                                           error:&errorForThisMethod];
-    
-    if( errorForThisMethod ) {
-#ifdef TESTING
-        NSLog(@"[JSON Error (2st)]: %@", errorForThisMethod.description);
-#endif
-        return [self convertFromJsonToObjectFixUtf8:responseData error:error];
-    }
-    
-    return json;
-}
-
-/**
- Convert the json NSData to JSON
- this has some big issues if the charset is incorrect (which seems to be an usual thing amongst tvheadend users)
- if there is an error, we'll try to call `converyByGuessingCharset` and then convertFromJsonToObjectFixUtf8
- 
- @return the converted json data to a NSDictionary
- */
-+ (NSDictionary*)convertFromJsonToObject:(NSData*)responseData error:(__autoreleasing NSError**)error {
-    NSError __autoreleasing *errorForThisMethod;
-    if ( ! responseData ) {
-        NSDictionary *errorDetail = @{NSLocalizedDescriptionKey: @"No data received"};
-        if (error != NULL) {
-            *error = [[NSError alloc] initWithDomain:@"No data received"
-                                                code:-1
-                                            userInfo:errorDetail];
-        }
-        return nil;
-    }
-    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:responseData
-                                                         options:kNilOptions
-                                                           error:&errorForThisMethod];
-    
-    if( errorForThisMethod ) {
-        /*NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-         NSString *documentsDirectory = [paths objectAtIndex:0];
-         NSString *appFile = [documentsDirectory stringByAppendingPathComponent:@"MyFile"];
-         [responseData writeToFile:appFile atomically:YES];
-         NSLog(@"%@",documentsDirectory);
-         */
-#ifdef TESTING
-        NSLog(@"[JSON Error (1st)]: %@", errorForThisMethod.description);
-#endif
-        return [self converyByGuessingCharset:responseData error:error];
-    }
-    
-    return json;
-}
-
-+ (NSArray*)convertFromJsonToArray:(NSData*)responseData error:(__autoreleasing NSError**)error {
-    if ( ! responseData ) {
-        NSDictionary *errorDetail = @{NSLocalizedDescriptionKey: @"No data received"};
-        if (error != NULL) {
-            *error = [[NSError alloc] initWithDomain:@"No data received"
-                                                code:-1
-                                            userInfo:errorDetail];
-        }
-        return nil;
-    }
-    NSArray* json = [NSJSONSerialization JSONObjectWithData:responseData
-                                                         options:kNilOptions
-                                                           error:error];
-    
-    return json;
 }
 
 #pragma mark SSH

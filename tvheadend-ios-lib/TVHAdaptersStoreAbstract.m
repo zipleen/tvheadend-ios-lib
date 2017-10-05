@@ -57,13 +57,7 @@
     }
 }
 
-- (BOOL)fetchedData:(NSData *)responseData {
-    NSError __autoreleasing *error;
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if (error) {
-        [self signalDidErrorAdaptersStore:error];
-        return false;
-    }
+- (BOOL)fetchedData:(NSDictionary *)json {
     
     NSArray *entries = [json objectForKey:@"entries"];
     NSMutableArray *adapters = [[NSMutableArray alloc] initWithCapacity:entries.count];
@@ -109,7 +103,7 @@
     
     __weak typeof (self) weakSelf = self;
     
-    [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient doApiCall:self success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -117,7 +111,7 @@
                 [strongSelf signalDidLoadAdapters];
             }
         });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [weakSelf signalDidErrorAdaptersStore:error];
         NSLog(@"[Adapter Store HTTPClient Error]: %@", error.localizedDescription);
     }];

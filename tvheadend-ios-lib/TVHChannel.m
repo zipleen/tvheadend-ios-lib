@@ -190,9 +190,8 @@
     return YES;
 }
 
-- (NSString*)streamUrlWithTranscoding:(BOOL)transcoding withInternal:(BOOL)internal
-{
-    return [self.tvhServer.playStream streamUrlForObject:self withTranscoding:transcoding withInternal:internal];
+- (NSString*)streamUrlWithInternalPlayer:(BOOL)internal {
+    return [self.tvhServer.playStream streamUrlForObject:self withInternalPlayer:internal];
 }
 
 - (TVHChannelEpg*)getChannelEpgDataByDayString:(NSString*)dateString {

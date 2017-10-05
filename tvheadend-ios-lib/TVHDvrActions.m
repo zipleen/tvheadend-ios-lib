@@ -20,7 +20,7 @@
 @implementation TVHDvrActions
 
 + (void)doDvrAction:(NSString*)action onUrl:(NSString*)url withId:(NSInteger)idint withIdName:(NSString*)idName withConfigName:(NSString*)configName withTvhServer:(TVHServer*)tvhServer {
-    TVHJsonClient *httpClient = [tvhServer jsonClient];
+    TVHApiClient *httpClient = tvhServer.apiClient;
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                    [NSString stringWithFormat:@"%lu", (unsigned long)idint ],
@@ -40,20 +40,8 @@
                  ];
     }
     
-    [httpClient postPath:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [httpClient postPath:url parameters:params success:^(NSURLSessionDataTask *task, NSDictionary *json) {
         
-        NSError __autoreleasing *error;
-        NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseObject error:&error];
-        if (error) {
-#ifdef TESTING
-            NSLog(@"[DVR ACTIONS ERROR processing JSON]: %@", error.localizedDescription);
-#endif
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:TVHDvrActionDidErrorNotification
-                 object:nil];
-            });
-        }
         NSInteger success = 1;
         if (![tvhServer isVersionFour]) {
             success = [[json objectForKey:@"success"] intValue];
@@ -66,7 +54,7 @@
         
         //NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         //NSLog(@"Request Successful, response '%@'", responseStr);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
 #ifdef TESTING
         NSLog(@"[DVR ACTIONS ERROR]: %@", error.localizedDescription);
 #endif
@@ -107,9 +95,9 @@
 
 + (void)doAction:(NSString*)action withData:(NSDictionary*)params withTvhServer:(TVHServer*)tvhServer
 {
-    TVHJsonClient *httpClient = [tvhServer jsonClient];
+    TVHApiClient *httpClient = [tvhServer apiClient];
     
-    [httpClient postPath:action parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [httpClient postPath:action parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter]
@@ -123,7 +111,7 @@
         id <TVHAutoRecStore> autorecstore = [tvhServer autorecStore];
         [autorecstore fetchDvrAutoRec];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
 #ifdef TESTING
         NSLog(@"[DVR ACTIONS ERROR]: %@", error.localizedDescription);
 #endif

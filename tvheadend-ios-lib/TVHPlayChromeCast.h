@@ -8,7 +8,7 @@
 
 #ifdef ENABLE_CHROMECAST
 
-#import <Foundation/Foundation.h>
+
 #import "TVHPlayStreamDelegate.h"
 #import <GoogleCast/GoogleCast.h>
 #import "TVHModelAnalyticsProtocol.h"
@@ -18,7 +18,7 @@
                                         GCKMediaControlChannelDelegate>
 + (TVHPlayChromeCast*)sharedInstance;
 - (NSArray*)availableServers;
-- (BOOL)playStream:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding withAnalytics:(id<TVHModelAnalyticsProtocol>)analytics;
+- (BOOL)playStream:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withAnalytics:(id<TVHModelAnalyticsProtocol>)analytics;
 @end
 
 #endif

@@ -59,7 +59,7 @@
     
     __weak typeof (self) weakSelf = self;
     
-    [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient doApiCall:self success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             if ( [strongSelf fetchedServiceData:responseObject] ) {
@@ -67,19 +67,13 @@
             }
         });
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"[TV Services HTTPClient Error]: %@", error.localizedDescription);
     }];
     
 }
 
-- (BOOL)fetchedServiceData:(NSData *)responseData {
-    NSError __autoreleasing *error;
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if (error) {
-        NSLog(@"[TV Service Channel JSON error]: %@", error.localizedDescription);
-        return false;
-    }
+- (BOOL)fetchedServiceData:(NSDictionary *)json {
     
     NSArray *entries = [json objectForKey:@"entries"];
     NSMutableArray *services = [self.services mutableCopy];

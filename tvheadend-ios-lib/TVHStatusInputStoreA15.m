@@ -57,14 +57,8 @@
     }
 }
 
-- (BOOL)fetchedData:(NSData *)responseData {
-    NSError __autoreleasing *error;
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
-        [self signalDidErrorStatusInputStore:error];
-        return false;
-    }
-    
+- (BOOL)fetchedData:(NSDictionary *)json {
+        
     NSArray *entries = [json objectForKey:@"entries"];
     NSMutableArray *inputs = [[NSMutableArray alloc] initWithCapacity:entries.count];
     
@@ -106,7 +100,7 @@
     __weak typeof (self) weakSelf = self;
     
     [self signalWillLoadStatusInputs];
-    [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient doApiCall:self success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -114,7 +108,7 @@
                 [strongSelf signalDidLoadStatusInputs];
             }
         });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [weakSelf signalDidErrorStatusInputStore:error];
         NSLog(@"[Status Input HTTPClient Error]: %@", error.localizedDescription);
     }];

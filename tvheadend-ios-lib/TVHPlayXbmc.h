@@ -12,14 +12,14 @@
 
 #ifdef ENABLE_XBMC
 
-#import <Foundation/Foundation.h>
+
 #import "TVHPlayStreamDelegate.h"
 #import "TVHModelAnalyticsProtocol.h"
 
 @interface TVHPlayXbmc : NSObject
 + (TVHPlayXbmc*)sharedInstance;
 - (NSArray*)availableServers;
-- (BOOL)playStream:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding withAnalytics:(id<TVHModelAnalyticsProtocol>)analytics;
+- (BOOL)playStream:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withAnalytics:(id<TVHModelAnalyticsProtocol>)analytics;
 @end
 
 #endif

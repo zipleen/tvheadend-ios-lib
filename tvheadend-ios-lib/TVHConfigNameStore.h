@@ -1,22 +1,20 @@
 //
 //  TVHConfigNameStore.h
-//  TvhClient
+//  tvheadend-ios-lib
 //
-//  Created by Luis Fernandes on 7/17/13.
-//  Copyright (c) 2013 Luis Fernandes. 
-//
-//  This Source Code Form is subject to the terms of the Mozilla Public
-//  License, v. 2.0. If a copy of the MPL was not distributed with this
-//  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+//  Created by Luis Fernandes on 25/09/2017.
+//  Copyright © 2017 zipleen. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "TVHConfigName.h"
 #import "TVHApiClient.h"
 
 @class TVHServer;
 
-@interface TVHConfigNameStore : NSObject <TVHApiClientDelegate>
+@protocol TVHConfigNameDelegate <NSObject>
+@optional
+@end
+
+@protocol TVHConfigNameStore <TVHConfigNameDelegate>
 @property (nonatomic, weak) TVHServer *tvhServer;
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;

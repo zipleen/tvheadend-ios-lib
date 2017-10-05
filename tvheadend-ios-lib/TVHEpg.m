@@ -244,7 +244,6 @@
 
 - (void)setSummary:(NSString *)summary {
     _summary = summary;
-    _description = summary;
 }
 
 - (NSInteger)duration

@@ -48,13 +48,7 @@
     }
 }
 
-- (void)fetchedData:(NSData *)responseData {
-    NSError __autoreleasing *error;
-    NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseData error:&error];
-    if( error ) {
-        [self signalDidErrorDvrAutoStore:error];
-        return ;
-    }
+- (void)fetchedData:(NSDictionary *)json {
     
     NSArray *entries = [json objectForKey:@"entries"];
     NSMutableArray *dvrAutoRecItems = [[NSMutableArray alloc] initWithCapacity:entries.count];
@@ -93,7 +87,7 @@
     __block NSDate *profilingDate = [NSDate date];
     
     __weak typeof (self) weakSelf = self;
-    [self.apiClient doApiCall:self success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient doApiCall:self success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:profilingDate];
         [strongSelf.tvhServer.analytics sendTimingWithCategory:@"Network Profiling"
@@ -106,7 +100,7 @@
         [strongSelf fetchedData:responseObject];
         [strongSelf signalDidLoadDvrAutoRec];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [weakSelf signalDidErrorDvrAutoStore:error];
         NSLog(@"[DVR AutoRec Items HTTPClient Error]: %@", error.localizedDescription);
     }];

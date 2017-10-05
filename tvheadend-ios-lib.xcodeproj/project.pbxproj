@@ -7,10 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA01DE221A18435D00F7B3D2 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA01DE1F1A18435D00F7B3D2 /* libcrypto.a */; };
-		AA01DE231A18435D00F7B3D2 /* libssh2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA01DE201A18435D00F7B3D2 /* libssh2.a */; };
-		AA01DE241A18435D00F7B3D2 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA01DE211A18435D00F7B3D2 /* libssl.a */; };
-		AA2C7E2919BCCE2F001EDC67 /* GoogleCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */; };
+		4639E4A0F030AFC02FF69E03 /* Pods_tvheadend_tvOS_lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A12111CF5CD72235BB71C3 /* Pods_tvheadend_tvOS_lib.framework */; };
 		AA2C7E2D19BCCFCA001EDC67 /* TVHPlayChromeCast.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2C7E2C19BCCFCA001EDC67 /* TVHPlayChromeCast.m */; };
 		AA2C7E3319BCDAA1001EDC67 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		AA2C7E3519BCDAB3001EDC67 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -24,28 +21,17 @@
 		AA72FD411868483900EDCE05 /* TVHNetworkStore34.m in Sources */ = {isa = PBXBuildFile; fileRef = AA72FD401868483900EDCE05 /* TVHNetworkStore34.m */; };
 		AAA89DE0186123B600AE4C13 /* TVHServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6E185E603300E62240 /* TVHServerTests.m */; };
 		AAA89DE1186123FC00AE4C13 /* TVHTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6C185E603300E62240 /* TVHTestHelper.m */; };
-		AAA89DE31861244C00AE4C13 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA89DE21861244C00AE4C13 /* libz.dylib */; };
 		AAA89DE51861245200AE4C13 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA89DE41861245200AE4C13 /* MobileCoreServices.framework */; };
 		AAA89DE61861245800AE4C13 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */; };
 		AAA89DE81861254C00AE4C13 /* TVHTagStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B66185E603300E62240 /* TVHTagStoreTests.m */; };
 		AAA89DE91861255000AE4C13 /* TVHChannelStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B68185E603300E62240 /* TVHChannelStoreTests.m */; };
 		AAA89DEA1861255300AE4C13 /* TVHChannelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6A185E603300E62240 /* TVHChannelTests.m */; };
 		AAA89DEC186125AA00AE4C13 /* TVHEpgStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B64185E603300E62240 /* TVHEpgStoreTests.m */; };
-		AABF3A50185E586700E62240 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
 		AABF3A5E185E586700E62240 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A5D185E586700E62240 /* XCTest.framework */; };
 		AABF3A5F185E586700E62240 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
 		AABF3A61185E586700E62240 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A60185E586700E62240 /* UIKit.framework */; };
 		AABF3A64185E586700E62240 /* libtvheadend-ios-lib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4C185E586700E62240 /* libtvheadend-ios-lib.a */; };
 		AABF3A6A185E586700E62240 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AABF3A68185E586700E62240 /* InfoPlist.strings */; };
-		AABF3B38185E5ECD00E62240 /* AFHTTPClient+ProxyQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B37185E5ECD00E62240 /* AFHTTPClient+ProxyQueue.m */; };
-		AABF3B4F185E5F2000E62240 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B3F185E5F2000E62240 /* AFHTTPClient.m */; };
-		AABF3B50185E5F2000E62240 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B41185E5F2000E62240 /* AFHTTPRequestOperation.m */; };
-		AABF3B51185E5F2000E62240 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B43185E5F2000E62240 /* AFImageRequestOperation.m */; };
-		AABF3B52185E5F2000E62240 /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B45185E5F2000E62240 /* AFJSONRequestOperation.m */; };
-		AABF3B53185E5F2000E62240 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B47185E5F2000E62240 /* AFNetworkActivityIndicatorManager.m */; };
-		AABF3B54185E5F2000E62240 /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B4A185E5F2000E62240 /* AFPropertyListRequestOperation.m */; };
-		AABF3B55185E5F2000E62240 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B4C185E5F2000E62240 /* AFURLConnectionOperation.m */; };
-		AABF3B56185E5F2000E62240 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B4E185E5F2000E62240 /* AFXMLRequestOperation.m */; };
 		AABF3B58185E5F6600E62240 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B57185E5F6600E62240 /* CFNetwork.framework */; };
 		AABF3B5A185E5F7200E62240 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */; };
 		AABF3B6F185E603300E62240 /* Log.287 in Resources */ = {isa = PBXBuildFile; fileRef = AABF3B5B185E603300E62240 /* Log.287 */; };
@@ -58,7 +44,6 @@
 		AABF3BBF185E6C5E00E62240 /* TVHApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B26185E590D00E62240 /* TVHApiClient.m */; };
 		AABF3BC0185E6C6000E62240 /* TVHServer.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B28185E590D00E62240 /* TVHServer.m */; };
 		AABF3BC1185E6C6200E62240 /* TVHServerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B2A185E590D00E62240 /* TVHServerSettings.m */; };
-		AABF3BC2185E6C7D00E62240 /* SSHWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A7F185E590D00E62240 /* SSHWrapper.m */; };
 		AABF3BC3185E6C9400E62240 /* TVHChannelStoreAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A83185E590D00E62240 /* TVHChannelStoreAbstract.m */; };
 		AABF3BC4185E6CA100E62240 /* TVHChannelStore32.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A85185E590D00E62240 /* TVHChannelStore32.m */; };
 		AABF3BC5185E6CA100E62240 /* TVHChannelStore34.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A87185E590D00E62240 /* TVHChannelStore34.m */; };
@@ -86,7 +71,7 @@
 		AABF3BDB185E6CC000E62240 /* TVHDvrStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3ABF185E590D00E62240 /* TVHDvrStoreA15.m */; };
 		AABF3BDC185E6CC000E62240 /* TVHDvrItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AC2185E590D00E62240 /* TVHDvrItem.m */; };
 		AABF3BDD185E6CC000E62240 /* TVHDvrActions.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AC4185E590D00E62240 /* TVHDvrActions.m */; };
-		AABF3BDE185E6CC500E62240 /* TVHConfigNameStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AC6185E590D00E62240 /* TVHConfigNameStore.m */; };
+		AABF3BDE185E6CC500E62240 /* TVHConfigNameStoreAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AC6185E590D00E62240 /* TVHConfigNameStoreAbstract.m */; };
 		AABF3BDF185E6CC500E62240 /* TVHConfigName.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AC8185E590D00E62240 /* TVHConfigName.m */; };
 		AABF3BE0185E6CD000E62240 /* TVHStatusSubscriptionsStoreAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3ACD185E590D00E62240 /* TVHStatusSubscriptionsStoreAbstract.m */; };
 		AABF3BE1185E6CD000E62240 /* TVHStatusSubscriptionsStore32.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3ACF185E590D00E62240 /* TVHStatusSubscriptionsStore32.m */; };
@@ -121,17 +106,40 @@
 		AABF3BFE185E6D0500E62240 /* TVHPlayStream.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B1F185E590D00E62240 /* TVHPlayStream.m */; };
 		AABF3BFF185E6D0500E62240 /* TVHPlayXbmc.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B21185E590D00E62240 /* TVHPlayXbmc.m */; };
 		AABF3C08185E6EB500E62240 /* NSArray+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3C07185E6EB500E62240 /* NSArray+Utils.m */; };
-		AAC634691A1573510005EA99 /* GoogleCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */; };
 		AAC6346C1A15741C0005EA99 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; };
 		AAC6346D1A1574240005EA99 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; };
 		AAC6346F1A1579430005EA99 /* Log.epg.utf.invalid in Resources */ = {isa = PBXBuildFile; fileRef = AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */; };
+		DF3629AB6F4FBE290440BA99 /* Pods_tvheadend_tvOS_libTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59396B1A8019B50A9F2F2E82 /* Pods_tvheadend_tvOS_libTests.framework */; };
+		E64FDF2C57F765B01E8E1B32 /* Pods_tvheadend_ios_libTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C03C2C6E2FF07EBAFCEA9331 /* Pods_tvheadend_ios_libTests.framework */; };
 		F00817941C5BEECA0008C3EF /* NSDateFormatter+TVH.m in Sources */ = {isa = PBXBuildFile; fileRef = F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */; };
 		F00817951C5BF5380008C3EF /* NSDateFormatter+TVH.m in Sources */ = {isa = PBXBuildFile; fileRef = F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */; };
-		F04E38B61DEF8D0100AE25E6 /* NSDateFormatter+TVH.m in Sources */ = {isa = PBXBuildFile; fileRef = F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */; };
-		F04E38B71DEF8D0700AE25E6 /* NSArray+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3C07185E6EB500E62240 /* NSArray+Utils.m */; };
-		F0A14A9C1C8DF88D00336A24 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */; };
+		F009F12C1F49FF0C002726F2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA89DE41861245200AE4C13 /* MobileCoreServices.framework */; };
+		F009F12D1F49FF17002726F2 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B57185E5F6600E62240 /* CFNetwork.framework */; };
+		F04245871F498C9600D3CC5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
+		F04245D31F49E14600D3CC5F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */; };
+		F04245D41F49E14D00D3CC5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
+		F050CB6D1F6DD82400011FC7 /* Epg.summary.marcel in Resources */ = {isa = PBXBuildFile; fileRef = F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */; };
+		F087A2B81F79A2E300EFB087 /* TVHConfigNameStore32.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2B71F79A2E300EFB087 /* TVHConfigNameStore32.m */; };
+		F087A2B91F79A2E600EFB087 /* TVHConfigNameStore32.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2B71F79A2E300EFB087 /* TVHConfigNameStore32.m */; };
+		F087A2BC1F79A2F800EFB087 /* TVHConfigNameStore34.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2BB1F79A2F800EFB087 /* TVHConfigNameStore34.m */; };
+		F087A2BF1F79A30900EFB087 /* TVHConfigNameStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2BE1F79A30900EFB087 /* TVHConfigNameStoreA15.m */; };
+		F087A2C41F79B55E00EFB087 /* TVHStreamProfileStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2C31F79B55E00EFB087 /* TVHStreamProfileStore.m */; };
+		F087A2C71F79B56D00EFB087 /* TVHStreamProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2C61F79B56D00EFB087 /* TVHStreamProfile.m */; };
+		F087A2CA1F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2C91F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m */; };
+		F087A2CB1F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2C91F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m */; };
+		F087A2CC1F79B61400EFB087 /* TVHConfigNameStore34.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2BB1F79A2F800EFB087 /* TVHConfigNameStore34.m */; };
+		F087A2CD1F79B61600EFB087 /* TVHConfigNameStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2BE1F79A30900EFB087 /* TVHConfigNameStoreA15.m */; };
+		F087A2CE1F79B62000EFB087 /* TVHStreamProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2C61F79B56D00EFB087 /* TVHStreamProfile.m */; };
+		F087A2CF1F79B62200EFB087 /* TVHStreamProfileStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2C31F79B55E00EFB087 /* TVHStreamProfileStore.m */; };
+		F087A2D31F79B76C00EFB087 /* TVHStreamProfileStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */; };
+		F087A2D41F79B76C00EFB087 /* TVHStreamProfileStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */; };
+		F095330D1F6AEFBE00FAF3B8 /* Epg.summary.marcel in Resources */ = {isa = PBXBuildFile; fileRef = F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */; };
 		F0AEEC341C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
 		F0AEEC351C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
+		F0BE72271F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BE72261F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m */; };
+		F0BE72281F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BE72261F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m */; };
+		F0BE722C1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BE722B1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m */; };
+		F0BE722D1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BE722B1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m */; };
 		F0CCEF851F421F5200AAC25B /* Log.services.mine in Resources */ = {isa = PBXBuildFile; fileRef = F0CCEF841F421F5200AAC25B /* Log.services.mine */; };
 		F0CCEF871F42214100AAC25B /* TVHServiceStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0CCEF861F42214100AAC25B /* TVHServiceStoreTests.m */; };
 		F0CCEF881F422DBB00AAC25B /* TVHServiceStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0CCEF861F42214100AAC25B /* TVHServiceStoreTests.m */; };
@@ -145,13 +153,9 @@
 		F0CCEF901F42315700AAC25B /* Log.services.mine in Resources */ = {isa = PBXBuildFile; fileRef = F0CCEF841F421F5200AAC25B /* Log.services.mine */; };
 		F0CDE47F1BA214C3000A969B /* libtvheadend-tvOS-lib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0CDE46D1BA214A2000A969B /* libtvheadend-tvOS-lib.a */; };
 		F0CDE4891BA21539000A969B /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; };
-		F0CDE48A1BA2153D000A969B /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F0CDE48B1BA2153D000A969B /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; };
 		F0CDE48E1BA21556000A969B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA89DE41861245200AE4C13 /* MobileCoreServices.framework */; };
-		F0CDE48F1BA21568000A969B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA89DE21861244C00AE4C13 /* libz.dylib */; };
 		F0CDE4911BA2156D000A969B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */; };
-		F0CDE4921BA21570000A969B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B57185E5F6600E62240 /* CFNetwork.framework */; };
-		F0CDE4931BA21573000A969B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
 		F0CDE4941BA21574000A969B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
 		F0CDE4951BA21577000A969B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A5D185E586700E62240 /* XCTest.framework */; };
 		F0CDE4961BA21579000A969B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A60185E586700E62240 /* UIKit.framework */; };
@@ -159,7 +163,6 @@
 		F0CDE4981BA215A9000A969B /* TVHApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B26185E590D00E62240 /* TVHApiClient.m */; };
 		F0CDE4991BA215A9000A969B /* TVHServer.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B28185E590D00E62240 /* TVHServer.m */; };
 		F0CDE49A1BA215A9000A969B /* TVHServerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B2A185E590D00E62240 /* TVHServerSettings.m */; };
-		F0CDE49B1BA215AF000A969B /* SSHWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A7F185E590D00E62240 /* SSHWrapper.m */; };
 		F0CDE49C1BA215BC000A969B /* TVHChannelStoreAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A83185E590D00E62240 /* TVHChannelStoreAbstract.m */; };
 		F0CDE49D1BA215BC000A969B /* TVHChannelStore32.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A85185E590D00E62240 /* TVHChannelStore32.m */; };
 		F0CDE49E1BA215BC000A969B /* TVHChannelStore34.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3A87185E590D00E62240 /* TVHChannelStore34.m */; };
@@ -190,7 +193,7 @@
 		F0CDE4B71BA215E4000A969B /* TVHAutoRecItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AB5185E590D00E62240 /* TVHAutoRecItem.m */; };
 		F0CDE4B81BA215E4000A969B /* TVHDvrItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AC2185E590D00E62240 /* TVHDvrItem.m */; };
 		F0CDE4B91BA215E4000A969B /* TVHDvrActions.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AC4185E590D00E62240 /* TVHDvrActions.m */; };
-		F0CDE4BA1BA215E9000A969B /* TVHConfigNameStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AC6185E590D00E62240 /* TVHConfigNameStore.m */; };
+		F0CDE4BA1BA215E9000A969B /* TVHConfigNameStoreAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AC6185E590D00E62240 /* TVHConfigNameStoreAbstract.m */; };
 		F0CDE4BB1BA215E9000A969B /* TVHConfigName.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3AC8185E590D00E62240 /* TVHConfigName.m */; };
 		F0CDE4BC1BA215F3000A969B /* TVHStatusSubscriptionsStoreAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3ACD185E590D00E62240 /* TVHStatusSubscriptionsStoreAbstract.m */; };
 		F0CDE4BD1BA215F3000A969B /* TVHStatusSubscriptionsStore32.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3ACF185E590D00E62240 /* TVHStatusSubscriptionsStore32.m */; };
@@ -230,20 +233,13 @@
 		F0CDE4DF1BA21636000A969B /* TVHPlayXbmc.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B21185E590D00E62240 /* TVHPlayXbmc.m */; };
 		F0CDE4E01BA21636000A969B /* TVHPlayChromeCast.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2C7E2C19BCCFCA001EDC67 /* TVHPlayChromeCast.m */; };
 		F0CDE4E11BA21647000A969B /* NSArray+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3C07185E6EB500E62240 /* NSArray+Utils.m */; };
-		F0CDE4E21BA21657000A969B /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B3F185E5F2000E62240 /* AFHTTPClient.m */; };
-		F0CDE4E31BA21657000A969B /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B41185E5F2000E62240 /* AFHTTPRequestOperation.m */; };
-		F0CDE4E41BA21657000A969B /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B43185E5F2000E62240 /* AFImageRequestOperation.m */; };
-		F0CDE4E51BA21657000A969B /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B45185E5F2000E62240 /* AFJSONRequestOperation.m */; };
-		F0CDE4E71BA21657000A969B /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B4A185E5F2000E62240 /* AFPropertyListRequestOperation.m */; };
-		F0CDE4E81BA21657000A969B /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B4C185E5F2000E62240 /* AFURLConnectionOperation.m */; };
-		F0CDE4E91BA21657000A969B /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B4E185E5F2000E62240 /* AFXMLRequestOperation.m */; };
-		F0CDE4EA1BA2165B000A969B /* AFHTTPClient+ProxyQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B37185E5ECD00E62240 /* AFHTTPClient+ProxyQueue.m */; };
 		F0CDE4EB1BA216C9000A969B /* TVHEpgStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B64185E603300E62240 /* TVHEpgStoreTests.m */; };
 		F0CDE4EC1BA216C9000A969B /* TVHTagStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B66185E603300E62240 /* TVHTagStoreTests.m */; };
 		F0CDE4ED1BA216C9000A969B /* TVHChannelStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B68185E603300E62240 /* TVHChannelStoreTests.m */; };
 		F0CDE4EE1BA216C9000A969B /* TVHChannelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6A185E603300E62240 /* TVHChannelTests.m */; };
 		F0CDE4EF1BA216C9000A969B /* TVHTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6C185E603300E62240 /* TVHTestHelper.m */; };
 		F0CDE4F01BA216C9000A969B /* TVHServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6E185E603300E62240 /* TVHServerTests.m */; };
+		F7306CE0903448DC6D993099 /* Pods_tvheadend_ios_lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 069D88128E1EAEA4D7D7418D /* Pods_tvheadend_ios_lib.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -273,21 +269,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F0CDE46B1BA214A2000A969B /* CopyFiles */ = {
+		F0CDE46B1BA214A2000A969B /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AA01DE1F1A18435D00F7B3D2 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "vendor/libssh2-compiled/libcrypto.a"; sourceTree = "<group>"; };
-		AA01DE201A18435D00F7B3D2 /* libssh2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssh2.a; path = "vendor/libssh2-compiled/libssh2.a"; sourceTree = "<group>"; };
-		AA01DE211A18435D00F7B3D2 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "vendor/libssh2-compiled/libssl.a"; sourceTree = "<group>"; };
+		069D88128E1EAEA4D7D7418D /* Pods_tvheadend_ios_lib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tvheadend_ios_lib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		36532E36A573397F744BDD8B /* Pods-tvheadend-ios-libTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-ios-libTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-ios-libTests/Pods-tvheadend-ios-libTests.release.xcconfig"; sourceTree = "<group>"; };
+		4F3D67C560EF9C47B4FA70F4 /* Pods-tvheadend-ios-lib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-ios-lib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-ios-lib/Pods-tvheadend-ios-lib.debug.xcconfig"; sourceTree = "<group>"; };
+		564A591F3878675A6E59B010 /* Pods-tvheadend-tvOS-lib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-tvOS-lib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-tvOS-lib/Pods-tvheadend-tvOS-lib.debug.xcconfig"; sourceTree = "<group>"; };
+		58F57133ACC530ED344670AC /* Pods-tvheadend-tvOS-libTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-tvOS-libTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-tvOS-libTests/Pods-tvheadend-tvOS-libTests.release.xcconfig"; sourceTree = "<group>"; };
+		59396B1A8019B50A9F2F2E82 /* Pods_tvheadend_tvOS_libTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tvheadend_tvOS_libTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6539CB15C208A70A82A5D139 /* Pods-tvheadend-ios-lib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-ios-lib.release.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-ios-lib/Pods-tvheadend-ios-lib.release.xcconfig"; sourceTree = "<group>"; };
+		6B28440BE21FDEEF0589526A /* Pods-tvheadend-tvOS-lib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-tvOS-lib.release.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-tvOS-lib/Pods-tvheadend-tvOS-lib.release.xcconfig"; sourceTree = "<group>"; };
+		74A12111CF5CD72235BB71C3 /* Pods_tvheadend_tvOS_lib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tvheadend_tvOS_lib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		814501041CDD2186F91C67CB /* Pods-tvheadend-ios-libTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-ios-libTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-ios-libTests/Pods-tvheadend-ios-libTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleCast.framework; path = vendor/GoogleCast.framework; sourceTree = "<group>"; };
 		AA2C7E2B19BCCFCA001EDC67 /* TVHPlayChromeCast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHPlayChromeCast.h; sourceTree = "<group>"; };
 		AA2C7E2C19BCCFCA001EDC67 /* TVHPlayChromeCast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHPlayChromeCast.m; sourceTree = "<group>"; };
@@ -303,24 +307,20 @@
 		AA72FD36186847F800EDCE05 /* TVHNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHNetwork.h; sourceTree = "<group>"; };
 		AA72FD37186847F800EDCE05 /* TVHNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHNetwork.m; sourceTree = "<group>"; };
 		AA72FD391868480C00EDCE05 /* TVHNetworkStoreA15.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHNetworkStoreA15.h; sourceTree = "<group>"; };
-		AA72FD3A1868480C00EDCE05 /* TVHNetworkStoreA15.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHNetworkStoreA15.m; sourceTree = "<group>"; };
+		AA72FD3A1868480C00EDCE05 /* TVHNetworkStoreA15.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHNetworkStoreA15.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AA72FD3C1868482D00EDCE05 /* TVHNetworkStore32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHNetworkStore32.h; sourceTree = "<group>"; };
 		AA72FD3D1868482D00EDCE05 /* TVHNetworkStore32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHNetworkStore32.m; sourceTree = "<group>"; };
 		AA72FD3F1868483900EDCE05 /* TVHNetworkStore34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHNetworkStore34.h; sourceTree = "<group>"; };
 		AA72FD401868483900EDCE05 /* TVHNetworkStore34.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHNetworkStore34.m; sourceTree = "<group>"; };
 		AA72FD441868487000EDCE05 /* TVHNetworkStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHNetworkStore.h; sourceTree = "<group>"; };
-		AAA89DE21861244C00AE4C13 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		AAA89DE41861245200AE4C13 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		AABF3A4C185E586700E62240 /* libtvheadend-ios-lib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libtvheadend-ios-lib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABF3A4F185E586700E62240 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		AABF3A53185E586700E62240 /* tvheadend-ios-lib-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "tvheadend-ios-lib-Prefix.pch"; sourceTree = "<group>"; };
 		AABF3A5C185E586700E62240 /* tvheadend-ios-libTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tvheadend-ios-libTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABF3A5D185E586700E62240 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		AABF3A60185E586700E62240 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		AABF3A67185E586700E62240 /* tvheadend-ios-libTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "tvheadend-ios-libTests-Info.plist"; sourceTree = "<group>"; };
 		AABF3A69185E586700E62240 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		AABF3A7E185E590D00E62240 /* SSHWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSHWrapper.h; sourceTree = "<group>"; };
-		AABF3A7F185E590D00E62240 /* SSHWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSHWrapper.m; sourceTree = "<group>"; };
 		AABF3A81185E590D00E62240 /* TVHChannelStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHChannelStore.h; sourceTree = "<group>"; };
 		AABF3A82185E590D00E62240 /* TVHChannelStoreAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHChannelStoreAbstract.h; sourceTree = "<group>"; };
 		AABF3A83185E590D00E62240 /* TVHChannelStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHChannelStoreAbstract.m; sourceTree = "<group>"; };
@@ -336,7 +336,7 @@
 		AABF3A8E185E590D00E62240 /* TVHChannelEpg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHChannelEpg.m; sourceTree = "<group>"; };
 		AABF3A90185E590D00E62240 /* TVHTagStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHTagStore.h; sourceTree = "<group>"; };
 		AABF3A91185E590D00E62240 /* TVHTagStoreAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHTagStoreAbstract.h; sourceTree = "<group>"; };
-		AABF3A92185E590D00E62240 /* TVHTagStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHTagStoreAbstract.m; sourceTree = "<group>"; };
+		AABF3A92185E590D00E62240 /* TVHTagStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHTagStoreAbstract.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AABF3A93185E590D00E62240 /* TVHTagStore32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHTagStore32.h; sourceTree = "<group>"; };
 		AABF3A94185E590D00E62240 /* TVHTagStore32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHTagStore32.m; sourceTree = "<group>"; };
 		AABF3A95185E590D00E62240 /* TVHTagStore34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHTagStore34.h; sourceTree = "<group>"; };
@@ -347,7 +347,7 @@
 		AABF3A9B185E590D00E62240 /* TVHTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHTag.m; sourceTree = "<group>"; };
 		AABF3A9D185E590D00E62240 /* TVHEpgStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHEpgStore.h; sourceTree = "<group>"; };
 		AABF3A9E185E590D00E62240 /* TVHEpgStoreAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHEpgStoreAbstract.h; sourceTree = "<group>"; };
-		AABF3A9F185E590D00E62240 /* TVHEpgStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHEpgStoreAbstract.m; sourceTree = "<group>"; };
+		AABF3A9F185E590D00E62240 /* TVHEpgStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHEpgStoreAbstract.m; sourceTree = "<group>"; };
 		AABF3AA0185E590D00E62240 /* TVHEpgStore32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHEpgStore32.h; sourceTree = "<group>"; };
 		AABF3AA1185E590D00E62240 /* TVHEpgStore32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHEpgStore32.m; sourceTree = "<group>"; };
 		AABF3AA2185E590D00E62240 /* TVHEpgStore34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHEpgStore34.h; sourceTree = "<group>"; };
@@ -358,7 +358,7 @@
 		AABF3AA8185E590D00E62240 /* TVHEpg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHEpg.m; sourceTree = "<group>"; };
 		AABF3AAB185E590D00E62240 /* TVHAutoRecStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAutoRecStore.h; sourceTree = "<group>"; };
 		AABF3AAC185E590D00E62240 /* TVHAutoRecStoreAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAutoRecStoreAbstract.h; sourceTree = "<group>"; };
-		AABF3AAD185E590D00E62240 /* TVHAutoRecStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoRecStoreAbstract.m; sourceTree = "<group>"; };
+		AABF3AAD185E590D00E62240 /* TVHAutoRecStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHAutoRecStoreAbstract.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AABF3AAE185E590D00E62240 /* TVHAutoRecStore32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAutoRecStore32.h; sourceTree = "<group>"; };
 		AABF3AAF185E590D00E62240 /* TVHAutoRecStore32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoRecStore32.m; sourceTree = "<group>"; };
 		AABF3AB0185E590D00E62240 /* TVHAutoRecStore34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAutoRecStore34.h; sourceTree = "<group>"; };
@@ -369,7 +369,7 @@
 		AABF3AB5185E590D00E62240 /* TVHAutoRecItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoRecItem.m; sourceTree = "<group>"; };
 		AABF3AB7185E590D00E62240 /* TVHDvrStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHDvrStore.h; sourceTree = "<group>"; };
 		AABF3AB8185E590D00E62240 /* TVHDvrStoreAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHDvrStoreAbstract.h; sourceTree = "<group>"; };
-		AABF3AB9185E590D00E62240 /* TVHDvrStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHDvrStoreAbstract.m; sourceTree = "<group>"; };
+		AABF3AB9185E590D00E62240 /* TVHDvrStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHDvrStoreAbstract.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AABF3ABA185E590D00E62240 /* TVHDvrStore32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHDvrStore32.h; sourceTree = "<group>"; };
 		AABF3ABB185E590D00E62240 /* TVHDvrStore32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHDvrStore32.m; sourceTree = "<group>"; };
 		AABF3ABC185E590D00E62240 /* TVHDvrStore34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHDvrStore34.h; sourceTree = "<group>"; };
@@ -379,14 +379,14 @@
 		AABF3AC1185E590D00E62240 /* TVHDvrItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHDvrItem.h; sourceTree = "<group>"; };
 		AABF3AC2185E590D00E62240 /* TVHDvrItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHDvrItem.m; sourceTree = "<group>"; };
 		AABF3AC3185E590D00E62240 /* TVHDvrActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHDvrActions.h; sourceTree = "<group>"; };
-		AABF3AC4185E590D00E62240 /* TVHDvrActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHDvrActions.m; sourceTree = "<group>"; };
-		AABF3AC5185E590D00E62240 /* TVHConfigNameStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHConfigNameStore.h; sourceTree = "<group>"; };
-		AABF3AC6185E590D00E62240 /* TVHConfigNameStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHConfigNameStore.m; sourceTree = "<group>"; };
+		AABF3AC4185E590D00E62240 /* TVHDvrActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHDvrActions.m; sourceTree = "<group>"; };
+		AABF3AC5185E590D00E62240 /* TVHConfigNameStoreAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHConfigNameStoreAbstract.h; sourceTree = "<group>"; };
+		AABF3AC6185E590D00E62240 /* TVHConfigNameStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHConfigNameStoreAbstract.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AABF3AC7185E590D00E62240 /* TVHConfigName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHConfigName.h; sourceTree = "<group>"; };
 		AABF3AC8185E590D00E62240 /* TVHConfigName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHConfigName.m; sourceTree = "<group>"; };
 		AABF3ACB185E590D00E62240 /* TVHStatusSubscriptionsStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHStatusSubscriptionsStore.h; sourceTree = "<group>"; };
 		AABF3ACC185E590D00E62240 /* TVHStatusSubscriptionsStoreAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHStatusSubscriptionsStoreAbstract.h; sourceTree = "<group>"; };
-		AABF3ACD185E590D00E62240 /* TVHStatusSubscriptionsStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHStatusSubscriptionsStoreAbstract.m; sourceTree = "<group>"; };
+		AABF3ACD185E590D00E62240 /* TVHStatusSubscriptionsStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHStatusSubscriptionsStoreAbstract.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AABF3ACE185E590D00E62240 /* TVHStatusSubscriptionsStore32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHStatusSubscriptionsStore32.h; sourceTree = "<group>"; };
 		AABF3ACF185E590D00E62240 /* TVHStatusSubscriptionsStore32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHStatusSubscriptionsStore32.m; sourceTree = "<group>"; };
 		AABF3AD0185E590D00E62240 /* TVHStatusSubscriptionsStore34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHStatusSubscriptionsStore34.h; sourceTree = "<group>"; };
@@ -401,12 +401,12 @@
 		AABF3ADB185E590D00E62240 /* TVHStatusInputStore34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHStatusInputStore34.h; sourceTree = "<group>"; };
 		AABF3ADC185E590D00E62240 /* TVHStatusInputStore34.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHStatusInputStore34.m; sourceTree = "<group>"; };
 		AABF3ADD185E590D00E62240 /* TVHStatusInputStoreA15.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHStatusInputStoreA15.h; sourceTree = "<group>"; };
-		AABF3ADE185E590D00E62240 /* TVHStatusInputStoreA15.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHStatusInputStoreA15.m; sourceTree = "<group>"; };
+		AABF3ADE185E590D00E62240 /* TVHStatusInputStoreA15.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHStatusInputStoreA15.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AABF3AE0185E590D00E62240 /* TVHStatusInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHStatusInput.h; sourceTree = "<group>"; };
 		AABF3AE1185E590D00E62240 /* TVHStatusInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHStatusInput.m; sourceTree = "<group>"; };
 		AABF3AE3185E590D00E62240 /* TVHAdaptersStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAdaptersStore.h; sourceTree = "<group>"; };
 		AABF3AE4185E590D00E62240 /* TVHAdaptersStoreAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAdaptersStoreAbstract.h; sourceTree = "<group>"; };
-		AABF3AE5185E590D00E62240 /* TVHAdaptersStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAdaptersStoreAbstract.m; sourceTree = "<group>"; };
+		AABF3AE5185E590D00E62240 /* TVHAdaptersStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHAdaptersStoreAbstract.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AABF3AE6185E590D00E62240 /* TVHAdaptersStore32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAdaptersStore32.h; sourceTree = "<group>"; };
 		AABF3AE7185E590D00E62240 /* TVHAdaptersStore32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAdaptersStore32.m; sourceTree = "<group>"; };
 		AABF3AE8185E590D00E62240 /* TVHAdaptersStore34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAdaptersStore34.h; sourceTree = "<group>"; };
@@ -417,7 +417,7 @@
 		AABF3AEE185E590D00E62240 /* TVHAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAdapter.m; sourceTree = "<group>"; };
 		AABF3AF0185E590D00E62240 /* TVHMuxStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHMuxStore.h; sourceTree = "<group>"; };
 		AABF3AF1185E590D00E62240 /* TVHMuxStoreAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHMuxStoreAbstract.h; sourceTree = "<group>"; };
-		AABF3AF2185E590D00E62240 /* TVHMuxStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHMuxStoreAbstract.m; sourceTree = "<group>"; };
+		AABF3AF2185E590D00E62240 /* TVHMuxStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHMuxStoreAbstract.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AABF3AF3185E590D00E62240 /* TVHMuxStore32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHMuxStore32.h; sourceTree = "<group>"; };
 		AABF3AF4185E590D00E62240 /* TVHMuxStore32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHMuxStore32.m; sourceTree = "<group>"; };
 		AABF3AF5185E590D00E62240 /* TVHMuxStore34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHMuxStore34.h; sourceTree = "<group>"; };
@@ -428,7 +428,7 @@
 		AABF3AFB185E590D00E62240 /* TVHMux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHMux.m; sourceTree = "<group>"; };
 		AABF3AFD185E590D00E62240 /* TVHServiceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHServiceStore.h; sourceTree = "<group>"; };
 		AABF3AFE185E590D00E62240 /* TVHServiceStoreAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHServiceStoreAbstract.h; sourceTree = "<group>"; };
-		AABF3AFF185E590D00E62240 /* TVHServiceStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHServiceStoreAbstract.m; sourceTree = "<group>"; };
+		AABF3AFF185E590D00E62240 /* TVHServiceStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHServiceStoreAbstract.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AABF3B00185E590D00E62240 /* TVHServiceStore32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHServiceStore32.h; sourceTree = "<group>"; };
 		AABF3B01185E590D00E62240 /* TVHServiceStore32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHServiceStore32.m; sourceTree = "<group>"; };
 		AABF3B02185E590D00E62240 /* TVHServiceStore34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHServiceStore34.h; sourceTree = "<group>"; };
@@ -441,7 +441,7 @@
 		AABF3B0B185E590D00E62240 /* TVHLogStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHLogStore.m; sourceTree = "<group>"; };
 		AABF3B0D185E590D00E62240 /* TVHCometPoll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHCometPoll.h; sourceTree = "<group>"; };
 		AABF3B0E185E590D00E62240 /* TVHCometPollAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHCometPollAbstract.h; sourceTree = "<group>"; };
-		AABF3B0F185E590D00E62240 /* TVHCometPollAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHCometPollAbstract.m; sourceTree = "<group>"; };
+		AABF3B0F185E590D00E62240 /* TVHCometPollAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHCometPollAbstract.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AABF3B10185E590D00E62240 /* TVHCometPoll32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHCometPoll32.h; sourceTree = "<group>"; };
 		AABF3B11185E590D00E62240 /* TVHCometPoll32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHCometPoll32.m; sourceTree = "<group>"; };
 		AABF3B12185E590D00E62240 /* TVHCometPoll34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHCometPoll34.h; sourceTree = "<group>"; };
@@ -449,40 +449,21 @@
 		AABF3B14185E590D00E62240 /* TVHCometPollA15.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHCometPollA15.h; sourceTree = "<group>"; };
 		AABF3B15185E590D00E62240 /* TVHCometPollA15.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHCometPollA15.m; sourceTree = "<group>"; };
 		AABF3B18185E590D00E62240 /* TVHTableMgrActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHTableMgrActions.h; sourceTree = "<group>"; };
-		AABF3B19185E590D00E62240 /* TVHTableMgrActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHTableMgrActions.m; sourceTree = "<group>"; };
+		AABF3B19185E590D00E62240 /* TVHTableMgrActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHTableMgrActions.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AABF3B1B185E590D00E62240 /* TVHModelAnalyticsProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHModelAnalyticsProtocol.h; sourceTree = "<group>"; };
 		AABF3B1D185E590D00E62240 /* TVHPlayStreamDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHPlayStreamDelegate.h; sourceTree = "<group>"; };
 		AABF3B1E185E590D00E62240 /* TVHPlayStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHPlayStream.h; sourceTree = "<group>"; };
 		AABF3B1F185E590D00E62240 /* TVHPlayStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHPlayStream.m; sourceTree = "<group>"; };
 		AABF3B20185E590D00E62240 /* TVHPlayXbmc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHPlayXbmc.h; sourceTree = "<group>"; };
-		AABF3B21185E590D00E62240 /* TVHPlayXbmc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHPlayXbmc.m; sourceTree = "<group>"; };
+		AABF3B21185E590D00E62240 /* TVHPlayXbmc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHPlayXbmc.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AABF3B23185E590D00E62240 /* TVHJsonClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHJsonClient.h; sourceTree = "<group>"; };
 		AABF3B24185E590D00E62240 /* TVHJsonClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHJsonClient.m; sourceTree = "<group>"; };
 		AABF3B25185E590D00E62240 /* TVHApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHApiClient.h; sourceTree = "<group>"; };
 		AABF3B26185E590D00E62240 /* TVHApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHApiClient.m; sourceTree = "<group>"; };
 		AABF3B27185E590D00E62240 /* TVHServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHServer.h; sourceTree = "<group>"; };
-		AABF3B28185E590D00E62240 /* TVHServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHServer.m; sourceTree = "<group>"; };
+		AABF3B28185E590D00E62240 /* TVHServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHServer.m; sourceTree = "<group>"; };
 		AABF3B29185E590D00E62240 /* TVHServerSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHServerSettings.h; sourceTree = "<group>"; };
 		AABF3B2A185E590D00E62240 /* TVHServerSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHServerSettings.m; sourceTree = "<group>"; };
-		AABF3B36185E5ECD00E62240 /* AFHTTPClient+ProxyQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPClient+ProxyQueue.h"; path = "vendor/AFNetworking-ProxyQueue/AFHTTPClient+ProxyQueue.h"; sourceTree = SOURCE_ROOT; };
-		AABF3B37185E5ECD00E62240 /* AFHTTPClient+ProxyQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPClient+ProxyQueue.m"; path = "vendor/AFNetworking-ProxyQueue/AFHTTPClient+ProxyQueue.m"; sourceTree = SOURCE_ROOT; };
-		AABF3B3E185E5F2000E62240 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPClient.h; path = vendor/AFNetworking/AFNetworking/AFHTTPClient.h; sourceTree = SOURCE_ROOT; };
-		AABF3B3F185E5F2000E62240 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFHTTPClient.m; path = vendor/AFNetworking/AFNetworking/AFHTTPClient.m; sourceTree = SOURCE_ROOT; };
-		AABF3B40185E5F2000E62240 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperation.h; path = vendor/AFNetworking/AFNetworking/AFHTTPRequestOperation.h; sourceTree = SOURCE_ROOT; };
-		AABF3B41185E5F2000E62240 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFHTTPRequestOperation.m; path = vendor/AFNetworking/AFNetworking/AFHTTPRequestOperation.m; sourceTree = SOURCE_ROOT; };
-		AABF3B42185E5F2000E62240 /* AFImageRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFImageRequestOperation.h; path = vendor/AFNetworking/AFNetworking/AFImageRequestOperation.h; sourceTree = SOURCE_ROOT; };
-		AABF3B43185E5F2000E62240 /* AFImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFImageRequestOperation.m; path = vendor/AFNetworking/AFNetworking/AFImageRequestOperation.m; sourceTree = SOURCE_ROOT; };
-		AABF3B44185E5F2000E62240 /* AFJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFJSONRequestOperation.h; path = vendor/AFNetworking/AFNetworking/AFJSONRequestOperation.h; sourceTree = SOURCE_ROOT; };
-		AABF3B45185E5F2000E62240 /* AFJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFJSONRequestOperation.m; path = vendor/AFNetworking/AFNetworking/AFJSONRequestOperation.m; sourceTree = SOURCE_ROOT; };
-		AABF3B46185E5F2000E62240 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFNetworkActivityIndicatorManager.h; path = vendor/AFNetworking/AFNetworking/AFNetworkActivityIndicatorManager.h; sourceTree = SOURCE_ROOT; };
-		AABF3B47185E5F2000E62240 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFNetworkActivityIndicatorManager.m; path = vendor/AFNetworking/AFNetworking/AFNetworkActivityIndicatorManager.m; sourceTree = SOURCE_ROOT; };
-		AABF3B48185E5F2000E62240 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFNetworking.h; path = vendor/AFNetworking/AFNetworking/AFNetworking.h; sourceTree = SOURCE_ROOT; };
-		AABF3B49185E5F2000E62240 /* AFPropertyListRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFPropertyListRequestOperation.h; path = vendor/AFNetworking/AFNetworking/AFPropertyListRequestOperation.h; sourceTree = SOURCE_ROOT; };
-		AABF3B4A185E5F2000E62240 /* AFPropertyListRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFPropertyListRequestOperation.m; path = vendor/AFNetworking/AFNetworking/AFPropertyListRequestOperation.m; sourceTree = SOURCE_ROOT; };
-		AABF3B4B185E5F2000E62240 /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFURLConnectionOperation.h; path = vendor/AFNetworking/AFNetworking/AFURLConnectionOperation.h; sourceTree = SOURCE_ROOT; };
-		AABF3B4C185E5F2000E62240 /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFURLConnectionOperation.m; path = vendor/AFNetworking/AFNetworking/AFURLConnectionOperation.m; sourceTree = SOURCE_ROOT; };
-		AABF3B4D185E5F2000E62240 /* AFXMLRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFXMLRequestOperation.h; path = vendor/AFNetworking/AFNetworking/AFXMLRequestOperation.h; sourceTree = SOURCE_ROOT; };
-		AABF3B4E185E5F2000E62240 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFXMLRequestOperation.m; path = vendor/AFNetworking/AFNetworking/AFXMLRequestOperation.m; sourceTree = SOURCE_ROOT; };
 		AABF3B57185E5F6600E62240 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AABF3B5B185E603300E62240 /* Log.287 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Log.287; sourceTree = "<group>"; };
@@ -500,10 +481,32 @@
 		AABF3C06185E6EB500E62240 /* NSArray+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Utils.h"; sourceTree = "<group>"; };
 		AABF3C07185E6EB500E62240 /* NSArray+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Utils.m"; sourceTree = "<group>"; };
 		AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Log.epg.utf.invalid; sourceTree = "<group>"; };
+		B1DA09AA5163B40B09E3A331 /* Pods-tvheadend-tvOS-libTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvheadend-tvOS-libTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tvheadend-tvOS-libTests/Pods-tvheadend-tvOS-libTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C03C2C6E2FF07EBAFCEA9331 /* Pods_tvheadend_ios_libTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tvheadend_ios_libTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F00817921C5BEECA0008C3EF /* NSDateFormatter+TVH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+TVH.h"; sourceTree = "<group>"; };
 		F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+TVH.m"; sourceTree = "<group>"; };
+		F087A2B31F79A21400EFB087 /* TVHConfigNameStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHConfigNameStore.h; sourceTree = "<group>"; };
+		F087A2B61F79A2E300EFB087 /* TVHConfigNameStore32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHConfigNameStore32.h; sourceTree = "<group>"; };
+		F087A2B71F79A2E300EFB087 /* TVHConfigNameStore32.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHConfigNameStore32.m; sourceTree = "<group>"; };
+		F087A2BA1F79A2F800EFB087 /* TVHConfigNameStore34.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHConfigNameStore34.h; sourceTree = "<group>"; };
+		F087A2BB1F79A2F800EFB087 /* TVHConfigNameStore34.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHConfigNameStore34.m; sourceTree = "<group>"; };
+		F087A2BD1F79A30900EFB087 /* TVHConfigNameStoreA15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHConfigNameStoreA15.h; sourceTree = "<group>"; };
+		F087A2BE1F79A30900EFB087 /* TVHConfigNameStoreA15.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHConfigNameStoreA15.m; sourceTree = "<group>"; };
+		F087A2C21F79B55E00EFB087 /* TVHStreamProfileStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStreamProfileStore.h; sourceTree = "<group>"; };
+		F087A2C31F79B55E00EFB087 /* TVHStreamProfileStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHStreamProfileStore.m; sourceTree = "<group>"; };
+		F087A2C51F79B56D00EFB087 /* TVHStreamProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStreamProfile.h; sourceTree = "<group>"; };
+		F087A2C61F79B56D00EFB087 /* TVHStreamProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHStreamProfile.m; sourceTree = "<group>"; };
+		F087A2C81F79B60900EFB087 /* TVHStreamProfileStoreAbstract.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStreamProfileStoreAbstract.h; sourceTree = "<group>"; };
+		F087A2C91F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHStreamProfileStoreAbstract.m; sourceTree = "<group>"; };
+		F087A2D11F79B76C00EFB087 /* TVHStreamProfileStoreA15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStreamProfileStoreA15.h; sourceTree = "<group>"; };
+		F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHStreamProfileStoreA15.m; sourceTree = "<group>"; };
+		F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */ = {isa = PBXFileReference; lastKnownFileType = text; path = Epg.summary.marcel; sourceTree = "<group>"; };
 		F0AEEC321C6D40BD00D7861D /* TVHAutoDiscovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAutoDiscovery.h; sourceTree = "<group>"; };
 		F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoDiscovery.m; sourceTree = "<group>"; };
+		F0BE72261F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHJsonUTF8AutoCharsetResponseSerializer.m; sourceTree = "<group>"; };
+		F0BE72291F4B7E1B003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHJsonUTF8AutoCharsetResponseSerializer.h; sourceTree = "<group>"; };
+		F0BE722A1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHJsonUTF8HackResponseSerializer.h; sourceTree = "<group>"; };
+		F0BE722B1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHJsonUTF8HackResponseSerializer.m; sourceTree = "<group>"; };
 		F0CCEF841F421F5200AAC25B /* Log.services.mine */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Log.services.mine; sourceTree = "<group>"; };
 		F0CCEF861F42214100AAC25B /* TVHServiceStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHServiceStoreTests.m; sourceTree = "<group>"; };
 		F0CDE46D1BA214A2000A969B /* libtvheadend-tvOS-lib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libtvheadend-tvOS-lib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -515,15 +518,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA01DE221A18435D00F7B3D2 /* libcrypto.a in Frameworks */,
-				AA01DE231A18435D00F7B3D2 /* libssh2.a in Frameworks */,
-				AA01DE241A18435D00F7B3D2 /* libssl.a in Frameworks */,
+				F04245871F498C9600D3CC5F /* Foundation.framework in Frameworks */,
 				AA2C7E3519BCDAB3001EDC67 /* CoreText.framework in Frameworks */,
 				AA2C7E3319BCDAA1001EDC67 /* MediaAccessibility.framework in Frameworks */,
-				AA2C7E2919BCCE2F001EDC67 /* GoogleCast.framework in Frameworks */,
 				AABF3B5A185E5F7200E62240 /* SystemConfiguration.framework in Frameworks */,
 				AABF3B58185E5F6600E62240 /* CFNetwork.framework in Frameworks */,
-				AABF3A50185E586700E62240 /* Foundation.framework in Frameworks */,
+				F7306CE0903448DC6D993099 /* Pods_tvheadend_ios_lib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,14 +533,13 @@
 			files = (
 				AAC6346D1A1574240005EA99 /* CoreText.framework in Frameworks */,
 				AAC6346C1A15741C0005EA99 /* MediaAccessibility.framework in Frameworks */,
-				AAC634691A1573510005EA99 /* GoogleCast.framework in Frameworks */,
 				AAA89DE61861245800AE4C13 /* SystemConfiguration.framework in Frameworks */,
 				AAA89DE51861245200AE4C13 /* MobileCoreServices.framework in Frameworks */,
-				AAA89DE31861244C00AE4C13 /* libz.dylib in Frameworks */,
 				AABF3A5E185E586700E62240 /* XCTest.framework in Frameworks */,
 				AABF3A61185E586700E62240 /* UIKit.framework in Frameworks */,
 				AABF3A5F185E586700E62240 /* Foundation.framework in Frameworks */,
 				AABF3A64185E586700E62240 /* libtvheadend-ios-lib.a in Frameworks */,
+				E64FDF2C57F765B01E8E1B32 /* Pods_tvheadend_ios_libTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,10 +547,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0CDE48A1BA2153D000A969B /* MediaAccessibility.framework in Frameworks */,
-				F0CDE4921BA21570000A969B /* CFNetwork.framework in Frameworks */,
-				F0A14A9C1C8DF88D00336A24 /* SystemConfiguration.framework in Frameworks */,
-				F0CDE4931BA21573000A969B /* Foundation.framework in Frameworks */,
+				F009F12D1F49FF17002726F2 /* CFNetwork.framework in Frameworks */,
+				F009F12C1F49FF0C002726F2 /* MobileCoreServices.framework in Frameworks */,
+				F04245D41F49E14D00D3CC5F /* Foundation.framework in Frameworks */,
+				F04245D31F49E14600D3CC5F /* SystemConfiguration.framework in Frameworks */,
+				4639E4A0F030AFC02FF69E03 /* Pods_tvheadend_tvOS_lib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,13 +561,13 @@
 			files = (
 				F0CDE48B1BA2153D000A969B /* MediaAccessibility.framework in Frameworks */,
 				F0CDE4961BA21579000A969B /* UIKit.framework in Frameworks */,
-				F0CDE48F1BA21568000A969B /* libz.dylib in Frameworks */,
 				F0CDE4891BA21539000A969B /* CoreText.framework in Frameworks */,
 				F0CDE48E1BA21556000A969B /* MobileCoreServices.framework in Frameworks */,
 				F0CDE4911BA2156D000A969B /* SystemConfiguration.framework in Frameworks */,
 				F0CDE4941BA21574000A969B /* Foundation.framework in Frameworks */,
 				F0CDE47F1BA214C3000A969B /* libtvheadend-tvOS-lib.a in Frameworks */,
 				F0CDE4951BA21577000A969B /* XCTest.framework in Frameworks */,
+				DF3629AB6F4FBE290440BA99 /* Pods_tvheadend_tvOS_libTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,6 +651,7 @@
 				AABF3A65185E586700E62240 /* tvheadend-ios-libTests */,
 				AABF3A4E185E586700E62240 /* Frameworks */,
 				AABF3A4D185E586700E62240 /* Products */,
+				EB886B8440DF28EF05F6C2EB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -668,19 +669,19 @@
 		AABF3A4E185E586700E62240 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AA01DE1F1A18435D00F7B3D2 /* libcrypto.a */,
-				AA01DE201A18435D00F7B3D2 /* libssh2.a */,
-				AA01DE211A18435D00F7B3D2 /* libssl.a */,
 				AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */,
 				AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */,
 				AA2C7E2819BCCE2F001EDC67 /* GoogleCast.framework */,
 				AAA89DE41861245200AE4C13 /* MobileCoreServices.framework */,
-				AAA89DE21861244C00AE4C13 /* libz.dylib */,
 				AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */,
 				AABF3B57185E5F6600E62240 /* CFNetwork.framework */,
 				AABF3A4F185E586700E62240 /* Foundation.framework */,
 				AABF3A5D185E586700E62240 /* XCTest.framework */,
 				AABF3A60185E586700E62240 /* UIKit.framework */,
+				069D88128E1EAEA4D7D7418D /* Pods_tvheadend_ios_lib.framework */,
+				C03C2C6E2FF07EBAFCEA9331 /* Pods_tvheadend_ios_libTests.framework */,
+				74A12111CF5CD72235BB71C3 /* Pods_tvheadend_tvOS_lib.framework */,
+				59396B1A8019B50A9F2F2E82 /* Pods_tvheadend_tvOS_libTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -698,7 +699,6 @@
 			isa = PBXGroup;
 			children = (
 				AABF3B34185E5EA700E62240 /* Third Party Frameworks */,
-				AABF3A53185E586700E62240 /* tvheadend-ios-lib-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -719,15 +719,6 @@
 				AABF3A68185E586700E62240 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		AABF3A80185E590D00E62240 /* SSH */ = {
-			isa = PBXGroup;
-			children = (
-				AABF3A7E185E590D00E62240 /* SSHWrapper.h */,
-				AABF3A7F185E590D00E62240 /* SSHWrapper.m */,
-			);
-			name = SSH;
 			sourceTree = "<group>";
 		};
 		AABF3A8A185E590D00E62240 /* TVHChannelStore */ = {
@@ -861,8 +852,8 @@
 		AABF3AC9185E590D00E62240 /* ConfigNames */ = {
 			isa = PBXGroup;
 			children = (
-				AABF3AC5185E590D00E62240 /* TVHConfigNameStore.h */,
-				AABF3AC6185E590D00E62240 /* TVHConfigNameStore.m */,
+				F087A2C01F79ADF200EFB087 /* ConfigNameStore */,
+				F087A2B31F79A21400EFB087 /* TVHConfigNameStore.h */,
 				AABF3AC7185E590D00E62240 /* TVHConfigName.h */,
 				AABF3AC8185E590D00E62240 /* TVHConfigName.m */,
 			);
@@ -1078,7 +1069,8 @@
 		AABF3B2B185E590D00E62240 /* Tvh Server */ = {
 			isa = PBXGroup;
 			children = (
-				AABF3A80185E590D00E62240 /* SSH */,
+				F087A2C11F79B53200EFB087 /* Stream Profile */,
+				F03C0D571F4869C500EDFE53 /* Network Client */,
 				AABF3AAA185E590D00E62240 /* Channels */,
 				AABF3ACA185E590D00E62240 /* DVR */,
 				AABF3B17185E590D00E62240 /* Status */,
@@ -1088,10 +1080,6 @@
 				AABF3B1A185E590D00E62240 /* Misc */,
 				AABF3B1C185E590D00E62240 /* Analytics */,
 				AABF3B22185E590D00E62240 /* PlayTo */,
-				AABF3B23185E590D00E62240 /* TVHJsonClient.h */,
-				AABF3B24185E590D00E62240 /* TVHJsonClient.m */,
-				AABF3B25185E590D00E62240 /* TVHApiClient.h */,
-				AABF3B26185E590D00E62240 /* TVHApiClient.m */,
 				AABF3B27185E590D00E62240 /* TVHServer.h */,
 				AABF3B28185E590D00E62240 /* TVHServer.m */,
 				F0AEEC321C6D40BD00D7861D /* TVHAutoDiscovery.h */,
@@ -1106,43 +1094,8 @@
 		AABF3B34185E5EA700E62240 /* Third Party Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AABF3B3D185E5EF300E62240 /* AFNetworking */,
-				AABF3B35185E5EB500E62240 /* AFNetworking-ProxyQueue */,
 			);
 			name = "Third Party Frameworks";
-			sourceTree = "<group>";
-		};
-		AABF3B35185E5EB500E62240 /* AFNetworking-ProxyQueue */ = {
-			isa = PBXGroup;
-			children = (
-				AABF3B36185E5ECD00E62240 /* AFHTTPClient+ProxyQueue.h */,
-				AABF3B37185E5ECD00E62240 /* AFHTTPClient+ProxyQueue.m */,
-			);
-			name = "AFNetworking-ProxyQueue";
-			sourceTree = "<group>";
-		};
-		AABF3B3D185E5EF300E62240 /* AFNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				AABF3B3E185E5F2000E62240 /* AFHTTPClient.h */,
-				AABF3B3F185E5F2000E62240 /* AFHTTPClient.m */,
-				AABF3B40185E5F2000E62240 /* AFHTTPRequestOperation.h */,
-				AABF3B41185E5F2000E62240 /* AFHTTPRequestOperation.m */,
-				AABF3B42185E5F2000E62240 /* AFImageRequestOperation.h */,
-				AABF3B43185E5F2000E62240 /* AFImageRequestOperation.m */,
-				AABF3B44185E5F2000E62240 /* AFJSONRequestOperation.h */,
-				AABF3B45185E5F2000E62240 /* AFJSONRequestOperation.m */,
-				AABF3B46185E5F2000E62240 /* AFNetworkActivityIndicatorManager.h */,
-				AABF3B47185E5F2000E62240 /* AFNetworkActivityIndicatorManager.m */,
-				AABF3B48185E5F2000E62240 /* AFNetworking.h */,
-				AABF3B49185E5F2000E62240 /* AFPropertyListRequestOperation.h */,
-				AABF3B4A185E5F2000E62240 /* AFPropertyListRequestOperation.m */,
-				AABF3B4B185E5F2000E62240 /* AFURLConnectionOperation.h */,
-				AABF3B4C185E5F2000E62240 /* AFURLConnectionOperation.m */,
-				AABF3B4D185E5F2000E62240 /* AFXMLRequestOperation.h */,
-				AABF3B4E185E5F2000E62240 /* AFXMLRequestOperation.m */,
-			);
-			name = AFNetworking;
 			sourceTree = "<group>";
 		};
 		AABF3B60185E603300E62240 /* Fixtures */ = {
@@ -1156,6 +1109,7 @@
 				AABF3B5E185E603300E62240 /* Log.oneChannelEpg */,
 				AABF3B5F185E603300E62240 /* extjs.html */,
 				F0CCEF841F421F5200AAC25B /* Log.services.mine */,
+				F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */,
 			);
 			name = Fixtures;
 			path = TestData;
@@ -1172,6 +1126,82 @@
 			name = Properties;
 			sourceTree = "<group>";
 		};
+		EB886B8440DF28EF05F6C2EB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4F3D67C560EF9C47B4FA70F4 /* Pods-tvheadend-ios-lib.debug.xcconfig */,
+				6539CB15C208A70A82A5D139 /* Pods-tvheadend-ios-lib.release.xcconfig */,
+				814501041CDD2186F91C67CB /* Pods-tvheadend-ios-libTests.debug.xcconfig */,
+				36532E36A573397F744BDD8B /* Pods-tvheadend-ios-libTests.release.xcconfig */,
+				564A591F3878675A6E59B010 /* Pods-tvheadend-tvOS-lib.debug.xcconfig */,
+				6B28440BE21FDEEF0589526A /* Pods-tvheadend-tvOS-lib.release.xcconfig */,
+				B1DA09AA5163B40B09E3A331 /* Pods-tvheadend-tvOS-libTests.debug.xcconfig */,
+				58F57133ACC530ED344670AC /* Pods-tvheadend-tvOS-libTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F03C0D571F4869C500EDFE53 /* Network Client */ = {
+			isa = PBXGroup;
+			children = (
+				F0BE72251F4B7B07003AEBE2 /* Response Serializers */,
+				AABF3B23185E590D00E62240 /* TVHJsonClient.h */,
+				AABF3B24185E590D00E62240 /* TVHJsonClient.m */,
+				AABF3B25185E590D00E62240 /* TVHApiClient.h */,
+				AABF3B26185E590D00E62240 /* TVHApiClient.m */,
+			);
+			name = "Network Client";
+			sourceTree = "<group>";
+		};
+		F087A2C01F79ADF200EFB087 /* ConfigNameStore */ = {
+			isa = PBXGroup;
+			children = (
+				AABF3AC5185E590D00E62240 /* TVHConfigNameStoreAbstract.h */,
+				AABF3AC6185E590D00E62240 /* TVHConfigNameStoreAbstract.m */,
+				F087A2B61F79A2E300EFB087 /* TVHConfigNameStore32.h */,
+				F087A2B71F79A2E300EFB087 /* TVHConfigNameStore32.m */,
+				F087A2BA1F79A2F800EFB087 /* TVHConfigNameStore34.h */,
+				F087A2BB1F79A2F800EFB087 /* TVHConfigNameStore34.m */,
+				F087A2BD1F79A30900EFB087 /* TVHConfigNameStoreA15.h */,
+				F087A2BE1F79A30900EFB087 /* TVHConfigNameStoreA15.m */,
+			);
+			name = ConfigNameStore;
+			sourceTree = "<group>";
+		};
+		F087A2C11F79B53200EFB087 /* Stream Profile */ = {
+			isa = PBXGroup;
+			children = (
+				F087A2D01F79B62700EFB087 /* StreamProfileStore */,
+				F087A2C21F79B55E00EFB087 /* TVHStreamProfileStore.h */,
+				F087A2C31F79B55E00EFB087 /* TVHStreamProfileStore.m */,
+				F087A2C51F79B56D00EFB087 /* TVHStreamProfile.h */,
+				F087A2C61F79B56D00EFB087 /* TVHStreamProfile.m */,
+			);
+			name = "Stream Profile";
+			sourceTree = "<group>";
+		};
+		F087A2D01F79B62700EFB087 /* StreamProfileStore */ = {
+			isa = PBXGroup;
+			children = (
+				F087A2C81F79B60900EFB087 /* TVHStreamProfileStoreAbstract.h */,
+				F087A2C91F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m */,
+				F087A2D11F79B76C00EFB087 /* TVHStreamProfileStoreA15.h */,
+				F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */,
+			);
+			name = StreamProfileStore;
+			sourceTree = "<group>";
+		};
+		F0BE72251F4B7B07003AEBE2 /* Response Serializers */ = {
+			isa = PBXGroup;
+			children = (
+				F0BE72291F4B7E1B003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.h */,
+				F0BE72261F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m */,
+				F0BE722A1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.h */,
+				F0BE722B1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m */,
+			);
+			name = "Response Serializers";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1179,9 +1209,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AABF3A6F185E586700E62240 /* Build configuration list for PBXNativeTarget "tvheadend-ios-lib" */;
 			buildPhases = (
+				4D31CC462ACA3CB1A52CCD45 /* [CP] Check Pods Manifest.lock */,
 				AABF3A48185E586700E62240 /* Sources */,
 				AABF3A49185E586700E62240 /* Frameworks */,
 				AABF3A4A185E586700E62240 /* CopyFiles */,
+				BA6B9D540957A929402EA817 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1196,9 +1228,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AABF3A72185E586700E62240 /* Build configuration list for PBXNativeTarget "tvheadend-ios-libTests" */;
 			buildPhases = (
+				84055C95BB447173A4E7ED47 /* [CP] Check Pods Manifest.lock */,
 				AABF3A58185E586700E62240 /* Sources */,
 				AABF3A59185E586700E62240 /* Frameworks */,
 				AABF3A5A185E586700E62240 /* Resources */,
+				09B4FA5788469E1F42ADFA31 /* [CP] Embed Pods Frameworks */,
+				285C1229E7932B31D55F3232 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1214,9 +1249,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0CDE4751BA214A2000A969B /* Build configuration list for PBXNativeTarget "tvheadend-tvOS-lib" */;
 			buildPhases = (
+				9C92243D3B3DD7188C46B5F4 /* [CP] Check Pods Manifest.lock */,
 				F0CDE4691BA214A2000A969B /* Sources */,
 				F0CDE46A1BA214A2000A969B /* Frameworks */,
-				F0CDE46B1BA214A2000A969B /* CopyFiles */,
+				F0CDE46B1BA214A2000A969B /* Copy Files */,
+				D1F0CD8E2F9F1A907FB98CED /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1231,9 +1268,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0CDE4821BA214C3000A969B /* Build configuration list for PBXNativeTarget "tvheadend-tvOS-libTests" */;
 			buildPhases = (
+				837D3260A4F2FC7D5E7CF6A5 /* [CP] Check Pods Manifest.lock */,
 				F0CDE4761BA214C3000A969B /* Sources */,
 				F0CDE4771BA214C3000A969B /* Frameworks */,
 				F0CDE4781BA214C3000A969B /* Resources */,
+				88F01C1794C46A287B33A8EC /* [CP] Embed Pods Frameworks */,
+				35E7AE8630C2DA57F69D2073 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1251,7 +1291,7 @@
 		AABF3A44185E586700E62240 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = zipleen;
 				TargetAttributes = {
 					F0CDE46C1BA214A2000A969B = {
@@ -1290,6 +1330,7 @@
 				F0CCEF851F421F5200AAC25B /* Log.services.mine in Resources */,
 				AAC6346F1A1579430005EA99 /* Log.epg.utf.invalid in Resources */,
 				AABF3B72185E603300E62240 /* Log.oneChannelEpg in Resources */,
+				F095330D1F6AEFBE00FAF3B8 /* Epg.summary.marcel in Resources */,
 				AABF3B73185E603300E62240 /* extjs.html in Resources */,
 				AABF3B7E185E603300E62240 /* TVHTestHelper.h in Resources */,
 				AABF3B71185E603300E62240 /* Log.channels in Resources */,
@@ -1304,6 +1345,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F050CB6D1F6DD82400011FC7 /* Epg.summary.marcel in Resources */,
 				F0CCEF8B1F42315700AAC25B /* Log.287 in Resources */,
 				F0CCEF8F1F42315700AAC25B /* extjs.html in Resources */,
 				F0CCEF891F42315700AAC25B /* Log.epg.utf.invalid in Resources */,
@@ -1317,6 +1359,191 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		09B4FA5788469E1F42ADFA31 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-ios-libTests/Pods-tvheadend-ios-libTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Expecta-iOS/Expecta.framework",
+				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs-iOS/OHHTTPStubs.framework",
+				"${BUILT_PRODUCTS_DIR}/Specta-iOS/Specta.framework",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking-iOS/AFNetworking.framework",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-Public-3.5.3-Release/GoogleCast.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Expecta.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Specta.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleCast.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-ios-libTests/Pods-tvheadend-ios-libTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		285C1229E7932B31D55F3232 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-ios-libTests/Pods-tvheadend-ios-libTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		35E7AE8630C2DA57F69D2073 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-tvOS-libTests/Pods-tvheadend-tvOS-libTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4D31CC462ACA3CB1A52CCD45 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tvheadend-ios-lib-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		837D3260A4F2FC7D5E7CF6A5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tvheadend-tvOS-libTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		84055C95BB447173A4E7ED47 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tvheadend-ios-libTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		88F01C1794C46A287B33A8EC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-tvOS-libTests/Pods-tvheadend-tvOS-libTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Expecta-tvOS/Expecta.framework",
+				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs-tvOS/OHHTTPStubs.framework",
+				"${BUILT_PRODUCTS_DIR}/Specta-tvOS/Specta.framework",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking-tvOS/AFNetworking.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Expecta.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Specta.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-tvOS-libTests/Pods-tvheadend-tvOS-libTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C92243D3B3DD7188C46B5F4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tvheadend-tvOS-lib-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BA6B9D540957A929402EA817 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-ios-lib/Pods-tvheadend-ios-lib-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1F0CD8E2F9F1A907FB98CED /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tvheadend-tvOS-lib/Pods-tvheadend-tvOS-lib-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AABF3A48185E586700E62240 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1325,6 +1552,7 @@
 				AABF3BE9185E6CE400E62240 /* TVHAdaptersStoreAbstract.m in Sources */,
 				AA72FD38186847F800EDCE05 /* TVHNetwork.m in Sources */,
 				AABF3BF7185E6CF500E62240 /* TVHService.m in Sources */,
+				F087A2D31F79B76C00EFB087 /* TVHStreamProfileStoreA15.m in Sources */,
 				AABF3BFF185E6D0500E62240 /* TVHPlayXbmc.m in Sources */,
 				AABF3BD0185E6CB100E62240 /* TVHEpgStore34.m in Sources */,
 				AABF3BDD185E6CC000E62240 /* TVHDvrActions.m in Sources */,
@@ -1333,13 +1561,16 @@
 				AABF3BFE185E6D0500E62240 /* TVHPlayStream.m in Sources */,
 				AABF3BCA185E6CA900E62240 /* TVHTagStore32.m in Sources */,
 				AABF3BE0185E6CD000E62240 /* TVHStatusSubscriptionsStoreAbstract.m in Sources */,
+				F0BE72271F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m in Sources */,
 				AABF3BED185E6CE400E62240 /* TVHAdapter.m in Sources */,
 				AABF3BEC185E6CE400E62240 /* TVHAdaptersStoreA15.m in Sources */,
 				AABF3BCC185E6CA900E62240 /* TVHTagStoreA15.m in Sources */,
 				AABF3BE5185E6CE400E62240 /* TVHStatusInputStore32.m in Sources */,
+				F087A2B81F79A2E300EFB087 /* TVHConfigNameStore32.m in Sources */,
 				AABF3BD8185E6CC000E62240 /* TVHDvrStoreAbstract.m in Sources */,
 				AABF3BF2185E6CEC00E62240 /* TVHMux.m in Sources */,
 				AABF3BF8185E6CFD00E62240 /* TVHLogStore.m in Sources */,
+				F087A2C41F79B55E00EFB087 /* TVHStreamProfileStore.m in Sources */,
 				AABF3BEA185E6CE400E62240 /* TVHAdaptersStore32.m in Sources */,
 				AABF3BF9185E6CFD00E62240 /* TVHCometPollAbstract.m in Sources */,
 				AABF3BC6185E6CA100E62240 /* TVHChannelStoreA15.m in Sources */,
@@ -1350,39 +1581,35 @@
 				AABF3BDF185E6CC500E62240 /* TVHConfigName.m in Sources */,
 				AABF3BEB185E6CE400E62240 /* TVHAdaptersStore34.m in Sources */,
 				AABF3BFC185E6CFD00E62240 /* TVHCometPollA15.m in Sources */,
-				AABF3B50185E5F2000E62240 /* AFHTTPRequestOperation.m in Sources */,
-				AABF3BDE185E6CC500E62240 /* TVHConfigNameStore.m in Sources */,
+				AABF3BDE185E6CC500E62240 /* TVHConfigNameStoreAbstract.m in Sources */,
 				AABF3BD1185E6CB100E62240 /* TVHEpgStoreA15.m in Sources */,
 				AABF3BD7185E6CC000E62240 /* TVHAutoRecItem.m in Sources */,
-				AABF3B51185E5F2000E62240 /* AFImageRequestOperation.m in Sources */,
 				AABF3BCF185E6CB100E62240 /* TVHEpgStore32.m in Sources */,
 				AA43C9FA1A06FE70007597F9 /* TVHDvrStoreA12.m in Sources */,
 				AABF3BE7185E6CE400E62240 /* TVHStatusInputStoreA15.m in Sources */,
 				AABF3C08185E6EB500E62240 /* NSArray+Utils.m in Sources */,
 				AABF3BF0185E6CEC00E62240 /* TVHMuxStore34.m in Sources */,
 				AABF3BDA185E6CC000E62240 /* TVHDvrStore34.m in Sources */,
+				F087A2C71F79B56D00EFB087 /* TVHStreamProfile.m in Sources */,
 				AABF3BC0185E6C6000E62240 /* TVHServer.m in Sources */,
-				AABF3B54185E5F2000E62240 /* AFPropertyListRequestOperation.m in Sources */,
 				AABF3BD6185E6CC000E62240 /* TVHAutoRecStoreA15.m in Sources */,
 				F0AEEC341C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */,
-				AABF3B52185E5F2000E62240 /* AFJSONRequestOperation.m in Sources */,
-				AABF3B55185E5F2000E62240 /* AFURLConnectionOperation.m in Sources */,
 				AABF3BBE185E6C5B00E62240 /* TVHJsonClient.m in Sources */,
 				AABF3BF4185E6CF500E62240 /* TVHServiceStore32.m in Sources */,
-				AABF3B56185E5F2000E62240 /* AFXMLRequestOperation.m in Sources */,
 				AABF3BDC185E6CC000E62240 /* TVHDvrItem.m in Sources */,
 				AABF3BD5185E6CC000E62240 /* TVHAutoRecStore34.m in Sources */,
+				F087A2BC1F79A2F800EFB087 /* TVHConfigNameStore34.m in Sources */,
 				AABF3BCB185E6CA900E62240 /* TVHTagStore34.m in Sources */,
 				AABF3BE4185E6CD000E62240 /* TVHStatusSubscription.m in Sources */,
 				AABF3BFD185E6D0500E62240 /* TVHTableMgrActions.m in Sources */,
 				AABF3BE8185E6CE400E62240 /* TVHStatusInput.m in Sources */,
 				AABF3BF1185E6CEC00E62240 /* TVHMuxStoreA15.m in Sources */,
+				F087A2CA1F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m in Sources */,
 				AA72FD3B1868480C00EDCE05 /* TVHNetworkStoreA15.m in Sources */,
 				AABF3BEE185E6CEC00E62240 /* TVHMuxStoreAbstract.m in Sources */,
 				AABF3BC9185E6CA900E62240 /* TVHTagStoreAbstract.m in Sources */,
 				AABF3BD2185E6CB100E62240 /* TVHEpg.m in Sources */,
-				AABF3B38185E5ECD00E62240 /* AFHTTPClient+ProxyQueue.m in Sources */,
-				AABF3B53185E5F2000E62240 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				F087A2BF1F79A30900EFB087 /* TVHConfigNameStoreA15.m in Sources */,
 				AABF3BC5185E6CA100E62240 /* TVHChannelStore34.m in Sources */,
 				AABF3BF3185E6CF500E62240 /* TVHServiceStoreAbstract.m in Sources */,
 				AABF3BFA185E6CFD00E62240 /* TVHCometPoll32.m in Sources */,
@@ -1398,13 +1625,12 @@
 				AABF3BC7185E6CA100E62240 /* TVHChannel.m in Sources */,
 				AA2C7E2D19BCCFCA001EDC67 /* TVHPlayChromeCast.m in Sources */,
 				AABF3BC4185E6CA100E62240 /* TVHChannelStore32.m in Sources */,
+				F0BE722C1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m in Sources */,
 				AABF3BD9185E6CC000E62240 /* TVHDvrStore32.m in Sources */,
 				AA43C9F41A06F26A007597F9 /* TVHEpgStoreA14.m in Sources */,
 				AABF3BC1185E6C6200E62240 /* TVHServerSettings.m in Sources */,
-				AABF3BC2185E6C7D00E62240 /* SSHWrapper.m in Sources */,
 				AABF3BC3185E6C9400E62240 /* TVHChannelStoreAbstract.m in Sources */,
 				AA72FD3E1868482D00EDCE05 /* TVHNetworkStore32.m in Sources */,
-				AABF3B4F185E5F2000E62240 /* AFHTTPClient.m in Sources */,
 				F00817941C5BEECA0008C3EF /* NSDateFormatter+TVH.m in Sources */,
 				AABF3BEF185E6CEC00E62240 /* TVHMuxStore32.m in Sources */,
 				AABF3BE1185E6CD000E62240 /* TVHStatusSubscriptionsStore32.m in Sources */,
@@ -1422,8 +1648,6 @@
 				AAA89DE0186123B600AE4C13 /* TVHServerTests.m in Sources */,
 				AAA89DE81861254C00AE4C13 /* TVHTagStoreTests.m in Sources */,
 				AAA89DEC186125AA00AE4C13 /* TVHEpgStoreTests.m in Sources */,
-				F04E38B71DEF8D0700AE25E6 /* NSArray+Utils.m in Sources */,
-				F04E38B61DEF8D0100AE25E6 /* NSDateFormatter+TVH.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1434,6 +1658,7 @@
 				F0CDE4C11BA215FD000A969B /* TVHStatusInputStoreA15.m in Sources */,
 				F0CDE4CD1BA21610000A969B /* TVHNetwork.m in Sources */,
 				F0CDE49F1BA215BC000A969B /* TVHChannelStoreA15.m in Sources */,
+				F087A2D41F79B76C00EFB087 /* TVHStreamProfileStoreA15.m in Sources */,
 				F0CDE4C31BA215FD000A969B /* TVHStatusInputStore34.m in Sources */,
 				F0CDE4D11BA21618000A969B /* TVHMuxStoreA15.m in Sources */,
 				F0CDE4B91BA215E4000A969B /* TVHDvrActions.m in Sources */,
@@ -1442,10 +1667,12 @@
 				F0CDE4AC1BA215D1000A969B /* TVHEpgStoreA15.m in Sources */,
 				F0CDE4AE1BA215E4000A969B /* TVHAutoRecStoreAbstract.m in Sources */,
 				F0CDE4D51BA21620000A969B /* TVHServiceStore34.m in Sources */,
+				F0BE72281F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m in Sources */,
 				F0CDE4A61BA215C6000A969B /* TVHTag.m in Sources */,
 				F0CDE4BD1BA215F3000A969B /* TVHStatusSubscriptionsStore32.m in Sources */,
 				F0CDE4AF1BA215E4000A969B /* TVHAutoRecStore32.m in Sources */,
 				F0CDE4BF1BA215F3000A969B /* TVHStatusSubscriptionsStoreA15.m in Sources */,
+				F087A2B91F79A2E600EFB087 /* TVHConfigNameStore32.m in Sources */,
 				F0CDE4A31BA215C6000A969B /* TVHTagStore32.m in Sources */,
 				F0CDE4AB1BA215D1000A969B /* TVHEpgStoreA14.m in Sources */,
 				F0AEEC351C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */,
@@ -1463,49 +1690,48 @@
 				F0CDE49A1BA215A9000A969B /* TVHServerSettings.m in Sources */,
 				F0CDE4D21BA21618000A969B /* TVHMux.m in Sources */,
 				F0CDE4CC1BA21610000A969B /* TVHNetworkStore34.m in Sources */,
+				F087A2CF1F79B62200EFB087 /* TVHStreamProfileStore.m in Sources */,
 				F0CDE4A51BA215C6000A969B /* TVHTagStoreA15.m in Sources */,
 				F0CDE4D01BA21618000A969B /* TVHMuxStore34.m in Sources */,
 				F0CDE4DA1BA21629000A969B /* TVHCometPoll32.m in Sources */,
 				F0CDE4E11BA21647000A969B /* NSArray+Utils.m in Sources */,
 				F0CDE4C41BA215FD000A969B /* TVHStatusInput.m in Sources */,
 				F0CDE4A81BA215D1000A969B /* TVHEpgStore32.m in Sources */,
+				F087A2CE1F79B62000EFB087 /* TVHStreamProfile.m in Sources */,
 				F0CDE4D81BA21629000A969B /* TVHLogStore.m in Sources */,
 				F0CDE4B31BA215E4000A969B /* TVHDvrStore32.m in Sources */,
 				F0CDE4A91BA215D1000A969B /* TVHEpgStore34.m in Sources */,
-				F0CDE4EA1BA2165B000A969B /* AFHTTPClient+ProxyQueue.m in Sources */,
 				F0CDE4B41BA215E4000A969B /* TVHDvrStore34.m in Sources */,
 				F0CDE4991BA215A9000A969B /* TVHServer.m in Sources */,
 				F0CDE4DB1BA21629000A969B /* TVHCometPoll34.m in Sources */,
 				F0CDE4AD1BA215D1000A969B /* TVHEpg.m in Sources */,
+				F087A2CC1F79B61400EFB087 /* TVHConfigNameStore34.m in Sources */,
 				F0CDE4A71BA215D1000A969B /* TVHEpgStoreAbstract.m in Sources */,
 				F0CDE4AA1BA215D1000A969B /* TVHEpgStoreA12.m in Sources */,
 				F0CDE4D61BA21620000A969B /* TVHServiceStoreA15.m in Sources */,
 				F0CDE4981BA215A9000A969B /* TVHApiClient.m in Sources */,
-				F0CDE4E51BA21657000A969B /* AFJSONRequestOperation.m in Sources */,
 				F0CDE4971BA215A9000A969B /* TVHJsonClient.m in Sources */,
-				F0CDE4E41BA21657000A969B /* AFImageRequestOperation.m in Sources */,
 				F0CDE4B21BA215E4000A969B /* TVHDvrStoreAbstract.m in Sources */,
 				F0CDE49D1BA215BC000A969B /* TVHChannelStore32.m in Sources */,
 				F0CDE4D41BA21620000A969B /* TVHServiceStore32.m in Sources */,
 				F0CDE4C91BA21610000A969B /* TVHAdapter.m in Sources */,
 				F0CDE4A01BA215BC000A969B /* TVHChannel.m in Sources */,
 				F0CDE4A21BA215C6000A969B /* TVHTagStoreAbstract.m in Sources */,
+				F087A2CB1F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m in Sources */,
 				F0CDE4B81BA215E4000A969B /* TVHDvrItem.m in Sources */,
 				F0CDE49E1BA215BC000A969B /* TVHChannelStore34.m in Sources */,
-				F0CDE4E91BA21657000A969B /* AFXMLRequestOperation.m in Sources */,
 				F0CDE4E01BA21636000A969B /* TVHPlayChromeCast.m in Sources */,
-				F0CDE4E81BA21657000A969B /* AFURLConnectionOperation.m in Sources */,
+				F087A2CD1F79B61600EFB087 /* TVHConfigNameStoreA15.m in Sources */,
 				F0CDE49C1BA215BC000A969B /* TVHChannelStoreAbstract.m in Sources */,
 				F0CDE4A11BA215BC000A969B /* TVHChannelEpg.m in Sources */,
 				F0CDE4C61BA21610000A969B /* TVHAdaptersStore32.m in Sources */,
 				F0CDE4C81BA21610000A969B /* TVHAdaptersStoreA15.m in Sources */,
-				F0CDE49B1BA215AF000A969B /* SSHWrapper.m in Sources */,
-				F0CDE4E71BA21657000A969B /* AFPropertyListRequestOperation.m in Sources */,
 				F0CDE4B61BA215E4000A969B /* TVHDvrStoreA15.m in Sources */,
 				F0CDE4C71BA21610000A969B /* TVHAdaptersStore34.m in Sources */,
 				F0CDE4DD1BA2162F000A969B /* TVHTableMgrActions.m in Sources */,
 				F0CDE4CB1BA21610000A969B /* TVHNetworkStore32.m in Sources */,
-				F0CDE4BA1BA215E9000A969B /* TVHConfigNameStore.m in Sources */,
+				F0CDE4BA1BA215E9000A969B /* TVHConfigNameStoreAbstract.m in Sources */,
+				F0BE722D1F4B8266003AEBE2 /* TVHJsonUTF8HackResponseSerializer.m in Sources */,
 				F0CDE4D71BA21620000A969B /* TVHService.m in Sources */,
 				F0CDE4BE1BA215F3000A969B /* TVHStatusSubscriptionsStore34.m in Sources */,
 				F0CDE4B01BA215E4000A969B /* TVHAutoRecStore34.m in Sources */,
@@ -1514,8 +1740,6 @@
 				F0CDE4BC1BA215F3000A969B /* TVHStatusSubscriptionsStoreAbstract.m in Sources */,
 				F0CDE4C01BA215F3000A969B /* TVHStatusSubscription.m in Sources */,
 				F0CDE4D91BA21629000A969B /* TVHCometPollAbstract.m in Sources */,
-				F0CDE4E21BA21657000A969B /* AFHTTPClient.m in Sources */,
-				F0CDE4E31BA21657000A969B /* AFHTTPRequestOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1568,18 +1792,29 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1592,10 +1827,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/vendor/**";
+				HEADER_SEARCH_PATHS = (
+					"${PODS_HEADERS_SEARCH_PATHS}",
+					"$(inherited)",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -1607,98 +1849,101 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/vendor/**";
+				HEADER_SEARCH_PATHS = (
+					"${PODS_HEADERS_SEARCH_PATHS}",
+					"$(inherited)",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		AABF3A70185E586700E62240 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F3D67C560EF9C47B4FA70F4 /* Pods-tvheadend-ios-lib.debug.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/tvheadend_ios_lib.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/vendor/libssh2-for-iOS/include/**",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor/libssh2-compiled",
-				);
-				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-DENABLE_CHROMECAST",
 					"-DENABLE_XBMC",
-					"-DENABLE_SSH",
+					"$(inherited)",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SEPARATE_STRIP = NO;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 			};
 			name = Debug;
 		};
 		AABF3A71185E586700E62240 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6539CB15C208A70A82A5D139 /* Pods-tvheadend-ios-lib.release.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/tvheadend_ios_lib.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/vendor/libssh2-for-iOS/include/**",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor/libssh2-compiled",
-				);
 				OTHER_CFLAGS = (
 					"-DENABLE_CHROMECAST",
 					"-DENABLE_XBMC",
-					"-DENABLE_SSH",
+					"$(inherited)",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SEPARATE_STRIP = NO;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 			};
 			name = Release;
 		};
 		AABF3A73185E586700E62240 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 814501041CDD2186F91C67CB /* Pods-tvheadend-ios-libTests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1713,6 +1958,45 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "tvheadend-ios-libTests/tvheadend-ios-libTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreBluetooth\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GoogleCast\"",
+					"-framework",
+					"\"MediaAccessibility\"",
+					"-framework",
+					"\"MediaPlayer\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zipleen.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
@@ -1721,6 +2005,7 @@
 		};
 		AABF3A74185E586700E62240 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36532E36A573397F744BDD8B /* Pods-tvheadend-ios-libTests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1731,6 +2016,45 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				INFOPLIST_FILE = "tvheadend-ios-libTests/tvheadend-ios-libTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreBluetooth\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GoogleCast\"",
+					"-framework",
+					"\"MediaAccessibility\"",
+					"-framework",
+					"\"MediaPlayer\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zipleen.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
@@ -1739,77 +2063,69 @@
 		};
 		F0CDE4731BA214A2000A969B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 564A591F3878675A6E59B010 /* Pods-tvheadend-tvOS-lib.debug.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor",
-				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor/libssh2-compiled",
-				);
 				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
 			};
 			name = Debug;
 		};
 		F0CDE4741BA214A2000A969B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B28440BE21FDEEF0589526A /* Pods-tvheadend-tvOS-lib.release.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor",
-				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor/libssh2-compiled",
-				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
 			};
 			name = Release;
 		};
 		F0CDE4831BA214C3000A969B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B1DA09AA5163B40B09E3A331 /* Pods-tvheadend-tvOS-libTests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor",
-				);
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zipleen.tvheadend-tvOS-libTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -1819,19 +2135,24 @@
 		};
 		F0CDE4841BA214C3000A969B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 58F57133ACC530ED344670AC /* Pods-tvheadend-tvOS-libTests.release.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/vendor",
-				);
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "tvheadend-ios-lib/tvheadend-ios-lib-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zipleen.tvheadend-tvOS-libTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;

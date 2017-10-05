@@ -10,11 +10,11 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import <Foundation/Foundation.h>
-#import "TVHJsonClient.h"
+
+#import "TVHApiClient.h"
 
 #define TVHDidSuccessedTableMgrActionNotification @"didSuccessTableMgrAction"
 
 @interface TVHTableMgrActions : NSObject
-+ (void)doTableMgrAction:(NSString*)action withJsonClient:(TVHJsonClient*)httpClient inTable:(NSString*)table withEntries:(id)entries;
++ (void)doTableMgrAction:(NSString*)action withApiClient:(TVHApiClient*)httpClient inTable:(NSString*)table withEntries:(id)entries;
 @end

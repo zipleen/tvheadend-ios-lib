@@ -25,8 +25,6 @@
 
 #define TVH_PROGRAMS @{@"VLC":@"vlc", @"Oplayer":@"oplayer", @"Buzz Player":@"buzzplayer", @"GoodPlayer":@"goodplayer", @"Ace Player":@"aceplayer", @"nPlayer":@"nplayer-http" }
 #define TVH_PROGRAMS_REMOVE_HTTP @[ @"nplayer-http" ]
-#define TVHS_TVHEADEND_STREAM_URL_INTERNAL @"?transcode=1&resolution=%@&vcodec=H264%@&scodec=PASS&mux=mpegts"
-#define TVHS_TVHEADEND_STREAM_URL @"?transcode=1&resolution=%@%@%@%@&scodec=PASS"
 
 #define TVH_ICON_PROGRAM @""
 
@@ -36,8 +34,7 @@
 
 @implementation TVHPlayStream
 
-- (id)init
-{
+- (id)init {
     [NSException raise:@"Invalid Init" format:@"TVHPlayStream needs TVHServer to work"];
     return nil;
 }
@@ -53,8 +50,9 @@
 
 #pragma MARK get programs
 
-- (NSDictionary*)arrayOfAvailablePrograms:(BOOL)withTranscoding {
+- (NSDictionary*)arrayOfAvailablePrograms {
     NSMutableDictionary *available = [[NSMutableDictionary alloc] init];
+#ifndef DEVICE_IS_TVOS
     for (NSString* key in TVH_PROGRAMS) {
         NSString *urlTarget = [TVH_PROGRAMS objectForKey:key];
         NSURL *url = [self urlForSchema:urlTarget withURL:nil];
@@ -62,15 +60,7 @@
             [available setObject:TVH_ICON_PROGRAM forKey:key];
         }
     }
-    
-    // custom
-    NSString *customPrefix = [self.tvhServer.settings customPrefix];
-    if( [customPrefix length] > 0 ) {
-        NSURL *url = [self urlForSchema:customPrefix withURL:nil];
-        if( [[UIApplication sharedApplication] canOpenURL:url] ) {
-            [available setObject:TVH_ICON_PROGRAM forKey:NSLocalizedString(@"Custom Player", nil)];
-        }
-    }
+#endif
     
 #ifdef ENABLE_XBMC
     // xbmc
@@ -79,42 +69,37 @@
     }
 #endif
 #ifdef ENABLE_CHROMECAST
-    if ( withTranscoding ) {
         // chromecast - can only cast with transcoding, no "mkv" or "mpeg2" support...
         for (NSString* ccServer in [[TVHPlayChromeCast sharedInstance] availableServers]) {
             [available setObject:TVH_ICON_CHROMECAST forKey:ccServer];
         }
-    }
 #endif
     
     return [available copy];
 }
 
-- (BOOL)isTranscodingCapable {
-    return [self.tvhServer isTranscodingCapable];
-}
-
 #pragma mark play stream
 
-- (BOOL)playStreamIn:(NSString*)program forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding {
+- (BOOL)playStreamIn:(NSString*)program forObject:(id<TVHPlayStreamDelegate>)streamObject {
     
-    if ( [self playInternalStreamIn:program forObject:streamObject withTranscoding:transcoding] ) {
+    if ( [self playInternalStreamIn:program forObject:streamObject] ) {
         return true;
     }
 #ifdef ENABLE_XBMC
-    if ( [self playToXbmc:program forObject:streamObject withTranscoding:transcoding] ) {
+    if ( [self playToXbmc:program forObject:streamObject] ) {
         return true;
     }
 #endif
 #ifdef ENABLE_CHROMECAST
-    return [self playToChromeCast:program forObject:streamObject withTranscoding:transcoding];
+    return [self playToChromeCast:program forObject:streamObject];
 #else
     return false;
 #endif
 }
 
-- (BOOL)playInternalStreamIn:(NSString*)program forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding {
-    NSString *streamUrl = [streamObject streamUrlWithTranscoding:transcoding withInternal:NO];
+- (BOOL)playInternalStreamIn:(NSString*)program forObject:(id<TVHPlayStreamDelegate>)streamObject {
+#ifndef DEVICE_IS_TVOS
+    NSString *streamUrl = [streamObject streamUrlWithInternalPlayer:NO];
     NSURL *myURL = [self URLforProgramWithName:program forURL:streamUrl];
     if ( myURL ) {
         [self.tvhServer.analytics sendEventWithCategory:@"playTo"
@@ -124,78 +109,44 @@
         [[UIApplication sharedApplication] openURL:myURL];
         return true;
     }
+#endif
     return false;
 }
 
 #ifdef ENABLE_XBMC
-- (BOOL)playToXbmc:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding {
+- (BOOL)playToXbmc:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject {
     TVHPlayXbmc *playXbmcService = [TVHPlayXbmc sharedInstance];
-    return [playXbmcService playStream:xbmcName forObject:streamObject withTranscoding:transcoding withAnalytics:self.tvhServer.analytics];
+    return [playXbmcService playStream:xbmcName forObject:streamObject withAnalytics:self.tvhServer.analytics];
 }
 #endif
 #ifdef ENABLE_CHROMECAST
-- (BOOL)playToChromeCast:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding {
+- (BOOL)playToChromeCast:(NSString*)xbmcName forObject:(id<TVHPlayStreamDelegate>)streamObject {
     TVHPlayChromeCast *playChromeCastService = [TVHPlayChromeCast sharedInstance];
-    return [playChromeCastService playStream:xbmcName forObject:streamObject withTranscoding:transcoding withAnalytics:self.tvhServer.analytics];
+    return [playChromeCastService playStream:xbmcName forObject:streamObject withAnalytics:self.tvhServer.analytics];
 }
 #endif
 
-- (NSString*)streamUrlForObject:(id<TVHPlayStreamDelegate>)streamObject withTranscoding:(BOOL)transcoding withInternal:(BOOL)internal
-{
+- (NSString*)streamUrlForObject:(id<TVHPlayStreamDelegate>)streamObject withInternalPlayer:(BOOL)internal {
     NSString *streamUrl;
     if ( internal ) {
+        // internal iOS player wants a playlist
         streamUrl = streamObject.playlistStreamURL;
     } else {
         streamUrl = streamObject.streamURL;
     }
     
-    if ( transcoding ) {
-        if ( internal ) {
-            return [self stringTranscodeUrlInternalFormat:streamUrl];
-        } else {
-            return [self stringTranscodeUrl:streamUrl];
-        }
-    } else {
-        return streamUrl;
+    // add profile!
+    if (self.tvhServer.settings.streamProfile != nil && ![self.tvhServer.settings.streamProfile isEqualToString:@""]) {
+        return [streamUrl stringByAppendingFormat:@"?profile=%@", self.tvhServer.settings.streamProfile];
     }
-}
-
-
-- (NSString*)stringTranscodeUrl:(NSString*)url {
-    NSString *video = @"";
-    NSString *sound = @"";
-    NSString *mux = @"";
-    if (![self.tvhServer.settings.transcodeVideo isEqualToString:@"NONE"]) {
-        video = [NSString stringWithFormat:@"&vcodec=%@", self.tvhServer.settings.transcodeVideo];
-    }
-    if (![self.tvhServer.settings.transcodeSound isEqualToString:@"NONE"]) {
-        sound = [NSString stringWithFormat:@"&acodec=%@", self.tvhServer.settings.transcodeSound];
-    }
-    if (![self.tvhServer.settings.transcodeMux isEqualToString:@"NONE"]) {
-        mux = [NSString stringWithFormat:@"&mux=%@", self.tvhServer.settings.transcodeMux];
-    }
-    return [url stringByAppendingFormat:TVHS_TVHEADEND_STREAM_URL, self.tvhServer.settings.transcodeResolution, video, sound, mux];
-}
-
-- (NSString*)stringTranscodeUrlInternalFormat:(NSString*)url {
-    NSString *sound = @"";
-    if (![self.tvhServer.settings.transcodeSound isEqualToString:@"NONE"]) {
-        sound = [NSString stringWithFormat:@"&acodec=%@", self.tvhServer.settings.transcodeSound];
-    }
-    return [url stringByAppendingFormat:TVHS_TVHEADEND_STREAM_URL_INTERNAL, self.tvhServer.settings.transcodeResolution, sound];
+    
+    return streamUrl;
 }
 
 - (NSURL*)URLforProgramWithName:(NSString*)title forURL:(NSString*)streamUrl {
     NSString *prefix = [TVH_PROGRAMS objectForKey:title];
     if ( prefix ) {
         NSURL *myURL = [self urlForSchema:prefix withURL:streamUrl];
-        return myURL;
-    }
-    
-    if ( [title isEqualToString:NSLocalizedString(@"Custom Player", nil)] ) {
-        NSString *customPrefix = [self.tvhServer.settings customPrefix];
-        NSString *url = [NSString stringWithFormat:@"%@://%@", customPrefix, streamUrl ];
-        NSURL *myURL = [NSURL URLWithString:url];
         return myURL;
     }
     

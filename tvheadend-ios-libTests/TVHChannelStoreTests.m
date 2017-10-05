@@ -10,10 +10,12 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
+#import <Expecta/Expecta.h>
 #import <XCTest/XCTest.h>
 #import "TVHTestHelper.h"
 #import "TVHChannelStore34.h"
 #import "TVHChannel.h"
+#import "OHHTTPStubs/OHHTTPStubs.h"
 
 @interface TVHChannelStoreTests : XCTestCase
 
@@ -37,11 +39,23 @@
 
 - (void)testJsonChannelParsing
 {
-    NSData *data = [TVHTestHelper loadFixture:@"Log.channels"];
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return [request.URL.host isEqualToString:@"testServer"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        NSData* stubData = [TVHTestHelper loadFixture:@"Log.channels"];
+        return [OHHTTPStubsResponse responseWithData:stubData statusCode:200 headers:@{@"Content-Type":@"application/json"}];
+    }];
+    
     TVHChannelStore34 *store = [[TVHChannelStore34 alloc] initWithTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
     XCTAssertNotNil(store, @"creating channel store object");
     
-    [store fetchedData:data];
+    [store fetchChannelList];
+    
+    [Expecta setAsynchronousTestTimeout:2];
+    
+    expect(store.channels).after(3).willNot.beNil();
+    expect(store.channels.count).to.equal(7);
+    
     XCTAssertTrue( ([store.channels count] == 7), @"channel count does not match");
     
     TVHChannel *channel = [store.channels lastObject];

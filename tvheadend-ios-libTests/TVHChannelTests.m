@@ -10,12 +10,28 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
+#import <Expecta/Expecta.h>
+#import "OHHTTPStubs/OHHTTPStubs.h"
 #import <XCTest/XCTest.h>
 #import "TVHTestHelper.h"
 #import "TVHChannel.h"
 #import "TVHEpg.h"
 #import "TVHEpgStore34.h"
+#import "TVHEpgStoreA15.h"
 #import "TVHChannelEpg.h"
+#import "TVHServer.h"
+#import "TVHJsonUTF8AutoCharsetResponseSerializer.h"
+
+@interface TVHEpgStore34 (MyPrivateMethodsUsedForTesting)
+@property (nonatomic, strong) NSArray *epgStore;
+- (void)fetchedData:(NSData *)responseData;
+- (BOOL)addEpgItemToStore:(TVHEpg*)epgItem;
+@end
+
+@interface TVHEpgStoreA15 (MyPrivateMethodsUsedForTesting)
+@property (nonatomic, strong) NSArray *epgStore;
+- (void)fetchedData:(NSData *)responseData;
+@end
 
 
 @interface TVHChannelTests : XCTestCase <TVHChannelDelegate>
@@ -74,8 +90,11 @@
 
 - (void)testDuplicateEpgFromFetchMorePrograms {
     NSData *data = [TVHTestHelper loadFixture:@"Log.oneChannelEpg"];
+    NSError __autoreleasing *error;
+    TVHJsonUTF8AutoCharsetResponseSerializer *serializer = [TVHJsonUTF8AutoCharsetResponseSerializer serializer];
+    
     TVHEpgStore34 *store = [[TVHEpgStore34 alloc ] init];
-    [store fetchedData:data];
+    [store fetchedData:[serializer responseObjectForResponse:nil data:data error:&error]];
     
     TVHChannel *channel = [self channel];
     TVHEpg *epg = [self epg];
@@ -93,6 +112,50 @@
     [channel didLoadEpg];
     chepg = [channel.channelEpgDataByDay objectAtIndex:0];
     XCTAssertTrue( ([chepg.programs count] == 4), @"programs == %lu should be 4", (unsigned long)[chepg.programs count]);
+}
+
+- (void)testDuplicateEpgInRemoveOldPrograms {
+    
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return [request.URL.host isEqualToString:@"testServer"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        NSData* stubData = [TVHTestHelper loadFixture:@"Log.oneChannelEpg"];;
+        return [OHHTTPStubsResponse responseWithData:stubData statusCode:200 headers:@{@"Content-Type":@"application/json"}];
+    }];
+    
+    TVHEpgStore34 *tvhe = [[TVHEpgStore34 alloc] initWithStatsEpgName:@"bla" withTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
+    XCTAssertNotNil(tvhe, @"creating tvepg store object");
+    [tvhe downloadEpgList];
+    
+    expect(tvhe.epgStore).after(5).willNot.beNil();
+    expect(tvhe.epgStore.count).after(5).to.equal(19);
+    
+    TVHEpg *epg = [[TVHEpg alloc] initWithTvhServer:tvhe.tvhServer];
+    
+    // here is an epg of yesterday, so it gets removed from the remove old programs
+    NSDate *dateO = [NSDate new];
+    NSTimeInterval aTimeInterval = [dateO timeIntervalSinceReferenceDate] + 86400 * -1;
+    [epg setValue:[NSNumber numberWithInteger:[[NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval] timeIntervalSince1970]] forKey:@"start"];
+    [epg setValue:[NSNumber numberWithInteger:[[NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval + 500] timeIntervalSince1970]] forKey:@"end"];
+    epg.channelid = 27;
+    epg.id = 123;
+    [tvhe addEpgItemToStore:epg];
+    
+    XCTAssertEqual(tvhe.epgStore.count, 20);
+    NSArray *epgOfChannel27 = [tvhe.epgByChannelCopy objectForKey:@"27"];
+    XCTAssertEqual([epgOfChannel27 count], 20);
+    
+    [tvhe addEpgItemToStore:epg];
+    XCTAssertEqual(tvhe.epgStore.count, 20);
+    
+    [tvhe removeOldProgramsFromStore];
+    
+    XCTAssertEqual(tvhe.epgStore.count, 19);
+    
+    // the bug is in epg of each channel
+    // it is still going to be 20, because we are not removing the old programs from each channel - however it cannot be 40 :D
+    epgOfChannel27 = [tvhe.epgByChannelCopy objectForKey:@"27"];
+    XCTAssertEqual([epgOfChannel27 count], 20);
 }
 
 - (void)testRemovingLastEpgOfTheDay {
@@ -126,5 +189,19 @@
 
 }
 
-
+- (void)testHtspUrl {
+    TVHServerSettings *settings = [[TVHServerSettings alloc] initWithSettings:@{
+                                                                               TVHS_HTSP_PORT_KEY: @"1111",
+                                                                               TVHS_IP_KEY: @"something",
+                                                                               TVHS_USERNAME_KEY: @""
+                                                                               }];
+    
+    TVHServer *server = [[TVHServer alloc] initWithSettingsButDontInit:settings];
+    
+    TVHChannel *channel = [[TVHChannel alloc] initWithTvhServer:server];
+    channel.uuid = @"ad3b0c90ee951c38ac6f5f8b6452fb3c";
+    NSLog(@"->%@", channel.htspStreamURL);
+    XCTAssertTrue([channel.htspStreamURL isEqualToString:@"htsp://something:1111/tags/0/269237165.ts"]);
+    expect(channel.htspStreamURL).to.equal(@"htsp://something:1111/tags/0/269237165.ts");
+}
 @end

@@ -19,6 +19,7 @@
 @interface TVHServer()
 @property (nonatomic, strong) TVHJsonClient *jsonClient;
 @property (nonatomic, strong) TVHApiClient *apiClient;
+@property (nonatomic, strong) TVHPlayStream *playStream;
 @property (nonatomic, strong) id <TVHTagStore> tagStore;
 @property (nonatomic, strong) id <TVHChannelStore> channelStore;
 @property (nonatomic, strong) id <TVHDvrStore> dvrStore;
@@ -29,9 +30,10 @@
 @property (nonatomic, strong) id <TVHServiceStore> serviceStore;
 @property (nonatomic, strong) TVHLogStore *logStore;
 @property (nonatomic, strong) id <TVHCometPoll> cometStore;
-@property (nonatomic, strong) TVHConfigNameStore *configNameStore;
+@property (nonatomic, strong) id <TVHConfigNameStore> configNameStore;
 @property (nonatomic, strong) id <TVHStatusInputStore> inputStore;
 @property (nonatomic, strong) id <TVHNetworkStore> networkStore;
+@property (nonatomic, strong) id <TVHStreamProfileStore> streamProfileStore;
 @property (nonatomic, strong) NSString *version;     // version like 32, 34, 40 - legacy only!
 @property (nonatomic, strong) NSString *realVersion; // real version number, unmodified
 @property (nonatomic, strong) NSNumber *apiVersion;  // the new API JSON version
@@ -97,10 +99,7 @@
         }
 #endif
         [self fetchServerVersion];
-        if ( ! [self.version isEqualToString:@"32"] ) {
-            [self fetchCapabilities];
-        }
-        
+
         [self.tagStore fetchTagList];
         [self.channelStore fetchChannelList];
         
@@ -110,6 +109,7 @@
         [self.inputStore fetchStatusInputs];
         [self.muxStore fetchMuxes];
         [self.serviceStore fetchServices];
+        [self.streamProfileStore fetchStreamProfiles];
         
         [self logStore];
         
@@ -124,13 +124,14 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(appWillEnterForeground:)
-                                                     name:UIApplicationWillEnterForegroundNotification
+                                                     name:UIApplicationDidBecomeActiveNotification
                                                    object:nil];
         [self startTimer];
     }
     return self;
 }
 
+// settingsInit
 - (TVHServer*)initWithSettingsButDontInit:(TVHServerSettings*)settings {
     self = [super init];
     if (self) {
@@ -293,11 +294,18 @@
     return _apiClient;
 }
 
-- (TVHConfigNameStore*)configNameStore {
+- (id <TVHConfigNameStore>)configNameStore {
     if( ! _configNameStore ) {
-        _configNameStore = [[TVHConfigNameStore alloc] initWithTvhServer:self];
+        _configNameStore = [self factory:@"TVHConfigNameStore"];
     }
     return _configNameStore;
+}
+
+- (id <TVHStreamProfileStore>)streamProfileStore {
+    if( ! _streamProfileStore ) {
+        _streamProfileStore = [self factory:@"TVHStreamProfileStore"];
+    }
+    return _streamProfileStore;
 }
 
 - (id <TVHEpgStore>)createEpgStoreWithName:(NSString*)statsName {
@@ -349,8 +357,7 @@
     return self.jsonClient.readyToUse;
 }
 
-- (TVHPlayStream*)playStream
-{
+- (TVHPlayStream*)playStream {
     if ( ! _playStream ) {
         _playStream = [[TVHPlayStream alloc] initWithTvhServer:self];
     }
@@ -361,21 +368,15 @@
 
 - (void)fetchServerVersion {
     __weak typeof (self) weakSelf = self;
-    [self.jsonClient getPath:@"api/serverinfo" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient getPath:@"api/serverinfo" parameters:nil success:^(NSURLSessionDataTask *task, NSDictionary *json) {
         typeof (self) strongSelf = weakSelf;
-        NSError *error;
-        NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseObject error:&error];
-        if( error ) {
-            NSLog(@"[TVHServer fetchCapabilities]: error %@", error.description);
-            return ;
-        }
         
         // this capabilities seems to retrieve a different array from /capabilities
         //strongSelf.capabilities = [json valueForKey:@"capabilities"];
         strongSelf.apiVersion = [json valueForKey:@"api_version"];
         strongSelf.realVersion = [json valueForKey:@"sw_version"];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         typeof (self) strongSelf = weakSelf;
 #ifdef TESTING
         NSLog(@"TVHeadend does not have api/serverinfo, calling legacy.. (%@)", error.localizedDescription);
@@ -386,11 +387,11 @@
 
 - (void)fetchServerVersionLegacy {
     __weak typeof (self) weakSelf = self;
-    [self.jsonClient getPath:@"extjs.html" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient getPath:@"extjs.html" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         typeof (self) strongSelf = weakSelf;
         NSString *response = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         [strongSelf handleFetchedServerVersionLegacy:response];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"[TVHServer getVersion]: %@", error.localizedDescription);
     }];
 }
@@ -406,8 +407,7 @@
     }
 }
 
-- (void)setRealVersion:(NSString *)realVersion
-{
+- (void)setRealVersion:(NSString *)realVersion {
     _realVersion = realVersion;
     [self.analytics setObjectValue:_realVersion forKey:@"realVersion"];
     NSString *versionString = [_realVersion stringByReplacingOccurrencesOfString:@"." withString:@""];
@@ -426,54 +426,25 @@
 
 #pragma mark fetch capabilities
 
-- (void)fetchCapabilities {
-    __weak typeof (self) weakSelf = self;
-    [self.jsonClient getPath:@"capabilities" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        typeof (self) strongSelf = weakSelf;
-        NSError *error;
-        NSArray *json = [TVHJsonClient convertFromJsonToArray:responseObject error:&error];
-        if( error ) {
-            NSLog(@"[TVHServer fetchCapabilities]: error %@", error.description);
-            return ;
-        }
-        _capabilities = json;
-#ifdef TESTING
-        NSLog(@"[TVHServer capabilities]: %@", _capabilities);
-#endif
-        [strongSelf.analytics setObjectValue:_capabilities forKey:@"server.capabilities"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadCapabilitiesNotification
-                                                                object:weakSelf];
-        });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"[TVHServer capabilities]: %@", error.localizedDescription);
-    }];
-
-}
-
 - (void)fetchConfigSettings {
     if (!self.userHasAdminAccess) {
         return;
     }
     __weak typeof (self) weakSelf = self;
-    [self.jsonClient getPath:@"config" parameters:@{@"op":@"loadSettings"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.apiClient getPath:@"config" parameters:@{@"op":@"loadSettings"} success:^(NSURLSessionDataTask *task, NSDictionary *json) {
         typeof (self) strongSelf = weakSelf;
-        NSError *error;
-        NSDictionary *json = [TVHJsonClient convertFromJsonToObject:responseObject error:&error];
-        
-        if( error ) {
-            NSLog(@"[TVHServer fetchConfigSettings]: error %@", error.description);
-            return ;
-        }
         
         NSArray *entries = [json objectForKey:@"config"];
         NSMutableDictionary *config = [[NSMutableDictionary alloc] init];
         
-        [entries enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        for (NSDictionary* obj in entries) {
             [obj enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-                [config setValue:obj forKey:key];
+                // ignore satip keys because they might contain uuid which we do not care
+                if (![key containsString:@"satip"]) {
+                    [config setValue:obj forKey:key];
+                }
             }];
-        }];
+        };
         
         strongSelf.configSettings = [config copy];
 #ifdef TESTING
@@ -484,24 +455,10 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadConfigSettingsNotification
                                                                 object:weakSelf];
         });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"[TVHServer fetchConfigSettings]: %@", error.localizedDescription);
     }];
     
-}
-
-- (BOOL)isTranscodingCapable {
-    if ( self.capabilities ) {
-        NSInteger idx = [self.capabilities indexOfObject:@"transcoding"];
-        if ( idx != NSNotFound ) {
-            // check config settings now
-            NSNumber *transcodingEnabled = [self.configSettings objectForKey:@"transcoding_enabled"];
-            if ( [transcodingEnabled integerValue] == 1 ) {
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
 #pragma mark TVH Server Details

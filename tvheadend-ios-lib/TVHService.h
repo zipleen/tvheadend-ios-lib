@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Luis Fernandes. 
 //
 
-#import <Foundation/Foundation.h>
+
 #import "TVHPlayStreamDelegate.h"
 
 @class TVHServer;

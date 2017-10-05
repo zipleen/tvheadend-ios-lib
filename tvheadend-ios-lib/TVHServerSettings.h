@@ -10,7 +10,7 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-#import <Foundation/Foundation.h>
+
 
 #define TVHS_SORT_CHANNEL_BY_NAME 0
 #define TVHS_SORT_CHANNEL_BY_NUMBER 1
@@ -32,9 +32,10 @@
 #define TVHS_SERVER_VERSION @"ServerVersion"
 #define TVHS_API_VERSION @"ApiVersion"
 #define TVHS_ADMIN_ACCESS @"AdminAccessEnabled"
+#define TVHS_STREAM_PROFILE @"StreamProfile"
 
 // Init with the following strings inside a NSDictionary 
-#define TVHS_SERVER_KEY_SETTINGS @[TVHS_SERVER_NAME, TVHS_IP_KEY, TVHS_PORT_KEY, TVHS_HTSP_PORT_KEY, TVHS_USERNAME_KEY, TVHS_PASSWORD_KEY, TVHS_USE_HTTPS, TVHS_SERVER_WEBROOT, TVHS_VLC_NETWORK_LATENCY, TVHS_VLC_DEINTERLACE, TVHS_SSH_PF_HOST, TVHS_SSH_PF_PORT, TVHS_SSH_PF_USERNAME, TVHS_SSH_PF_PASSWORD, TVHS_SERVER_VERSION, TVHS_API_VERSION, TVHS_ADMIN_ACCESS]
+#define TVHS_SERVER_KEY_SETTINGS @[TVHS_SERVER_NAME, TVHS_IP_KEY, TVHS_PORT_KEY, TVHS_HTSP_PORT_KEY, TVHS_USERNAME_KEY, TVHS_PASSWORD_KEY, TVHS_USE_HTTPS, TVHS_SERVER_WEBROOT, TVHS_VLC_NETWORK_LATENCY, TVHS_VLC_DEINTERLACE, TVHS_SSH_PF_HOST, TVHS_SSH_PF_PORT, TVHS_SSH_PF_USERNAME, TVHS_SSH_PF_PASSWORD, TVHS_SERVER_VERSION, TVHS_API_VERSION, TVHS_ADMIN_ACCESS, TVHS_STREAM_PROFILE]
 
 #define TVHS_SSH_PF_LOCAL_PORT @48974
 #define TVHS_SSH_PF_LOCAL_HTSP_PORT @48975
@@ -57,16 +58,12 @@
 @property (nonatomic, strong, readonly) NSNumber *apiVersion; // apiVersion has the real HTTP JSON API version - no more guessing
 @property (nonatomic, strong, readonly) NSString *version;
 @property (nonatomic, strong, readonly) NSNumber *adminAccessEnabled;
+@property (nonatomic, strong, readonly) NSString *streamProfile;
 
 // "system wide" settings
 @property (nonatomic) NSInteger sortChannel;
 @property (nonatomic) NSInteger sortRecordings;
 @property (nonatomic) BOOL autoStartPolling;
-@property (nonatomic, strong) NSString *transcodeResolution;
-@property (nonatomic, strong) NSString *transcodeVideo;
-@property (nonatomic, strong) NSString *transcodeSound;
-@property (nonatomic, strong) NSString *transcodeMux;
-@property (nonatomic, strong) NSString *customPrefix;
 
 - (id)initWithSettings:(NSDictionary*)settings;
 - (NSURL*)baseURL;
