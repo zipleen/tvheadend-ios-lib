@@ -58,7 +58,7 @@
 @property (nonatomic, strong, readonly) NSNumber *apiVersion; // apiVersion has the real HTTP JSON API version - no more guessing
 @property (nonatomic, strong, readonly) NSString *version;
 @property (nonatomic, strong, readonly) NSNumber *adminAccessEnabled;
-@property (nonatomic, strong, readonly) NSString *streamProfile;
+@property (nonatomic, strong) NSString *streamProfile;
 
 // "system wide" settings
 @property (nonatomic) NSInteger sortChannel;

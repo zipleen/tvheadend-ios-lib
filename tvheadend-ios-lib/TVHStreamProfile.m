@@ -10,6 +10,11 @@
 
 @implementation TVHStreamProfile
 
+- (void)setName:(NSString *)name {
+    NSAssert([name isKindOfClass:[NSString class]], @"name is not a nsstring");
+    _name = name;
+}
+
 - (NSString*)description {
     return self.name;
 }
