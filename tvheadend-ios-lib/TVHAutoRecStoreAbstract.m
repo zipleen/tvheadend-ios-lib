@@ -49,6 +49,9 @@
 }
 
 - (void)fetchedData:(NSDictionary *)json {
+    if (![TVHApiClient checkFetchedData:json]) {
+        return;
+    }
     
     NSArray *entries = [json objectForKey:@"entries"];
     NSMutableArray *dvrAutoRecItems = [[NSMutableArray alloc] initWithCapacity:entries.count];

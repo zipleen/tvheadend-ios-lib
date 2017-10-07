@@ -42,7 +42,10 @@
 }
 
 - (bool)fetchedData:(NSDictionary *)json {
-        
+    if (![TVHApiClient checkFetchedData:json]) {
+        return false;
+    }
+    
     NSArray *entries = [json objectForKey:@"entries"];
     NSMutableArray *tags = [[NSMutableArray alloc] initWithCapacity:entries.count];
     

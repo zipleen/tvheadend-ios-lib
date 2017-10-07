@@ -94,6 +94,9 @@
 }
 
 - (bool)fetchedData:(NSDictionary *)json withType:(NSInteger)type {
+    if (![TVHApiClient checkFetchedData:json]) {
+        return false;
+    }
     
     NSArray *entries = [json objectForKey:self.jsonApiFieldEntries];
     NSNumber *totalCount = [[NSNumber alloc] initWithInt:[[json objectForKey:self.jsonApiFieldTotalCount] intValue]];

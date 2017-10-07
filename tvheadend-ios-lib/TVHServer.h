@@ -71,4 +71,5 @@
 - (void)cancelAllOperations;
 - (NSString*)htspUrl;
 - (NSString*)httpUrl;
+
 @end

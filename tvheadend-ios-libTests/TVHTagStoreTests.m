@@ -23,7 +23,7 @@
 @interface TVHTagStore34 (MyPrivateMethodsUsedForTesting)
 
 @property (nonatomic, strong) NSArray *tags;
-- (void)fetchedData:(NSData *)responseData;
+- (void)fetchedData:(NSDictionary *)responseData;
 @end
 
 @implementation TVHTagStoreTests

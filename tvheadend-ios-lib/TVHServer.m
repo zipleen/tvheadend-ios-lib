@@ -434,6 +434,10 @@
     [self.apiClient getPath:@"config" parameters:@{@"op":@"loadSettings"} success:^(NSURLSessionDataTask *task, NSDictionary *json) {
         typeof (self) strongSelf = weakSelf;
         
+        if (![TVHApiClient checkFetchedData:json]) {
+            return;
+        }
+        
         NSArray *entries = [json objectForKey:@"config"];
         NSMutableDictionary *config = [[NSMutableDictionary alloc] init];
         

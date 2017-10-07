@@ -74,6 +74,9 @@
 }
 
 - (BOOL)fetchedServiceData:(NSDictionary *)json {
+    if (![TVHApiClient checkFetchedData:json]) {
+        return false;
+    }
     
     NSArray *entries = [json objectForKey:@"entries"];
     NSMutableArray *services = [self.services mutableCopy];

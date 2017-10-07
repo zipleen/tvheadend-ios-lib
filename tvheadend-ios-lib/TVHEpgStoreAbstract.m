@@ -203,6 +203,10 @@
 }
 
 - (bool)fetchedData:(NSDictionary *)json {
+    if (![TVHApiClient checkFetchedData:json]) {
+        return false;
+    }
+    
     __block NSUInteger duplicate = 0;
     NSDate *nowTime = [NSDate dateWithTimeIntervalSinceNow:-600];
     

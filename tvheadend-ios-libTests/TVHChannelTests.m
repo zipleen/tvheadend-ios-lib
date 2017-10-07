@@ -24,7 +24,7 @@
 
 @interface TVHEpgStore34 (MyPrivateMethodsUsedForTesting)
 @property (nonatomic, strong) NSArray *epgStore;
-- (void)fetchedData:(NSData *)responseData;
+- (void)fetchedData:(NSDictionary *)responseData;
 - (BOOL)addEpgItemToStore:(TVHEpg*)epgItem;
 @end
 
@@ -41,10 +41,6 @@
 @interface TVHChannel (MyPrivateMethodsUsedForTesting) 
 @property (nonatomic, strong) NSMutableArray *channelEpgDataByDay;
 @property (nonatomic, strong) id <TVHEpgStore> restOfEpgStore;
-@end
-
-@interface TVHEpgStore34 (MyPrivateMethodsUsedForTesting)
-- (void)fetchedData:(NSData *)responseData;
 @end
 
 @implementation TVHChannelTests 

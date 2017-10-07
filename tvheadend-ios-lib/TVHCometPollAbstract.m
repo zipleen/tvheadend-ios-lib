@@ -70,6 +70,9 @@
 }
 
 - (BOOL)fetchedData:(NSDictionary *)json {
+    if (![TVHApiClient checkFetchedData:json]) {
+        return false;
+    }
     
     NSString *boxid = [json objectForKey:@"boxid"];
     self.boxid = boxid;

@@ -70,5 +70,18 @@
                              failure:failure];
 }
 
-
+#pragma mark helpers
++ (BOOL)checkFetchedData:(NSDictionary*)json {
+    NSAssert([json isKindOfClass:[NSDictionary class]], @"received json was not an NSDictionary");
+    if (![json isKindOfClass:[NSDictionary class]]) {
+        NSLog(@"Received weird object in fetchedData: %@ | %@", [json class], json);
+        return false;
+    }
+    
+    if (![json respondsToSelector:@selector(objectForKey:)]) {
+        return false;
+    }
+    
+    return true;
+}
 @end
