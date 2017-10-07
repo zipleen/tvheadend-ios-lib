@@ -371,6 +371,14 @@
     [self.apiClient getPath:@"api/serverinfo" parameters:nil success:^(NSURLSessionDataTask *task, NSDictionary *json) {
         typeof (self) strongSelf = weakSelf;
         
+        if (![json isKindOfClass:[NSDictionary class]]) {
+#ifdef TESTING
+            NSLog(@"Wrong NSDictionary: TVHeadend does not have api/serverinfo, calling legacy.. ");
+#endif
+            [strongSelf fetchServerVersionLegacy];
+            return;
+        }
+        
         // this capabilities seems to retrieve a different array from /capabilities
         //strongSelf.capabilities = [json valueForKey:@"capabilities"];
         strongSelf.apiVersion = [json valueForKey:@"api_version"];
