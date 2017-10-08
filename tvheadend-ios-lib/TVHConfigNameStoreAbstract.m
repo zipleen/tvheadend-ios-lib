@@ -29,6 +29,35 @@
     return self;
 }
 
+- (NSString*)nameForId:(NSString*)uuid {
+    for (TVHConfigName *config in self.configNames) {
+        if ([config.identifier isEqualToString:uuid]) {
+            return config.name;
+        }
+    }
+    
+    return uuid;
+}
+
+- (NSString*)idForName:(NSString*)name {
+    for (TVHConfigName *config in self.configNames) {
+        if ([config.name isEqualToString:name]) {
+            return config.identifier;
+        }
+    }
+    
+    return nil;
+}
+
+- (NSArray*)configNamesAsString {
+    NSMutableArray *asString = [NSMutableArray new];
+    for (TVHConfigName *config in self.configNames) {
+        [asString addObject:config.name];
+    }
+    
+    return [asString copy];
+}
+
 - (BOOL)fetchedData:(NSDictionary *)json {
     if (![TVHApiClient checkFetchedData:json]) {
         return false;

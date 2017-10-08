@@ -35,6 +35,40 @@
     return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    TVHDvrItem *item = [[[self class] allocWithZone:zone] initWithTvhServer:self.tvhServer];    
+    item.channel = self.channel;
+    item.chicon = self.chicon;
+    item.config_name = self.config_name;
+    item.title = self.title;
+    item.description = self.description;
+    item.id = self.id;
+    item.start = self.start;
+    item.stop = self.stop;
+    item.duration = self.duration;
+    item.creator = self.creator;
+    item.pri = self.pri;
+    item.status = self.status;
+    item.schedstate = self.schedstate;
+    item.filesize = self.filesize;
+    item.url = self.url;
+    item.dvrType = self.dvrType;
+    item.episode = self.episode;
+    
+    item.uuid = self.uuid;
+    item.disp_title = self.disp_title;
+    item.disp_description = self.disp_description;
+    item.disp_subtitle = self.disp_subtitle;
+    item.sched_status = self.sched_status;
+    item.errorcode = self.errorcode;
+    item.errors = self.errors;
+    item.filename = self.filename;
+    item.start_real = self.start_real;
+    item.stop_real = self.stop_real;
+    
+    return item;
+}
+
 - (void)dealloc {
     self.channel = nil;
     self.chicon = nil;
@@ -109,24 +143,57 @@
 }
 
 - (void)setStart:(id)startDate {
+    if( [startDate isKindOfClass:[NSDate class]] ) {
+        _start = startDate;
+        return;
+    }
+    
     if( ! [startDate isKindOfClass:[NSString class]] ) {
         _start = [NSDate dateWithTimeIntervalSince1970:[startDate intValue]];
     }
 }
 
 - (void)setEnd:(id)endDate {
+    if( [endDate isKindOfClass:[NSDate class]] ) {
+        _end = endDate;
+        return;
+    }
+    
     if( ! [endDate isKindOfClass:[NSString class]] ) {
         _end = [NSDate dateWithTimeIntervalSince1970:[endDate intValue]];
     }
 }
 
+- (void)setStop:(id)endDate {
+    if( [endDate isKindOfClass:[NSDate class]] ) {
+        _stop = endDate;
+        [self setEnd:endDate];
+        return;
+    }
+    
+    if( ! [endDate isKindOfClass:[NSString class]] ) {
+        _stop = [NSDate dateWithTimeIntervalSince1970:[endDate intValue]];
+        [self setEnd:endDate];
+    }
+}
+
 - (void)setStart_real:(id)start_real {
+    if( [start_real isKindOfClass:[NSDate class]] ) {
+        _start_real = start_real;
+        return;
+    }
+    
     if( ! [start_real isKindOfClass:[NSString class]] ) {
         _start_real = [NSDate dateWithTimeIntervalSince1970:[start_real intValue]];
     }
 }
 
 - (void)setStop_real:(id)stop_real {
+    if( [stop_real isKindOfClass:[NSDate class]] ) {
+        _stop_real = stop_real;
+        return;
+    }
+    
     if( ! [stop_real isKindOfClass:[NSString class]] ) {
         _stop_real = [NSDate dateWithTimeIntervalSince1970:[stop_real intValue]];
     }
@@ -140,6 +207,47 @@
 
 - (void)setValue:(id)value forUndefinedKey:(NSString*)key {
     
+}
+
+- (BOOL)updateRecording {
+    if (!([self.start compare:self.stop] == NSOrderedAscending)) {
+        return false;
+    }
+    
+    if (self.channel == nil || [self.channel isEqualToString:@""]) {
+        return false;
+    }
+    
+    // create the properties
+    NSMutableDictionary *updatedProperties = [NSMutableDictionary new];
+    [updatedProperties setValue:self.disp_title forKey:@"disp_title"];
+    [updatedProperties setValue:[NSString stringWithFormat:@"%.0f", self.start.timeIntervalSince1970] forKey:@"start"];
+    [updatedProperties setValue:[NSNumber numberWithInteger:self.start_extra] forKey:@"start_extra"];
+    [updatedProperties setValue:[NSString stringWithFormat:@"%.0f", self.stop.timeIntervalSince1970] forKey:@"stop"];
+    [updatedProperties setValue:[NSNumber numberWithInteger:self.stop_extra] forKey:@"stop_extra"];
+    [updatedProperties setValue:self.channel forKey:@"channel"];
+    [updatedProperties setValue:self.config_name forKey:@"config_name"];
+    [updatedProperties setValue:self.comment forKey:@"comment"];
+    
+    
+    
+    if (self.uuid) {
+        // update
+        [updatedProperties setValue:self.uuid forKey:@"uuid"];
+        // wtf people, it's a JSON encoded string in a form-url http request that says node:JSON_STRING !
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[updatedProperties copy]
+                                                           options:0
+                                                             error:nil];
+        [TVHDvrActions doIdnodeAction:@"save" withData:@{@"node":[NSString stringWithUTF8String:[jsonData bytes]]} withTvhServer:self.tvhServer];
+    } else {
+        // create
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[updatedProperties copy]
+                                                           options:0
+                                                             error:nil];
+        [TVHDvrActions doAction:@"api/dvr/entry/create" withData:@{@"conf":[NSString stringWithUTF8String:[jsonData bytes]]} withTvhServer:self.tvhServer];
+    }
+    
+    return true;
 }
 
 - (void)deleteRecording {
@@ -235,6 +343,10 @@
 - (NSDate*)end {
     if (_end) {
         return _end;
+    }
+    
+    if (_stop) {
+        return _stop;
     }
     
     return [NSDate dateWithTimeInterval:self.duration sinceDate:self.start];

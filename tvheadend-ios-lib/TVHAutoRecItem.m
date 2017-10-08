@@ -40,7 +40,7 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    TVHAutoRecItem *item = [[[self class] allocWithZone:zone] init];
+    TVHAutoRecItem *item = [[[self class] allocWithZone:zone] initWithTvhServer:self.tvhServer];
     item.channel = self.channel;
     item.comment = self.comment;
     item.contenttype = self.contenttype;

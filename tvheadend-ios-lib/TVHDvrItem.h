@@ -26,6 +26,7 @@
 @property (nonatomic) NSInteger id;
 @property (nonatomic, strong) NSDate *start;
 @property (nonatomic, strong) NSDate *end;
+@property (nonatomic, strong) NSDate *stop; // it seems new versions 4.x have "stop" and old versions have "end"
 @property (nonatomic) NSInteger duration;
 @property (nonatomic, strong) NSString *creator;
 @property (nonatomic, strong) NSString *pri;
@@ -46,6 +47,10 @@
 @property (nonatomic, strong) NSString *filename;
 @property (nonatomic, strong) NSDate *start_real;
 @property (nonatomic, strong) NSDate *stop_real;
+@property (nonatomic, strong) NSString *comment;
+
+@property (nonatomic) NSInteger start_extra;
+@property (nonatomic) NSInteger stop_extra;
 
 @property (nonatomic, strong) NSString *autorec; // autorec uuid
 
@@ -53,6 +58,7 @@
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)updateValuesFromDictionary:(NSDictionary*) values;
+- (BOOL)updateRecording;
 - (void)deleteRecording;
 - (TVHChannel*)channelObject;
 - (BOOL)isRecording;

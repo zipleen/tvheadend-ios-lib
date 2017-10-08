@@ -19,4 +19,7 @@
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchConfigNames;
+- (NSString*)nameForId:(NSString*)uuid;
+- (NSString*)idForName:(NSString*)name;
+- (NSArray*)configNamesAsString;
 @end
