@@ -53,6 +53,7 @@
 @property (nonatomic) NSInteger stop_extra;
 
 @property (nonatomic, strong) NSString *autorec; // autorec uuid
+@property (nonatomic, strong) NSString *directory;
 
 - (NSString*)fullTitle;
 

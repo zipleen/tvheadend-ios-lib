@@ -183,7 +183,7 @@
 - (NSArray*)dvrItemsForType:(NSInteger)type {
     NSMutableArray *itemsForType = [[NSMutableArray alloc] init];
     
-    for (TVHDvrItem* item in self.dvrItems) {
+    for (TVHDvrItem *item in self.dvrItems) {
         if ( item.dvrType == type ) {
             [itemsForType addObject:item];
         }

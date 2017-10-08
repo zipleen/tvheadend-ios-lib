@@ -56,6 +56,7 @@
     item.genre = self.genre;
     item.apiClient = self.apiClient;
     item.uuid = self.uuid;
+    item.directory = self.directory;
     return item;
 }
 

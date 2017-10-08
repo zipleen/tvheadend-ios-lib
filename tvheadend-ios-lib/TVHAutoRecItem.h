@@ -33,6 +33,7 @@
 @property (nonatomic, weak) TVHServer *tvhServer;
 
 @property (nonatomic, strong) NSString *uuid;
+@property (nonatomic, strong) NSString *directory;
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)updateValue:(id)value forKey:(NSString*)key;
