@@ -40,4 +40,5 @@
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchDvr;
 - (NSArray*)dvrItemsForType:(NSInteger)type;
+- (NSArray*)dvrItemsForType:(NSInteger)type sorting:(NSComparisonResult)sort;
 @end

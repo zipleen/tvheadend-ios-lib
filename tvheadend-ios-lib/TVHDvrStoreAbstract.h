@@ -22,5 +22,6 @@
 - (void)fetchDvr;
 - (NSArray*)dvrItemsForType:(NSInteger)type;
 - (void)clearDvrItems;
+- (NSArray*)dvrItemsForType:(NSInteger)type sorting:(NSComparisonResult)sort;
 - (void)signalDidLoadDvr:(NSInteger)type;
 @end

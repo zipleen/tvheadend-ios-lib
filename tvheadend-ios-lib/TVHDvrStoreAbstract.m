@@ -197,6 +197,15 @@
     return [itemsForType copy];
 }
 
+- (NSArray*)dvrItemsForType:(NSInteger)type sorting:(NSComparisonResult)sort {
+    NSArray *itemsForType = [self dvrItemsForType:type];
+    if (sort == NSOrderedAscending) {
+        return [itemsForType sortedArrayUsingSelector:@selector(compareByDateAscending:)];
+    } else {
+        return [itemsForType sortedArrayUsingSelector:@selector(compareByDateDescending:)];
+    }
+}
+
 #pragma mark Signal delegate
 
 - (void)signalWillLoadDvr:(NSInteger)type {

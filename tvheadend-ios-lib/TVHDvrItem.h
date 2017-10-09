@@ -64,6 +64,8 @@
 - (TVHChannel*)channelObject;
 - (BOOL)isRecording;
 - (BOOL)isScheduledForRecording;
+- (NSComparisonResult)compareByDateAscending:(TVHDvrItem *)otherObject;
+- (NSComparisonResult)compareByDateDescending:(TVHDvrItem *)otherObject;
 
 // playStream delegate
 

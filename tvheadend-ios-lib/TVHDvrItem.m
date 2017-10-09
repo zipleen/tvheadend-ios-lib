@@ -352,6 +352,14 @@
     return [NSDate dateWithTimeInterval:self.duration sinceDate:self.start];
 }
 
+- (NSComparisonResult)compareByDateAscending:(TVHDvrItem *)otherObject {
+    return [self.start compare:otherObject.start];
+}
+
+- (NSComparisonResult)compareByDateDescending:(TVHDvrItem *)otherObject {
+    return [self.start compare:otherObject.start] * -1;
+}
+
 - (BOOL)isEqual: (id)other {
     if (other == self)
         return YES;
