@@ -90,6 +90,10 @@
     return nil;
 }
 
+- (NSArray*)tagsCopy {
+    return [self.tags copy];
+}
+
 #pragma mark Api Client delegates
 
 - (NSString*)apiMethod {

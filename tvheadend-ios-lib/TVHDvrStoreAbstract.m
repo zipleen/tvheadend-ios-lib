@@ -15,9 +15,9 @@
 
 @interface TVHDvrStoreAbstract()
 @property (nonatomic, weak) TVHApiClient *apiClient;
-@property (nonatomic) NSInteger cachedType;
+@property (nonatomic, strong) NSMutableArray *dvrItems;
 @property (nonatomic, strong) NSMutableArray *totalEventCount;
-
+@property (nonatomic, strong) dispatch_queue_t dvrStoreQueue;
 @property NSInteger filterStart;
 @property NSInteger filterLimit;
 @property (nonatomic, strong) NSString *filterPath;
@@ -31,19 +31,20 @@
     self.tvhServer = tvhServer;
     self.apiClient = [self.tvhServer apiClient];
     
-    self.cachedType = -1;
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveDvrdbNotification:)
                                                  name:TVHDvrStoreReloadNotification
                                                object:nil];
+    
+    _dvrStoreQueue = dispatch_queue_create("com.zipleen.TvhClient.dvrStoreQueue",
+                                           DISPATCH_QUEUE_CONCURRENT);
+    
     return self;
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.dvrItems = nil;
-    self.cachedDvrItems = nil;
 }
 
 - (void)receiveDvrdbNotification:(NSNotification *)notification {
@@ -64,18 +65,9 @@
 
 - (NSArray*)dvrItems {
     if ( !_dvrItems ) {
-        _dvrItems = [[NSArray alloc] init];
+        _dvrItems = [[NSMutableArray alloc] init];
     }
     return _dvrItems;
-}
-
-- (void)addDvrItemToStore:(TVHDvrItem*)dvritem {
-    // don't add duplicate items - need to search in the array!
-    if (![self.tvhServer isVersionFour] && [self.dvrItems indexOfObject:dvritem] != NSNotFound) {
-        return ;
-    }
-    
-    self.dvrItems = [self.dvrItems arrayByAddingObject:dvritem];
 }
 
 - (TVHDvrItem*)createDvrItemFromDictionary:(NSDictionary*)obj ofType:(NSInteger)type {
@@ -101,11 +93,17 @@
     NSArray *entries = [json objectForKey:self.jsonApiFieldEntries];
     NSNumber *totalCount = [[NSNumber alloc] initWithInt:[[json objectForKey:self.jsonApiFieldTotalCount] intValue]];
     [self.totalEventCount replaceObjectAtIndex:type withObject:totalCount];
-    
-    for(id obj in entries) {
-        TVHDvrItem *dvritem = [self createDvrItemFromDictionary:obj ofType:type];
-        [self addDvrItemToStore:dvritem];
-    }
+    dispatch_barrier_sync(self.dvrStoreQueue, ^{
+        
+        for (id obj in entries) {
+            TVHDvrItem *dvritem = [self createDvrItemFromDictionary:obj ofType:type];
+            
+            if ([self.dvrItems indexOfObject:dvritem] == NSNotFound) {
+                [self.dvrItems addObject:dvritem];
+            }
+        }
+        
+    });
     
 #ifdef TESTING
     NSLog(@"[Loaded DVR Items, Count]: %d", (int)[self.dvrItems count]);
@@ -171,9 +169,14 @@
     }
 }
 
+- (void)clearDvrItems {
+    dispatch_barrier_sync(self.dvrStoreQueue, ^{
+        self.dvrItems = nil;
+    });
+}
+
 - (void)fetchDvr {
-    self.dvrItems = nil;
-    self.cachedDvrItems = nil;
+    [self clearDvrItems];
     
     [self fetchDvrItemsFromServer:@"dvrlist_upcoming" withType:RECORDING_UPCOMING start:0 limit:20];
     [self fetchDvrItemsFromServer:@"dvrlist_finished" withType:RECORDING_FINISHED start:0 limit:20];
@@ -183,39 +186,15 @@
 - (NSArray*)dvrItemsForType:(NSInteger)type {
     NSMutableArray *itemsForType = [[NSMutableArray alloc] init];
     
-    for (TVHDvrItem *item in self.dvrItems) {
-        if ( item.dvrType == type ) {
-            [itemsForType addObject:item];
+    dispatch_sync(self.dvrStoreQueue, ^{
+        for (TVHDvrItem *item in self.dvrItems) {
+            if ( item.dvrType == type ) {
+                [itemsForType addObject:item];
+            }
         }
-    }
-    self.cachedType = -1;
-    self.cachedDvrItems = nil;
+    });
+    
     return [itemsForType copy];
-}
-
-- (void)checkCachedDvrItemsForType:(NSInteger)type {
-    if( self.cachedType != type ) {
-        self.cachedType = type;
-        self.cachedDvrItems = [self dvrItemsForType:type];
-    }
-}
-
-- (TVHDvrItem *)objectAtIndex:(NSUInteger)row forType:(NSInteger)type{
-    [self checkCachedDvrItemsForType:type];
-    
-    if ( row < [self.cachedDvrItems count] ) {
-        return [self.cachedDvrItems objectAtIndex:row];
-    }
-    return nil;
-}
-
-- (NSUInteger)count:(NSInteger)type {
-    [self checkCachedDvrItemsForType:type];
-    
-    if ( self.cachedDvrItems ) {
-        return [self.cachedDvrItems count];
-    }
-    return 0;
 }
 
 #pragma mark Signal delegate

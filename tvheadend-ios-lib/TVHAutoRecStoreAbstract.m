@@ -71,6 +71,10 @@
     [self.tvhServer.analytics setIntValue:[self.dvrAutoRecItems count] forKey:@"autorec"];
 }
 
+- (NSArray*)autoRecItemsCopy {
+    return [self.dvrAutoRecItems copy];
+}
+
 #pragma mark Api Client delegates
 
 - (NSString*)apiMethod {

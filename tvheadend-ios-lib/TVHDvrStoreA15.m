@@ -13,6 +13,7 @@
 #import "TVHDvrStoreA15.h"
 
 @interface TVHDvrStoreAbstract()
+@property (nonatomic, strong) NSArray *dvrItems;
 - (void)fetchDvrItemsFromServer:(NSString*)url withType:(NSInteger)type start:(NSInteger)start limit:(NSInteger)limit ;
 @property NSInteger filterStart;
 @property NSInteger filterLimit;
@@ -40,8 +41,7 @@
 }
 
 - (void)fetchDvr {
-    self.dvrItems = nil;
-    self.cachedDvrItems = nil;
+    [self clearDvrItems];
     
     [self fetchDvrItemsFromServer:@"api/dvr/entry/grid_upcoming" withType:RECORDING_UPCOMING start:0 limit:20];
     [self fetchDvrItemsFromServer:@"api/dvr/entry/grid_finished" withType:RECORDING_FINISHED start:0 limit:20];

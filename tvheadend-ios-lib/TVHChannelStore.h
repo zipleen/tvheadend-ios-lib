@@ -38,8 +38,7 @@ typedef void (^ChannelLoadedCompletionBlock)(NSArray *channels);
 - (void)fetchChannelListWithSuccess:(ChannelLoadedCompletionBlock)successBlock failure:(ChannelLoadedCompletionBlock)failureBlock loadEpgForChannels:(BOOL)loadEpg;
 
 - (NSUInteger)channelCount;
-- (NSArray*)channels;
-- (NSArray*)arrayChannels;
+- (NSArray*)channelsCopy;
 - (NSArray*)channelsWithTag:(NSString*)tag;
 - (TVHChannel*)channelWithName:(NSString*)name;
 - (TVHChannel*)channelWithId:(NSString*)channelId;

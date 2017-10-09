@@ -13,9 +13,7 @@
 #import "TVHDvrStore.h"
 #import "TVHDvrStoreAbstract.h"
 
-@interface TVHDvrStoreAbstract (Private)
-- (void)fetchDvrItemsFromServer: (NSString*)url withType:(NSInteger)type start:(NSInteger)start limit:(NSInteger)limit;
-@end
+
 
 @interface TVHDvrStore32 : TVHDvrStoreAbstract <TVHDvrStore, TVHDvrStoreDelegate>
 

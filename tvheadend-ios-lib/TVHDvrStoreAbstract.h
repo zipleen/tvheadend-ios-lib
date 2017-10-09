@@ -17,12 +17,10 @@
 @interface TVHDvrStoreAbstract : NSObject <TVHDvrStore, TVHApiClientDelegate>
 @property (nonatomic, weak) TVHServer *tvhServer;
 @property (nonatomic, weak) id <TVHDvrStoreDelegate> delegate;
-@property (nonatomic, strong) NSArray *dvrItems;
-@property (nonatomic, strong) NSArray *cachedDvrItems; // the table delegate will get only the items in this array
+
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchDvr;
-
-- (TVHDvrItem *)objectAtIndex:(NSUInteger)row forType:(NSInteger)type;
-- (NSUInteger)count:(NSInteger)type;
+- (NSArray*)dvrItemsForType:(NSInteger)type;
+- (void)clearDvrItems;
 - (void)signalDidLoadDvr:(NSInteger)type;
 @end

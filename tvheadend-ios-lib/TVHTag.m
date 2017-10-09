@@ -77,7 +77,7 @@
 
 - (NSInteger)channelCount {
     NSInteger count = 0;
-    NSArray *channels = [[self.tvhServer channelStore] channels];
+    NSArray *channels = [[self.tvhServer channelStore] channelsCopy];
     if ( [self.idKey isEqualToString:@"0"] ) {
         return [channels count];
     }
@@ -91,7 +91,7 @@
 }
 
 - (NSArray*)channels {
-    NSArray *channels = [[self.tvhServer channelStore] channels];
+    NSArray *channels = [[self.tvhServer channelStore] channelsCopy];
     if ( [self.idKey isEqualToString:@"0"] ) {
         return channels;
     }

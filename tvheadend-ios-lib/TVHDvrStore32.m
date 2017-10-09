@@ -12,6 +12,11 @@
 
 #import "TVHDvrStore32.h"
 
+@interface TVHDvrStoreAbstract (Private)
+- (void)fetchDvrItemsFromServer: (NSString*)url withType:(NSInteger)type start:(NSInteger)start limit:(NSInteger)limit;
+@property (nonatomic, strong) NSArray *dvrItems;
+@end
+
 @implementation TVHDvrStore32
 
 - (TVHDvrItem*)createDvrItemFromDictionary:(NSDictionary*)obj ofType:(NSInteger)type {
@@ -43,8 +48,7 @@
 }
 
 - (void)fetchDvr {
-    super.dvrItems = nil;
-    super.cachedDvrItems = nil;
+    [self clearDvrItems];
     
     [super fetchDvrItemsFromServer:@"dvrlist" withType:RECORDING_UPCOMING start:0 limit:20];
     [super signalDidLoadDvr:RECORDING_FINISHED];

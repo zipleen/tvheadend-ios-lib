@@ -39,7 +39,5 @@
 @property (nonatomic, weak) id <TVHDvrStoreDelegate> delegate;
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchDvr;
-
-- (TVHDvrItem *)objectAtIndex:(NSUInteger)row forType:(NSInteger)type;
-- (int)count:(NSInteger)type;
+- (NSArray*)dvrItemsForType:(NSInteger)type;
 @end

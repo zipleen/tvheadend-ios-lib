@@ -28,8 +28,6 @@
 @property (nonatomic, weak) id <TVHAutoRecStoreDelegate> delegate;
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchDvrAutoRec;
-
-- (TVHAutoRecItem *)objectAtIndex:(NSUInteger)row;
-- (int)count;
+- (NSArray*)autoRecItemsCopy;
 @end
 

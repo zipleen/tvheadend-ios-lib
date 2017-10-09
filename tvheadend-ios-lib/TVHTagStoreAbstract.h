@@ -20,7 +20,7 @@
 @property (nonatomic, weak) TVHServer *tvhServer;
 @property (nonatomic, weak) id <TVHTagStoreDelegate> delegate;
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
-- (NSArray*)tags;
+- (NSArray*)tagsCopy;
 - (TVHTag*)tagWithIdKey:(NSString*)idKey;
 - (TVHTag*)tagWithName:(NSString*)name;
 - (void)fetchTagList;

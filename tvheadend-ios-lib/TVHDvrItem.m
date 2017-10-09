@@ -357,7 +357,12 @@
         return YES;
     if (!other || ![other isKindOfClass:[self class]])
         return NO;
+    
     TVHDvrItem *otherCast = other;
+    if (self.uuid != nil) {
+        return [self.uuid isEqualToString:otherCast.uuid];
+    }
+    
     return self.id == otherCast.id;
 }
 @end
