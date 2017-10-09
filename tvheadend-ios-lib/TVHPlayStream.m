@@ -137,7 +137,7 @@
     
     // add profile!
     if (self.tvhServer.settings.streamProfile != nil && ![self.tvhServer.settings.streamProfile isEqualToString:@""]) {
-        return [streamUrl stringByAppendingFormat:@"?profile=%@", self.tvhServer.settings.streamProfile];
+        return [streamUrl stringByAppendingFormat:@"?profile=%@", [self.tvhServer.settings.streamProfile stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
     }
     
     return streamUrl;
