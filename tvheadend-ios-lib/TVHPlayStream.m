@@ -52,7 +52,7 @@
 
 - (NSDictionary*)arrayOfAvailablePrograms {
     NSMutableDictionary *available = [[NSMutableDictionary alloc] init];
-#ifndef DEVICE_IS_TVOS
+#ifdef ENABLE_EXTERNAL_APPS
     for (NSString* key in TVH_PROGRAMS) {
         NSString *urlTarget = [TVH_PROGRAMS objectForKey:key];
         NSURL *url = [self urlForSchema:urlTarget withURL:nil];
