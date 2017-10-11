@@ -132,6 +132,10 @@
 		F087A2D31F79B76C00EFB087 /* TVHStreamProfileStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */; };
 		F087A2D41F79B76C00EFB087 /* TVHStreamProfileStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */; };
 		F095330D1F6AEFBE00FAF3B8 /* Epg.summary.marcel in Resources */ = {isa = PBXBuildFile; fileRef = F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */; };
+		F0982E2D1F8EA12E007EE99B /* TVHEpgTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0982E2C1F8EA12E007EE99B /* TVHEpgTests.m */; };
+		F0982E2E1F8EA12E007EE99B /* TVHEpgTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0982E2C1F8EA12E007EE99B /* TVHEpgTests.m */; };
+		F0982E301F8EA154007EE99B /* TVHDvrItemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0982E2F1F8EA154007EE99B /* TVHDvrItemTests.m */; };
+		F0982E311F8EA154007EE99B /* TVHDvrItemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0982E2F1F8EA154007EE99B /* TVHDvrItemTests.m */; };
 		F0AEEC341C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
 		F0AEEC351C6D40BD00D7861D /* TVHAutoDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */; };
 		F0BE72271F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BE72261F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m */; };
@@ -497,6 +501,8 @@
 		F087A2D11F79B76C00EFB087 /* TVHStreamProfileStoreA15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStreamProfileStoreA15.h; sourceTree = "<group>"; };
 		F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHStreamProfileStoreA15.m; sourceTree = "<group>"; };
 		F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */ = {isa = PBXFileReference; lastKnownFileType = text; path = Epg.summary.marcel; sourceTree = "<group>"; };
+		F0982E2C1F8EA12E007EE99B /* TVHEpgTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHEpgTests.m; sourceTree = "<group>"; };
+		F0982E2F1F8EA154007EE99B /* TVHDvrItemTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHDvrItemTests.m; sourceTree = "<group>"; };
 		F0AEEC321C6D40BD00D7861D /* TVHAutoDiscovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHAutoDiscovery.h; sourceTree = "<group>"; };
 		F0AEEC331C6D40BD00D7861D /* TVHAutoDiscovery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoDiscovery.m; sourceTree = "<group>"; };
 		F0BE72261F4B7DB9003AEBE2 /* TVHJsonUTF8AutoCharsetResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHJsonUTF8AutoCharsetResponseSerializer.m; sourceTree = "<group>"; };
@@ -636,6 +642,8 @@
 				AABF3B6C185E603300E62240 /* TVHTestHelper.m */,
 				AABF3B6E185E603300E62240 /* TVHServerTests.m */,
 				F0CCEF861F42214100AAC25B /* TVHServiceStoreTests.m */,
+				F0982E2C1F8EA12E007EE99B /* TVHEpgTests.m */,
+				F0982E2F1F8EA154007EE99B /* TVHDvrItemTests.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -1633,6 +1641,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0CCEF871F42214100AAC25B /* TVHServiceStoreTests.m in Sources */,
+				F0982E301F8EA154007EE99B /* TVHDvrItemTests.m in Sources */,
+				F0982E2D1F8EA12E007EE99B /* TVHEpgTests.m in Sources */,
 				AAA89DE91861255000AE4C13 /* TVHChannelStoreTests.m in Sources */,
 				AAA89DEA1861255300AE4C13 /* TVHChannelTests.m in Sources */,
 				AAA89DE1186123FC00AE4C13 /* TVHTestHelper.m in Sources */,
@@ -1738,6 +1748,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0CCEF881F422DBB00AAC25B /* TVHServiceStoreTests.m in Sources */,
+				F0982E311F8EA154007EE99B /* TVHDvrItemTests.m in Sources */,
+				F0982E2E1F8EA12E007EE99B /* TVHEpgTests.m in Sources */,
 				F0CDE4EB1BA216C9000A969B /* TVHEpgStoreTests.m in Sources */,
 				F0CDE4ED1BA216C9000A969B /* TVHChannelStoreTests.m in Sources */,
 				F0CDE4EE1BA216C9000A969B /* TVHChannelTests.m in Sources */,

@@ -133,13 +133,29 @@
     return _pri;
 }
 
+/*
+ * disp_title | title (disp_subtitle | subtitle - episode)
+ */
 - (NSString*)fullTitle {
-    NSString *episode = self.episode;
-    if ( episode == nil ) {
-        episode = @"";
+    NSString *parenthesis = self.episode;
+    if ( parenthesis != nil && ![parenthesis isEqualToString:@""] ) {
+        parenthesis = self.episode;
     }
     
-    return [NSString stringWithFormat:@"%@ %@", self.title, episode];
+    // disp_subtitle cannot be shown in the UK because it has the full description copied into it!
+    
+    if (parenthesis != nil && ![parenthesis isEqualToString:@""]) {
+        parenthesis = [NSString stringWithFormat:@" (%@)", parenthesis];
+    } else {
+        parenthesis = @"";
+    }
+    
+    NSString *title = self.disp_title;
+    if (title == nil || [title isEqualToString:@""]) {
+        title = self.title;
+    }
+    
+    return [NSString stringWithFormat:@"%@%@", title, parenthesis];
 }
 
 - (void)setStart:(id)startDate {
