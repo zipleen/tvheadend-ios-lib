@@ -254,13 +254,27 @@
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[updatedProperties copy]
                                                            options:0
                                                              error:nil];
-        [TVHDvrActions doIdnodeAction:@"save" withData:@{@"node":[NSString stringWithUTF8String:[jsonData bytes]]} withTvhServer:self.tvhServer];
+        if (jsonData == nil) {
+            return false;
+        }
+        NSString *jsonConvertedProperties = [NSString stringWithUTF8String:[jsonData bytes]];
+        if (jsonConvertedProperties == nil) {
+            return false;
+        }
+        [TVHDvrActions doIdnodeAction:@"save" withData:@{@"node":jsonConvertedProperties} withTvhServer:self.tvhServer];
     } else {
         // create
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[updatedProperties copy]
                                                            options:0
                                                              error:nil];
-        [TVHDvrActions doAction:@"api/dvr/entry/create" withData:@{@"conf":[NSString stringWithUTF8String:[jsonData bytes]]} withTvhServer:self.tvhServer];
+        if (jsonData == nil) {
+            return false;
+        }
+        NSString *jsonConvertedProperties = [NSString stringWithUTF8String:[jsonData bytes]];
+        if (jsonConvertedProperties == nil) {
+            return false;
+        }
+        [TVHDvrActions doAction:@"api/dvr/entry/create" withData:@{@"conf":jsonConvertedProperties} withTvhServer:self.tvhServer];
     }
     
     return true;

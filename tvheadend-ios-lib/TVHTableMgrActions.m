@@ -40,6 +40,9 @@
                  postNotificationName:TVHDidSuccessedTableMgrActionNotification
                  object:action];
         });
+        if (responseObject == nil) {
+            return;
+        }
                 
         NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSLog(@"Request Successful, response '%@'", responseStr);
