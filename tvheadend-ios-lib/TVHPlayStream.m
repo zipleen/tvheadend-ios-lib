@@ -98,7 +98,7 @@
 }
 
 - (BOOL)playInternalStreamIn:(NSString*)program forObject:(id<TVHPlayStreamDelegate>)streamObject {
-#ifndef DEVICE_IS_TVOS
+#ifdef ENABLE_EXTERNAL_APPS
     NSString *streamUrl = [streamObject streamUrlWithInternalPlayer:NO];
     NSURL *myURL = [self URLforProgramWithName:program forURL:streamUrl];
     if ( myURL ) {
