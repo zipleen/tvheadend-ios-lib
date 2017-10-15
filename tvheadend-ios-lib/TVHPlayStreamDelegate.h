@@ -10,6 +10,7 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
+// https://github.com/tvheadend/tvheadend/blob/master/docs/markdown/url.md
 
 @class TVHEpg;
 
@@ -17,7 +18,6 @@
 - (NSString*)streamURL;
 - (NSString*)playlistStreamURL;
 - (NSString*)htspStreamURL;
-- (NSString*)streamUrlWithInternalPlayer:(BOOL)internal;
 - (BOOL)isLive;
 
 - (NSString*)imageUrl;

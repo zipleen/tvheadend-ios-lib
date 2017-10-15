@@ -58,16 +58,12 @@
 }
 
 - (NSString*)playlistStreamURL {
-    if ( self.uuid ) {
-        return [NSString stringWithFormat:@"%@/playlist/stream/%@", self.tvhServer.httpUrl, self.uuid];
-    } else {
-        return [NSString stringWithFormat:@"%@/playlist/stream/%@", self.tvhServer.httpUrl, self.id];
-    }
+    // there is no support for playlist in service
+    return nil;
 }
 
 - (NSString*)htspStreamURL {
     return nil;
-    return [NSString stringWithFormat:@"%@/service/%@.ts", self.tvhServer.htspUrl, self.id];
 }
 
 - (BOOL)isLive {
@@ -79,10 +75,6 @@
         return self.mappedChannel.currentPlayingProgram;
     }
     return nil;
-}
-
-- (NSString*)streamUrlWithInternalPlayer:(BOOL)internal {
-    return [self.tvhServer.playStream streamUrlForObject:self withInternalPlayer:internal];
 }
 
 - (NSString*)imageUrl {

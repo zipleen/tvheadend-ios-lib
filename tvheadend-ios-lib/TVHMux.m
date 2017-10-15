@@ -102,4 +102,38 @@
     }
 }
 
+#pragma mark TVHPlayStream delegate
+
+- (NSString*)streamURL {
+    if ( self.uuid ) {
+        return [NSString stringWithFormat:@"%@/stream/mux/%@", self.tvhServer.httpUrl, self.uuid];
+    }
+    return nil;
+}
+
+- (NSString*)playlistStreamURL {
+    // there isn't any playlist for muxes
+    return nil;
+}
+
+- (NSString*)htspStreamURL {
+    return nil;
+}
+
+- (BOOL)isLive {
+    return YES;
+}
+
+- (TVHEpg*)currentPlayingProgram {
+    return nil;
+}
+
+- (NSString*)imageUrl {
+    return nil;
+}
+
+- (NSString*)name {
+    return [NSString stringWithFormat:@"Mux: %@", self.uuid];
+}
+
 @end

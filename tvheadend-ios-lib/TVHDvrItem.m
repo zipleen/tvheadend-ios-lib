@@ -343,7 +343,7 @@
 }
 
 - (NSString*)playlistStreamURL {
-    return nil;
+    return self.streamURL;
 }
 
 - (NSString*)htspStreamURL {
@@ -356,10 +356,6 @@
 
 - (TVHEpg*)currentPlayingProgram {
     return nil;
-}
-
-- (NSString*)streamUrlWithInternalPlayer:(BOOL)internal {
-    return [self.tvhServer.playStream streamUrlForObject:self withInternalPlayer:internal];
 }
 
 - (NSString*)name {

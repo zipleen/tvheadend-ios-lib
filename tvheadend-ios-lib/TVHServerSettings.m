@@ -132,32 +132,55 @@
     return webroot;
 }
 
+- (NSString*)normalisedWebroot {
+    NSString *webroot = self.webroot;
+    // small optimisation for when this setting is empty (which I assume is >95% of the cases)
+    if ([webroot isEqualToString:@""]) {
+        return webroot;
+    }
+    
+    // add prefix slash
+    if (![webroot hasPrefix:@"/"]) {
+        webroot = [NSString stringWithFormat:@"/%@", webroot];
+    }
+    
+    // remove trailing slash (AFNetworking will add the trailing slash for baseURL, and everywhere else in the code we expect NOT to have a trailing slash and add it)
+    if (webroot.length > 0 && [webroot hasSuffix:@"/"]) {
+        webroot = [webroot substringToIndex:webroot.length-1];
+    }
+    
+    return webroot;
+}
+
 - (BOOL)userHasAdminAccess {
     return [self.adminAccessEnabled boolValue];
 }
 
 #pragma mark URL building
 
-- (NSURL*)baseURL
-{
+- (NSURL*)baseURL {
     if (!_baseURL) {
-        NSString *baseUrlString = [NSString stringWithFormat:@"http%@://%@:%@%@", self.useHTTPS, self.ip, self.port, self.webroot];
+        NSString *baseUrlString = [NSString stringWithFormat:@"http%@://%@:%@%@", self.useHTTPS, self.ip, self.port, self.normalisedWebroot];
         NSURL *url = [NSURL URLWithString:baseUrlString];
         _baseURL = url;
     }
     return _baseURL;
 }
 
-- (NSString*)httpURL
-{
-    NSString *baseUrlString;
-    if ( [self.username isEqualToString:@""] ) {
-        baseUrlString = [NSString stringWithFormat:@"http%@://%@:%@%@", self.useHTTPS, self.ip, self.port, self.webroot];
-    } else {
-        baseUrlString = [NSString stringWithFormat:@"http%@://%@:%@@%@:%@%@", self.useHTTPS, self.username, self.password, self.ip, self.port, self.webroot];
-    }
+/*
+ * httpUrl EXPECTS everywhere to NOT have a trailing slash
+ *  so, a valid url for all code is http://myserver:80/webroot
+ */
+- (NSString*)httpURL {
     
-    return baseUrlString;
+    if ( [self.username isEqualToString:@""] ) {
+        return [NSString stringWithFormat:@"http%@://%@:%@%@", self.useHTTPS, self.ip, self.port, self.normalisedWebroot];
+    } else {
+        return [NSString stringWithFormat:@"http%@://%@:%@@%@:%@%@", self.useHTTPS,
+                [self.username stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]],
+                [self.password stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]],
+                self.ip, self.port, self.normalisedWebroot];
+    }
 }
 
 - (NSString*)htspURL

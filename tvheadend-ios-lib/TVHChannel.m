@@ -190,10 +190,6 @@
     return YES;
 }
 
-- (NSString*)streamUrlWithInternalPlayer:(BOOL)internal {
-    return [self.tvhServer.playStream streamUrlForObject:self withInternalPlayer:internal];
-}
-
 - (TVHChannelEpg*)getChannelEpgDataByDayString:(NSString*)dateString {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %@", dateString];
     NSArray *filteredArray = [self.channelEpgDataByDay filteredArrayUsingPredicate:predicate];
@@ -317,7 +313,7 @@
     [self.restOfEpgStore downloadAllEpgItems];
 }
 
-#pragma Table Call Methods
+#pragma mark Table Call Methods
 
 - (NSArray*)programsForDay:(NSInteger)day {
     if ( [self.channelEpgDataByDay count] == 0 ) {
@@ -415,7 +411,7 @@
     return ( [last.end compare:[NSDate date]] == NSOrderedAscending );
 }
 
-#pragma TVHEpgStore delegate
+#pragma mark TVHEpgStore delegate
 - (void)didLoadEpg {
     NSArray *epgItems = [self.restOfEpgStore epgStoreItems];
     for (TVHEpg *epg in epgItems) {

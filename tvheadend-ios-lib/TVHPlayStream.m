@@ -99,7 +99,7 @@
 
 - (BOOL)playInternalStreamIn:(NSString*)program forObject:(id<TVHPlayStreamDelegate>)streamObject {
 #ifdef ENABLE_EXTERNAL_APPS
-    NSString *streamUrl = [streamObject streamUrlWithInternalPlayer:NO];
+    NSString *streamUrl = [self streamUrlForObject:streamObject withInternalPlayer:NO];
     NSURL *myURL = [self URLforProgramWithName:program forURL:streamUrl];
     if ( myURL ) {
         [self.tvhServer.analytics sendEventWithCategory:@"playTo"

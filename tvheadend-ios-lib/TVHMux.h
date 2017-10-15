@@ -10,12 +10,12 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 
-
+#import "TVHPlayStreamDelegate.h"
 #import "TVHAdapter.h"
 
 @class TVHServer;
 
-@interface TVHMux : NSObject
+@interface TVHMux : NSObject <TVHPlayStreamDelegate>
 @property (strong, nonatomic) NSString *adapterId;
 @property (strong, nonatomic) NSString *id;
 @property (strong, nonatomic) NSString *freq;
@@ -52,4 +52,13 @@
 - (void)updateValuesFromTVHMux:(TVHMux*)mux;
 - (NSComparisonResult)compareByFreq:(TVHMux *)otherObject;
 
+- (NSString*)streamURL;
+- (NSString*)playlistStreamURL;
+- (NSString*)htspStreamURL;
+- (BOOL)isLive;
+
+- (NSString*)imageUrl;
+- (NSString*)name;
+- (NSString*)description;
+- (TVHEpg*)currentPlayingProgram;
 @end
