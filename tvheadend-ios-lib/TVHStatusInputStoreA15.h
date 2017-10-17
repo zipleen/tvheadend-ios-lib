@@ -17,6 +17,5 @@
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchStatusInputs;
 
-- (TVHStatusInput*)objectAtIndex:(NSUInteger) row;
-- (int)count;
+- (NSArray*)inputsCopy;
 @end

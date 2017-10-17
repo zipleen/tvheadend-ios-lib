@@ -119,15 +119,8 @@
     }];
 }
 
-- (TVHNetwork *)objectAtIndex:(NSUInteger) row {
-    if ( row < [self.networks count] ) {
-        return [self.networks objectAtIndex:row];
-    }
-    return nil;
-}
-
-- (int)count {
-    return (int)[self.networks count];
+- (NSArray*)networksCopy {
+    return [self.networks copy];
 }
 
 - (void)setDelegate:(id <TVHNetworkDelegate>)delegate {

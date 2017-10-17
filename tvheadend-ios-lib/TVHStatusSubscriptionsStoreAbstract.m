@@ -89,6 +89,10 @@
     return true;
 }
 
+- (NSArray*)subscriptionsCopy {
+    return [self.subscriptions copy];
+}
+
 #pragma mark Api Client delegates
 
 - (NSString*)apiMethod {
@@ -123,17 +127,6 @@
         [weakSelf signalDidErrorStatusSubscriptionsStore:error];
         NSLog(@"[Subscription HTTPClient Error]: %@", error.localizedDescription);
     }];
-}
-
-- (TVHStatusSubscription *) objectAtIndex:(int) row {
-    if ( row < [self.subscriptions count] ) {
-        return [self.subscriptions objectAtIndex:row];
-    }
-    return nil;
-}
-
-- (int)count {
-    return (int)[self.subscriptions count];
 }
 
 - (void)setDelegate:(id <TVHStatusSubscriptionsDelegate>)delegate {

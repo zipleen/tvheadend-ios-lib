@@ -22,6 +22,5 @@
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchStatusSubscriptions;
 
-- (TVHStatusSubscription *) objectAtIndex:(int) row;
-- (int)count;
+- (NSArray*)subscriptionsCopy;
 @end

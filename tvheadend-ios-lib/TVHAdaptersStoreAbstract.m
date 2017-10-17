@@ -85,6 +85,10 @@
 - (void)setupMoreValuesForAdapter:(TVHAdapter*)adapter {
 }
 
+- (NSArray*)adaptersCopy {
+    return [self.adapters copy];
+}
+
 #pragma mark Api Client delegates
 
 - (NSString*)apiMethod {
@@ -119,17 +123,6 @@
         NSLog(@"[Adapter Store HTTPClient Error]: %@", error.localizedDescription);
     }];
     
-}
-
-- (TVHAdapter *)objectAtIndex:(NSUInteger) row {
-    if ( row < [self.adapters count] ) {
-        return [self.adapters objectAtIndex:row];
-    }
-    return nil;
-}
-
-- (int)count {
-    return (int)[self.adapters count];
 }
 
 - (void)setDelegate:(id <TVHAdaptersDelegate>)delegate {

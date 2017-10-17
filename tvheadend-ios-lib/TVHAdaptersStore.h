@@ -33,7 +33,6 @@
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)fetchAdapters;
 
-- (TVHAdapter*)objectAtIndex:(NSUInteger) row;
-- (int)count;
+- (NSArray*)adaptersCopy;
 @end
 

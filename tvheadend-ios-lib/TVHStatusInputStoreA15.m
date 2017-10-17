@@ -81,6 +81,10 @@
     return true;
 }
 
+- (NSArray*)inputsCopy {
+    return self.inputs.copy;
+}
+
 #pragma mark Api Client delegates
 
 - (NSString*)apiMethod {
@@ -115,17 +119,6 @@
         [weakSelf signalDidErrorStatusInputStore:error];
         NSLog(@"[Status Input HTTPClient Error]: %@", error.localizedDescription);
     }];
-}
-
-- (TVHStatusInput *)objectAtIndex:(NSUInteger) row {
-    if ( row < [self.inputs count] ) {
-        return [self.inputs objectAtIndex:row];
-    }
-    return nil;
-}
-
-- (int)count {
-    return (int)[self.inputs count];
 }
 
 - (void)setDelegate:(id <TVHStatusInputDelegate>)delegate {

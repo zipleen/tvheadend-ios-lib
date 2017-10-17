@@ -132,8 +132,4 @@
     return nil;
 }
 
-- (NSString*)name {
-    return [NSString stringWithFormat:@"Mux: %@", self.uuid];
-}
-
 @end
