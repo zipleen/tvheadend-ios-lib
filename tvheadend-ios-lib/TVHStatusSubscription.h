@@ -27,6 +27,11 @@
 // 4.0
 @property NSInteger in;
 @property NSInteger out;
+@property (strong, nonatomic) NSString *descramble;
+@property (strong, nonatomic) NSString *profile;
+@property (strong, nonatomic) NSString *username;
+@property NSInteger total_in;
+@property NSInteger total_out;
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)updateValuesFromDictionary:(NSDictionary*) values;
