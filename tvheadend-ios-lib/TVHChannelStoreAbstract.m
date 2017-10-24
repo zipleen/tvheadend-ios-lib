@@ -27,7 +27,7 @@
 - (id <TVHEpgStore>)currentlyPlayingEpgStore {
     if (!_currentlyPlayingEpgStore){
         _currentlyPlayingEpgStore = [self.tvhServer createEpgStoreWithName:@"CurrentlyPlaying"];
-        if (_currentlyPlayingEpgStore) {
+        if (_currentlyPlayingEpgStore != nil) {
             [_currentlyPlayingEpgStore setDelegate:self];
             // we can't have the object register the notification, because every channel has one epgStore - that would make every epgStore object update itself!!
             [[NSNotificationCenter defaultCenter] addObserver:_currentlyPlayingEpgStore
@@ -173,6 +173,9 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // for each epg
         NSArray *list = [self.currentlyPlayingEpgStore epgStoreItems];
+        if (list == nil) {
+            return;
+        }
         for (TVHEpg *epg in list) {
             TVHChannel *channel = [self channelWithName:epg.channel];
             [channel addEpg:epg];
