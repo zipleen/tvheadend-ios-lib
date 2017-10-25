@@ -207,9 +207,11 @@
         dateFormatter = [NSDateFormatter dateFormatterMMddyy];
     }
     
-    NSString *dateString = [dateFormatter stringFromDate:epg.start];    
-    TVHChannelEpg *tvhepg = [self getChannelEpgDataByDayString:dateString];
-    [tvhepg addEpg:epg];
+    NSString *dateString = [dateFormatter stringFromDate:epg.start];
+    if (dateString) {
+        TVHChannelEpg *tvhepg = [self getChannelEpgDataByDayString:dateString];
+        [tvhepg addEpg:epg];
+    }
 }
 
 - (TVHEpg*)currentPlayingProgram {
