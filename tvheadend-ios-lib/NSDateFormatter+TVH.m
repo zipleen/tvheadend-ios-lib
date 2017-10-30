@@ -10,6 +10,9 @@
 
 @implementation NSDateFormatter(TVHDateFormatters)
 
+/**
+ * "12/13/52"
+ */
 + (NSDateFormatter *)dateFormatterMMddyy
 {
     static dispatch_once_t once;
@@ -22,6 +25,9 @@
     return _dateFormatterMMddyy;
 }
 
+/**
+ * Monday
+ */
 + (NSDateFormatter *)dateFormatterDayExtended
 {
     static dispatch_once_t once;
@@ -33,6 +39,9 @@
     return _dateFormatterDayExtended;
 }
 
+/**
+ * "3:30pm"
+ */
 + (NSDateFormatter *)timeFormatterHHmm
 {
     static dispatch_once_t once;
@@ -45,6 +54,9 @@
     return _timeFormatterHHmm;
 }
 
+/**
+ * Medium is longer, such as "Jan 12, 1952 3:30pm"
+ */
 + (NSDateFormatter *)dateFormatterLongDate
 {
     static dispatch_once_t once;
