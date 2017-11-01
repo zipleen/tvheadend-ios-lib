@@ -13,6 +13,9 @@
 
 
 #define TVHDidReceiveLogMessageNotification @"logmessageNotificationClassReceived"
+#define TVHDidLoadLog @"didLoadLog"
+#define TVHDidReceiveCouldNotStartStreamingNoFreeAdapter @"didReceiveCouldNotStartStreamingNoFreeAdapter"
+#define TVHDidReceiveNotAbleToDescramble @"didReceiveNotAbleToDescramble"
 
 @protocol TVHLogDelegate <NSObject>
 -(void) didLoadLog;

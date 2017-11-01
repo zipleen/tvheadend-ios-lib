@@ -58,6 +58,17 @@
         NSString *log = [message objectForKey:@"logtxt"];
         [self addLogLine:log];
         [self signalDidLoadLog];
+        
+        // catch special types of logtxt messages!
+        // 2017-11-01 21:05:32.613 webui: Couldn't start streaming /stream/channel/cec58b26c3aa18423ff95f535dc2e635, No free adapter
+        if ([log containsString:@", No free adapter"]) {
+            [self signalNoFreeAdapters:log];
+        }
+        
+        // "2017-11-01 20:28:52.024 descrambler: cannot decode packets for service \"bla\"";
+        if ([log containsString:@"descrambler: cannot decode packets for service"]) {
+            [self signalNoDescramble:log];
+        }
     }
 }
 
@@ -89,8 +100,22 @@
         if ([self.delegate respondsToSelector:@selector(didLoadLog)]) {
             [self.delegate didLoadLog];
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"didLoadLog"
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadLog
                                                             object:self];
+    });
+}
+
+- (void)signalNoFreeAdapters:(NSString*)log {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidReceiveCouldNotStartStreamingNoFreeAdapter
+                                                            object:log];
+    });
+}
+
+- (void)signalNoDescramble:(NSString*)log {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidReceiveNotAbleToDescramble
+                                                            object:log];
     });
 }
 
