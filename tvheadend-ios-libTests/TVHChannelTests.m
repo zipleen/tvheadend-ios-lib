@@ -66,6 +66,52 @@
 
 - (void)didLoadEpgChannel{}
 
+- (void)testNextPrograms {
+    TVHChannel *channel = [self channel];
+    [channel setUuid:@"123"];
+    
+    TVHEpg *epg = [self epg];
+    epg.id = 1;
+    [epg setTitle:@"Before 2"];
+    [epg setStart:[NSDate dateWithTimeIntervalSinceNow:-1800]];
+    [epg setEnd:[NSDate dateWithTimeIntervalSinceNow:-600]];
+    [channel addEpg:epg];
+    
+    epg = [self epg];
+    epg.id = 2;
+    [epg setTitle:@"Before 1"];
+    [epg setStart:[NSDate dateWithTimeIntervalSinceNow:-600]];
+    [epg setEnd:[NSDate dateWithTimeIntervalSinceNow:-60]];
+    [channel addEpg:epg];
+    
+    epg = [self epg];
+    epg.id = 3;
+    [epg setTitle:@"Currently running"];
+    [epg setStart:[NSDate dateWithTimeIntervalSinceNow:-60]];
+    [epg setEnd:[NSDate dateWithTimeIntervalSinceNow:600]];
+    [channel addEpg:epg];
+    
+    epg = [self epg];
+    epg.id = 4;
+    [epg setTitle:@"Next 1"];
+    [epg setStart:[NSDate dateWithTimeIntervalSinceNow:60]];
+    [epg setEnd:[NSDate dateWithTimeIntervalSinceNow:1800]];
+    [channel addEpg:epg];
+    
+    epg = [self epg];
+    epg.id = 5;
+    [epg setTitle:@"Next 2"];
+    [epg setStart:[NSDate dateWithTimeIntervalSinceNow:1800]];
+    [epg setEnd:[NSDate dateWithTimeIntervalSinceNow:2500]];
+    [channel addEpg:epg];
+    
+    NSArray *nextPrograms = [channel nextPrograms:3];
+    expect(nextPrograms.count).to.equal(3);
+    expect([nextPrograms[0] title]).to.equal(@"Currently running");
+    expect([nextPrograms[1] title]).to.equal(@"Next 1");
+    expect([nextPrograms[2] title]).to.equal(@"Next 2");
+}
+
 - (void)testDuplicateEpg {
     
     TVHChannel *channel = [self channel];

@@ -124,14 +124,20 @@
 }
 
 - (void)setStart:(id)startDate {
-    if([startDate isKindOfClass:[NSNumber class]]) {
+    if ([startDate isKindOfClass:[NSNumber class]]) {
         _start = [NSDate dateWithTimeIntervalSince1970:[startDate intValue]];
+    }
+    if ([startDate isKindOfClass:[NSDate class]]) {
+        _start = startDate;
     }
 }
 
 - (void)setEnd:(id)endDate {
-    if([endDate isKindOfClass:[NSNumber class]]) {
+    if ([endDate isKindOfClass:[NSNumber class]]) {
         _end = [NSDate dateWithTimeIntervalSince1970:[endDate intValue]];
+    }
+    if ([endDate isKindOfClass:[NSDate class]]) {
+        _end = endDate;
     }
 }
 

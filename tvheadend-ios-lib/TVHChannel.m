@@ -249,10 +249,11 @@
 #endif
         return nil;
     }
-    
+    NSDate *nowDate = [NSDate date];
+
     for ( TVHChannelEpg *epgByDay in self.channelEpgDataByDay ) {
         for ( TVHEpg *epg in [epgByDay programs] ) {
-            if ( i > 0 || (i == 0 && [epg inProgress]) ) {
+            if ( [nowDate compare:epg.end] == NSOrderedAscending ) {
                 [nextPrograms addObject:epg];
                 i++;
                 if ( i >= numberOfNextPrograms ) {
