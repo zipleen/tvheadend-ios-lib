@@ -1,0 +1,966 @@
+{
+    "entries": [
+        {
+            "uuid": "e685dc826d4ae8419bac12d0576c0c39",
+            "enabled": true,
+            "autoname": true,
+            "name": "Travel Channel",
+            "number": 792,
+            "icon": "http://something/travel.png",
+            "icon_public_url": "http://something/travel.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "3f9320d8540749722630d8ee3c94da5d"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "665d6287295c2929108222de92a110cc",
+            "enabled": true,
+            "autoname": true,
+            "name": "QUEST",
+            "number": 37,
+            "icon": "http://something/quest.png",
+            "icon_public_url": "http://something/quest.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "5bf3f0d0bc24215b28eebace982c2008"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "ad3b0c90ee951c38ac6f5f8b6452fb3c",
+            "enabled": true,
+            "autoname": true,
+            "name": "BBC ONE HD",
+            "number": 1,
+            "icon": "http://something/bbc1hd.png",
+            "icon_public_url": "http://something/bbc1hd.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "8d4269f941d956c83f0febd554a5b02d"
+            ],
+            "tags": [
+                "26e1167152aedfd01fa16337a59a59b2",
+                "892795055249b27c3c0de95532207619",
+                "323501dc7d5b5d3129f6522c8adeb00c"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "47d91d17be7c7524f394e102518ecb1e",
+            "enabled": true,
+            "autoname": true,
+            "name": "Pick",
+            "number": 22,
+            "icon": "http://something/abe/pick.png",
+            "icon_public_url": "http://something/abe/pick.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "c362993a6a5cba70ed6c96a705995181"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "bd9af79993e3e016731815ff8712c725",
+            "enabled": true,
+            "autoname": true,
+            "name": "BBC TWO HD",
+            "number": 2,
+            "icon": "http://something/bbc2hd.png",
+            "icon_public_url": "http://something/bbc2hd.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "2305aff8f33306b9d614971255af25e4"
+            ],
+            "tags": [
+                "26e1167152aedfd01fa16337a59a59b2",
+                "892795055249b27c3c0de95532207619",
+                "323501dc7d5b5d3129f6522c8adeb00c"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "81a2fb1aa7c4100aa30246041b0c441b",
+            "enabled": true,
+            "autoname": true,
+            "name": "5STAR",
+            "number": 30,
+            "icon": "http://something/abe/5_.png",
+            "icon_public_url": "http://something/abe/5_.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "1f3fdf43538bf3730a570f6e809cff59"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "5be6259cff83d797e25787fdf6c99d7d",
+            "enabled": true,
+            "autoname": true,
+            "name": "Sony Movie Ch",
+            "number": 32,
+            "icon": "http://something/moviemix.png",
+            "icon_public_url": "http://something/moviemix.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "3f2c49b6d3bf7bcc973eb9decea1dbd4"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "cdf5981e1c7fb57e4a2889644b22c151",
+            "enabled": true,
+            "autoname": true,
+            "name": "Television X",
+            "number": 671,
+            "icon": "picon://1_0_1_3B80_3006_233A_EEEE0000_0_0_0.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "85fef09335686e1abfe1dc4f36ce427b"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "d68fb3214ae9a7c1b2622bd40b530f0b",
+            "enabled": true,
+            "autoname": false,
+            "name": "iptv test",
+            "number": 0,
+            "epgauto": false,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [],
+            "tags": [],
+            "bouquet": ""
+        },
+        {
+            "uuid": "5187bf21734a968f55b1f6c39c7bf8e7",
+            "enabled": true,
+            "autoname": true,
+            "name": "Film4",
+            "number": 15,
+            "icon": "http://something/abe/film4.png",
+            "icon_public_url": "http://something/abe/film4.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "36f9ce852a22bf5effc2dd92f72892df"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "97816a22f3dc21ac39b33fd815185558",
+            "enabled": true,
+            "autoname": true,
+            "name": "BBC TWO",
+            "number": 2,
+            "icon": "http://something/bbc2.png",
+            "icon_public_url": "http://something/bbc2.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "0bb8202243bf31677b46379161e229d2"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "f6582023860c6325e83cc9e83b8ec80d",
+            "enabled": true,
+            "autoname": true,
+            "name": "Racing UK",
+            "number": 789,
+            "icon": "picon://1_0_C_6F00_6040_233A_EEEE0000_0_0_0.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "f2591c3254c2a03bd50e4e55dfa08894"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "f53534a3dd6c61e1e698530ec4806b05",
+            "enabled": true,
+            "autoname": true,
+            "name": "Channel 4 HD",
+            "number": 4,
+            "icon": "http://something/channel4hd.png",
+            "icon_public_url": "http://something/channel4hd.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "21db57690536d24bdc7988dc6440bb68"
+            ],
+            "tags": [
+                "26e1167152aedfd01fa16337a59a59b2",
+                "892795055249b27c3c0de95532207619",
+                "323501dc7d5b5d3129f6522c8adeb00c"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "cec58b26c3aa18423ff95f535dc2e635",
+            "enabled": true,
+            "autoname": true,
+            "name": "5 USA",
+            "number": 21,
+            "icon": "http://something/abe/5_usa.png",
+            "icon_public_url": "http://something/abe/5_usa.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "dcdd36e9f4d71fb80621d04e7f65a297"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "270c3d270fbdf6861cd2fb21d67b0278",
+            "enabled": true,
+            "autoname": true,
+            "name": "BBC NEWS",
+            "number": 231,
+            "icon": "http://something/bbcnews.png",
+            "icon_public_url": "http://something/bbcnews.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "cd0740af027d0ccccc183934879a82dd"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "65fd5f286bbbd296b585c9758cbff20b",
+            "enabled": true,
+            "autoname": true,
+            "name": "Sky News",
+            "number": 233,
+            "icon": "http://something/skynews.png",
+            "icon_public_url": "http://something/skynews.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "69ec1ac17c2f2de5111b252d9f54665e"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "5b087329c91fc408f333bcc813e4ba52",
+            "enabled": true,
+            "autoname": true,
+            "name": "Food Network",
+            "number": 41,
+            "icon": "http://something/fooduk.png",
+            "icon_public_url": "http://something/fooduk.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "c172e73abb215a29d18e2439dbfd6e55"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "6f58652bb077ca1d74c4a8f8a69b9383",
+            "enabled": true,
+            "autoname": true,
+            "name": "ITV4",
+            "number": 24,
+            "icon": "http://something/itv4.png",
+            "icon_public_url": "http://something/itv4.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "a5a2fb66e40ee0657da85532d1a36bbf"
+            ],
+            "tags": [
+                "323501dc7d5b5d3129f6522c8adeb00c",
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "53a6563099dc45d23711184c27a9927e",
+            "enabled": true,
+            "autoname": true,
+            "name": "BBC RB 0",
+            "number": 600,
+            "icon": "picon://1_0_1_1C40_1044_233A_EEEE0000_0_0_0.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "05b0b2f3dd6e304ad6730e05b63a3dd2"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "edf397b2a5a2184f47ac6932b2ae87f8",
+            "enabled": true,
+            "autoname": true,
+            "name": "VIVA",
+            "number": 794,
+            "icon": "http://something/viva.png",
+            "icon_public_url": "http://something/viva.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "82eb3b65ce24aa4f4b3af058ab541d4f"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "922514b9e0c4a430f014c41995cc124f",
+            "enabled": true,
+            "autoname": true,
+            "name": "BBC FOUR",
+            "number": 9,
+            "icon": "http://something/bbc4.png",
+            "icon_public_url": "http://something/bbc4.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "d19190ad9be1a1441709e48853acc023"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9",
+                "323501dc7d5b5d3129f6522c8adeb00c"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "3cf37dbe5b575d5e380c6b3108bee699",
+            "enabled": true,
+            "autoname": true,
+            "name": "BBC Red Button",
+            "number": 250,
+            "icon": "http://something/N24.png",
+            "icon_public_url": "http://something/N24.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "321601d09ae2d3d6a6f962f3f2f1d6cd"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "39ddf2c1695db08bf671ce887146f505",
+            "enabled": true,
+            "autoname": true,
+            "name": "Really",
+            "number": 17,
+            "icon": "http://something/really.png",
+            "icon_public_url": "http://something/really.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "58183b13c6ecbf6d1df2d6702ce81957"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "409d6444b3600022c7661bf7d60269b2",
+            "enabled": true,
+            "autoname": true,
+            "name": "BBC ONE Lon",
+            "number": 1,
+            "icon": "http://something/bbc1.png",
+            "icon_public_url": "http://something/bbc1.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "0a0f78d663304d74449844758cda60f0"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "2b5171c421da0ae4fdc9e890ba20d34c",
+            "enabled": true,
+            "autoname": true,
+            "name": "BBC RB 1",
+            "number": 601,
+            "icon": "picon://1_0_1_1C00_1044_233A_EEEE0000_0_0_0.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "e108c38f9dff1f826e44f028f061e6ae"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "ec1ae9d03aad5c58cfc909c1235cee0e",
+            "enabled": true,
+            "autoname": true,
+            "name": "BBC RB 303 HD",
+            "number": 303,
+            "icon": "picon://1_0_19_4CC0_4084_233A_EEEE0000_0_0_0.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "02f76efeaddea412845514597315907f"
+            ],
+            "tags": [
+                "892795055249b27c3c0de95532207619"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "757ad65165f723db7da2aabe66f2726f",
+            "enabled": true,
+            "autoname": true,
+            "name": "ITV HD",
+            "number": 3,
+            "icon": "http://something/itvhd_.png",
+            "icon_public_url": "http://something/itvhd_.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "c5201cff401400ba5509e61713644aba"
+            ],
+            "tags": [
+                "323501dc7d5b5d3129f6522c8adeb00c",
+                "892795055249b27c3c0de95532207619",
+                "26e1167152aedfd01fa16337a59a59b2"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "09836ad2842b7e1604950452184bb23d",
+            "enabled": true,
+            "autoname": true,
+            "name": "Channel 4",
+            "number": 4,
+            "icon": "http://something/abe/channel_4.png",
+            "icon_public_url": "http://something/abe/channel_4.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "e7d8b1189cfb16cefc57c6c20e679928"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "32287fd45232c44998823a1aa80c7c34",
+            "enabled": true,
+            "autoname": true,
+            "name": "BBC RB 302",
+            "number": 302,
+            "icon": "picon://1_0_1_5AD0_5040_233A_EEEE0000_0_0_0.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "cfa41ee932c63fce7f7177766b714c23"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "444ec9d4e2e8bab97003cefac9d1912e",
+            "enabled": true,
+            "autoname": true,
+            "name": "Drama",
+            "number": 20,
+            "icon": "http://something/drama.png",
+            "icon_public_url": "http://something/drama.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "6d1fad713779a69ee28f0699d557b500"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "a9795d578df437b10c4823ca80d37269",
+            "enabled": true,
+            "autoname": true,
+            "name": "E4",
+            "number": 13,
+            "icon": "http://something/abe/e4.png",
+            "icon_public_url": "http://something/abe/e4.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "22c5dd391ad6f76c329646898f6ad217"
+            ],
+            "tags": [
+                "323501dc7d5b5d3129f6522c8adeb00c",
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "fd48c3d756d78ad966d7b30dd69a9b2a",
+            "enabled": true,
+            "autoname": true,
+            "name": "More 4",
+            "number": 11,
+            "icon": "http://something/more4.png",
+            "icon_public_url": "http://something/more4.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "dce35d02694aff08301e18cd76e91e94"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "6ab37dd9ca40a3e3e21a02ac9808b5d5",
+            "enabled": true,
+            "autoname": true,
+            "name": "4seven",
+            "number": 47,
+            "icon": "http://something/4seven.png",
+            "icon_public_url": "http://something/4seven.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "a49a9f7475053ab99eb33e0ba6fd56ea"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "d100de59e8c00a1349c9bc207095e785",
+            "enabled": true,
+            "autoname": true,
+            "name": "Channel 5",
+            "number": 5,
+            "icon": "http://something/channel5_.png",
+            "icon_public_url": "http://something/channel5_.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "8b191adbe859b0991683bb195200e79c"
+            ],
+            "tags": [
+                "323501dc7d5b5d3129f6522c8adeb00c",
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "b1ff05dbd7686db8ead96c2c1307f09a",
+            "enabled": true,
+            "autoname": true,
+            "name": "CITV",
+            "number": 203,
+            "icon": "http://something/citv.png",
+            "icon_public_url": "http://something/citv.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "66f911e2eb6831951e7e7994697b58f6"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "2298f6ddbc85ef7b1fe17a235179cdcd",
+            "enabled": true,
+            "autoname": true,
+            "name": "BBC Radio 1",
+            "number": 700,
+            "icon": "picon://1_0_2_1A40_1044_233A_EEEE0000_0_0_0.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "55ad21e923104127879a95fcf04cef00"
+            ],
+            "tags": [
+                "e7e0b344318cd28a29eb4f44143c590c"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "c3929a63ffac5738f7f5f27c129b9563",
+            "enabled": true,
+            "autoname": true,
+            "name": "RT",
+            "number": 234,
+            "icon": "http://something/N24_Doku.png",
+            "icon_public_url": "http://something/N24_Doku.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "ffafa02cb7cafba81f87ae007d4af7eb"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "cea7a7eac45a493087f963d95afcf0a1",
+            "enabled": true,
+            "autoname": true,
+            "name": "ITV",
+            "number": 3,
+            "icon": "http://something/itv_.png",
+            "icon_public_url": "http://something/itv_.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "0ef732a162c9aaa40296888827aa0b0b"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "8f2e65ed2490bac2baebdb3a512f459d",
+            "enabled": true,
+            "autoname": true,
+            "name": "ITV2",
+            "number": 18,
+            "icon": "http://something/itv2.png",
+            "icon_public_url": "http://something/itv2.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "17b39630a86ceaf222894b321d78aaf5"
+            ],
+            "tags": [
+                "323501dc7d5b5d3129f6522c8adeb00c",
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "fbcf8c73b21fa23ff060de1261c94c04",
+            "enabled": true,
+            "autoname": true,
+            "name": "4Music",
+            "number": 10,
+            "icon": "http://something/abe/4music.png",
+            "icon_public_url": "http://something/abe/4music.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "a376750fbc63c909b8cff65595f92847"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "393ae3781e00a3e59019181d44a06264",
+            "enabled": true,
+            "autoname": true,
+            "name": "Dave",
+            "number": 12,
+            "icon": "http://something/abe/dave.png",
+            "icon_public_url": "http://something/abe/dave.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "9434f64a9719944634fa547a12757300"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "2c8ce5f8a101dd0b9cffb7d0db027ba8",
+            "enabled": true,
+            "autoname": true,
+            "name": "ITV3",
+            "number": 18,
+            "icon": "http://something/itv3.png",
+            "icon_public_url": "http://something/itv3.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "53320c491154b7da03f49d90b969750b"
+            ],
+            "tags": [
+                "323501dc7d5b5d3129f6522c8adeb00c",
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "2eaaabfafc67272c34ed6a4c68d6c476",
+            "enabled": true,
+            "autoname": true,
+            "name": "Yesterday",
+            "number": 19,
+            "icon": "http://something/yesterday.png",
+            "icon_public_url": "http://something/yesterday.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "23b3d681cde0dcdc79dea374168b0841"
+            ],
+            "tags": [
+                "d3a49307a36717ebdf35b837973af7d9",
+                "67a748de980cd04496c0ea6a5fc0ed46"
+            ],
+            "bouquet": ""
+        },
+        {
+            "uuid": "2a59507cd069737121137186f1ea6385",
+            "enabled": true,
+            "autoname": true,
+            "name": "Community",
+            "number": 793,
+            "icon": "picon://1_0_1_5E00_5040_233A_EEEE0000_0_0_0.png",
+            "epgauto": true,
+            "epggrab": [],
+            "dvr_pre_time": 0,
+            "dvr_pst_time": 0,
+            "epg_running": -1,
+            "services": [
+                "e3412467e1d22223985e2834859dce4e"
+            ],
+            "tags": [
+                "67a748de980cd04496c0ea6a5fc0ed46",
+                "d3a49307a36717ebdf35b837973af7d9"
+            ],
+            "bouquet": ""
+        }
+    ],
+    "total": 44
+}

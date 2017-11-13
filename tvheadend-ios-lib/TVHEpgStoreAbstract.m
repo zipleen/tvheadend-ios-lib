@@ -143,7 +143,11 @@
     
     dispatch_sync(self.epgStoreQueue, ^{
         // for each epgByChannel first entry, we shall collect the channelId and then get the corresponding object
-        for (NSArray* _Nonnull epgArray in self.epgByChannel) {
+        [self.epgByChannel enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull channelIdKey, NSArray*  _Nonnull epgArray, BOOL * _Nonnull stop) {
+            if (epgArray.count == 0) {
+                return;
+            }
+            
             TVHEpg *epg = [epgArray objectAtIndex:0];
             if (epg != nil) {
                 TVHChannel *channel = epg.channelObject;
@@ -151,7 +155,7 @@
                     [channels addObject:channel];
                 }
             }
-        }
+        }];
     });
     
     if ( [self.tvhServer.settings sortChannel] == TVHS_SORT_CHANNEL_BY_NAME ) {

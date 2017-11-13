@@ -131,6 +131,14 @@
 		F087A2CE1F79B62000EFB087 /* TVHStreamProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2C61F79B56D00EFB087 /* TVHStreamProfile.m */; };
 		F087A2D31F79B76C00EFB087 /* TVHStreamProfileStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */; };
 		F087A2D41F79B76C00EFB087 /* TVHStreamProfileStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */; };
+		F0901AC41FBA1E1000B4540F /* Log.sampleNormal.epg in Resources */ = {isa = PBXBuildFile; fileRef = F0901AC31FBA1E1000B4540F /* Log.sampleNormal.epg */; };
+		F0901AC51FBA1E1000B4540F /* Log.sampleNormal.epg in Resources */ = {isa = PBXBuildFile; fileRef = F0901AC31FBA1E1000B4540F /* Log.sampleNormal.epg */; };
+		F0901AC71FBA21BC00B4540F /* Log.sampleNormal.channels in Resources */ = {isa = PBXBuildFile; fileRef = F0901AC61FBA21BC00B4540F /* Log.sampleNormal.channels */; };
+		F0901AC81FBA21BC00B4540F /* Log.sampleNormal.channels in Resources */ = {isa = PBXBuildFile; fileRef = F0901AC61FBA21BC00B4540F /* Log.sampleNormal.channels */; };
+		F0901AD01FBA2A9000B4540F /* NSDate+Timecop.m in Sources */ = {isa = PBXBuildFile; fileRef = F0901ACE1FBA2A9000B4540F /* NSDate+Timecop.m */; };
+		F0901AD11FBA2A9000B4540F /* NSDate+Timecop.m in Sources */ = {isa = PBXBuildFile; fileRef = F0901ACE1FBA2A9000B4540F /* NSDate+Timecop.m */; };
+		F0901AD21FBA2A9000B4540F /* Timecop.m in Sources */ = {isa = PBXBuildFile; fileRef = F0901ACF1FBA2A9000B4540F /* Timecop.m */; };
+		F0901AD31FBA2A9000B4540F /* Timecop.m in Sources */ = {isa = PBXBuildFile; fileRef = F0901ACF1FBA2A9000B4540F /* Timecop.m */; };
 		F095330D1F6AEFBE00FAF3B8 /* Epg.summary.marcel in Resources */ = {isa = PBXBuildFile; fileRef = F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */; };
 		F0982E2D1F8EA12E007EE99B /* TVHEpgTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0982E2C1F8EA12E007EE99B /* TVHEpgTests.m */; };
 		F0982E2E1F8EA12E007EE99B /* TVHEpgTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0982E2C1F8EA12E007EE99B /* TVHEpgTests.m */; };
@@ -500,6 +508,13 @@
 		F087A2C91F79B60900EFB087 /* TVHStreamProfileStoreAbstract.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHStreamProfileStoreAbstract.m; sourceTree = "<group>"; };
 		F087A2D11F79B76C00EFB087 /* TVHStreamProfileStoreA15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStreamProfileStoreA15.h; sourceTree = "<group>"; };
 		F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHStreamProfileStoreA15.m; sourceTree = "<group>"; };
+		F0901AC31FBA1E1000B4540F /* Log.sampleNormal.epg */ = {isa = PBXFileReference; lastKnownFileType = text; path = Log.sampleNormal.epg; sourceTree = "<group>"; };
+		F0901AC61FBA21BC00B4540F /* Log.sampleNormal.channels */ = {isa = PBXFileReference; lastKnownFileType = text; path = Log.sampleNormal.channels; sourceTree = "<group>"; };
+		F0901AC91FBA27DD00B4540F /* tvheadend-ios-lib-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "tvheadend-ios-lib-Prefix.pch"; sourceTree = "<group>"; };
+		F0901ACC1FBA2A8F00B4540F /* Timecop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timecop.h; sourceTree = "<group>"; };
+		F0901ACD1FBA2A9000B4540F /* NSDate+Timecop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Timecop.h"; sourceTree = "<group>"; };
+		F0901ACE1FBA2A9000B4540F /* NSDate+Timecop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Timecop.m"; sourceTree = "<group>"; };
+		F0901ACF1FBA2A9000B4540F /* Timecop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Timecop.m; sourceTree = "<group>"; };
 		F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */ = {isa = PBXFileReference; lastKnownFileType = text; path = Epg.summary.marcel; sourceTree = "<group>"; };
 		F0982E2C1F8EA12E007EE99B /* TVHEpgTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHEpgTests.m; sourceTree = "<group>"; };
 		F0982E2F1F8EA154007EE99B /* TVHDvrItemTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHDvrItemTests.m; sourceTree = "<group>"; };
@@ -633,6 +648,7 @@
 		AAA89DEB1861257300AE4C13 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F0901ACB1FBA2A6D00B4540F /* Timecop */,
 				AABF3B60185E603300E62240 /* Fixtures */,
 				AABF3B64185E603300E62240 /* TVHEpgStoreTests.m */,
 				AABF3B66185E603300E62240 /* TVHTagStoreTests.m */,
@@ -701,6 +717,7 @@
 		AABF3A52185E586700E62240 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F0901AC91FBA27DD00B4540F /* tvheadend-ios-lib-Prefix.pch */,
 				AABF3B34185E5EA700E62240 /* Third Party Frameworks */,
 			);
 			name = "Supporting Files";
@@ -1113,6 +1130,8 @@
 				AABF3B5F185E603300E62240 /* extjs.html */,
 				F0CCEF841F421F5200AAC25B /* Log.services.mine */,
 				F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */,
+				F0901AC31FBA1E1000B4540F /* Log.sampleNormal.epg */,
+				F0901AC61FBA21BC00B4540F /* Log.sampleNormal.channels */,
 			);
 			name = Fixtures;
 			path = TestData;
@@ -1191,6 +1210,17 @@
 				F087A2D21F79B76C00EFB087 /* TVHStreamProfileStoreA15.m */,
 			);
 			name = StreamProfileStore;
+			sourceTree = "<group>";
+		};
+		F0901ACB1FBA2A6D00B4540F /* Timecop */ = {
+			isa = PBXGroup;
+			children = (
+				F0901ACD1FBA2A9000B4540F /* NSDate+Timecop.h */,
+				F0901ACE1FBA2A9000B4540F /* NSDate+Timecop.m */,
+				F0901ACC1FBA2A8F00B4540F /* Timecop.h */,
+				F0901ACF1FBA2A9000B4540F /* Timecop.m */,
+			);
+			path = Timecop;
 			sourceTree = "<group>";
 		};
 		F0BE72251F4B7B07003AEBE2 /* Response Serializers */ = {
@@ -1338,6 +1368,8 @@
 				AABF3B71185E603300E62240 /* Log.channels in Resources */,
 				AABF3B70185E603300E62240 /* Log.tags in Resources */,
 				AA336F7A1889B8F300FD2A03 /* Log.287.invalid in Resources */,
+				F0901AC41FBA1E1000B4540F /* Log.sampleNormal.epg in Resources */,
+				F0901AC71FBA21BC00B4540F /* Log.sampleNormal.channels in Resources */,
 				AABF3B6F185E603300E62240 /* Log.287 in Resources */,
 				AABF3A6A185E586700E62240 /* InfoPlist.strings in Resources */,
 			);
@@ -1352,8 +1384,10 @@
 				F0CCEF8F1F42315700AAC25B /* extjs.html in Resources */,
 				F0CCEF891F42315700AAC25B /* Log.epg.utf.invalid in Resources */,
 				F0CCEF8A1F42315700AAC25B /* Log.287.invalid in Resources */,
+				F0901AC51FBA1E1000B4540F /* Log.sampleNormal.epg in Resources */,
 				F0CCEF901F42315700AAC25B /* Log.services.mine in Resources */,
 				F0CCEF8C1F42315700AAC25B /* Log.tags in Resources */,
+				F0901AC81FBA21BC00B4540F /* Log.sampleNormal.channels in Resources */,
 				F0CCEF8E1F42315700AAC25B /* Log.oneChannelEpg in Resources */,
 				F0CCEF8D1F42315700AAC25B /* Log.channels in Resources */,
 			);
@@ -1646,6 +1680,8 @@
 				AAA89DE91861255000AE4C13 /* TVHChannelStoreTests.m in Sources */,
 				AAA89DEA1861255300AE4C13 /* TVHChannelTests.m in Sources */,
 				AAA89DE1186123FC00AE4C13 /* TVHTestHelper.m in Sources */,
+				F0901AD21FBA2A9000B4540F /* Timecop.m in Sources */,
+				F0901AD01FBA2A9000B4540F /* NSDate+Timecop.m in Sources */,
 				AAA89DE0186123B600AE4C13 /* TVHServerTests.m in Sources */,
 				AAA89DE81861254C00AE4C13 /* TVHTagStoreTests.m in Sources */,
 				AAA89DEC186125AA00AE4C13 /* TVHEpgStoreTests.m in Sources */,
@@ -1753,6 +1789,8 @@
 				F0CDE4EB1BA216C9000A969B /* TVHEpgStoreTests.m in Sources */,
 				F0CDE4ED1BA216C9000A969B /* TVHChannelStoreTests.m in Sources */,
 				F0CDE4EE1BA216C9000A969B /* TVHChannelTests.m in Sources */,
+				F0901AD31FBA2A9000B4540F /* Timecop.m in Sources */,
+				F0901AD11FBA2A9000B4540F /* NSDate+Timecop.m in Sources */,
 				F0CDE4EF1BA216C9000A969B /* TVHTestHelper.m in Sources */,
 				F0CDE4EC1BA216C9000A969B /* TVHTagStoreTests.m in Sources */,
 				F0CDE4F01BA216C9000A969B /* TVHServerTests.m in Sources */,

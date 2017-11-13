@@ -11,6 +11,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Timecop.h"
+
 @class TVHServer;
 
 @interface TVHTestHelper : NSObject

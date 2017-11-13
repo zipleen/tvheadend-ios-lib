@@ -17,6 +17,8 @@
 #import "TVHEpgStore34.h"
 #import "TVHEpgStoreA15.h"
 #import "TVHJsonUTF8AutoCharsetResponseSerializer.h"
+#import "TVHServer.h"
+#import "TVHChannelStoreA15.h"
 
 @interface TVHEpgStoreTests : XCTestCase
 
@@ -32,6 +34,10 @@
 - (void)fetchedData:(NSData *)responseData;
 @end
 
+@interface TVHChannelStoreA15 (MyPrivateMethodsUsedForTesting)
+@property (nonatomic, strong) NSArray *channels;
+- (void)fetchChannelListWithSuccess:(ChannelLoadedCompletionBlock)successBlock failure:(ChannelLoadedCompletionBlock)failureBlock loadEpgForChannels:(BOOL)loadEpg;
+@end
 
 @implementation TVHEpgStoreTests
 
@@ -121,6 +127,47 @@
     TVHJsonUTF8AutoCharsetResponseSerializer *serializer = [TVHJsonUTF8AutoCharsetResponseSerializer serializer];
     [serializer responseObjectForResponse:nil data:data error:&error];
     XCTAssertNil(error, @"json has no errors? - was this fixed?");
+}
+
+- (void)testChannelsOfEpgByChannel
+{
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return [request.URL.absoluteString isEqualToString:@"http://testServer:9981/api/epg/events/grid?limit=300&start=0"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        NSData* stubData = [TVHTestHelper loadFixture:@"Log.sampleNormal.epg"];;
+        return [OHHTTPStubsResponse responseWithData:stubData statusCode:200 headers:@{@"Content-Type":@"application/json"}];
+    }];
+    
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return [request.URL.absoluteString isEqualToString:@"http://testServer:9981/channels"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        NSData* stubData = [TVHTestHelper loadFixture:@"Log.sampleNormal.channels"];;
+        return [OHHTTPStubsResponse responseWithData:stubData statusCode:200 headers:@{@"Content-Type":@"application/json"}];
+    }];
+    
+    TVHServer* server = [TVHTestHelper mockTVHServer:@"A15"];
+    TVHChannelStoreA15 *channelStore = (TVHChannelStoreA15*)server.channelStore;
+    [channelStore fetchChannelListWithSuccess:nil failure:nil loadEpgForChannels:NO];
+    expect(channelStore.channels).after(10).willNot.beNil();
+    expect(channelStore.channels.count).after(10).to.equal(44);
+    
+    NSDate *thisDateInTime = [NSDate dateWithTimeIntervalSince1970:1510601634];
+    [Timecop freezeWithDate:thisDateInTime block:^{
+        TVHEpgStoreA15 *tvhe = [[TVHEpgStoreA15 alloc] initWithStatsEpgName:@"bla" withTvhServer:server];
+        [tvhe downloadEpgList];
+        
+        expect(tvhe.epgStore).after(5).willNot.beNil();
+        expect(tvhe.epgStore.count).after(5).to.equal(300);
+        
+        XCTAssertTrue( ([tvhe.epgStore count] == 300), @"Failed parsing json data");
+        
+        NSArray* channelsFromEpg = tvhe.channelsOfEpgByChannel;
+        
+        expect(channelsFromEpg).toNot.beNil();
+        expect(channelsFromEpg.count).to.equal(35);
+    }];
+    
+    
 }
 
 - (void)testEpgSummaryBug
