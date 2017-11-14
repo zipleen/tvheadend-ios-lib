@@ -92,18 +92,14 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.channel = nil;
-    self.chicon = nil;
-    self.title = nil;
-    self.subtitle = nil;
-    self.episode = nil;
-    self.start = nil;
-    self.end = nil;
-    self.schedstate = nil;
-    self.contenttype = nil;
 }
 
 - (NSString*)chicon {
+    // if we have a picture for our epg icon, return that! otherwise return the channel picture
+    if (self.image != nil && ![self.image isEqualToString:@""]) {
+        return self.image;
+    }
+    
     // try to fetch picture from channel
     return [self.channelObject imageUrl];
 }
@@ -118,6 +114,12 @@
     NSString *episode = self.episode;
     if ( episode == nil ) {
         episode = @"";
+        
+        if (self.episodeOnscreen != nil) {
+            episode = self.episodeOnscreen;
+        } else if (self.episodeNumber != 0 && self.seasonNumber != 0) {
+            episode = [NSString stringWithFormat:@"%ld/%ld", self.seasonNumber, self.episodeNumber];
+        }
     }
     
     return [NSString stringWithFormat:@"%@ %@", self.title, episode];
@@ -286,4 +288,19 @@
     ;
 }
 
+- (NSString*)categoriesExpanded {
+    if (self.category != nil && self.category.count > 0) {
+        return [self.category componentsJoinedByString:@" "];
+    }
+    
+    return nil;
+}
+
+- (NSString*)creditsExpanded {
+    __block NSString *credits = @"";
+    [self.credits enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
+        credits = [NSString stringWithFormat:@"%@%@:%@\n", credits, key, obj];
+    }];
+    return credits;
+}
 @end

@@ -19,7 +19,6 @@
 // channel
 @property (nonatomic) NSInteger channelid;
 @property (nonatomic, strong) NSString *channel;
-@property (nonatomic, strong) NSString *chicon;
 // titles
 @property (nonatomic) NSInteger id;
 @property (nonatomic, strong) NSString *title;
@@ -54,6 +53,16 @@
 @property (nonatomic, strong) NSString *dvrUuid;
 @property (nonatomic, strong) NSString *dvrState;
 
+// extended attributes with more details about the epg
+@property (nonatomic) NSInteger seasonNumber;
+@property (nonatomic) NSInteger episodeNumber;
+@property (nonatomic, strong) NSString *episodeOnscreen;
+@property (nonatomic) NSInteger copyrightYear;
+@property (nonatomic, strong) NSArray *category;
+@property (nonatomic, strong) NSDictionary *credits; // this contains an index of actor names and what they have done
+
+- (NSString*)chicon; // this will return "image" or the "channelObject.imageUrl"
+
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)updateValuesFromDictionary:(NSDictionary*) values;
 - (BOOL)inProgress;
@@ -68,4 +77,7 @@
 - (NSString*)startTimeAndTitle;
 - (NSString*)startEndTime;
 - (BOOL)isInSameTimeslot:(TVHEpg*)epg;
+
+- (NSString*)categoriesExpanded;
+- (NSString*)creditsExpanded;
 @end

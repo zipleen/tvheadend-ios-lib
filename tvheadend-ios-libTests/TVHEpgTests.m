@@ -34,8 +34,19 @@
     XCTAssertEqualObjects(epg.fullTitle, @"my title ");
     
     epg.episode = @"episode";
+    epg.episodeOnscreen = @"do not show";
     XCTAssertEqualObjects(epg.fullTitle, @"my title episode");
     
+    epg = [[TVHEpg alloc] initWithTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
+    epg.title = @"my title";
+    epg.episodeOnscreen = @"s01e01";
+    XCTAssertEqualObjects(epg.fullTitle, @"my title s01e01");
+    
+    epg = [[TVHEpg alloc] initWithTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
+    epg.title = @"my title";
+    epg.episodeNumber = 1;
+    epg.seasonNumber = 1;
+    XCTAssertEqualObjects(epg.fullTitle, @"my title 1/1");
 }
 
 @end

@@ -249,6 +249,10 @@
 		F0CDE4EE1BA216C9000A969B /* TVHChannelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6A185E603300E62240 /* TVHChannelTests.m */; };
 		F0CDE4EF1BA216C9000A969B /* TVHTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6C185E603300E62240 /* TVHTestHelper.m */; };
 		F0CDE4F01BA216C9000A969B /* TVHServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6E185E603300E62240 /* TVHServerTests.m */; };
+		F0E42ACA1FBB6A2300DDB081 /* Epg.extendedtags in Resources */ = {isa = PBXBuildFile; fileRef = F0E42AC91FBB6A2300DDB081 /* Epg.extendedtags */; };
+		F0E42ACB1FBB6C2200DDB081 /* Epg.extendedtags in Resources */ = {isa = PBXBuildFile; fileRef = F0E42AC91FBB6A2300DDB081 /* Epg.extendedtags */; };
+		F0E42ACD1FBB6EF500DDB081 /* Epg.extendedtags.channels in Resources */ = {isa = PBXBuildFile; fileRef = F0E42ACC1FBB6EF500DDB081 /* Epg.extendedtags.channels */; };
+		F0E42ACE1FBB6EF500DDB081 /* Epg.extendedtags.channels in Resources */ = {isa = PBXBuildFile; fileRef = F0E42ACC1FBB6EF500DDB081 /* Epg.extendedtags.channels */; };
 		F7306CE0903448DC6D993099 /* Pods_tvheadend_ios_lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 069D88128E1EAEA4D7D7418D /* Pods_tvheadend_ios_lib.framework */; };
 /* End PBXBuildFile section */
 
@@ -528,6 +532,8 @@
 		F0CCEF861F42214100AAC25B /* TVHServiceStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHServiceStoreTests.m; sourceTree = "<group>"; };
 		F0CDE46D1BA214A2000A969B /* libtvheadend-tvOS-lib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libtvheadend-tvOS-lib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CDE47A1BA214C3000A969B /* tvheadend-tvOS-libTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tvheadend-tvOS-libTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0E42AC91FBB6A2300DDB081 /* Epg.extendedtags */ = {isa = PBXFileReference; lastKnownFileType = text; path = Epg.extendedtags; sourceTree = "<group>"; };
+		F0E42ACC1FBB6EF500DDB081 /* Epg.extendedtags.channels */ = {isa = PBXFileReference; lastKnownFileType = text; path = Epg.extendedtags.channels; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1132,6 +1138,8 @@
 				F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */,
 				F0901AC31FBA1E1000B4540F /* Log.sampleNormal.epg */,
 				F0901AC61FBA21BC00B4540F /* Log.sampleNormal.channels */,
+				F0E42AC91FBB6A2300DDB081 /* Epg.extendedtags */,
+				F0E42ACC1FBB6EF500DDB081 /* Epg.extendedtags.channels */,
 			);
 			name = Fixtures;
 			path = TestData;
@@ -1359,12 +1367,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0E42ACA1FBB6A2300DDB081 /* Epg.extendedtags in Resources */,
 				F0CCEF851F421F5200AAC25B /* Log.services.mine in Resources */,
 				AAC6346F1A1579430005EA99 /* Log.epg.utf.invalid in Resources */,
 				AABF3B72185E603300E62240 /* Log.oneChannelEpg in Resources */,
 				F095330D1F6AEFBE00FAF3B8 /* Epg.summary.marcel in Resources */,
 				AABF3B73185E603300E62240 /* extjs.html in Resources */,
 				AABF3B7E185E603300E62240 /* TVHTestHelper.h in Resources */,
+				F0E42ACD1FBB6EF500DDB081 /* Epg.extendedtags.channels in Resources */,
 				AABF3B71185E603300E62240 /* Log.channels in Resources */,
 				AABF3B70185E603300E62240 /* Log.tags in Resources */,
 				AA336F7A1889B8F300FD2A03 /* Log.287.invalid in Resources */,
@@ -1385,10 +1395,12 @@
 				F0CCEF891F42315700AAC25B /* Log.epg.utf.invalid in Resources */,
 				F0CCEF8A1F42315700AAC25B /* Log.287.invalid in Resources */,
 				F0901AC51FBA1E1000B4540F /* Log.sampleNormal.epg in Resources */,
+				F0E42ACE1FBB6EF500DDB081 /* Epg.extendedtags.channels in Resources */,
 				F0CCEF901F42315700AAC25B /* Log.services.mine in Resources */,
 				F0CCEF8C1F42315700AAC25B /* Log.tags in Resources */,
 				F0901AC81FBA21BC00B4540F /* Log.sampleNormal.channels in Resources */,
 				F0CCEF8E1F42315700AAC25B /* Log.oneChannelEpg in Resources */,
+				F0E42ACB1FBB6C2200DDB081 /* Epg.extendedtags in Resources */,
 				F0CCEF8D1F42315700AAC25B /* Log.channels in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

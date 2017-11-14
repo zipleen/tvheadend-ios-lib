@@ -76,13 +76,75 @@
     XCTAssertEqualObjects(epg.title, @"Nacional x Benfica - Primeira Liga", @"epg title doesnt match");
     XCTAssertEqual(epg.channelid, (NSInteger)131, @"epg channel id doesnt match");
     XCTAssertEqualObjects(epg.channel, @"Sport TV 1 Meo", @"channel name does not match" );
-    // chicon now gets the channelObject from channelStore, so this is impossible to test =)
-    //XCTAssertEqualObjects(epg.chicon, @"https://dl.dropbox.com/u/a/TVLogos/sport_tv1_pt.jpg", @"channel icon does not match" );
     XCTAssertFalse([epg.description isEqualToString:@""], @"description empty");
     XCTAssertEqual(epg.id, (NSInteger)400297, @"epg id does not match" );
     XCTAssertEqual(epg.duration, (NSInteger)8100, @"epg id does not match" );
     XCTAssertEqualObjects(epg.start, [NSDate dateWithTimeIntervalSince1970:1360519200], @"start date does not match" );
     XCTAssertEqualObjects(epg.end, [NSDate dateWithTimeIntervalSince1970:1560527300], @"end date does not match" );
+}
+
+- (void)testNewEpgFeatures
+{
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return [request.URL.absoluteString isEqualToString:@"http://testServer:9981/epg"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        NSData* stubData = [TVHTestHelper loadFixture:@"Epg.extendedtags"];;
+        return [OHHTTPStubsResponse responseWithData:stubData statusCode:200 headers:@{@"Content-Type":@"application/json"}];
+    }];
+    
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return [request.URL.absoluteString isEqualToString:@"http://testServer:9981/channels"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        NSData* stubData = [TVHTestHelper loadFixture:@"Epg.extendedtags.channels"];;
+        return [OHHTTPStubsResponse responseWithData:stubData statusCode:200 headers:@{@"Content-Type":@"application/json"}];
+    }];
+    
+    // mock server + load the channels so the EPG can get the corresponding channel
+    TVHServer* server = [TVHTestHelper mockTVHServer:@"34"];
+    TVHChannelStoreA15 *channelStore = (TVHChannelStoreA15*)server.channelStore;
+    [channelStore fetchChannelListWithSuccess:nil failure:nil loadEpgForChannels:NO];
+    expect(channelStore.channels).after(10).willNot.beNil();
+    expect(channelStore.channels.count).after(10).to.equal(50);
+    
+    TVHEpgStore34 *tvhe = [[TVHEpgStore34 alloc] initWithStatsEpgName:@"bla" withTvhServer:server];
+    XCTAssertNotNil(tvhe, @"creating tvepg store object");
+    
+    NSDate *thisDateInTime = [NSDate dateWithTimeIntervalSince1970:1510603100];
+    [Timecop freezeWithDate:thisDateInTime block:^{
+        [tvhe downloadEpgList];
+        
+        expect(tvhe.epgStore).after(5).willNot.beNil();
+        expect(tvhe.epgStore.count).after(5).to.equal(1);
+        
+        XCTAssertTrue( ([tvhe.epgStore count] == 1), @"Failed parsing json data");
+        
+        TVHEpg *epg = [tvhe.epgStore objectAtIndex:0];
+        XCTAssertEqualObjects(epg.title, @"Hawaii Five-0");
+        XCTAssertEqualObjects(epg.channelIdKey, @"5bb0d63781c257b308e78e6ac021d4a1", @"epg channel id doesnt match");
+        XCTAssertEqualObjects(epg.channelObject.name, @"ATV HD", @"channel name doesnt match");
+        XCTAssertEqualObjects(epg.channelObject.imageUrl, @"http://testServer:9981/imagecache/7358", @"channel image");
+        XCTAssertEqualObjects(epg.description, @"Graham, der gerade von einem Einsatz in Afghanistan zurück ist, wird beschuldigt, seine Ehefrau ermordet zu haben. Doch er schwört, mit dem Tod seiner Frau nichts zu tun zu haben. Leider kann er es nicht beweisen. Graham flieht auf das Museumsschiff U.S.S. Missouri und nimmt einige Touristen als Geiseln. Es ist nun an Steve McGarrett und seinem Team, die Situation unter Kontrolle zu bekommen. Steves Erfahrung als ehemaliger Navy Seal kommt ihm dabei sehr zugute….");
+        XCTAssertEqualObjects(epg.subtitle, @"Der einzige Verdächtige");
+        XCTAssertEqual(epg.eventId, (NSInteger)140634, @"epg id does not match" );
+        XCTAssertEqual(epg.duration, (NSInteger)3300, @"epg id does not match" );
+        XCTAssertEqualObjects(epg.start, [NSDate dateWithTimeIntervalSince1970:1510673100], @"start date does not match" );
+        XCTAssertEqualObjects(epg.end, [NSDate dateWithTimeIntervalSince1970:1510676400], @"end date does not match" );
+        
+        XCTAssertEqualObjects(epg.fullTitle, @"Hawaii Five-0 s01.e07");
+        XCTAssertEqualObjects(epg.chicon, @"https://bilder.rtv.de/2db441e4-b277-32f7-af39-66f3701d8a2b/31524fde-76d1-3e86-8956-66eba79740a0");
+        
+        XCTAssertEqual(epg.seasonNumber, (NSInteger)1, @"" );
+        XCTAssertEqual(epg.episodeNumber, (NSInteger)7, @"" );
+        XCTAssertEqualObjects(epg.episodeOnscreen, @"s01.e07");
+        XCTAssertEqualObjects(epg.image, @"https://bilder.rtv.de/2db441e4-b277-32f7-af39-66f3701d8a2b/31524fde-76d1-3e86-8956-66eba79740a0");
+        XCTAssertEqual(epg.copyrightYear, (NSInteger)2010, @"" );
+        XCTAssertEqualObjects(epg.category[0], @"Krimiserie");
+        XCTAssertEqualObjects([epg.credits objectForKey:@"James Whitmore Jr."], @"director");
+        XCTAssertEqualObjects([epg.credits objectForKey:@"Alex O'Loughlin"], @"actor");
+        
+        XCTAssertEqualObjects(epg.categoriesExpanded, @"Krimiserie");
+        XCTAssertEqualObjects(epg.creditsExpanded, @"Daniel:actor\nMackenzie:actor\nGrace Park:actor\nAdam Beach:actor\nKelly Hu:actor\nPeter M. Lenkov:writer\nJames Whitmore Jr.:director\nAlex O'Loughlin:actor\nJim Galasso:writer\nScott Caan:actor\n");
+    }];
 }
 
 - (void)testConvertingAllLogFiles
