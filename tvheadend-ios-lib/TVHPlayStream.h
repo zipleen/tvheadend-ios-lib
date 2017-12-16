@@ -19,7 +19,7 @@
 #define TVHS_DEINTERLACE_OPTIONS_DESC @[NSLocalizedString(@"Off", @""), NSLocalizedString(@"Blend (ok for HD - default)", @""), NSLocalizedString(@"Bob (ok for HD", @""), NSLocalizedString(@"Linear (Best Performance for HD)", @""), NSLocalizedString(@"X (Slow in HD)", @""), NSLocalizedString(@"Yadif (Slow in HD)", @""), NSLocalizedString(@"IVTC (Slow in HD)", @""), NSLocalizedString(@"Discard (ok for HD)", @""), NSLocalizedString(@"Mean (Good Quality, bad for Sports)", @""), NSLocalizedString(@"Yadif (2x) (Slow in HD)", @""), NSLocalizedString(@"Phosphor(v1.2.0+)", @"")]
 
 // HW OFF , ON
-#define TVHS_VLC_HWDECODING @[@"avcodec,all", @""]
+#define TVHS_VLC_HWDECODING @[@"dvbsub,avcodec,all", @""]
 
 #define TVHS_ON_OFF @[NSLocalizedString(@"Off", @""), NSLocalizedString(@"On", @"")]
 
