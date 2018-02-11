@@ -22,10 +22,17 @@
 - (void)fetchChannelListWithSuccess:(ChannelLoadedCompletionBlock)successBlock failure:(ChannelLoadedCompletionBlock)failureBlock loadEpgForChannels:(BOOL)loadEpg;
 
 - (NSUInteger)channelCount;
+
+// get a copy of the full channels array
 - (NSArray*)channelsCopy;
+
+// get a copy of the channels array, but if we have set filterTag it will only return the filtered tags
+- (NSArray*)filteredChannelsCopy;
+
+// get a channel array with a specific tag
 - (NSArray*)channelsWithTag:(NSString*)tag;
+
 - (TVHChannel*)channelWithName:(NSString*)name;
 - (TVHChannel*)channelWithId:(NSString*)channelId;
-- (NSArray*)filteredChannelList;
 - (void)updateChannelsProgress;
 @end

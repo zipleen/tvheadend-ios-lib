@@ -220,6 +220,10 @@
 }
 
 - (NSArray*)channelsCopy {
+    return [self.channels copy];
+}
+
+- (NSArray*)filteredChannelsCopy {
     if ( [self.filterTag isEqualToString:@"0"] ) {
         return [self.channels copy];
     } else {
