@@ -132,4 +132,8 @@
     return nil;
 }
 
+- (int)number {
+    return 0;
+}
+
 @end

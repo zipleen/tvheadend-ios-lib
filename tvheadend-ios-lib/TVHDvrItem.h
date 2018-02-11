@@ -69,6 +69,7 @@
 
 // playStream delegate
 
+- (int)number;
 - (NSString*)streamURL;
 - (NSString*)playlistStreamURL;
 - (NSString*)name;

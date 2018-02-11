@@ -59,6 +59,7 @@
 
 - (NSString*)imageUrl;
 - (NSString*)name;
+- (int)number;
 - (NSString*)description;
 - (TVHEpg*)currentPlayingProgram;
 @end

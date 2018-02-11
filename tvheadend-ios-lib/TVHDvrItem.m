@@ -363,7 +363,11 @@
 }
 
 - (NSString*)imageUrl {
-    return [self.channelObject imageUrl];
+    return self.channelObject.imageUrl;
+}
+
+- (int)number {
+    return self.channelObject.number;
 }
 
 - (NSDate*)end {
