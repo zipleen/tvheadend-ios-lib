@@ -279,7 +279,7 @@
 }
 
 - (NSComparisonResult)compareByName:(TVHChannel *)otherObject {
-    return [self.name compare:otherObject.name];
+    return [self.name localizedCaseInsensitiveCompare:otherObject.name];
 }
 
 - (NSComparisonResult)compareByNumber:(TVHChannel *)otherObject {

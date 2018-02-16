@@ -231,6 +231,28 @@
 
 }
 
+- (void)testSortByName {
+    TVHChannel *channel1 = [self channel];
+    TVHChannel *channel2 = [self channel];
+    TVHChannel *channel3 = [self channel];
+    TVHChannel *channel4 = [self channel];
+    
+    channel1.name = @"A a first channel";
+    channel2.name = @"a b second channel";
+    channel3.name = @"B third channel";
+    channel4.name = @"A c second channel";
+    
+    // A a > a b
+    XCTAssertEqual(NSOrderedAscending, [channel1 compareByName:channel2]);
+    // A > B
+    XCTAssertEqual(NSOrderedAscending, [channel1 compareByName:channel3]);
+    // a > B
+    XCTAssertEqual(NSOrderedAscending, [channel2 compareByName:channel3]);
+    
+    // a b > A c
+    XCTAssertEqual(NSOrderedAscending, [channel2 compareByName:channel4]);
+}
+
 - (void)testHtspUrl {
     TVHServerSettings *settings = [[TVHServerSettings alloc] initWithSettings:@{
                                                                                TVHS_HTSP_PORT_KEY: @"1111",
