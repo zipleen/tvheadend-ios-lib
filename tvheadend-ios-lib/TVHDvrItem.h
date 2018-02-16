@@ -44,6 +44,7 @@
 @property (nonatomic, strong) NSString *sched_status;
 @property (nonatomic) NSInteger errorcode;
 @property (nonatomic) NSInteger errors;
+@property (nonatomic) NSInteger data_errors;
 @property (nonatomic, strong) NSString *filename;
 @property (nonatomic, strong) NSDate *start_real;
 @property (nonatomic, strong) NSDate *stop_real;
