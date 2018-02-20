@@ -62,7 +62,6 @@
 
 // "system wide" settings
 @property (nonatomic) NSInteger sortChannel;
-@property (nonatomic) NSInteger sortRecordings;
 @property (nonatomic) BOOL autoStartPolling;
 
 - (id)initWithSettings:(NSDictionary*)settings;
