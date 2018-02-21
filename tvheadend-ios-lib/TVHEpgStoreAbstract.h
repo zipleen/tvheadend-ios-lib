@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSString *filterToContentTypeId;
 @property NSInteger filterStart;
 @property NSInteger filterLimit;
+@property (nonatomic) BOOL fullTextSearch;
 
 @property (nonatomic, weak) TVHServer *tvhServer;
 @property (nonatomic, strong) NSString *statsEpgName;

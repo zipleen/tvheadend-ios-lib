@@ -88,6 +88,7 @@
     epgUpdateInProgress = [NSLock new];
     _epgStoreQueue = dispatch_queue_create("com.zipleen.TvhClient.epgStoreQueue",
                                            DISPATCH_QUEUE_CONCURRENT);
+    _fullTextSearch = NO;
     
     return self;
 }
@@ -253,20 +254,24 @@
                                    [NSString stringWithFormat:@"%d", (int)self.filterLimit ],
                                    @"limit",nil];
     
-    if( self.filterToChannelName != nil ) {
+    if (self.filterToChannelName != nil) {
         [params setObject:self.filterToChannelName forKey:@"channel"];
     }
     
-    if( self.filterToProgramTitle != nil ) {
+    if (self.filterToProgramTitle != nil) {
         [params setObject:self.filterToProgramTitle forKey:@"title"];
     }
     
-    if( self.filterToTagName != nil ) {
+    if (self.fullTextSearch) {
+        [params setObject:@"true" forKey:@"fulltext"];
+    }
+    
+    if (self.filterToTagName != nil) {
         [params setObject:self.filterToTagName forKey:@"tag"];
         [params setObject:self.filterToTagName forKey:@"channelTag"];
     }
     
-    if( self.filterToContentTypeId != nil ) {
+    if (self.filterToContentTypeId != nil) {
         [params setObject:self.filterToContentTypeId forKey:@"contenttype"];
     }
     
