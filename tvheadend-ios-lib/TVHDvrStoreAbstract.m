@@ -60,6 +60,11 @@
     if ( !_totalEventCount ) {
         _totalEventCount = [@[@0,@0,@0,@0] mutableCopy];
     }
+    
+    // really make sure that we have 4 positions
+    if (_totalEventCount.count != 4) {
+        _totalEventCount = [@[@0,@0,@0,@0] mutableCopy];
+    }
     return _totalEventCount;
 }
 
@@ -92,8 +97,9 @@
     
     NSArray *entries = [json objectForKey:self.jsonApiFieldEntries];
     NSNumber *totalCount = [[NSNumber alloc] initWithInt:[[json objectForKey:self.jsonApiFieldTotalCount] intValue]];
-    [self.totalEventCount replaceObjectAtIndex:type withObject:totalCount];
+    
     dispatch_barrier_sync(self.dvrStoreQueue, ^{
+        [self.totalEventCount replaceObjectAtIndex:type withObject:totalCount];
         
         for (id obj in entries) {
             TVHDvrItem *dvritem = [self createDvrItemFromDictionary:obj ofType:type];
