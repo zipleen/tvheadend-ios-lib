@@ -25,18 +25,28 @@
 @implementation TVHChannelStoreAbstract
 
 - (id <TVHEpgStore>)currentlyPlayingEpgStore {
+    
     if (!_currentlyPlayingEpgStore){
-        _currentlyPlayingEpgStore = [self.tvhServer createEpgStoreWithName:@"CurrentlyPlaying"];
-        if (_currentlyPlayingEpgStore != nil) {
-            [_currentlyPlayingEpgStore setDelegate:self];
-            // we can't have the object register the notification, because every channel has one epgStore - that would make every epgStore object update itself!!
-            [[NSNotificationCenter defaultCenter] addObserver:_currentlyPlayingEpgStore
-                                                     selector:@selector(appWillEnterForeground:)
-                                                         name:UIApplicationWillEnterForegroundNotification
-                                                       object:nil];
+        if ([[NSThread currentThread] isMainThread]) {
+            [self buildCurrentlyPlayingEpgStore];
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self buildCurrentlyPlayingEpgStore];
+            });
         }
     }
     return _currentlyPlayingEpgStore;
+}
+
+- (void)buildCurrentlyPlayingEpgStore {
+    _currentlyPlayingEpgStore = [self.tvhServer createEpgStoreWithName:@"CurrentlyPlaying"];
+    [_currentlyPlayingEpgStore setDelegate:self];
+    // we can't have the object register the notification, because every channel has one epgStore - that would make every epgStore object update itself!!
+    [[NSNotificationCenter defaultCenter] addObserver:_currentlyPlayingEpgStore
+                                             selector:@selector(appWillEnterForeground:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+    
 }
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer {
