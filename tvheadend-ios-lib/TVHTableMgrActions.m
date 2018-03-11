@@ -40,13 +40,17 @@
                  postNotificationName:TVHDidSuccessedTableMgrActionNotification
                  object:action];
         });
+        
+#ifdef TESTING
+        // there are weird crashes when doing the initWithData:responseObject. I don't actually need it, so I'm delegating this to #testing!
+        // according to a stackoverflow, this might be because responseObject is already a NSString. In my case, from the crashes, it seems to be a NSDictionary?
         if (responseObject == nil) {
             return;
         }
-                
+        
         NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSLog(@"Request Successful, response '%@'", responseStr);
-        
+#endif
         // reload dvr
         /*TVHAutoRecStore *store = [[TVHSingletonServer sharedServerInstance] autorecStore];
         [store fetchDvrAutoRec];
