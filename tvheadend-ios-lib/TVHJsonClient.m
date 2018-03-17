@@ -116,21 +116,17 @@
     [[TVHNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 #endif
     
-    if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
-        _readyToUse = YES;
-    }
-    
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         if ( status == AFNetworkReachabilityStatusNotReachable ) {
-            @synchronized(self) {
-                _readyToUse = NO;
-            }
+            NSLog(@"Reachability said not reachable!");
+            self.readyToUse = NO;
         } else {
-            @synchronized(self) {
-                _readyToUse = YES;
-            }
+            NSLog(@"Reachability is saying reachable.");
+            self.readyToUse = YES;
         }
     }];
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     return self;
 }

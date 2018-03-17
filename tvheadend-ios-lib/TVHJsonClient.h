@@ -35,7 +35,7 @@
  
  */
 @interface TVHJsonClient : AFHTTPSessionManager
-@property (nonatomic, readonly) BOOL readyToUse;
+@property (nonatomic) BOOL readyToUse;
 - (id)initWithSettings:(TVHServerSettings *)settings;
 - (NSURLSessionDataTask*)getPath:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(NSURLSessionDataTask *task, id responseObject))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 - (NSURLSessionDataTask*)postPath:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(NSURLSessionDataTask *task, id responseObject))success failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
