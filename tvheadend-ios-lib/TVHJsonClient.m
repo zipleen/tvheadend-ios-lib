@@ -55,8 +55,23 @@
 #pragma mark - Authentication
 
 - (void)setUsername:(NSString *)username password:(NSString *)password in:(AFHTTPRequestSerializer*)requestSerializer {
-    [requestSerializer clearAuthorizationHeader];
-    [requestSerializer setAuthorizationHeaderFieldWithUsername:username password:password];
+    
+    [self setTaskDidReceiveAuthenticationChallengeBlock:^NSURLSessionAuthChallengeDisposition(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLAuthenticationChallenge * _Nonnull challenge, NSURLCredential *__autoreleasing  _Nullable * _Nullable credential) {
+        NSString *authenicationMethod = challenge.protectionSpace.authenticationMethod;
+        if (challenge.previousFailureCount > 0) {
+            return NSURLSessionAuthChallengePerformDefaultHandling;
+        }
+        
+        if ([authenicationMethod isEqualToString:NSURLAuthenticationMethodHTTPDigest]) {
+            *credential = [NSURLCredential credentialWithUser:username password:password persistence:NSURLCredentialPersistenceForSession];
+            return NSURLSessionAuthChallengeUseCredential;
+        }
+        if ([authenicationMethod isEqualToString:NSURLAuthenticationMethodHTTPBasic]) {
+            *credential = [NSURLCredential credentialWithUser:username password:password persistence:NSURLCredentialPersistenceForSession];
+            return NSURLSessionAuthChallengeUseCredential;
+        }
+        return NSURLSessionAuthChallengeCancelAuthenticationChallenge;
+    }];
 }
 
 #pragma mark - Initialization
