@@ -88,4 +88,7 @@
     return self.svcname;
 }
 
+- (int)number {
+    return 0;
+}
 @end

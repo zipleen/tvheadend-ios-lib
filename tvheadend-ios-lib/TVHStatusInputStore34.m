@@ -21,6 +21,11 @@
 - (void)fetchStatusInputs {
 }
 
+- (NSArray *)inputsCopy {
+    return nil;
+}
+
+
 - (TVHStatusInput*)objectAtIndex:(NSUInteger) row {
     return nil;
 }
