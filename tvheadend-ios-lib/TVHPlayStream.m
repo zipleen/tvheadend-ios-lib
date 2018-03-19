@@ -30,6 +30,7 @@
 
 @interface TVHPlayStream()
 @property (nonatomic, weak) TVHServer *tvhServer;
+@property (nonatomic, weak) TVHApiClient *apiClient;
 @end
 
 @implementation TVHPlayStream
@@ -44,6 +45,7 @@
     self = [super init];
     if (!self) return nil;
     self.tvhServer = tvhServer;
+    self.apiClient = tvhServer.apiClient;
     
     return self;
 }
@@ -99,16 +101,21 @@
 
 - (BOOL)playInternalStreamIn:(NSString*)program forObject:(id<TVHPlayStreamDelegate>)streamObject {
 #ifdef ENABLE_EXTERNAL_APPS
-    NSString *streamUrl = [self streamUrlForObject:streamObject withInternalPlayer:NO];
-    NSURL *myURL = [self URLforProgramWithName:program forURL:streamUrl];
-    if ( myURL ) {
-        [self.tvhServer.analytics sendEventWithCategory:@"playTo"
-                                             withAction:@"Internal"
-                                              withLabel:program
-                                              withValue:[NSNumber numberWithInt:1]];
-        [[UIApplication sharedApplication] openURL:myURL];
-        return true;
+    // we need to figure out if this is going to complete true. so let's hack this and ask for a random url just to return false if not
+    if ([self URLforProgramWithName:program forURL:@"http://test.com"] == nil) {
+        return false;
     }
+    [self streamObject:streamObject withInternalPlayer:NO completion:^(NSString *streamUrl) {
+        NSURL *myURL = [self URLforProgramWithName:program forURL:streamUrl];
+        if ( myURL ) {
+            [self.tvhServer.analytics sendEventWithCategory:@"playTo"
+                                                 withAction:@"Internal"
+                                                  withLabel:program
+                                                  withValue:[NSNumber numberWithInt:1]];
+            [[UIApplication sharedApplication] openURL:myURL];
+        }
+    }];
+    return true;
 #endif
     return false;
 }
@@ -126,16 +133,61 @@
 }
 #endif
 
-- (NSString*)streamUrlForObject:(id<TVHPlayStreamDelegate>)streamObject withInternalPlayer:(BOOL)internal {
+- (BOOL)streamObject:(id<TVHPlayStreamDelegate>)streamObject withInternalPlayer:(BOOL)internal completion:(void(^)(NSString* streamUrl))completion {
     NSString *streamUrl;
-    if ( internal ) {
+    if (internal) {
         // internal iOS player wants a playlist
-        streamUrl = streamObject.playlistStreamURL;
-    } else {
-        streamUrl = streamObject.streamURL;
+        streamUrl = [self addProfileToUrl:streamObject.playlistStreamURL];
+        
+        // if we can't get a playlist url, well fallback to something that we know could break, but we could be lucky!
+        if (streamUrl == nil) {
+            streamUrl = [self addProfileToUrl:streamObject.streamURL];
+        }
+        
+        completion(streamUrl);
+        return true;
     }
     
-    // add profile!
+    // if the server has correct authentication method, just use what we've used before
+    if (self.tvhServer.hasCorrectAuthenticationMethods) {
+        completion([self addProfileToUrl:streamObject.streamURL]);
+        return true;
+    }
+    
+    // because Digest auth does not allow sending user:pass urls, we require using the ?ticket=XX bypass. for that we'll need to download the playlist and extract the url
+    streamUrl = [self addProfileToUrl:streamObject.playlistStreamURL];
+    
+    // dvr do not have a valid playlist url because /playlist/dvrfile does not exist, and /playlist/dvrid/ID does not work because it requires an id we do not have! (we only have uuid)
+    // if for some reason we do not have admin rights, attempt to playback using basic.. maybe we have basic enabled so we do not break backwards compatibility
+    if (streamUrl == nil) {
+        completion([self addProfileToUrl:streamObject.streamURL]);
+        return true;
+    }
+    
+    if (streamUrl != nil) {
+        [self.apiClient getPath:streamUrl parameters:nil success:^(NSURLSessionDataTask *task, NSData *responseObject) {
+            // well I'm not going to bundle an entire library for reading m3u when I only care about the one line that starts with http....
+            // if the channel names have weird broken characters, this initWithData will fail... oh ffs...
+            NSString* m3uReply = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            NSArray* allLinedStrings = [m3uReply componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+            
+            for(NSString* line in allLinedStrings) {
+                if ([line hasPrefix:@"http"]) {
+                    completion(line);
+                    return;
+                }
+            }
+            
+            NSLog(@"The downloaded m3u did not contain a link starting with http?!");
+        } failure:nil];
+        return true;
+    }
+    
+    
+    return false;
+}
+
+- (NSString*)addProfileToUrl:(NSString*)streamUrl {
     if (self.tvhServer.settings.streamProfile != nil && ![self.tvhServer.settings.streamProfile isEqualToString:@""]) {
         return [streamUrl stringByAppendingFormat:@"?profile=%@", [self.tvhServer.settings.streamProfile stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]];
     }

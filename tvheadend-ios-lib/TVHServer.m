@@ -42,6 +42,7 @@
 @property (nonatomic, strong) NSDictionary *configSettings;
 @property (nonatomic, strong) NSTimer *timer;
 @property (atomic) BOOL inProcessing;
+@property (nonatomic) BOOL hasCorrectAuthenticationMethods; // we shall assume yes, until we are proven that this is NO.
 @end
 
 @implementation TVHServer 
@@ -99,7 +100,8 @@
         }
 #endif
         [self fetchServerVersion];
-
+        [self fetchAuthSettings];
+        
         [self.tagStore fetchTagList];
         [self.channelStore fetchChannelList];
         
@@ -144,6 +146,7 @@
         self.version = settings.version;
         self.apiVersion = settings.apiVersion;
         self.userHasAdminAccess = settings.userHasAdminAccess;
+        self.hasCorrectAuthenticationMethods = YES;
     }
     return self;
 }
@@ -471,6 +474,128 @@
         NSLog(@"[TVHServer fetchConfigSettings]: %@", error.localizedDescription);
     }];
     
+}
+
+#pragma mark check if digest is the only auth method
+
+- (void)fetchAuthSettings {
+    if (!self.userHasAdminAccess) {
+        // if we do not have user access, and if the API is 19 or higher, let's assume we do not have the correct auth permissions
+        if (self.apiVersion.intValue >= 19) {
+            self.hasCorrectAuthenticationMethods = NO;
+        }
+        return;
+    }
+    
+    __weak typeof (self) weakSelf = self;
+    [self.apiClient postPath:@"api/config/load" parameters:@{@"meta":@1} success:^(NSURLSessionDataTask *task, NSDictionary *json) {
+        typeof (self) strongSelf = weakSelf;
+        
+        if (![TVHApiClient checkFetchedData:json]) {
+            return;
+        }
+        NSNumber *valueThatMeansDigestAuth = nil;
+        
+        @try {
+            NSArray *entries = [json objectForKey:@"entries"];
+            NSArray *metaProps = [[entries[0] objectForKey:@"meta"] objectForKey:@"props"];
+            NSArray *params = [entries[0] objectForKey:@"params"];
+            
+            // let's find the actual "valueThatMeansDigestAuth" - this is now "1" for the new version, but this might change!
+            for (NSDictionary* obj in metaProps) {
+                if ([[obj objectForKey:@"id"] isEqualToString:@"digest"] && [[obj objectForKey:@"type"] isEqualToString:@"int"] ) {
+                    NSArray *enums = [obj objectForKey:@"enum"];
+                    for (NSDictionary *enumObj in enums) {
+                        if ([[enumObj objectForKey:@"val"] isEqualToString:@"Digest"]) {
+                            valueThatMeansDigestAuth = [enumObj objectForKey:@"key"];
+                        }
+                    }
+                }
+            }
+            
+            // if we can't find this value, it probably means the digest should be ok because it's an old version!
+            if (valueThatMeansDigestAuth == nil) {
+                return;
+            }
+            
+            for (NSDictionary* obj in params) {
+                // https://github.com/tvheadend/tvheadend/commit/d5eaa4ca6bae63ab98281ae39ef3f3106bb62896
+                // find the "digest" node -> on the previous version, the value = 1 means digest+plain, but after that commit the value = 1 means "only digest"!
+                if ([[obj objectForKey:@"id"] isEqualToString:@"digest"] && [[obj objectForKey:@"type"] isEqualToString:@"int"] ) {
+                    // if the digest node value is 1 (only digest), then we do not have the correct authentication method
+                    if ([[obj objectForKey:@"value"] isEqual:valueThatMeansDigestAuth]) {
+                        strongSelf.hasCorrectAuthenticationMethods = NO;
+                    } else {
+                        strongSelf.hasCorrectAuthenticationMethods = YES;
+                    }
+                    return;
+                }
+            };
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Crashed trying to find the digest value - %@", exception.reason);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+}
+
+- (BOOL)fixAuthSettings {
+    if (!self.userHasAdminAccess) {
+        // if we do not have user access, and if the API is 19 or higher, let's assume we do not have the correct auth permissions
+        if (self.apiVersion.intValue >= 19) {
+            self.hasCorrectAuthenticationMethods = NO;
+        }
+        return false;
+    }
+    
+    __weak typeof (self) weakSelf = self;
+    
+    [self.apiClient postPath:@"api/config/load" parameters:@{@"meta":@1} success:^(NSURLSessionDataTask *task, NSDictionary *json) {
+        typeof (self) strongSelf = weakSelf;
+        
+        if (![TVHApiClient checkFetchedData:json]) {
+            return;
+        }
+        NSNumber *valueThatMeansDigestAuth = nil;
+        
+        @try {
+            NSArray *entries = [json objectForKey:@"entries"];
+            NSArray *metaProps = [[entries[0] objectForKey:@"meta"] objectForKey:@"props"];
+            
+            // let's find the actual "valueThatMeansDigestAuth" - this is now "1" for the new version, but this might change!
+            for (NSDictionary* obj in metaProps) {
+                if ([[obj objectForKey:@"id"] isEqualToString:@"digest"] && [[obj objectForKey:@"type"] isEqualToString:@"int"] ) {
+                    NSArray *enums = [obj objectForKey:@"enum"];
+                    for (NSDictionary *enumObj in enums) {
+                        if ([[enumObj objectForKey:@"val"] isEqualToString:@"Both plain and digest"]) {
+                            valueThatMeansDigestAuth = [enumObj objectForKey:@"key"];
+                        }
+                    }
+                }
+            }
+            
+            // if we can't find this value, it probably means the digest should be ok because it's an old version!
+            if (valueThatMeansDigestAuth == nil) {
+                return;
+            }
+            
+            __weak typeof (self) weakSelf = self;
+            [self.apiClient postPath:@"api/config/save" parameters:@{@"node": [NSString stringWithFormat:@"{\"digest\":%@}", valueThatMeansDigestAuth]} success:^(NSURLSessionDataTask *task, NSDictionary *json) {
+                typeof (self) strongSelf = weakSelf;
+                [strongSelf fetchAuthSettings];
+            } failure:nil];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Crashed trying to find the digest value - %@", exception.reason);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+    
+    
+    
+    return true;
 }
 
 #pragma mark TVH Server Details

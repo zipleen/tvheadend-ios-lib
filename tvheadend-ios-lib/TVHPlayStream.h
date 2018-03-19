@@ -27,7 +27,7 @@
 
 @interface TVHPlayStream : NSObject
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
-- (NSString*)streamUrlForObject:(id<TVHPlayStreamDelegate>)streamObject withInternalPlayer:(BOOL)internal;
+- (BOOL)streamObject:(id<TVHPlayStreamDelegate>)streamObject withInternalPlayer:(BOOL)internal completion:(void(^)(NSString* streamUrl))completion;
 
 - (NSDictionary*)arrayOfAvailablePrograms;
 - (BOOL)playStreamIn:(NSString*)program forObject:(id<TVHPlayStreamDelegate>)streamObject;

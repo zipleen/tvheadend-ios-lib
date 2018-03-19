@@ -63,6 +63,8 @@
 - (BOOL)userHasAdminAccess;
 - (BOOL)isVersionFour;
 - (BOOL)isReady;
+- (BOOL)hasCorrectAuthenticationMethods;
+- (BOOL)fixAuthSettings;
 
 - (TVHServer*)initWithSettings:(TVHServerSettings*)settings;
 - (TVHServer*)initWithSettingsButDontInit:(TVHServerSettings*)settings;

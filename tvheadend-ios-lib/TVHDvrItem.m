@@ -343,7 +343,7 @@
 }
 
 - (NSString*)playlistStreamURL {
-    return self.streamURL;
+    return nil;
 }
 
 - (NSString*)htspStreamURL {

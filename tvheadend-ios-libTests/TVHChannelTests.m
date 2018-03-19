@@ -492,7 +492,16 @@
     TVHServer *server = [[TVHServer alloc] initWithSettingsButDontInit:settings];
     TVHChannel *channel = [[TVHChannel alloc] initWithTvhServer:server];
     [channel setUuid:uuid];
-    return [server.playStream streamUrlForObject:channel withInternalPlayer:internalPlayer];
+    
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    __block NSString *streamUrl;
+    [server.playStream streamObject:channel withInternalPlayer:internalPlayer completion:^(NSString *rstreamUrl) {
+        streamUrl = rstreamUrl;
+        dispatch_semaphore_signal(semaphore);
+    }];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    
+    return streamUrl;
 }
 
 @end

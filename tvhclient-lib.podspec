@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'tvhclient-lib'
-  s.version          = '3.4.1'
+  s.version          = '3.5.0'
   s.platforms	     = { 'ios' => '8.0', 'tvos' => '9.0' }
   s.summary          = 'Tvheadend iOS library enables you to create apps that connect to tvheadend. This is the base of TvhClient'
 
@@ -29,9 +29,9 @@ This library contains shared code between tvhclient-ios and tvhclient-tvOS. It i
 
   s.ios.compiler_flags = '-DENABLE_XBMC -DENABLE_EXTERNAL_APPS'
   #s.ios.compiler_flags = '-DENABLE_CHROMECAST -DENABLE_XBMC -DENABLE_EXTERNAL_APPS'
-  s.ios.dependency 'AFNetworking', '~> 3.1'
+  s.ios.dependency 'AFNetworking', '~> 3.2'
   #s.ios.dependency 'google-cast-sdk'
 
-  s.tvos.dependency  'AFNetworking', '~> 3.1'
+  s.tvos.dependency  'AFNetworking', '~> 3.2'
 
 end

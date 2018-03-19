@@ -110,6 +110,7 @@ static NSString * kReceiverAppID;
     return [[self foundServices] allKeys];
 }
 
+// @todo this is broken, we need to implement completionBlock!
 - (NSString*)validUrlForObject:(id<TVHPlayStreamDelegate>)streamObject  {
     return [streamObject streamUrlWithInternalPlayer:NO];
 }

@@ -382,7 +382,7 @@
 		AABF3AB5185E590D00E62240 /* TVHAutoRecItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHAutoRecItem.m; sourceTree = "<group>"; };
 		AABF3AB7185E590D00E62240 /* TVHDvrStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHDvrStore.h; sourceTree = "<group>"; };
 		AABF3AB8185E590D00E62240 /* TVHDvrStoreAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHDvrStoreAbstract.h; sourceTree = "<group>"; };
-		AABF3AB9185E590D00E62240 /* TVHDvrStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHDvrStoreAbstract.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		AABF3AB9185E590D00E62240 /* TVHDvrStoreAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHDvrStoreAbstract.m; sourceTree = "<group>"; };
 		AABF3ABA185E590D00E62240 /* TVHDvrStore32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHDvrStore32.h; sourceTree = "<group>"; };
 		AABF3ABB185E590D00E62240 /* TVHDvrStore32.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHDvrStore32.m; sourceTree = "<group>"; };
 		AABF3ABC185E590D00E62240 /* TVHDvrStore34.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHDvrStore34.h; sourceTree = "<group>"; };
@@ -468,7 +468,7 @@
 		AABF3B1E185E590D00E62240 /* TVHPlayStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHPlayStream.h; sourceTree = "<group>"; };
 		AABF3B1F185E590D00E62240 /* TVHPlayStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHPlayStream.m; sourceTree = "<group>"; };
 		AABF3B20185E590D00E62240 /* TVHPlayXbmc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHPlayXbmc.h; sourceTree = "<group>"; };
-		AABF3B21185E590D00E62240 /* TVHPlayXbmc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHPlayXbmc.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		AABF3B21185E590D00E62240 /* TVHPlayXbmc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TVHPlayXbmc.m; sourceTree = "<group>"; };
 		AABF3B23185E590D00E62240 /* TVHJsonClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHJsonClient.h; sourceTree = "<group>"; };
 		AABF3B24185E590D00E62240 /* TVHJsonClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVHJsonClient.m; sourceTree = "<group>"; };
 		AABF3B25185E590D00E62240 /* TVHApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVHApiClient.h; sourceTree = "<group>"; };

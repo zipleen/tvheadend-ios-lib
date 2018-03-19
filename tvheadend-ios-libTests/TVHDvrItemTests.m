@@ -88,7 +88,16 @@
     TVHServer *server = [[TVHServer alloc] initWithSettingsButDontInit:settings];
     TVHDvrItem *dvr = [[TVHDvrItem alloc] initWithTvhServer:server];
     [dvr setUrl:url];
-    return [server.playStream streamUrlForObject:dvr withInternalPlayer:internalPlayer];
+    
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    __block NSString *streamUrl;
+    [server.playStream streamObject:dvr withInternalPlayer:internalPlayer completion:^(NSString *rstreamUrl) {
+        streamUrl = rstreamUrl;
+        dispatch_semaphore_signal(semaphore);
+    }];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    
+    return streamUrl;
 }
 
 @end
