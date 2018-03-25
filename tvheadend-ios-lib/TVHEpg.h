@@ -71,7 +71,7 @@
 - (BOOL)isEqual:(TVHEpg*)other;
 - (TVHChannel*)channelObject;
 - (NSString*)channelIdKey;
-- (void)addAutoRec;
+- (BOOL)addAutoRec;
 - (BOOL)isRecording;
 - (BOOL)isScheduledForRecording;
 - (NSString*)startTimeAndTitle;

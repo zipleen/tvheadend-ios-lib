@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'tvhclient-lib'
-  s.version          = '3.5.0'
+  s.version          = '3.5.1'
   s.platforms	     = { 'ios' => '8.0', 'tvos' => '9.0' }
   s.summary          = 'Tvheadend iOS library enables you to create apps that connect to tvheadend. This is the base of TvhClient'
 

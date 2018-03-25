@@ -217,15 +217,21 @@
     return channel;
 }
 
-- (void)addAutoRec {
+- (BOOL)addAutoRec {
     if ([[self.tvhServer apiVersion] intValue]> 14) {
-        NSDictionary *sendProperties = @{@"enabled":@1,@"comment":@"Created from TvhClient",@"title":self.title,@"channel":self.channelUuid};
-        NSString *data = [TVHDvrActions jsonArrayString:sendProperties];
-        [TVHDvrActions doAction:@"api/dvr/autorec/create" withData:@{@"conf":data} withTvhServer:self.tvhServer];
-        return ;
+        if (self.title != nil && self.channelUuid != nil) {
+            NSDictionary *sendProperties = @{@"enabled":@1,@"comment":@"Created from TvhClient",@"title":self.title,@"channel":self.channelUuid};
+            NSString *data = [TVHDvrActions jsonArrayString:sendProperties];
+            [TVHDvrActions doAction:@"api/dvr/autorec/create" withData:@{@"conf":data} withTvhServer:self.tvhServer];
+            return true;
+        } else {
+            return false;
+        }
     }
     
+    
     [TVHDvrActions addAutoRecording:self.id withConfigName:nil withTvhServer:self.tvhServer];
+    return true;
 }
 
 - (BOOL)isScheduledForRecording {
