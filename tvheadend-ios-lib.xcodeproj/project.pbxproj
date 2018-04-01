@@ -139,6 +139,8 @@
 		F0901AD11FBA2A9000B4540F /* NSDate+Timecop.m in Sources */ = {isa = PBXBuildFile; fileRef = F0901ACE1FBA2A9000B4540F /* NSDate+Timecop.m */; };
 		F0901AD21FBA2A9000B4540F /* Timecop.m in Sources */ = {isa = PBXBuildFile; fileRef = F0901ACF1FBA2A9000B4540F /* Timecop.m */; };
 		F0901AD31FBA2A9000B4540F /* Timecop.m in Sources */ = {isa = PBXBuildFile; fileRef = F0901ACF1FBA2A9000B4540F /* Timecop.m */; };
+		F092FDFD20711F6E0064A939 /* TVHPlayStreamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F092FDFC20711F6E0064A939 /* TVHPlayStreamTests.m */; };
+		F092FDFE20711F6E0064A939 /* TVHPlayStreamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F092FDFC20711F6E0064A939 /* TVHPlayStreamTests.m */; };
 		F095330D1F6AEFBE00FAF3B8 /* Epg.summary.marcel in Resources */ = {isa = PBXBuildFile; fileRef = F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */; };
 		F0982E2D1F8EA12E007EE99B /* TVHEpgTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0982E2C1F8EA12E007EE99B /* TVHEpgTests.m */; };
 		F0982E2E1F8EA12E007EE99B /* TVHEpgTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0982E2C1F8EA12E007EE99B /* TVHEpgTests.m */; };
@@ -519,6 +521,7 @@
 		F0901ACD1FBA2A9000B4540F /* NSDate+Timecop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Timecop.h"; sourceTree = "<group>"; };
 		F0901ACE1FBA2A9000B4540F /* NSDate+Timecop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Timecop.m"; sourceTree = "<group>"; };
 		F0901ACF1FBA2A9000B4540F /* Timecop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Timecop.m; sourceTree = "<group>"; };
+		F092FDFC20711F6E0064A939 /* TVHPlayStreamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHPlayStreamTests.m; sourceTree = "<group>"; };
 		F095330C1F6AEFBE00FAF3B8 /* Epg.summary.marcel */ = {isa = PBXFileReference; lastKnownFileType = text; path = Epg.summary.marcel; sourceTree = "<group>"; };
 		F0982E2C1F8EA12E007EE99B /* TVHEpgTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHEpgTests.m; sourceTree = "<group>"; };
 		F0982E2F1F8EA154007EE99B /* TVHDvrItemTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHDvrItemTests.m; sourceTree = "<group>"; };
@@ -666,6 +669,7 @@
 				F0CCEF861F42214100AAC25B /* TVHServiceStoreTests.m */,
 				F0982E2C1F8EA12E007EE99B /* TVHEpgTests.m */,
 				F0982E2F1F8EA154007EE99B /* TVHDvrItemTests.m */,
+				F092FDFC20711F6E0064A939 /* TVHPlayStreamTests.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -1688,6 +1692,7 @@
 			files = (
 				F0CCEF871F42214100AAC25B /* TVHServiceStoreTests.m in Sources */,
 				F0982E301F8EA154007EE99B /* TVHDvrItemTests.m in Sources */,
+				F092FDFD20711F6E0064A939 /* TVHPlayStreamTests.m in Sources */,
 				F0982E2D1F8EA12E007EE99B /* TVHEpgTests.m in Sources */,
 				AAA89DE91861255000AE4C13 /* TVHChannelStoreTests.m in Sources */,
 				AAA89DEA1861255300AE4C13 /* TVHChannelTests.m in Sources */,
@@ -1797,6 +1802,7 @@
 			files = (
 				F0CCEF881F422DBB00AAC25B /* TVHServiceStoreTests.m in Sources */,
 				F0982E311F8EA154007EE99B /* TVHDvrItemTests.m in Sources */,
+				F092FDFE20711F6E0064A939 /* TVHPlayStreamTests.m in Sources */,
 				F0982E2E1F8EA12E007EE99B /* TVHEpgTests.m in Sources */,
 				F0CDE4EB1BA216C9000A969B /* TVHEpgStoreTests.m in Sources */,
 				F0CDE4ED1BA216C9000A969B /* TVHChannelStoreTests.m in Sources */,

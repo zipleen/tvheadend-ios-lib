@@ -139,7 +139,7 @@
         // internal iOS player wants a playlist
         streamUrl = [self addProfileToUrl:streamObject.playlistStreamURL];
         
-        // if we can't get a playlist url, well fallback to something that we know could break, but we could be lucky!
+        // if we can't get a playlist url, we'll fallback to something that we know could break, but we could be lucky!
         if (streamUrl == nil) {
             streamUrl = [self addProfileToUrl:streamObject.streamURL];
         }
@@ -173,7 +173,7 @@
             
             for(NSString* line in allLinedStrings) {
                 if ([line hasPrefix:@"http"]) {
-                    completion(line);
+                    completion([self fixHttpsUrl:line]);
                     return;
                 }
             }
@@ -185,6 +185,20 @@
     
     
     return false;
+}
+
+/**
+ * the playlist returns a http url if we are running behind a proxy server and tvheadend does not know about it.
+ * - this will attempt to fix the playlist http schema
+ */
+- (NSString*)fixHttpsUrl:(NSString*)url {
+    if ([self.tvhServer.settings.useHTTPS isEqualToString:@"s"]) {
+        if ([url hasPrefix:@"http:"]) {
+            return [NSString stringWithFormat:@"https:%@", [url substringFromIndex:5]];
+        }
+    }
+    
+    return url;
 }
 
 - (NSString*)addProfileToUrl:(NSString*)streamUrl {
