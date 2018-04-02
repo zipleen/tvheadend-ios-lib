@@ -20,6 +20,7 @@
 - (NSString*)htspStreamURL;
 - (BOOL)isLive;
 
+- (NSString*)channelIdKey;
 - (NSString*)imageUrl;
 - (NSString*)name;
 - (int)number;

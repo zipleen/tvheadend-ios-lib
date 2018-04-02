@@ -333,6 +333,10 @@
     return channel;
 }
 
+- (NSString*)channelIdKey {
+    return self.channelObject.channelIdKey;
+}
+
 // http://xxx:9981/dvrfile/cc9e5a804b06176a709daccc2f23c3cd
 // "%@/dvrfile/%@", self.tvhServer.httpUrl, self.uuid
 - (NSString*)streamURL {

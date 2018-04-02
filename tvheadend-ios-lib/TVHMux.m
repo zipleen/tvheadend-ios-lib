@@ -136,4 +136,8 @@
     return 0;
 }
 
+- (NSString*)channelIdKey {
+    return nil;
+}
+
 @end

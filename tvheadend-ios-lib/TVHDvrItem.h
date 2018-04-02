@@ -70,6 +70,7 @@
 
 // playStream delegate
 
+- (NSString*)channelIdKey;
 - (int)number;
 - (NSString*)streamURL;
 - (NSString*)playlistStreamURL;

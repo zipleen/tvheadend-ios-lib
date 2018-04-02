@@ -91,4 +91,8 @@
 - (int)number {
     return 0;
 }
+
+- (NSString*)channelIdKey {
+    return [self.currentPlayingProgram channelIdKey];
+}
 @end
