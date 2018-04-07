@@ -90,6 +90,9 @@
     [server handleFetchedServerVersionLegacy:@"<title>HTS Tvheadend 4.0.0</title>"];
     XCTAssertEqualObjects([server realVersion], @"4.0.0", @"lonely version 4.0.0 not correctly detected");
     XCTAssertEqualObjects([server version], @"A12", @"4.0.0 not detected as 4.0");
+    
+    [server handleFetchedServerVersionLegacy:nil];
+    XCTAssertEqualObjects([server version], @"A12", @"nil detected as A12 or whatever default");
 }
 
 @end

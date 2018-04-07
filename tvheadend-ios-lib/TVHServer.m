@@ -346,7 +346,7 @@
 
 - (BOOL)isVersionFour
 {
-    if (self.apiVersion && [self.apiVersion integerValue] > 0) {
+    if (self.apiVersion && self.apiVersion.integerValue > 0) {
         return true;
     }
     
@@ -375,9 +375,7 @@
         typeof (self) strongSelf = weakSelf;
         
         if (![json isKindOfClass:[NSDictionary class]]) {
-#ifdef TESTING
-            NSLog(@"Wrong NSDictionary: TVHeadend does not have api/serverinfo, calling legacy.. ");
-#endif
+            NSLog(@"Wrong NSDictionary: TVHeadend does not have api/serverinfo, calling legacy... ");
             [strongSelf fetchServerVersionLegacy];
             return;
         }
@@ -389,9 +387,7 @@
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         typeof (self) strongSelf = weakSelf;
-#ifdef TESTING
         NSLog(@"TVHeadend does not have api/serverinfo, calling legacy.. (%@)", error.localizedDescription);
-#endif
         [strongSelf fetchServerVersionLegacy];
     }];
 }
@@ -403,15 +399,19 @@
         NSString *response = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         [strongSelf handleFetchedServerVersionLegacy:response];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"[TVHServer getVersion]: %@", error.localizedDescription);
+        NSLog(@"[Error TVHServer fetchServerVersionLegacy]: %@", error.localizedDescription);
     }];
 }
 
 - (void)handleFetchedServerVersionLegacy:(NSString*)response {
+    if (response == nil) {
+        return;
+    }
+    
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<title>HTS Tvheadend (.*?)</title>" options:NSRegularExpressionCaseInsensitive error:nil];
     NSTextCheckingResult *versionRange = [regex firstMatchInString:response
                                                            options:0
-                                                             range:NSMakeRange(0, [response length])];
+                                                             range:NSMakeRange(0, response.length)];
     if ( versionRange ) {
         NSString *versionString = [response substringWithRange:[versionRange rangeAtIndex:1]];
         self.realVersion = versionString;
@@ -424,9 +424,7 @@
     NSString *versionString = [_realVersion stringByReplacingOccurrencesOfString:@"." withString:@""];
     if ([versionString length] > 1) {
         self.version = [versionString substringWithRange:NSMakeRange(0, 2)];
-#ifdef TESTING
-        NSLog(@"[TVHServer getVersion]: %@", self.version);
-#endif
+        NSLog(@"[TVHServer Version]: %@ | [TVHServer realVersion]: %@", self.version, _realVersion);
         [self.analytics setObjectValue:self.version forKey:@"version"];
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:TVHDidLoadVersionNotification
@@ -455,7 +453,7 @@
         for (NSDictionary* obj in entries) {
             [obj enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
                 // ignore satip keys because they might contain uuid which we do not care
-                if (![key containsString:@"satip"]) {
+                if (![key containsString:@"satip"] && ![key containsString:@"path"]) {
                     [config setValue:obj forKey:key];
                 }
             }];
@@ -463,7 +461,7 @@
         
         strongSelf.configSettings = [config copy];
 #ifdef TESTING
-        NSLog(@"[TVHServer configSettings]: %@", self.configSettings);
+        NSLog(@"[TVHServer fetchConfigSettings]: %@", self.configSettings);
 #endif
         [strongSelf.analytics setObjectValue:self.configSettings forKey:@"server.configSettings"];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -580,7 +578,7 @@
                 return;
             }
             
-            __weak typeof (self) weakSelf = self;
+            __weak typeof (self) weakSelf = strongSelf;
             [self.apiClient postPath:@"api/config/save" parameters:@{@"node": [NSString stringWithFormat:@"{\"digest\":%@}", valueThatMeansDigestAuth]} success:^(NSURLSessionDataTask *task, NSDictionary *json) {
                 typeof (self) strongSelf = weakSelf;
                 [strongSelf fetchAuthSettings];
