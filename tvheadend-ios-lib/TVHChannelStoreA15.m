@@ -28,15 +28,17 @@
 }
 
 - (void)didLoadEpg {
-    // for each epg
-    NSArray *list = [self.currentlyPlayingEpgStore epgStoreItems];
-    for (TVHEpg *epg in list) {
-        TVHChannel *channel = [self channelWithId:epg.channelUuid];
-        [channel addEpg:epg];
-    }
-    // instead of having this delegate here, channel could send a notification and channel controller
-    // could catch it and reload only that line if data was different ?
-    [self signalDidLoadChannels];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // for each epg
+        NSArray *list = [self.currentlyPlayingEpgStore epgStoreItems];
+        for (TVHEpg *epg in list) {
+            TVHChannel *channel = [self channelWithId:epg.channelUuid];
+            [channel addEpg:epg];
+        }
+        // instead of having this delegate here, channel could send a notification and channel controller
+        // could catch it and reload only that line if data was different ?
+        [self signalDidLoadChannels];
+    });
 }
 
 @end
