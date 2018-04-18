@@ -19,7 +19,7 @@
 #import "TVHJsonUTF8AutoCharsetResponseSerializer.h"
 
 @interface TVHPlayStream(Private)
-- (NSString*)fixHttpsUrl:(NSString*)url;
+- (NSString*)fixUrlComponents:(NSString*)url;
 @end;
 
 @interface TVHPlayStreamTests : XCTestCase <TVHChannelDelegate>
@@ -53,13 +53,17 @@
 - (void)testFixHttpsUrl {
     TVHServer *serverHttps = [[TVHServer alloc] initWithSettingsButDontInit:[self settingsForIp:@"banana" port:@"443" username:@"user" password:@"pass" https:@"s"  webroot:@"" streamProfile:@""]];
    
-    expect([serverHttps.playStream fixHttpsUrl:@"http://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"https://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
-    expect([serverHttps.playStream fixHttpsUrl:@"https://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"https://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
+    expect([serverHttps.playStream fixUrlComponents:@"http://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"https://banana:443/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
+    expect([serverHttps.playStream fixUrlComponents:@"https://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"https://banana:443/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
     
     TVHServer *serverHttp = [[TVHServer alloc] initWithSettingsButDontInit:[self settingsForIp:@"banana" port:@"443" username:@"user" password:@"pass" https:@""  webroot:@"" streamProfile:@""]];
     
-    expect([serverHttp.playStream fixHttpsUrl:@"http://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"http://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
+    expect([serverHttp.playStream fixUrlComponents:@"http://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"http://banana:443/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
     
+    serverHttps = [[TVHServer alloc] initWithSettingsButDontInit:[self settingsForIp:@"banana" port:@"123" username:@"user" password:@"pass" https:@"s"  webroot:@"" streamProfile:@""]];
+    
+    expect([serverHttps.playStream fixUrlComponents:@"http://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"https://banana:123/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
+    expect([serverHttps.playStream fixUrlComponents:@"https://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"https://banana:123/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
 }
 
 @end

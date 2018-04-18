@@ -173,7 +173,7 @@
             
             for(NSString* line in allLinedStrings) {
                 if ([line hasPrefix:@"http"]) {
-                    completion([self fixHttpsUrl:line]);
+                    completion([self fixUrlComponents:line]);
                     return;
                 }
             }
@@ -191,14 +191,19 @@
  * the playlist returns a http url if we are running behind a proxy server and tvheadend does not know about it.
  * - this will attempt to fix the playlist http schema
  */
-- (NSString*)fixHttpsUrl:(NSString*)url {
+- (NSString*)fixUrlComponents:(NSString*)url {
+    NSURLComponents *component = [NSURLComponents componentsWithString:url];
+    
     if ([self.tvhServer.settings.useHTTPS isEqualToString:@"s"]) {
-        if ([url hasPrefix:@"http:"]) {
-            return [NSString stringWithFormat:@"https:%@", [url substringFromIndex:5]];
-        }
+        [component setScheme:@"https"];
+    } else {
+        [component setScheme:@"http"];
     }
     
-    return url;
+    [component setPort:[NSNumber numberWithInteger:[self.tvhServer.settings.port integerValue]]];
+    [component setHost:self.tvhServer.settings.ip];
+    
+    return component.string;
 }
 
 - (NSString*)addProfileToUrl:(NSString*)streamUrl {
