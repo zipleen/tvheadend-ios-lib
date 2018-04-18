@@ -98,7 +98,7 @@
 
 - (void)fetchNetworks {
     if (!self.tvhServer.userHasAdminAccess) {
-        return;
+        return [self signalDidLoadNetwork];
     }
     
     __weak typeof (self) weakSelf = self;

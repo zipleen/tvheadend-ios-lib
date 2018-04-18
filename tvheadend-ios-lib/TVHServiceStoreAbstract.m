@@ -54,7 +54,7 @@
 
 - (void)fetchServices {
     if (!self.tvhServer.userHasAdminAccess) {
-        return;
+        return [self signalDidLoadServices];
     }
     
     __weak typeof (self) weakSelf = self;

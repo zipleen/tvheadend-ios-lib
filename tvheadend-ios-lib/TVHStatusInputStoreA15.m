@@ -101,7 +101,7 @@
 
 - (void)fetchStatusInputs {
     if (!self.tvhServer.userHasAdminAccess) {
-        return;
+        return [self signalDidLoadStatusInputs];
     }
     
     __weak typeof (self) weakSelf = self;

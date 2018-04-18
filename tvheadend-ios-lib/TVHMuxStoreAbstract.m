@@ -52,7 +52,7 @@
 
 - (void)fetchMuxes {
     if (!self.tvhServer.userHasAdminAccess) {
-        return;
+        return [self signalDidLoadAdapterMuxes];
     }
     
     __weak typeof (self) weakSelf = self;

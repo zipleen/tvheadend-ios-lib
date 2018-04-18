@@ -439,8 +439,15 @@
     if (!self.userHasAdminAccess) {
         return;
     }
+    NSString *path = @"config";
+    // https://github.com/tvheadend/tvheadend/blob/fc7b753b097d455faf81d469fc20842d04a96b79/src/webui/extjs.c
+    // 16 already had support for api/config/load but it still supports /config, but definitly 17 had api/config/load !
+    if (self.apiVersion.integerValue > 16) {
+        path = @"api/config/load";
+    }
+    
     __weak typeof (self) weakSelf = self;
-    [self.apiClient getPath:@"config" parameters:@{@"op":@"loadSettings"} success:^(NSURLSessionDataTask *task, NSDictionary *json) {
+    [self.apiClient getPath:path parameters:@{@"op":@"loadSettings"} success:^(NSURLSessionDataTask *task, NSDictionary *json) {
         typeof (self) strongSelf = weakSelf;
         
         if (![TVHApiClient checkFetchedData:json]) {
@@ -469,6 +476,7 @@
                                                                 object:weakSelf];
         });
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        self.userHasAdminAccess = NO;
         NSLog(@"[TVHServer fetchConfigSettings]: %@", error.localizedDescription);
     }];
     
