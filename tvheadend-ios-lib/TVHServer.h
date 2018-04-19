@@ -18,6 +18,7 @@
 #import "TVHDvrStore.h"
 #import "TVHAutoRecStore.h"
 #import "TVHStatusSubscriptionsStore.h"
+#import "TVHStatusConnectionStore.h"
 #import "TVHMuxStore.h"
 #import "TVHServiceStore.h"
 #import "TVHAdaptersStore.h"
@@ -51,6 +52,7 @@
 - (id <TVHAdaptersStore>)adapterStore;
 - (id <TVHMuxStore>)muxStore;
 - (id <TVHServiceStore>)serviceStore;
+- (id <TVHStatusConnectionStore>)connectionStore;
 - (TVHLogStore*)logStore;
 - (id <TVHCometPoll>)cometStore;
 - (id <TVHConfigNameStore>)configNameStore;

@@ -54,4 +54,8 @@
 - (TVHChannel*)mappedChannel {
     return [[self.tvhServer channelStore] channelWithName:self.channel];
 }
+
+- (void)killConnection {
+    [[self.tvhServer.connectionStore findConnectionStartedAt:self.start withPeer:self.hostname] killConnection];
+}
 @end

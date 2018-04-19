@@ -93,6 +93,15 @@
 #endif
         }
         
+        if( [notificationClass isEqualToString:@"connections"] ) {
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:TVHStatusConnectionStoreReloadNotification
+             object:obj];
+#ifdef TESTING
+            print = NO;
+#endif
+        }
+        
         if( [notificationClass isEqualToString:@"input_status"] ) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:TVHStatusInputStoreReloadNotification

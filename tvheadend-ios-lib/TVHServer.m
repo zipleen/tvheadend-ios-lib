@@ -28,6 +28,7 @@
 @property (nonatomic, strong) id <TVHAdaptersStore> adapterStore;
 @property (nonatomic, strong) id <TVHMuxStore> muxStore;
 @property (nonatomic, strong) id <TVHServiceStore> serviceStore;
+@property (nonatomic, strong) id <TVHStatusConnectionStore> connectionStore;
 @property (nonatomic, strong) TVHLogStore *logStore;
 @property (nonatomic, strong) id <TVHCometPoll> cometStore;
 @property (nonatomic, strong) id <TVHConfigNameStore> configNameStore;
@@ -111,6 +112,7 @@
         [self.inputStore fetchStatusInputs];
         [self.muxStore fetchMuxes];
         [self.serviceStore fetchServices];
+        [self.connectionStore fetchStatusConnections];
         [self.streamProfileStore fetchStreamProfiles];
         
         [self logStore];
@@ -183,6 +185,7 @@
     self.serviceStore = nil;
     self.logStore = nil;
     self.networkStore = nil;
+    self.connectionStore = nil;
 }
 
 #pragma mark Main Objects
@@ -264,6 +267,13 @@
         _networkStore = [self factory:@"TVHNetworkStore"];
     }
     return _networkStore;
+}
+
+- (id <TVHStatusConnectionStore>)connectionStore {
+    if( ! _connectionStore ) {
+        _connectionStore = [self factory:@"TVHStatusConnectionStore"];
+    }
+    return _connectionStore;
 }
 
 - (TVHLogStore*)logStore {

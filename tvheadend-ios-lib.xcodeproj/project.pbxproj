@@ -115,6 +115,10 @@
 		F00817951C5BF5380008C3EF /* NSDateFormatter+TVH.m in Sources */ = {isa = PBXBuildFile; fileRef = F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */; };
 		F009F12C1F49FF0C002726F2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA89DE41861245200AE4C13 /* MobileCoreServices.framework */; };
 		F009F12D1F49FF17002726F2 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B57185E5F6600E62240 /* CFNetwork.framework */; };
+		F01F1F282087FA5000B6DFC7 /* TVHStatusConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F01F1F272087FA5000B6DFC7 /* TVHStatusConnection.m */; };
+		F01F1F2A2087FA5000B6DFC7 /* TVHStatusConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F01F1F272087FA5000B6DFC7 /* TVHStatusConnection.m */; };
+		F01F1F302087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F01F1F2F2087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.m */; };
+		F01F1F322087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F01F1F2F2087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.m */; };
 		F04245871F498C9600D3CC5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
 		F04245D31F49E14600D3CC5F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */; };
 		F04245D41F49E14D00D3CC5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
@@ -500,6 +504,11 @@
 		C03C2C6E2FF07EBAFCEA9331 /* Pods_tvheadend_ios_libTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tvheadend_ios_libTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F00817921C5BEECA0008C3EF /* NSDateFormatter+TVH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+TVH.h"; sourceTree = "<group>"; };
 		F00817931C5BEECA0008C3EF /* NSDateFormatter+TVH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+TVH.m"; sourceTree = "<group>"; };
+		F01F1F262087FA5000B6DFC7 /* TVHStatusConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStatusConnection.h; sourceTree = "<group>"; };
+		F01F1F272087FA5000B6DFC7 /* TVHStatusConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHStatusConnection.m; sourceTree = "<group>"; };
+		F01F1F2D2087FAF100B6DFC7 /* TVHStatusConnectionStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStatusConnectionStore.h; sourceTree = "<group>"; };
+		F01F1F2E2087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStatusConnectionStoreA15.h; sourceTree = "<group>"; };
+		F01F1F2F2087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHStatusConnectionStoreA15.m; sourceTree = "<group>"; };
 		F087A2B31F79A21400EFB087 /* TVHConfigNameStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHConfigNameStore.h; sourceTree = "<group>"; };
 		F087A2B61F79A2E300EFB087 /* TVHConfigNameStore32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHConfigNameStore32.h; sourceTree = "<group>"; };
 		F087A2B71F79A2E300EFB087 /* TVHConfigNameStore32.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHConfigNameStore32.m; sourceTree = "<group>"; };
@@ -1059,6 +1068,7 @@
 		AABF3B17185E590D00E62240 /* Status */ = {
 			isa = PBXGroup;
 			children = (
+				F01F1F252087F9E800B6DFC7 /* Connections */,
 				AABF3AD7185E590D00E62240 /* Status Subscriptions */,
 				AABF3AE2185E590D00E62240 /* Status Inputs (4.0) */,
 			);
@@ -1173,6 +1183,26 @@
 				58F57133ACC530ED344670AC /* Pods-tvheadend-tvOS-libTests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F01F1F252087F9E800B6DFC7 /* Connections */ = {
+			isa = PBXGroup;
+			children = (
+				F01F1F2C2087FA5700B6DFC7 /* ConnectionStore */,
+				F01F1F262087FA5000B6DFC7 /* TVHStatusConnection.h */,
+				F01F1F272087FA5000B6DFC7 /* TVHStatusConnection.m */,
+			);
+			name = Connections;
+			sourceTree = "<group>";
+		};
+		F01F1F2C2087FA5700B6DFC7 /* ConnectionStore */ = {
+			isa = PBXGroup;
+			children = (
+				F01F1F2D2087FAF100B6DFC7 /* TVHStatusConnectionStore.h */,
+				F01F1F2E2087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.h */,
+				F01F1F2F2087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.m */,
+			);
+			name = ConnectionStore;
 			sourceTree = "<group>";
 		};
 		F03C0D571F4869C500EDFE53 /* Network Client */ = {
@@ -1335,7 +1365,7 @@
 		AABF3A44185E586700E62240 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = zipleen;
 				TargetAttributes = {
 					F0CDE46C1BA214A2000A969B = {
@@ -1668,6 +1698,8 @@
 				AABF3BD3185E6CC000E62240 /* TVHAutoRecStoreAbstract.m in Sources */,
 				AABF3BDB185E6CC000E62240 /* TVHDvrStoreA15.m in Sources */,
 				AABF3BC8185E6CA100E62240 /* TVHChannelEpg.m in Sources */,
+				F01F1F282087FA5000B6DFC7 /* TVHStatusConnection.m in Sources */,
+				F01F1F302087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.m in Sources */,
 				AABF3BCE185E6CB100E62240 /* TVHEpgStoreAbstract.m in Sources */,
 				AABF3BF5185E6CF500E62240 /* TVHServiceStore34.m in Sources */,
 				AABF3BF6185E6CF500E62240 /* TVHServiceStoreA15.m in Sources */,
@@ -1778,6 +1810,8 @@
 				F0CDE49C1BA215BC000A969B /* TVHChannelStoreAbstract.m in Sources */,
 				F0CDE4A11BA215BC000A969B /* TVHChannelEpg.m in Sources */,
 				F0CDE4C61BA21610000A969B /* TVHAdaptersStore32.m in Sources */,
+				F01F1F2A2087FA5000B6DFC7 /* TVHStatusConnection.m in Sources */,
+				F01F1F322087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.m in Sources */,
 				F0CDE4C81BA21610000A969B /* TVHAdaptersStoreA15.m in Sources */,
 				F0CDE4B61BA215E4000A969B /* TVHDvrStoreA15.m in Sources */,
 				F0CDE4C71BA21610000A969B /* TVHAdaptersStore34.m in Sources */,
@@ -1854,12 +1888,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1911,12 +1947,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

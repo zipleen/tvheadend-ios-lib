@@ -37,4 +37,5 @@
 - (void)updateValuesFromDictionary:(NSDictionary*) values;
 - (NSInteger)bandwidth;
 - (TVHChannel*)mappedChannel;
+- (void)killConnection;
 @end
