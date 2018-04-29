@@ -193,9 +193,11 @@
     NSLog(@"TVHJsonClient: not ready or not reachable yet, aborting... ");
     NSDictionary *userInfo = @{ NSLocalizedDescriptionKey:[NSString stringWithFormat:NSLocalizedString(@"Server not reachable or not yet ready to connect.", nil)] };
     NSError *error = [[NSError alloc] initWithDomain:@"Not ready" code:NSURLErrorBadServerResponse userInfo:userInfo];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        failure(nil, error);
-    });
+    if (failure) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failure(nil, error);
+        });
+    }
 }
 
 #pragma mark SSH
