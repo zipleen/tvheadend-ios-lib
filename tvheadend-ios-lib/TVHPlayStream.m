@@ -202,6 +202,11 @@
     
     [component setPort:[NSNumber numberWithInteger:[self.tvhServer.settings.port integerValue]]];
     [component setHost:self.tvhServer.settings.ip];
+    if (self.tvhServer.settings.webroot != nil && self.tvhServer.settings.webroot.length > 0) {
+        if (![[component.path substringToIndex:self.tvhServer.settings.normalisedWebroot.length] isEqualToString:self.tvhServer.settings.normalisedWebroot]) {
+            [component setPath:[self.tvhServer.settings.normalisedWebroot stringByAppendingString:component.path]];
+        }
+    }
     
     return component.string;
 }

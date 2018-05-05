@@ -64,6 +64,18 @@
     
     expect([serverHttps.playStream fixUrlComponents:@"http://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"https://banana:123/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
     expect([serverHttps.playStream fixUrlComponents:@"https://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"https://banana:123/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
+    
+    serverHttps = [[TVHServer alloc] initWithSettingsButDontInit:[self settingsForIp:@"banana" port:@"123" username:@"user" password:@"pass" https:@"s"  webroot:@"/tttt" streamProfile:@""]];
+    
+    expect([serverHttps.playStream fixUrlComponents:@"http://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"https://banana:123/tttt/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
+    expect([serverHttps.playStream fixUrlComponents:@"https://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"https://banana:123/tttt/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
+    expect([serverHttps.playStream fixUrlComponents:@"https://banana/tttt/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"https://banana:123/tttt/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
+    
+    serverHttps = [[TVHServer alloc] initWithSettingsButDontInit:[self settingsForIp:@"banana" port:@"123" username:@"user" password:@"pass" https:@"s"  webroot:@"tttt" streamProfile:@""]];
+    
+    expect([serverHttps.playStream fixUrlComponents:@"http://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"https://banana:123/tttt/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
+    expect([serverHttps.playStream fixUrlComponents:@"https://banana/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"https://banana:123/tttt/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
+    expect([serverHttps.playStream fixUrlComponents:@"https://banana/tttt/stream/channelid/1231231231231231221312323122312312321231&profile=pass"]).to.equal(@"https://banana:123/tttt/stream/channelid/1231231231231231221312323122312312321231&profile=pass");
 }
 
 @end

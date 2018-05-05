@@ -70,4 +70,5 @@
 - (NSString*)htspURL;
 - (BOOL)userHasAdminAccess;
 - (NSDictionary*)settings;
+- (NSString*)normalisedWebroot;
 @end
