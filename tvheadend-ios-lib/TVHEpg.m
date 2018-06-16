@@ -118,7 +118,7 @@
         if (self.episodeOnscreen != nil) {
             episode = self.episodeOnscreen;
         } else if (self.episodeNumber != 0 && self.seasonNumber != 0) {
-            episode = [NSString stringWithFormat:@"%ld/%ld", self.seasonNumber, self.episodeNumber];
+            episode = [NSString stringWithFormat:@"%ld/%ld", (long)self.seasonNumber, (long)self.episodeNumber];
         }
     }
     
