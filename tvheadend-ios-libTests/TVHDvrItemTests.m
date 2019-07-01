@@ -10,12 +10,18 @@
 #import "OHHTTPStubs/OHHTTPStubs.h"
 #import "TVHTestHelper.h"
 #import "TVHDvrItem.h"
+#import "TVHDvrStoreA15.h"
 #import "TVHServerSettings.h"
 #import "TVHServer.h"
 #import <XCTest/XCTest.h>
 
 @interface TVHDvrItemTests : XCTestCase
 
+@end
+
+@interface TVHDvrStoreA15 (MyPrivateMethodsUsedForTesting)
+@property (nonatomic, strong) NSArray *dvrItems;
+- (void)fetchDvrItemsFromServer:(NSString*)url withType:(NSInteger)type start:(NSInteger)start limit:(NSInteger)limit;
 @end
 
 @implementation TVHDvrItemTests
@@ -28,6 +34,27 @@
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+}
+
+- (void)testBrokenUtfCharacter {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return [request.URL.host isEqualToString:@"testServer"];
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        NSData* stubData = [TVHTestHelper loadFixture:@"Log.246.grid_finished.json"];;
+        return [OHHTTPStubsResponse responseWithData:stubData statusCode:200 headers:@{@"Content-Type":@"text/x-json; charset=UTF-8"}];
+    }];
+    
+    TVHDvrStoreA15 *tvhe = [[TVHDvrStoreA15 alloc] initWithTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
+    XCTAssertNotNil(tvhe, @"creating dvr store store object");
+    [tvhe fetchDvrItemsFromServer:@"api/dvr/entry/grid_finished" withType:RECORDING_FINISHED start:0 limit:120];
+    
+    expect(tvhe.dvrItems).after(225).willNot.beNil();
+    expect(tvhe.dvrItems.count).after(225).to.equal(120);
+    
+    XCTAssertEqual(tvhe.dvrItems.count, 120);
+    
+    // @todo this is broken :( anyone knows how to correctly convert this ? - https://github.com/zipleen/tvheadend-iphone-client/issues/246
+    //XCTAssertEqualObjects([tvhe.dvrItems[0] disp_title], @"Предложението");
 }
 
 - (void)testFullTitle {

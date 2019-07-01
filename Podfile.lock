@@ -36,12 +36,19 @@ DEPENDENCIES:
   - OHHTTPStubs
   - Specta
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - Expecta
+    - OHHTTPStubs
+    - Specta
+
 SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
   Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
   OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
   Specta: 3e1bd89c3517421982dc4d1c992503e48bd5fe66
 
-PODFILE CHECKSUM: 300c3b87f63427b5f088b03ac99c04aabea9b82a
+PODFILE CHECKSUM: a0cfcbe7a7d55cf9b9c83423fb350f6858ccb209
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.6.0

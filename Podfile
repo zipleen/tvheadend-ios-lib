@@ -10,6 +10,7 @@ target 'tvheadend-ios-lib' do
    target 'tvheadend-ios-libTests' do
        inherit! :search_paths
        
+pod 'AFNetworking', '~> 3.0'
        pod 'Specta'
        pod 'Expecta'
        pod 'OHHTTPStubs'
@@ -24,6 +25,7 @@ target 'tvheadend-tvOS-lib' do
     target 'tvheadend-tvOS-libTests' do
         inherit! :search_paths
         
+pod 'AFNetworking', '~> 3.0'
         pod 'Specta'
         pod 'Expecta'
         pod 'OHHTTPStubs'

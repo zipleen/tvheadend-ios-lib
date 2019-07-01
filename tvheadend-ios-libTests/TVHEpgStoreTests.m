@@ -65,22 +65,26 @@
 
     TVHEpgStore34 *tvhe = [[TVHEpgStore34 alloc] initWithStatsEpgName:@"bla" withTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
     XCTAssertNotNil(tvhe, @"creating tvepg store object");
-    [tvhe downloadEpgList];
     
-    expect(tvhe.epgStore).after(5).willNot.beNil();
-    expect(tvhe.epgStore.count).after(5).to.equal(1);
-    
-    XCTAssertTrue( ([tvhe.epgStore count] == 1), @"Failed parsing json data");
-    
-    TVHEpg *epg = [tvhe.epgStore objectAtIndex:0];
-    XCTAssertEqualObjects(epg.title, @"Nacional x Benfica - Primeira Liga", @"epg title doesnt match");
-    XCTAssertEqual(epg.channelid, (NSInteger)131, @"epg channel id doesnt match");
-    XCTAssertEqualObjects(epg.channel, @"Sport TV 1 Meo", @"channel name does not match" );
-    XCTAssertFalse([epg.description isEqualToString:@""], @"description empty");
-    XCTAssertEqual(epg.id, (NSInteger)400297, @"epg id does not match" );
-    XCTAssertEqual(epg.duration, (NSInteger)8100, @"epg id does not match" );
-    XCTAssertEqualObjects(epg.start, [NSDate dateWithTimeIntervalSince1970:1360519200], @"start date does not match" );
-    XCTAssertEqualObjects(epg.end, [NSDate dateWithTimeIntervalSince1970:1560527300], @"end date does not match" );
+    NSDate *thisDateInTime = [NSDate dateWithTimeIntervalSince1970:1360519000];
+    [Timecop freezeWithDate:thisDateInTime block:^{
+        [tvhe downloadEpgList];
+        
+        expect(tvhe.epgStore).after(5).willNot.beNil();
+        expect(tvhe.epgStore.count).after(5).to.equal(1);
+        
+        XCTAssertTrue( ([tvhe.epgStore count] == 1), @"Failed parsing json data");
+        
+        TVHEpg *epg = [tvhe.epgStore objectAtIndex:0];
+        XCTAssertEqualObjects(epg.title, @"Nacional x Benfica - Primeira Liga", @"epg title doesnt match");
+        XCTAssertEqual(epg.channelid, (NSInteger)131, @"epg channel id doesnt match");
+        XCTAssertEqualObjects(epg.channel, @"Sport TV 1 Meo", @"channel name does not match" );
+        XCTAssertFalse([epg.description isEqualToString:@""], @"description empty");
+        XCTAssertEqual(epg.id, (NSInteger)400297, @"epg id does not match" );
+        XCTAssertEqual(epg.duration, (NSInteger)8100, @"epg id does not match" );
+        XCTAssertEqualObjects(epg.start, [NSDate dateWithTimeIntervalSince1970:1360519200], @"start date does not match" );
+        XCTAssertEqualObjects(epg.end, [NSDate dateWithTimeIntervalSince1970:1560527300], @"end date does not match" );
+    }];
 }
 
 - (void)testNewEpgFeatures

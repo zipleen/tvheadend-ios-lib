@@ -30,27 +30,13 @@
     // do the right thing in a wide variety of cases, but it seems that it will produce
     // some sort of readable text in most cases.
     
-    NSUInteger encodings[18] = {
+    NSUInteger encodings[3] = {
         NSUTF8StringEncoding,
         NSISOLatin1StringEncoding,
-        NSASCIIStringEncoding,
-        NSNEXTSTEPStringEncoding,
-        NSJapaneseEUCStringEncoding,
-        NSSymbolStringEncoding,
-        NSNonLossyASCIIStringEncoding,
-        NSShiftJISStringEncoding,
-        NSISOLatin2StringEncoding,
-        NSUnicodeStringEncoding,
-        NSWindowsCP1251StringEncoding,
-        NSWindowsCP1252StringEncoding,
-        NSWindowsCP1253StringEncoding,
-        NSWindowsCP1254StringEncoding,
-        NSWindowsCP1250StringEncoding,
-        NSISO2022JPStringEncoding,
-        NSMacOSRomanStringEncoding
+        NSASCIIStringEncoding
     };
     
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 3; i++) {
         convertedString = [[NSString alloc] initWithData:data encoding:encodings[i]];
         if ( convertedString != nil ) {
             break;
