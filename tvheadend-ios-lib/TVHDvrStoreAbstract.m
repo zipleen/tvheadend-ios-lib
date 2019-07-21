@@ -157,7 +157,6 @@
 #endif
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             if ( [strongSelf fetchedData:responseObject withType:type] ) {
-                [strongSelf signalDidLoadDvr:type];
                 [strongSelf getMoreDvrItems:url withType:type start:start limit:limit];
             }
         });
@@ -172,6 +171,9 @@
 - (void)getMoreDvrItems:(NSString*)url withType:(NSInteger)type start:(NSInteger)start limit:(NSInteger)limit {
     if ( (start+limit) < [[self.totalEventCount objectAtIndex:type] intValue] ) {
         [self fetchDvrItemsFromServer:url withType:type start:(start+limit) limit:limit];
+    } else {
+        // we're at the end of the update, let's signal a load
+        [self signalDidLoadDvr:type];
     }
 }
 
