@@ -38,11 +38,19 @@
 {
     if (self.signal_scale == 1)
         return (_signal / 65535) * 100;
-    if (self.signal_scale == 2 && _signal > 0) {
-        float snr = _signal * 0.0001;
-        return (snr / 65535) * 100 ;
+    if (self.signal_scale == 2) {
+        return _signal * 0.001;
     }
     return 0;
+}
+
+- (NSString*)signalValue {
+    if (self.signal_scale == 1)
+        return [NSString stringWithFormat:@"%.2f %%", self.signal];
+    if (self.signal_scale == 2) {
+        return [NSString stringWithFormat:@"%.2f dBm", self.signal] ; // dBm
+    }
+    return @"";
 }
 
 - (float)ber
@@ -62,6 +70,26 @@
     
     // per = error_block_count / total_block_count
     return self.ec_block / self.tc_block;
+}
+
+- (float)snr
+{
+    if (self.snr_scale == 1)
+        return (_snr / 65535) * 100;
+    if (self.snr_scale == 2) {
+        return _signal * 0.001;
+    }
+    return 0;
+}
+
+- (NSString*)snrValue
+{
+    if (self.snr_scale == 1)
+        return [NSString stringWithFormat:@"%.2f %%", self.snr];
+    if (self.snr_scale == 2) {
+        return [NSString stringWithFormat:@"%.2f dB", self.snr] ; // dBm
+    }
+    return @"";
 }
 
 @end

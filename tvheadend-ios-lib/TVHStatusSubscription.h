@@ -22,7 +22,7 @@
 @property (strong, nonatomic) NSDate *start;
 @property (strong, nonatomic) NSString *state;
 @property (strong, nonatomic) NSString *title;
-@property NSInteger bw;
+@property NSInteger bw; // old "in" variable for < 4.0
 
 // 4.0
 @property NSInteger in;
@@ -35,7 +35,7 @@
 
 - (id)initWithTvhServer:(TVHServer*)tvhServer;
 - (void)updateValuesFromDictionary:(NSDictionary*) values;
-- (NSInteger)bandwidth;
+- (NSInteger)bandwidth; // .in from 4.0, .bw from <4 . This is Bytes per second, so divide/125 to get kb/s
 - (TVHChannel*)mappedChannel;
 - (void)killConnection;
 @end
