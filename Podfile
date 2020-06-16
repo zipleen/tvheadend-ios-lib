@@ -1,19 +1,19 @@
 use_frameworks!
 
-pod 'AFNetworking', '~> 3.0'
+pod 'AFNetworking', '~> 4.0'
 
 target 'tvheadend-ios-lib' do
-   platform :ios, '8.0'
+   platform :ios, '9.0'
 
    #pod 'google-cast-sdk'
    
    target 'tvheadend-ios-libTests' do
        inherit! :search_paths
        
-pod 'AFNetworking', '~> 3.0'
+pod 'AFNetworking', '~> 4.0'
        pod 'Specta'
        pod 'Expecta'
-       pod 'OHHTTPStubs'
+       pod 'OHHTTPStubs', '~> 6.0'
    end
 end
 
@@ -25,10 +25,10 @@ target 'tvheadend-tvOS-lib' do
     target 'tvheadend-tvOS-libTests' do
         inherit! :search_paths
         
-pod 'AFNetworking', '~> 3.0'
+pod 'AFNetworking', '~> 4.0'
         pod 'Specta'
         pod 'Expecta'
-        pod 'OHHTTPStubs'
+        pod 'OHHTTPStubs', '~> 6.0'
     end
 end
 

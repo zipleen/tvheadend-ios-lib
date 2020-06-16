@@ -100,7 +100,7 @@
         
         __weak typeof (analytics) weakAnalytics = analytics;
         
-        [manager POST:jsonRpcXbmcUrl.absoluteString parameters:httpParams progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        [manager POST:jsonRpcXbmcUrl.absoluteString parameters:httpParams headers:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
             typeof (weakAnalytics) strongAnalytics = weakAnalytics;
             //NSLog(@"Did something with %@ and %@ : %@", serverUrl, url, [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
             [strongAnalytics sendEventWithCategory:@"playTo"

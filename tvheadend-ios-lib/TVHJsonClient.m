@@ -55,22 +55,20 @@
 #pragma mark - Authentication
 
 - (void)setUsername:(NSString *)username password:(NSString *)password in:(AFHTTPRequestSerializer*)requestSerializer {
-    
-    [self setTaskDidReceiveAuthenticationChallengeBlock:^NSURLSessionAuthChallengeDisposition(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLAuthenticationChallenge * _Nonnull challenge, NSURLCredential *__autoreleasing  _Nullable * _Nullable credential) {
+  
+    [self setAuthenticationChallengeHandler:^id _Nonnull(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLAuthenticationChallenge * _Nonnull challenge, void (^ _Nonnull completionHandler)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable)) {
         NSString *authenicationMethod = challenge.protectionSpace.authenticationMethod;
         if (challenge.previousFailureCount > 0) {
-            return NSURLSessionAuthChallengePerformDefaultHandling;
+            return @(NSURLSessionAuthChallengePerformDefaultHandling);
         }
         
         if ([authenicationMethod isEqualToString:NSURLAuthenticationMethodHTTPDigest]) {
-            *credential = [NSURLCredential credentialWithUser:username password:password persistence:NSURLCredentialPersistenceForSession];
-            return NSURLSessionAuthChallengeUseCredential;
+            return [NSURLCredential credentialWithUser:username password:password persistence:NSURLCredentialPersistenceForSession];
         }
         if ([authenicationMethod isEqualToString:NSURLAuthenticationMethodHTTPBasic]) {
-            *credential = [NSURLCredential credentialWithUser:username password:password persistence:NSURLCredentialPersistenceForSession];
-            return NSURLSessionAuthChallengeUseCredential;
+            return [NSURLCredential credentialWithUser:username password:password persistence:NSURLCredentialPersistenceForSession];
         }
-        return NSURLSessionAuthChallengeCancelAuthenticationChallenge;
+        return @(NSURLSessionAuthChallengeCancelAuthenticationChallenge);
     }];
 }
 
@@ -173,7 +171,7 @@
         return nil;
     }
     
-    return [self GET:path parameters:parameters progress:nil success:success failure:failure];
+    return [self GET:path parameters:parameters headers:nil progress:nil success:success failure:failure];
 }
 
 
@@ -186,7 +184,7 @@
         [self dispatchNotReadyError:failure];
         return nil;
     }
-    return [super POST:path parameters:parameters progress:nil success:success failure:failure];
+    return [super POST:path parameters:parameters headers:nil progress:nil success:success failure:failure];
 }
 
 - (void)dispatchNotReadyError:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {

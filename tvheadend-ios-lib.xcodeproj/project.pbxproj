@@ -21,7 +21,6 @@
 		AA72FD411868483900EDCE05 /* TVHNetworkStore34.m in Sources */ = {isa = PBXBuildFile; fileRef = AA72FD401868483900EDCE05 /* TVHNetworkStore34.m */; };
 		AAA89DE0186123B600AE4C13 /* TVHServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6E185E603300E62240 /* TVHServerTests.m */; };
 		AAA89DE1186123FC00AE4C13 /* TVHTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B6C185E603300E62240 /* TVHTestHelper.m */; };
-		AAA89DE51861245200AE4C13 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA89DE41861245200AE4C13 /* MobileCoreServices.framework */; };
 		AAA89DE61861245800AE4C13 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */; };
 		AAA89DE81861254C00AE4C13 /* TVHTagStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B66185E603300E62240 /* TVHTagStoreTests.m */; };
 		AAA89DE91861255000AE4C13 /* TVHChannelStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B68185E603300E62240 /* TVHChannelStoreTests.m */; };
@@ -106,8 +105,6 @@
 		AABF3BFE185E6D0500E62240 /* TVHPlayStream.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B1F185E590D00E62240 /* TVHPlayStream.m */; };
 		AABF3BFF185E6D0500E62240 /* TVHPlayXbmc.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3B21185E590D00E62240 /* TVHPlayXbmc.m */; };
 		AABF3C08185E6EB500E62240 /* NSArray+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = AABF3C07185E6EB500E62240 /* NSArray+Utils.m */; };
-		AAC6346C1A15741C0005EA99 /* MediaAccessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3219BCDAA1001EDC67 /* MediaAccessibility.framework */; };
-		AAC6346D1A1574240005EA99 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C7E3419BCDAB3001EDC67 /* CoreText.framework */; };
 		AAC6346F1A1579430005EA99 /* Log.epg.utf.invalid in Resources */ = {isa = PBXBuildFile; fileRef = AAC6346E1A1579430005EA99 /* Log.epg.utf.invalid */; };
 		DF3629AB6F4FBE290440BA99 /* Pods_tvheadend_tvOS_libTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59396B1A8019B50A9F2F2E82 /* Pods_tvheadend_tvOS_libTests.framework */; };
 		E64FDF2C57F765B01E8E1B32 /* Pods_tvheadend_ios_libTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C03C2C6E2FF07EBAFCEA9331 /* Pods_tvheadend_ios_libTests.framework */; };
@@ -119,6 +116,7 @@
 		F01F1F2A2087FA5000B6DFC7 /* TVHStatusConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F01F1F272087FA5000B6DFC7 /* TVHStatusConnection.m */; };
 		F01F1F302087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F01F1F2F2087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.m */; };
 		F01F1F322087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.m in Sources */ = {isa = PBXBuildFile; fileRef = F01F1F2F2087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.m */; };
+		F04156932498E1C200AE85A0 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F04156922498E1C200AE85A0 /* CoreServices.framework */; };
 		F04245871F498C9600D3CC5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
 		F04245D31F49E14600D3CC5F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3B59185E5F7200E62240 /* SystemConfiguration.framework */; };
 		F04245D41F49E14D00D3CC5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABF3A4F185E586700E62240 /* Foundation.framework */; };
@@ -512,6 +510,7 @@
 		F01F1F2D2087FAF100B6DFC7 /* TVHStatusConnectionStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStatusConnectionStore.h; sourceTree = "<group>"; };
 		F01F1F2E2087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHStatusConnectionStoreA15.h; sourceTree = "<group>"; };
 		F01F1F2F2087FB0600B6DFC7 /* TVHStatusConnectionStoreA15.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHStatusConnectionStoreA15.m; sourceTree = "<group>"; };
+		F04156922498E1C200AE85A0 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		F087A2B31F79A21400EFB087 /* TVHConfigNameStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHConfigNameStore.h; sourceTree = "<group>"; };
 		F087A2B61F79A2E300EFB087 /* TVHConfigNameStore32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVHConfigNameStore32.h; sourceTree = "<group>"; };
 		F087A2B71F79A2E300EFB087 /* TVHConfigNameStore32.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVHConfigNameStore32.m; sourceTree = "<group>"; };
@@ -574,10 +573,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAC6346D1A1574240005EA99 /* CoreText.framework in Frameworks */,
-				AAC6346C1A15741C0005EA99 /* MediaAccessibility.framework in Frameworks */,
+				F04156932498E1C200AE85A0 /* CoreServices.framework in Frameworks */,
 				AAA89DE61861245800AE4C13 /* SystemConfiguration.framework in Frameworks */,
-				AAA89DE51861245200AE4C13 /* MobileCoreServices.framework in Frameworks */,
 				AABF3A5E185E586700E62240 /* XCTest.framework in Frameworks */,
 				AABF3A61185E586700E62240 /* UIKit.framework in Frameworks */,
 				AABF3A5F185E586700E62240 /* Foundation.framework in Frameworks */,
@@ -716,6 +713,7 @@
 		AABF3A4E185E586700E62240 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F04156922498E1C200AE85A0 /* CoreServices.framework */,
 				F095380D2252C5E100185E84 /* AFNetworking.framework */,
 				F095380F2252C5E100185E84 /* Expecta.framework */,
 				F09538112252C5E100185E84 /* OHHTTPStubs.framework */,
@@ -1374,7 +1372,7 @@
 		AABF3A44185E586700E62240 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = zipleen;
 				TargetAttributes = {
 					F0CDE46C1BA214A2000A969B = {
@@ -1387,10 +1385,11 @@
 			};
 			buildConfigurationList = AABF3A47185E586700E62240 /* Build configuration list for PBXProject "tvheadend-ios-lib" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = AABF3A43185E586700E62240;
 			productRefGroup = AABF3A4D185E586700E62240 /* Products */;
@@ -1831,6 +1830,7 @@
 		AABF3A6D185E586700E62240 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1883,6 +1883,7 @@
 		AABF3A6E185E586700E62240 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
