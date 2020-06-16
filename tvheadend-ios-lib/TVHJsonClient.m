@@ -58,6 +58,10 @@
   
     [self setAuthenticationChallengeHandler:^id _Nonnull(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLAuthenticationChallenge * _Nonnull challenge, void (^ _Nonnull completionHandler)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable)) {
         NSString *authenicationMethod = challenge.protectionSpace.authenticationMethod;
+        if ([authenicationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+            return @(NSURLSessionAuthChallengePerformDefaultHandling);
+        }
+        
         if (challenge.previousFailureCount > 0) {
             return @(NSURLSessionAuthChallengePerformDefaultHandling);
         }
