@@ -72,6 +72,7 @@
 - (TVHChannel*)channelObject;
 - (NSString*)channelIdKey;
 - (BOOL)addAutoRec;
+- (UIColor*)recordingColor;
 - (BOOL)isRecording;
 - (BOOL)isScheduledForRecording;
 - (NSString*)startTimeAndTitle;

@@ -234,6 +234,18 @@
     return true;
 }
 
+- (UIColor*)recordingColor {
+    if( self.isScheduledForRecording ) {
+        return [UIColor redColor];
+    } else {
+        if (@available(iOS 13.0, *)) {
+            return [UIColor secondaryLabelColor];
+        } else {
+            return [UIColor darkGrayColor];
+        }
+    }
+}
+
 - (BOOL)isScheduledForRecording {
     if (self.dvrState) {
         return [self.dvrState isEqualToString:@"scheduled"];
