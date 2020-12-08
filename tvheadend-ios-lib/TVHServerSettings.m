@@ -177,8 +177,8 @@
         return [NSString stringWithFormat:@"http%@://%@:%@%@", self.useHTTPS, self.ip, self.port, self.normalisedWebroot];
     } else {
         return [NSString stringWithFormat:@"http%@://%@:%@@%@:%@%@", self.useHTTPS,
-                [self.username stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]],
-                [self.password stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]],
+                [self.username stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLUserAllowedCharacterSet]],
+                [self.password stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPasswordAllowedCharacterSet]],
                 self.ip, self.port, self.normalisedWebroot];
     }
 }
