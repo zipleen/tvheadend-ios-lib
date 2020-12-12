@@ -174,12 +174,20 @@
 - (NSString*)httpURL {
     
     if ( [self.username isEqualToString:@""] ) {
-        return [NSString stringWithFormat:@"http%@://%@:%@%@", self.useHTTPS, self.ip, self.port, self.normalisedWebroot];
+        return [NSString stringWithFormat:@"http%@://%@:%@%@",
+                self.useHTTPS,
+                [self.ip stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]],
+                self.port,
+                [self.normalisedWebroot stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]]
+                ];
     } else {
         return [NSString stringWithFormat:@"http%@://%@:%@@%@:%@%@", self.useHTTPS,
-                [self.username stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]],
-                [self.password stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]],
-                self.ip, self.port, self.normalisedWebroot];
+                [self.username stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLUserAllowedCharacterSet]],
+                [self.password stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPasswordAllowedCharacterSet]],
+                [self.ip stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]],
+                self.port,
+                [self.normalisedWebroot stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]]
+                ];
     }
 }
 
@@ -187,7 +195,10 @@
 {
     NSString *loginCredentials = @"";
     if ( ! [self.username isEqualToString:@""] ) {
-        loginCredentials = [NSString stringWithFormat:@"%@:%@@", self.username, self.password];
+        loginCredentials = [NSString stringWithFormat:@"%@:%@@",
+                            [self.username stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLUserAllowedCharacterSet]],
+                            [self.password stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPasswordAllowedCharacterSet]]
+                            ];
     }
     return [NSString stringWithFormat:@"htsp://%@%@:%@", loginCredentials, self.ip, self.portHTSP];
 }
