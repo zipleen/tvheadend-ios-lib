@@ -37,7 +37,7 @@
 #define TVHDidLoadCapabilitiesNotification @"didLoadTVHCapabilities"
 #define TVHDidLoadVersionNotification @"didLoadTVHVersion"
 
-#define TVH_IMPORTANCE @{@"Important":@"0", @"High":@"1", @"Normal":@"2", @"Low":@"3", @"Unimportant":@"4", @"Not Set":@"-1",@"important":@"0", @"High":@"1", @"normal":@"2", @"low":@"3", @"unimportant":@"4" }
+#define TVH_IMPORTANCE @{@"Important":@"0", @"High":@"1", @"Normal":@"2", @"Low":@"3", @"Unimportant":@"4", @"Not Set":@"-1",@"important":@"0", @"high":@"1", @"normal":@"2", @"low":@"3", @"unimportant":@"4" }
 
 @interface TVHServer : NSObject
 @property (nonatomic, strong) TVHServerSettings *settings;

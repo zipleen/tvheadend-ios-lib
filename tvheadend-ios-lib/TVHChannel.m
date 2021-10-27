@@ -38,7 +38,7 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    id copy = [[TVHChannel alloc] init];
+    TVHChannel *copy = [[TVHChannel alloc] init];
     
     if (copy) {
         [copy setTvhServer:self.tvhServer];

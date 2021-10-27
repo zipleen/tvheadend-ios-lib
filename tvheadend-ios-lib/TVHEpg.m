@@ -238,7 +238,7 @@
     if( self.isScheduledForRecording ) {
         return [UIColor redColor];
     } else {
-        if (@available(iOS 13.0, *)) {
+        if ([UIColor respondsToSelector:@selector(secondaryLabelColor)]) {
             return [UIColor secondaryLabelColor];
         } else {
             return [UIColor darkGrayColor];
