@@ -31,9 +31,10 @@
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+- (void)tearDown
+{
+  [super tearDown];
+  [OHHTTPStubs removeAllStubs];
 }
 
 - (void)testBrokenUtfCharacter {
@@ -48,8 +49,8 @@
     XCTAssertNotNil(tvhe, @"creating dvr store store object");
     [tvhe fetchDvrItemsFromServer:@"api/dvr/entry/grid_finished" withType:RECORDING_FINISHED start:0 limit:120];
     
-    expect(tvhe.dvrItems).after(225).willNot.beNil();
-    expect(tvhe.dvrItems.count).after(225).to.equal(120);
+    expect(tvhe.dvrItems).after(10).willNot.beNil();
+    expect(tvhe.dvrItems.count).after(10).to.equal(120);
     
     XCTAssertEqual(tvhe.dvrItems.count, 120);
     

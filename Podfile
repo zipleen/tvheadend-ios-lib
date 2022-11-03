@@ -1,4 +1,4 @@
-use_frameworks!
+ Podfile use_frameworks!
 
 pod 'AFNetworking', '~> 4.0'
 
@@ -13,7 +13,7 @@ target 'tvheadend-ios-lib' do
 pod 'AFNetworking', '~> 4.0'
        pod 'Specta'
        pod 'Expecta'
-       pod 'OHHTTPStubs', '~> 6.0'
+       pod 'OHHTTPStubs', '~> 8.0'
    end
 end
 
@@ -28,7 +28,7 @@ target 'tvheadend-tvOS-lib' do
 pod 'AFNetworking', '~> 4.0'
         pod 'Specta'
         pod 'Expecta'
-        pod 'OHHTTPStubs', '~> 6.0'
+        pod 'OHHTTPStubs', '~> 8.0'
     end
 end
 

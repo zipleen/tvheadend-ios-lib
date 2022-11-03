@@ -33,8 +33,10 @@
     [super setUp];
 }
 
-- (void)tearDown {
-    [super tearDown];
+- (void)tearDown
+{
+  [super tearDown];
+  [OHHTTPStubs removeAllStubs];
 }
 
 - (void)testJsonChannelParsing

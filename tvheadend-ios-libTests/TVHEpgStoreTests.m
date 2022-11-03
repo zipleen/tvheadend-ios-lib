@@ -50,8 +50,8 @@
 
 - (void)tearDown
 {
-    // Tear-down code here.
-    [super tearDown];
+  [super tearDown];
+  [OHHTTPStubs removeAllStubs];
 }
 
 - (void)testJsonCharacterBug

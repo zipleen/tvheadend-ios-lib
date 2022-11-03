@@ -193,14 +193,18 @@
  */
 - (NSString*)fixUrlComponents:(NSString*)url {
     NSURLComponents *component = [NSURLComponents componentsWithString:url];
-    
+    BOOL isHTTPS = false;
     if ([self.tvhServer.settings.useHTTPS isEqualToString:@"s"]) {
         [component setScheme:@"https"];
+        isHTTPS = true;
     } else {
         [component setScheme:@"http"];
     }
     
-    [component setPort:[NSNumber numberWithInteger:[self.tvhServer.settings.port integerValue]]];
+    NSNumber *port = [NSNumber numberWithInteger:[self.tvhServer.settings.port integerValue]];
+    if ( (isHTTPS && ![port isEqualToNumber:@443]) || (!isHTTPS &&  ![port isEqualToNumber:@80]) ) {
+        [component setPort:port];
+    }
     [component setHost:self.tvhServer.settings.ip];
     if (self.tvhServer.settings.webroot != nil && self.tvhServer.settings.webroot.length > 0) {
         if (![[component.path substringToIndex:self.tvhServer.settings.normalisedWebroot.length] isEqualToString:self.tvhServer.settings.normalisedWebroot]) {

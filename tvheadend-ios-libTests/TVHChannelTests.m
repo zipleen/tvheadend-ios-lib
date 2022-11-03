@@ -45,6 +45,12 @@
 
 @implementation TVHChannelTests 
 
+- (void)tearDown
+{
+  [super tearDown];
+  [OHHTTPStubs removeAllStubs];
+}
+
 - (TVHChannel*)channel {
     TVHChannel *channel = [[TVHChannel alloc] init];
     
@@ -131,31 +137,34 @@
 }
 
 - (void)testDuplicateEpgFromFetchMorePrograms {
-    NSData *data = [TVHTestHelper loadFixture:@"Log.oneChannelEpg"];
-    NSError __autoreleasing *error;
-    TVHJsonUTF8AutoCharsetResponseSerializer *serializer = [TVHJsonUTF8AutoCharsetResponseSerializer serializer];
-    
-    TVHEpgStore34 *store = [[TVHEpgStore34 alloc ] init];
-    [store fetchedData:[serializer responseObjectForResponse:nil data:data error:&error]];
-    
-    TVHChannel *channel = [self channel];
-    TVHEpg *epg = [self epg];
-    
-    [channel setDelegate:self];
-    [channel setRestOfEpgStore:store];
-    [channel addEpg:epg];
-    TVHChannelEpg *chepg = [channel.channelEpgDataByDay objectAtIndex:0];
-    XCTAssertTrue( ([chepg.programs count] == 1), @"epg not inserted");
-    
-    [channel didLoadEpg];
-    chepg = [channel.channelEpgDataByDay objectAtIndex:0];
-    XCTAssertTrue( ([chepg.programs count] == 4), @"programs == %lu should be 4", (unsigned long)[chepg.programs count]);
-    
-    [channel didLoadEpg];
-    chepg = [channel.channelEpgDataByDay objectAtIndex:0];
-    XCTAssertTrue( ([chepg.programs count] == 4), @"programs == %lu should be 4", (unsigned long)[chepg.programs count]);
+    NSDate *thisDateInTime = [NSDate dateWithTimeIntervalSince1970:1361644400];
+    [Timecop freezeWithDate:thisDateInTime block:^{
+        NSData *data = [TVHTestHelper loadFixture:@"Log.oneChannelEpg"];
+        NSError __autoreleasing *error;
+        TVHJsonUTF8AutoCharsetResponseSerializer *serializer = [TVHJsonUTF8AutoCharsetResponseSerializer serializer];
+        
+        TVHEpgStore34 *store = [[TVHEpgStore34 alloc ] init];
+        [store fetchedData:[serializer responseObjectForResponse:nil data:data error:&error]];
+        
+        TVHChannel *channel = [self channel];
+        TVHEpg *epg = [self epg];
+        
+        [channel setDelegate:self];
+        [channel setRestOfEpgStore:store];
+        [channel addEpg:epg];
+        TVHChannelEpg *chepg = [channel.channelEpgDataByDay objectAtIndex:0];
+        XCTAssertTrue( ([chepg.programs count] == 1), @"epg not inserted");
+        
+        [channel didLoadEpg];
+        chepg = [channel.channelEpgDataByDay objectAtIndex:0];
+        XCTAssertTrue( ([chepg.programs count] == 4), @"programs == %lu should be 4", (unsigned long)[chepg.programs count]);
+        
+        [channel didLoadEpg];
+        chepg = [channel.channelEpgDataByDay objectAtIndex:0];
+        XCTAssertTrue( ([chepg.programs count] == 4), @"programs == %lu should be 4", (unsigned long)[chepg.programs count]);
+        
+    }];
 }
-
 - (void)testDuplicateEpgInRemoveOldPrograms {
     
     [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
@@ -165,39 +174,42 @@
         return [OHHTTPStubsResponse responseWithData:stubData statusCode:200 headers:@{@"Content-Type":@"application/json"}];
     }];
     
-    TVHEpgStore34 *tvhe = [[TVHEpgStore34 alloc] initWithStatsEpgName:@"bla" withTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
-    XCTAssertNotNil(tvhe, @"creating tvepg store object");
-    [tvhe downloadEpgList];
-    
-    expect(tvhe.epgStore).after(5).willNot.beNil();
-    expect(tvhe.epgStore.count).after(5).to.equal(19);
-    
-    TVHEpg *epg = [[TVHEpg alloc] initWithTvhServer:tvhe.tvhServer];
-    
-    // here is an epg of yesterday, so it gets removed from the remove old programs
-    NSDate *dateO = [NSDate new];
-    NSTimeInterval aTimeInterval = [dateO timeIntervalSinceReferenceDate] + 86400 * -1;
-    [epg setValue:[NSNumber numberWithInteger:[[NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval] timeIntervalSince1970]] forKey:@"start"];
-    [epg setValue:[NSNumber numberWithInteger:[[NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval + 500] timeIntervalSince1970]] forKey:@"end"];
-    epg.channelid = 27;
-    epg.id = 123;
-    [tvhe addEpgItemToStore:epg];
-    
-    XCTAssertEqual(tvhe.epgStore.count, 20);
-    NSArray *epgOfChannel27 = [tvhe.epgByChannelCopy objectForKey:@"27"];
-    XCTAssertEqual([epgOfChannel27 count], 20);
-    
-    [tvhe addEpgItemToStore:epg];
-    XCTAssertEqual(tvhe.epgStore.count, 20);
-    
-    [tvhe removeOldProgramsFromStore];
-    
-    XCTAssertEqual(tvhe.epgStore.count, 19);
-    
-    // the bug is in epg of each channel
-    // it is still going to be 20, because we are not removing the old programs from each channel - however it cannot be 40 :D
-    epgOfChannel27 = [tvhe.epgByChannelCopy objectForKey:@"27"];
-    XCTAssertEqual([epgOfChannel27 count], 20);
+    NSDate *thisDateInTime = [NSDate dateWithTimeIntervalSince1970:1361644400];
+    [Timecop freezeWithDate:thisDateInTime block:^{
+        TVHEpgStore34 *tvhe = [[TVHEpgStore34 alloc] initWithStatsEpgName:@"bla" withTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
+        XCTAssertNotNil(tvhe, @"creating tvepg store object");
+        [tvhe downloadEpgList];
+        
+        expect(tvhe.epgStore).after(5).willNot.beNil();
+        expect(tvhe.epgStore.count).after(5).to.equal(19);
+        
+        TVHEpg *epg = [[TVHEpg alloc] initWithTvhServer:tvhe.tvhServer];
+        
+        // here is an epg of yesterday, so it gets removed from the remove old programs
+        NSDate *dateO = [NSDate dateWithTimeIntervalSince1970:1361644400];
+        NSTimeInterval aTimeInterval = [dateO timeIntervalSinceReferenceDate] + 86400 * -1;
+        [epg setValue:[NSNumber numberWithInteger:[[NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval] timeIntervalSince1970]] forKey:@"start"];
+        [epg setValue:[NSNumber numberWithInteger:[[NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval + 500] timeIntervalSince1970]] forKey:@"end"];
+        epg.channelid = 27;
+        epg.id = 123;
+        [tvhe addEpgItemToStore:epg];
+        
+        XCTAssertEqual(tvhe.epgStore.count, 20);
+        NSArray *epgOfChannel27 = [tvhe.epgByChannelCopy objectForKey:@"27"];
+        XCTAssertEqual([epgOfChannel27 count], 20);
+        
+        [tvhe addEpgItemToStore:epg];
+        XCTAssertEqual(tvhe.epgStore.count, 20);
+        
+        [tvhe removeOldProgramsFromStore];
+        
+        XCTAssertEqual(tvhe.epgStore.count, 19);
+        
+        // the bug is in epg of each channel
+        // it is still going to be 20, because we are not removing the old programs from each channel - however it cannot be 40 :D
+        epgOfChannel27 = [tvhe.epgByChannelCopy objectForKey:@"27"];
+        XCTAssertEqual([epgOfChannel27 count], 20);
+    }];
 }
 
 - (void)testRemovingLastEpgOfTheDay {
@@ -272,66 +284,77 @@
 - (void)testStreamUrl {
     // base + https
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"" username:@"" password:@"" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://banana:9981/stream/channel/12345");
-    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"80" username:@"" password:@"" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://banana:80/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"80" username:@"" password:@"" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://banana/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://banana:9981/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@"s"  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://banana:9981/stream/channel/12345");
     // webroot
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://banana:9981/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@"s"  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://banana:9981/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://banana:9981/webroot/stream/channel/12345");
-    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"443" username:@"" password:@"" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://banana:443/webroot/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"443" username:@"" password:@"" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://banana/webroot/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"4443" username:@"" password:@"" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://banana:4443/webroot/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://banana:9981/webroot/stream/channel/12345");
-    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"443" username:@"" password:@"" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://banana:443/webroot/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"443" username:@"" password:@"" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://banana/webroot/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://banana:9981/webroot/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@"s"  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://banana:9981/webroot/stream/channel/12345");
     
     // with basic user + pass
     // base + https
     expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://basicuser:basicpass@banana1:9981/stream/channel/12345");
-    expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"80" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://basicuser:basicpass@banana1:80/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"80" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://basicuser:basicpass@banana1/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://basicuser:basicpass@banana1:9981/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://basicuser:basicpass@banana1:9981/stream/channel/12345");
     // webroot
     expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://basicuser:basicpass@banana1:9981/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://basicuser:basicpass@banana1:9981/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://basicuser:basicpass@banana1:9981/webroot/stream/channel/12345");
-    expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"443" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://basicuser:basicpass@banana1:443/webroot/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"443" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://basicuser:basicpass@banana1/webroot/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://basicuser:basicpass@banana1:9981/webroot/stream/channel/12345");
-    expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"443" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://basicuser:basicpass@banana1:443/webroot/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"4443" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://basicuser:basicpass@banana1:4443/webroot/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://basicuser:basicpass@banana1:9981/webroot/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://basicuser:basicpass@banana1:9981/webroot/stream/channel/12345");
     
     // with spaces characters user + pass
     // base + https
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345");
-    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"80" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:80/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"80" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"81" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:81/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345");
     // webroot
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/webroot/stream/channel/12345");
-    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"443" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:443/webroot/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"443" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana/webroot/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"4543" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:4543/webroot/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/webroot/stream/channel/12345");
-    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"443" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:443/webroot/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"443" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana/webroot/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"4543" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:4543/webroot/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/webroot/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:9981/webroot/stream/channel/12345");
     
     // with weird characters user + pass
     // base + https
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/stream/channel/12345");
-    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"80" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:80/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"80" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/stream/channel/12345");
     // webroot
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/webroot/stream/channel/12345");
-    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"443" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:443/webroot/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"443" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana/webroot/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"4643" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:4643/webroot/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/webroot/stream/channel/12345");
-    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"443" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:443/webroot/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"443" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana/webroot/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"3443" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:3443/webroot/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/webroot/stream/channel/12345");
     expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/webroot/stream/channel/12345");
+    
+    // https default ports remove 443
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"80" username:@"" password:@"" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"http://banana/stream/channel/12345");
+    expect([self channelStreamUrl:[self settingsForIp:@"banana" port:@"443" username:@"" password:@"" https:@"s"  webroot:@"" streamProfile:@""] withChannelUUID:@"12345"]).to.equal(@"https://banana/stream/channel/12345");
+    
     
 }
 
@@ -367,125 +390,126 @@
 - (void)testPlayStreamWithChannel {
     // base + https
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"" username:@"" password:@"" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana:9981/stream/channel/12345");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"80" username:@"" password:@"" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana:80/stream/channel/12345");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"80" username:@"" password:@"" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana:9981/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@"s"  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana:9981/stream/channel/12345");
     // webroot
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana:9981/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@"s"  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana:9981/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana:9981/webroot/stream/channel/12345");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"" password:@"" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana:443/webroot/stream/channel/12345");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"" password:@"" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana/webroot/stream/channel/12345");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"1443" username:@"" password:@"" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana:1443/webroot/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana:9981/webroot/stream/channel/12345");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"" password:@"" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana:443/webroot/stream/channel/12345");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"" password:@"" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana/webroot/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana:9981/webroot/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@"s"  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana:9981/webroot/stream/channel/12345");
     
     // with basic user + pass
     // base + https
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1:9981/stream/channel/12345");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"80" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1:80/stream/channel/12345");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"80" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1:9981/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://basicuser:basicpass@banana1:9981/stream/channel/12345");
     // webroot
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1:9981/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://basicuser:basicpass@banana1:9981/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1:9981/webroot/stream/channel/12345");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"443" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://basicuser:basicpass@banana1:443/webroot/stream/channel/12345");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"443" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://basicuser:basicpass@banana1/webroot/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1:9981/webroot/stream/channel/12345");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"443" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://basicuser:basicpass@banana1:443/webroot/stream/channel/12345");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"443" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://basicuser:basicpass@banana1/webroot/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1:9981/webroot/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://basicuser:basicpass@banana1:9981/webroot/stream/channel/12345");
     
     // with spaces characters user + pass
     // base + https
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"80" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:80/stream/channel/12345");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"80" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345");
     // webroot
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/webroot/stream/channel/12345");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:443/webroot/stream/channel/12345");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana/webroot/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/webroot/stream/channel/12345");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:443/webroot/stream/channel/12345");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana/webroot/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/webroot/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:9981/webroot/stream/channel/12345");
     
     // with weird characters user + pass
     // base + https
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/stream/channel/12345");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"80" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:80/stream/channel/12345");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"80" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/stream/channel/12345");
     // webroot
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/webroot/stream/channel/12345");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:443/webroot/stream/channel/12345");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"webroot" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana/webroot/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/webroot/stream/channel/12345");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:443/webroot/stream/channel/12345");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana/webroot/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/webroot/stream/channel/12345");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@"s"  webroot:@"/webroot/" streamProfile:@""] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/webroot/stream/channel/12345");
     
     // ********* with profile ! ************
     // base + https
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"" username:@"" password:@"" https:@""  webroot:@"" streamProfile:@"matroska"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana:9981/stream/channel/12345?profile=matroska");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"80" username:@"" password:@"" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana:80/stream/channel/12345?profile=some%20profile%20with%20spaces");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"80" username:@"" password:@"" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"" streamProfile:@"weirdé char@cters"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana:9981/stream/channel/12345?profile=weird%C3%A9%20char%40cters");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@"s"  webroot:@"" streamProfile:@"pass"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana:9981/stream/channel/12345?profile=pass");
     // webroot
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana:9981/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@"s"  webroot:@"/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana:9981/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"webroot" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana:9981/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"" password:@"" https:@"s"  webroot:@"webroot" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana:443/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"" password:@"" https:@"s"  webroot:@"webroot" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana:9981/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"" password:@"" https:@"s"  webroot:@"webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana:443/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"" password:@"" https:@"s"  webroot:@"webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@""  webroot:@"/webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://banana:9981/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"" password:@"" https:@"s"  webroot:@"/webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://banana:9981/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
     
     // with basic user + pass
     // base + https
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1:9981/stream/channel/12345?profile=some%20profile%20with%20spaces");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"80" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1:80/stream/channel/12345?profile=some%20profile%20with%20spaces");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"80" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1:9981/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://basicuser:basicpass@banana1:9981/stream/channel/12345?profile=some%20profile%20with%20spaces");
     // webroot
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1:9981/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://basicuser:basicpass@banana1:9981/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"webroot" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1:9981/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"443" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"webroot" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://basicuser:basicpass@banana1:443/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"443" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"webroot" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://basicuser:basicpass@banana1/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1:9981/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"443" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://basicuser:basicpass@banana1:443/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"443" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://basicuser:basicpass@banana1/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@""  webroot:@"/webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://basicuser:basicpass@banana1:9981/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana1" port:@"9981" username:@"basicuser" password:@"basicpass" https:@"s"  webroot:@"/webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://basicuser:basicpass@banana1:9981/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
     
     // with spaces characters user + pass
     // base + https
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345?profile=some%20profile%20with%20spaces");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"80" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:80/stream/channel/12345?profile=some%20profile%20with%20spaces");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"80" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345?profile=some%20profile%20with%20spaces");
     // webroot
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:9981/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"webroot" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"webroot" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:443/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"webroot" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:443/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"443" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@""  webroot:@"/webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://my%20user:my%20pass%20with%20spaces@banana:9981/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"9981" username:@"my user" password:@"my pass with spaces" https:@"s"  webroot:@"/webroot/" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"https://my%20user:my%20pass%20with%20spaces@banana:9981/webroot/stream/channel/12345?profile=some%20profile%20with%20spaces");
     
     // with weird characters user + pass
     // base + https
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/stream/channel/12345?profile=some%20profile%20with%20spaces");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"80" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:80/stream/channel/12345?profile=some%20profile%20with%20spaces");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"80" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:NO]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana/stream/channel/12345?profile=some%20profile%20with%20spaces");
     
     // for internal player
     // with weird characters user + pass
     // base + https
     expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:YES]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:9981/playlist/channel/12345?profile=some%20profile%20with%20spaces");
-    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"80" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:YES]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana:80/playlist/channel/12345?profile=some%20profile%20with%20spaces");
+    expect([self streamUrlForChannel:[self settingsForIp:@"banana" port:@"80" username:@"mé@!%?" password:@"%?@{s0m!$4!#$%&/()=?*\"^|" https:@""  webroot:@"" streamProfile:@"some profile with spaces"] withChannelUUID:@"12345" withInternalPlayer:YES]).to.equal(@"http://m%C3%A9%40!%25%3F:%25%3F%40%7Bs0m!$4!%23$%25&%2F()=%3F*%22%5E%7C@banana/playlist/channel/12345?profile=some%20profile%20with%20spaces");
 }
 
 - (NSString*)streamUrlForChannel:(TVHServerSettings*)settings withChannelUUID:(NSString*)uuid withInternalPlayer:(BOOL)internalPlayer {

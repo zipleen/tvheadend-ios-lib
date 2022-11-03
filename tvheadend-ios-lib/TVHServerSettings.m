@@ -172,20 +172,23 @@
  *  so, a valid url for all code is http://myserver:80/webroot
  */
 - (NSString*)httpURL {
-    
+    NSString *port = @"";
+    if ( ([self.useHTTPS isEqualToString:@"s"] && ![self.port isEqualToString:@"443"]) || ([self.useHTTPS isEqualToString:@""] && ![self.port isEqualToString:@"80"]) ) {
+        port = [NSString stringWithFormat:@":%@", self.port];
+    }
     if ( [self.username isEqualToString:@""] ) {
-        return [NSString stringWithFormat:@"http%@://%@:%@%@",
+        return [NSString stringWithFormat:@"http%@://%@%@%@",
                 self.useHTTPS,
                 [self.ip stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]],
-                self.port,
+                port,
                 [self.normalisedWebroot stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]]
                 ];
     } else {
-        return [NSString stringWithFormat:@"http%@://%@:%@@%@:%@%@", self.useHTTPS,
+        return [NSString stringWithFormat:@"http%@://%@:%@@%@%@%@", self.useHTTPS,
                 [self.username stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLUserAllowedCharacterSet]],
                 [self.password stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPasswordAllowedCharacterSet]],
                 [self.ip stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]],
-                self.port,
+                port,
                 [self.normalisedWebroot stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]]
                 ];
     }
