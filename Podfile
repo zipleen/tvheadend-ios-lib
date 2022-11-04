@@ -1,4 +1,4 @@
- Podfile use_frameworks!
+use_frameworks!
 
 pod 'AFNetworking', '~> 4.0'
 
