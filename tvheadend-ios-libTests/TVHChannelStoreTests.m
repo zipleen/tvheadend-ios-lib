@@ -48,7 +48,8 @@
         return [OHHTTPStubsResponse responseWithData:stubData statusCode:200 headers:@{@"Content-Type":@"application/json"}];
     }];
     
-    TVHChannelStore34 *store = [[TVHChannelStore34 alloc] initWithTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
+    TVHServer *mockServer = [TVHTestHelper mockTVHServer:@"34"];
+    TVHChannelStore34 *store = [[TVHChannelStore34 alloc] initWithTvhServer:mockServer];
     XCTAssertNotNil(store, @"creating channel store object");
     
     [store fetchChannelList];

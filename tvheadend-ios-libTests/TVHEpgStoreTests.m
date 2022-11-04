@@ -62,8 +62,9 @@
         NSData* stubData = [TVHTestHelper loadFixture:@"Log.287"];;
         return [OHHTTPStubsResponse responseWithData:stubData statusCode:200 headers:@{@"Content-Type":@"application/json"}];
     }];
-
-    TVHEpgStore34 *tvhe = [[TVHEpgStore34 alloc] initWithStatsEpgName:@"bla" withTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
+    
+    TVHServer *mockServer = [TVHTestHelper mockTVHServer:@"34"];
+    TVHEpgStore34 *tvhe = [[TVHEpgStore34 alloc] initWithStatsEpgName:@"bla" withTvhServer:mockServer];
     XCTAssertNotNil(tvhe, @"creating tvepg store object");
     
     NSDate *thisDateInTime = [NSDate dateWithTimeIntervalSince1970:1360519000];
@@ -245,7 +246,8 @@
         return [OHHTTPStubsResponse responseWithData:stubData statusCode:200 headers:@{@"Content-Type":@"text/x-json"}];
     }];
     
-    TVHEpgStore34 *tvhe = [[TVHEpgStore34 alloc] initWithStatsEpgName:@"bla" withTvhServer:[TVHTestHelper mockTVHServer:@"A15"]];
+    TVHServer *mockServer = [TVHTestHelper mockTVHServer:@"A15"];
+    TVHEpgStore34 *tvhe = [[TVHEpgStore34 alloc] initWithStatsEpgName:@"bla" withTvhServer:mockServer];
     XCTAssertNotNil(tvhe, @"creating tvepg store object");
     [tvhe downloadEpgList];
     

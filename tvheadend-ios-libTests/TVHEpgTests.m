@@ -27,7 +27,8 @@
 }
 
 - (void)testFullTitle {
-    TVHEpg *epg = [[TVHEpg alloc] initWithTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
+    TVHServer *mockServer = [TVHTestHelper mockTVHServer:@"34"];
+    TVHEpg *epg = [[TVHEpg alloc] initWithTvhServer:mockServer];
     
     // only disp_title
     epg.title = @"my title";

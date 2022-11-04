@@ -45,7 +45,8 @@
         return [OHHTTPStubsResponse responseWithData:stubData statusCode:200 headers:@{@"Content-Type":@"text/x-json; charset=UTF-8"}];
     }];
     
-    TVHDvrStoreA15 *tvhe = [[TVHDvrStoreA15 alloc] initWithTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
+    TVHServer *mockServer = [TVHTestHelper mockTVHServer:@"34"];
+    TVHDvrStoreA15 *tvhe = [[TVHDvrStoreA15 alloc] initWithTvhServer:mockServer];
     XCTAssertNotNil(tvhe, @"creating dvr store store object");
     [tvhe fetchDvrItemsFromServer:@"api/dvr/entry/grid_finished" withType:RECORDING_FINISHED start:0 limit:120];
     
@@ -59,7 +60,8 @@
 }
 
 - (void)testFullTitle {
-    TVHDvrItem *dvr = [[TVHDvrItem alloc] initWithTvhServer:[TVHTestHelper mockTVHServer:@"34"]];
+    TVHServer *mockServer = [TVHTestHelper mockTVHServer:@"34"];
+    TVHDvrItem *dvr = [[TVHDvrItem alloc] initWithTvhServer:mockServer];
     
     // only disp_title
     dvr.disp_title = @"my title";
